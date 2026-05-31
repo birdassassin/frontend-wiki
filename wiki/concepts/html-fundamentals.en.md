@@ -203,5 +203,5 @@ router.afterEach(() => {
 
 - [CSS Fundamentals](css-fundamentals.en.md)
 - [DOM & Browser API](dom-and-browser-api.en.md)
-- [Accessibility Patterns](../../patterns/accessibility-patterns.en.md)
-- [SEO Techniques](../../techniques/seo-techniques.en.md)
+- [Accessibility Patterns](../patterns/accessibility-patterns.en.md)
+- [SEO Techniques](../techniques/seo-techniques.en.md)

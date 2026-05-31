@@ -320,6 +320,6 @@ function App() {
 
 - [状态管理](state-management.md)
 - [渲染策略](rendering-strategies.md)
-- [组件组合模式](../../patterns/component-composition.md)
-- [React 核心](../../techniques/react-core.md)
-- [Vue 核心](../../techniques/vue-core.md)
+- [组件组合模式](../patterns/component-composition.md)
+- [React 核心](../techniques/react-core.md)
+- [Vue 核心](../techniques/vue-core.md)

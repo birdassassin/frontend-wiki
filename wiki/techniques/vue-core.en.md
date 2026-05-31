@@ -562,7 +562,7 @@ const staticData = Object.freeze({ /* large data */ });
 
 ## 9. Related Concepts
 
-- [Vue Ecosystem](../../tools/vue-ecosystem.en.md)
-- [Component Architecture](../../concepts/component-architecture.en.md)
-- [State Management](../../concepts/state-management.en.md)
-- [Rendering Strategies](../../concepts/rendering-strategies.en.md)
+- [Vue Ecosystem](../tools/vue-ecosystem.en.md)
+- [Component Architecture](../concepts/component-architecture.en.md)
+- [State Management](../concepts/state-management.en.md)
+- [Rendering Strategies](../concepts/rendering-strategies.en.md)

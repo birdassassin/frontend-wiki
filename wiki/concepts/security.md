@@ -215,6 +215,6 @@ ncu -u
 
 ## 8. 相关概念
 
-- [前端工程化](concepts/frontend-engineering.md)
-- [代码质量](tools/code-quality.md)
-- [测试策略](concepts/testing-strategies.md)
+- [前端工程化](frontend-engineering.md)
+- [代码质量](../tools/code-quality.md)
+- [测试策略](testing-strategies.md)

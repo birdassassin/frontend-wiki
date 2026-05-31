@@ -332,5 +332,5 @@ function useFetch<T>(url: MaybeRefOrGetter<string>) {
 
 - [JavaScript Fundamentals](javascript-fundamentals.en.md)
 - [Frontend Engineering](frontend-engineering.en.md)
-- [React Core](../../techniques/react-core.en.md)
-- [Vue Core](../../techniques/vue-core.en.md)
+- [React Core](../techniques/react-core.en.md)
+- [Vue Core](../techniques/vue-core.en.md)

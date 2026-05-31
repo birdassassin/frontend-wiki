@@ -350,6 +350,6 @@ registry.register(target, 'cleanup-data');
 ## 8. Related Concepts
 
 - [DOM & Browser API](dom-and-browser-api.en.md)
-- [Async Programming](../../techniques/async-programming.en.md)
-- [Module Systems](../../techniques/module-systems.en.md)
+- [Async Programming](../techniques/async-programming.en.md)
+- [Module Systems](../techniques/module-systems.en.md)
 - [TypeScript](typescript.en.md)

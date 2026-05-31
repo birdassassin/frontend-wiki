@@ -203,5 +203,5 @@ router.afterEach(() => {
 
 - [CSS 基础](css-fundamentals.md)
 - [DOM 与浏览器 API](dom-and-browser-api.md)
-- [可访问性模式](../../patterns/accessibility-patterns.md)
-- [SEO 技术](../../techniques/seo-techniques.md)
+- [可访问性模式](../patterns/accessibility-patterns.md)
+- [SEO 技术](../techniques/seo-techniques.md)

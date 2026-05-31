@@ -322,7 +322,7 @@ html { font-size: calc(14px + 0.5vw); }
 ## 8. Related Concepts
 
 - [HTML Fundamentals](html-fundamentals.en.md)
-- [CSS Layout Systems](../../techniques/css-layout.en.md)
-- [CSS Animations](../../techniques/css-animations.en.md)
-- [Responsive Design](../../techniques/responsive-design.en.md)
-- [CSS Architecture](../../techniques/css-architecture.en.md)
+- [CSS Layout Systems](../techniques/css-layout.en.md)
+- [CSS Animations](../techniques/css-animations.en.md)
+- [Responsive Design](../techniques/responsive-design.en.md)
+- [CSS Architecture](../techniques/css-architecture.en.md)

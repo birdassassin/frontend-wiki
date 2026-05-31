@@ -322,7 +322,7 @@ html { font-size: calc(14px + 0.5vw); }
 ## 8. 相关概念
 
 - [HTML 基础](html-fundamentals.md)
-- [CSS 布局系统](../../techniques/css-layout.md)
-- [CSS 动画](../../techniques/css-animations.md)
-- [响应式设计](../../techniques/responsive-design.md)
-- [CSS 架构](../../techniques/css-architecture.md)
+- [CSS 布局系统](../techniques/css-layout.md)
+- [CSS 动画](../techniques/css-animations.md)
+- [响应式设计](../techniques/responsive-design.md)
+- [CSS 架构](../techniques/css-architecture.md)

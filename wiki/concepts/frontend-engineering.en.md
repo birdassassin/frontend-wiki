@@ -296,5 +296,5 @@ my-monorepo/
 
 - [TypeScript](typescript.en.md)
 - [Testing Strategies](testing-strategies.en.md)
-- [Package Managers](../../tools/package-managers.en.md)
-- [Code Quality](../../tools/code-quality.en.md)
+- [Package Managers](../tools/package-managers.en.md)
+- [Code Quality](../tools/code-quality.en.md)

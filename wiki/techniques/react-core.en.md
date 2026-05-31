@@ -283,5 +283,5 @@ function VirtualList({ items }) {
 
 - [Component Architecture](component-architecture.en.md)
 - [State Management](state-management.en.md)
-- [React Ecosystem](../../tools/react-ecosystem.en.md)
+- [React Ecosystem](../tools/react-ecosystem.en.md)
 - [Rendering Strategies](rendering-strategies.en.md)

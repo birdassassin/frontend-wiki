@@ -272,5 +272,5 @@ worker.onmessage = (e) => console.log(e.data);
 
 - [Performance Optimization](performance-optimization.en.md)
 - [Rendering Strategies](rendering-strategies.en.md)
-- [Resource Loading](../../concepts/resource-loading.en.md)
-- [Lazy Loading](../../patterns/lazy-loading.en.md)
+- [Resource Loading](../concepts/resource-loading.en.md)
+- [Lazy Loading](../patterns/lazy-loading.en.md)

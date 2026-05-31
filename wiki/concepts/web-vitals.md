@@ -258,4 +258,4 @@ onCLS(sendToAnalytics);
 - [性能优化](performance-optimization.md)
 - [渲染策略](rendering-strategies.md)
 - [资源加载优化](resource-loading.md)
-- [缓存模式](../../patterns/caching.md)
+- [缓存模式](../patterns/caching.md)

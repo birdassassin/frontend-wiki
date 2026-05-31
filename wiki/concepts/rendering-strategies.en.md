@@ -278,5 +278,5 @@ function AddToCartButton({ id }) {
 
 - [Web Vitals](web-vitals.en.md)
 - [Performance Optimization](performance-optimization.en.md)
-- [Full-stack Frameworks](../../tools/fullstack-frameworks.en.md)
-- [Lazy Loading](../../patterns/lazy-loading.en.md)
+- [Full-stack Frameworks](../tools/fullstack-frameworks.en.md)
+- [Lazy Loading](../patterns/lazy-loading.en.md)

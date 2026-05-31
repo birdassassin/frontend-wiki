@@ -397,5 +397,5 @@ document.body.appendChild(fragment);
 - [HTML 基础](html-fundamentals.md)
 - [CSS 基础](css-fundamentals.md)
 - [DOM 与浏览器 API](dom-and-browser-api.md)
-- [异步编程](../../techniques/async-programming.md)
-- [模块系统](../../techniques/module-systems.md)
+- [异步编程](../techniques/async-programming.md)
+- [模块系统](../techniques/module-systems.md)

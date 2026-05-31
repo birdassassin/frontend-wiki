@@ -344,6 +344,6 @@ const [status, setStatus] = useState<Status>('idle');
 ## 7. Related Concepts
 
 - [Component Architecture](component-architecture.en.md)
-- [React Ecosystem](../../tools/react-ecosystem.en.md)
-- [Vue Ecosystem](../../tools/vue-ecosystem.en.md)
-- [State Patterns](../../patterns/state-patterns.en.md)
+- [React Ecosystem](../tools/react-ecosystem.en.md)
+- [Vue Ecosystem](../tools/vue-ecosystem.en.md)
+- [State Patterns](../patterns/state-patterns.en.md)

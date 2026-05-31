@@ -243,4 +243,4 @@ export const runtime = 'edge';
 - [组件架构](component-architecture.md)
 - [Web Vitals](web-vitals.md)
 - [性能优化](performance-optimization.md)
-- [全栈框架](../../tools/fullstack-frameworks.md)
+- [全栈框架](../tools/fullstack-frameworks.md)

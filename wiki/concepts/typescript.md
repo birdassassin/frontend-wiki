@@ -244,4 +244,4 @@ const config = {
 
 - [前端工程化](../concepts/frontend-engineering.md)
 - [组件架构](../concepts/component-architecture.md)
-- [代码质量](../../tools/code-quality.md)
+- [代码质量](../tools/code-quality.md)

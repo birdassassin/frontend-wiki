@@ -214,4 +214,4 @@ function Component() {
 - [组件架构](component-architecture.md)
 - [状态管理](state-management.md)
 - [渲染策略](rendering-strategies.md)
-- [React 生态](../../tools/react-ecosystem.md)
+- [React 生态](../tools/react-ecosystem.md)

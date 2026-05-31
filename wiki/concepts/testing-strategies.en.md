@@ -344,6 +344,6 @@ src/
 ## 8. Related Concepts
 
 - [Frontend Engineering](frontend-engineering.en.md)
-- [Code Quality](../../tools/code-quality.en.md)
+- [Code Quality](../tools/code-quality.en.md)
 - [Component Architecture](component-architecture.en.md)
-- [CI/CD](../../concepts/ci-cd.en.md)
+- [CI/CD](../concepts/ci-cd.en.md)

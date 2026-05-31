@@ -2,10 +2,10 @@
 
 <div align="center">
 
-**English** · [简体中文](README.zh-CN.md)
+**English** · [简体中文](../README.zh-CN.md)
 
 [![Wiki](https://img.shields.io/badge/Wiki-frontend--wiki-blue?logo=github)](https://github.com/frontend-wiki)
-[![Knowledge](https://img.shields.io/badge/Knowledge-Frontend-green?logo=react)](./wiki/overview.md)
+[![Knowledge](https://img.shields.io/badge/Knowledge-Frontend-green?logo=react)](./overview.en.md)
 
 </div>
 
@@ -21,10 +21,10 @@
   <img src="https://img.shields.io/badge/Architecture-Modern-purple" alt="Architecture" />
 </div>
 
-This wiki adopts the **Karpathy Wiki Method**: raw materials are systematically organized and distilled into high-compression concept pages, technique pages, and pattern pages. [`wiki/overview.md`](wiki/overview.md) is the highest-compression synthesis; [`wiki/index.md`](wiki/index.md) is the full catalog.
+This wiki adopts the **Karpathy Wiki Method**: raw materials are systematically organized and distilled into high-compression concept pages, technique pages, and pattern pages. [`overview.en.md`](overview.en.md) is the highest-compression synthesis; [`index.en.md`](index.en.md) is the full catalog.
 
 > [!IMPORTANT]
-> Start from [`wiki/overview.md`](wiki/overview.md), not the details. The overview provides the global perspective; the index provides complete navigation.
+> Start from [`overview.en.md`](overview.en.md), not the details. The overview provides the global perspective; the index provides complete navigation.
 
 ---
 
@@ -32,12 +32,12 @@ This wiki adopts the **Karpathy Wiki Method**: raw materials are systematically 
 
 | I want to… | Start here |
 |---|---|
-| See the whole synthesis | [wiki/overview.md](wiki/overview.md) |
-| Browse the full catalog | [wiki/index.md](wiki/index.md) |
-| Master fundamentals | [concepts/html-fundamentals.md](wiki/concepts/html-fundamentals.md) · [concepts/css-fundamentals.md](wiki/concepts/css-fundamentals.md) · [concepts/javascript-fundamentals.md](wiki/concepts/javascript-fundamentals.md) |
-| Understand modern frameworks | [concepts/component-architecture.md](wiki/concepts/component-architecture.md) |
-| Learn performance optimization | [concepts/web-vitals.md](wiki/concepts/web-vitals.md) |
-| Master engineering | [concepts/frontend-tooling.md](wiki/concepts/frontend-tooling.md) |
+| See the whole synthesis | [overview.en.md](overview.en.md) |
+| Browse the full catalog | [index.en.md](index.en.md) |
+| Master fundamentals | [concepts/html-fundamentals.en.md](concepts/html-fundamentals.en.md) · [concepts/css-fundamentals.en.md](concepts/css-fundamentals.en.md) · [concepts/javascript-fundamentals.en.md](concepts/javascript-fundamentals.en.md) |
+| Understand modern frameworks | [concepts/component-architecture.en.md](concepts/component-architecture.en.md) |
+| Learn performance optimization | [concepts/web-vitals.en.md](concepts/web-vitals.en.md) |
+| Master engineering | [concepts/frontend-engineering.en.md](concepts/frontend-engineering.en.md) |
 
 ---
 
@@ -72,13 +72,13 @@ Frontend knowledge can be compressed into **seven core frameworks**:
 
 | Framework | Question it answers | Key Concepts |
 |---|---|---|
-| [Semantic HTML](wiki/concepts/html-fundamentals.md) | How is content structured? | Document flow, ARIA, SEO, Accessibility |
-| [CSS Cascade & Layout](wiki/concepts/css-fundamentals.md) | How are styles calculated and applied? | Cascade context, Flexbox, Grid, Container Queries |
-| [JavaScript Runtime](wiki/concepts/javascript-fundamentals.md) | How does code execute? | Event loop, Closures, Prototypes, Module system |
-| [Component Architecture](wiki/concepts/component-architecture.md) | How is UI decomposed and composed? | Props, State, Lifecycle, Composition |
-| [State Management](wiki/concepts/state-management.md) | How does data flow and sync? | Unidirectional data flow, Reactivity, Immutability, Derived state |
-| [Rendering Strategies](wiki/concepts/rendering-strategies.md) | How does content reach users? | CSR/SSR/SSG/ISR, Hydration, Streaming |
-| [Performance Metrics](wiki/concepts/web-vitals.md) | How is experience quantified? | LCP, INP, CLS, FCP, TTI |
+| [Semantic HTML](concepts/html-fundamentals.en.md) | How is content structured? | Document flow, ARIA, SEO, Accessibility |
+| [CSS Cascade & Layout](concepts/css-fundamentals.en.md) | How are styles calculated and applied? | Cascade context, Flexbox, Grid, Container Queries |
+| [JavaScript Runtime](concepts/javascript-fundamentals.en.md) | How does code execute? | Event loop, Closures, Prototypes, Module system |
+| [Component Architecture](concepts/component-architecture.en.md) | How is UI decomposed and composed? | Props, State, Lifecycle, Composition |
+| [State Management](concepts/state-management.en.md) | How does data flow and sync? | Unidirectional data flow, Reactivity, Immutability, Derived state |
+| [Rendering Strategies](concepts/rendering-strategies.en.md) | How does content reach users? | CSR/SSR/SSG/ISR, Hydration, Streaming |
+| [Performance Metrics](concepts/web-vitals.en.md) | How is experience quantified? | LCP, INP, CLS, FCP, TTI |
 
 ---
 
@@ -190,7 +190,7 @@ flowchart LR
 
 > [!TIP]
 > **5 minutes**: Read this overview to understand the big picture
-> **30 minutes**: Read [HTML/CSS/JS Fundamentals](wiki/concepts/html-fundamentals.md) + [Component Architecture](wiki/concepts/component-architecture.md)
+> **30 minutes**: Read [HTML/CSS/JS Fundamentals](concepts/html-fundamentals.en.md) + [Component Architecture](concepts/component-architecture.en.md)
 > **One day**: Browse all core concept pages in order
 
 ---

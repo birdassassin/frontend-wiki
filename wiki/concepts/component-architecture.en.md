@@ -357,6 +357,6 @@ function VirtualList({ items }) {
 ## 8. Related Concepts
 
 - [State Management](state-management.en.md)
-- [React Core](../../techniques/react-core.en.md)
-- [Vue Core](../../techniques/vue-core.en.md)
-- [Component Composition](../../patterns/component-composition.en.md)
+- [React Core](../techniques/react-core.en.md)
+- [Vue Core](../techniques/vue-core.en.md)
+- [Component Composition](../patterns/component-composition.en.md)

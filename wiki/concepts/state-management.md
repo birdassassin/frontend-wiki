@@ -321,6 +321,6 @@ actor.send({ type: 'TOGGLE' });
 ## 7. 相关概念
 
 - [组件架构](component-architecture.md)
-- [数据获取模式](../../patterns/data-fetching.md)
-- [状态管理模式](../../patterns/state-patterns.md)
-- [React 核心](../../techniques/react-core.md)
+- [数据获取模式](../patterns/data-fetching.md)
+- [状态管理模式](../patterns/state-patterns.md)
+- [React 核心](../techniques/react-core.md)
