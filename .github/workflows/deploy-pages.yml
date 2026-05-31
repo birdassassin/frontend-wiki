@@ -29,6 +29,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       
+      - name: Sync wiki to docs
+        run: |
+          chmod +x scripts/sync-to-docs.sh
+          ./scripts/sync-to-docs.sh
+      
       - name: Setup Pages
         uses: actions/configure-pages@v4
       
