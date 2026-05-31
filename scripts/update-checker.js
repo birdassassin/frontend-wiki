@@ -8,6 +8,7 @@
  * 2. 对比知识库中记录的版本
  * 3. 生成更新报告
  * 4. 提示需要更新的内容
+ * 5. 记录版本变更历史
  * 
  * 使用方法：
  *   node scripts/update-checker.js
@@ -163,6 +164,105 @@ function isMinorUpdate(current, latest) {
   return latestMajor === currentMajor && latestMinor > currentMinor;
 }
 
+// 读取版本历史记录
+function readVersionHistory() {
+  const historyPath = path.join(process.cwd(), 'scripts', 'version-history.json');
+  if (!fs.existsSync(historyPath)) {
+    return { packages: {} };
+  }
+  
+  try {
+    const content = fs.readFileSync(historyPath, 'utf8');
+    return JSON.parse(content);
+  } catch (e) {
+    return { packages: {} };
+  }
+}
+
+// 保存版本历史记录
+function saveVersionHistory(history) {
+  const historyPath = path.join(process.cwd(), 'scripts', 'version-history.json');
+  fs.writeFileSync(historyPath, JSON.stringify(history, null, 2), 'utf8');
+}
+
+// 添加版本变更记录
+function addVersionChange(packageName, oldVersion, newVersion, changeType) {
+  const history = readVersionHistory();
+  const now = new Date().toISOString();
+  
+  if (!history.packages[packageName]) {
+    history.packages[packageName] = {
+      name: packageName,
+      currentVersion: oldVersion,
+      changes: []
+    };
+  }
+  
+  history.packages[packageName].changes.push({
+    from: oldVersion,
+    to: newVersion,
+    type: changeType,
+    date: now,
+    status: 'pending' // pending, applied
+  });
+  
+  history.packages[packageName].currentVersion = newVersion;
+  
+  saveVersionHistory(history);
+}
+
+// 生成带版本号的变更日志
+function generateChangelog(updates) {
+  const changelogPath = path.join(process.cwd(), 'CHANGELOG.md');
+  const now = new Date().toISOString().split('T')[0];
+  
+  let changelog = '';
+  
+  // 如果文件存在，读取现有内容
+  if (fs.existsSync(changelogPath)) {
+    changelog = fs.readFileSync(changelogPath, 'utf8');
+  } else {
+    changelog = '# 版本变更日志\n\n';
+  }
+  
+  // 添加新的版本记录
+  const versionHeader = `## ${now} - 版本更新\n\n`;
+  
+  let versionContent = '';
+  
+  // 按类别分组
+  const byCategory = {};
+  for (const item of updates) {
+    if (!byCategory[item.category]) {
+      byCategory[item.category] = [];
+    }
+    byCategory[item.category].push(item);
+  }
+  
+  for (const [category, items] of Object.entries(byCategory)) {
+    versionContent += `### ${category}\n\n`;
+    
+    for (const item of items) {
+      const marker = item.isMajor ? '🔴 BREAKING' : item.isMinor ? '🟡 Feature' : '🟢 Patch';
+      versionContent += `- ${marker} **${item.name}**: ${item.currentVersion} → ${item.latestVersion}\n`;
+    }
+    
+    versionContent += '\n';
+  }
+  
+  // 插入到文件开头（在标题之后）
+  const titleEnd = changelog.indexOf('\n\n');
+  if (titleEnd !== -1) {
+    changelog = changelog.substring(0, titleEnd + 2) + versionHeader + versionContent + changelog.substring(titleEnd + 2);
+  } else {
+    changelog += '\n' + versionHeader + versionContent;
+  }
+  
+  fs.writeFileSync(changelogPath, changelog, 'utf8');
+  
+  return changelogPath;
+}
+
 // 主函数
 async function main() {
   console.log('🔍 开始检查前端知识库更新...\n');
@@ -194,6 +294,10 @@ async function main() {
             isMajor,
             isMinor,
           });
+          
+          // 记录版本变更
+          const changeType = isMajor ? 'major' : isMinor ? 'minor' : 'patch';
+          addVersionChange(pkg.name, currentVersion, latestVersion, changeType);
           
           console.log(`⚠️  需要更新 (${currentVersion} → ${latestVersion})`);
         } else {
@@ -247,6 +351,10 @@ async function main() {
         console.log(`    文件: ${item.file}`);
       }
     }
+    
+    // 生成变更日志
+    const changelogPath = generateChangelog(needsUpdate);
+    console.log(`\n📝 变更日志已保存到: ${changelogPath}`);
     
     // 生成更新建议
     console.log('\n' + '=' .repeat(60));
