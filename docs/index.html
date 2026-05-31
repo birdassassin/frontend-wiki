@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>前端知识库 | Frontend Wiki</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+  <style>
+    :root {
+      --theme-color: #42b983;
+      --theme-color-dark: #35495e;
+    }
+    .sidebar-nav a {
+      font-weight: 600;
+    }
+    .sidebar-nav li {
+      margin: 8px 0;
+    }
+    .markdown-section h1 {
+      border-bottom: 2px solid var(--theme-color);
+      padding-bottom: 10px;
+    }
+    .markdown-section h2 {
+      border-left: 4px solid var(--theme-color);
+      padding-left: 12px;
+    }
+    .version-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-left: 8px;
+    }
+    .version-badge.major {
+      background: #ff6b6b;
+      color: white;
+    }
+    .version-badge.minor {
+      background: #ffd93d;
+      color: #333;
+    }
+    .version-badge.patch {
+      background: #6bcb77;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">加载中...</div>
+  <script>
+    window.$docsify = {
+      name: '📚 前端知识库',
+      repo: 'https://github.com/birdassassin/frontend-wiki',
+      homepage: 'README.md',
+      loadSidebar: true,
+      subMaxLevel: 3,
+      auto2top: true,
+      search: {
+        maxAge: 86400000,
+        paths: 'auto',
+        placeholder: '搜索...',
+        noData: '没有找到结果',
+        depth: 3
+      },
+      pagination: {
+        previousText: '上一页',
+        nextText: '下一页',
+        crossChapter: true,
+        crossChapterText: true
+      },
+      copyCode: {
+        buttonText: '复制',
+        errorText: '错误',
+        successText: '已复制!'
+      },
+      tabs: {
+        persist: true,
+        sync: true,
+        theme: 'classic'
+      },
+      plugins: [
+        function(hook) {
+          hook.beforeEach(function(content) {
+            return content;
+          });
+          hook.afterEach(function(html) {
+            return html + '<footer style="text-align:center;padding:20px;color:#666;font-size:14px;">前端知识库 | <a href="https://github.com/birdassassin/frontend-wiki" target="_blank">GitHub</a> | <a href="https://gitee.com/birdassassin/frontend-wiki" target="_blank">Gitee</a></footer>';
+          });
+        }
+      ]
+    }
+  </script>
+  <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/zoom-image.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify-copy-code/dist/docsify-copy-code.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-typescript.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-jsx.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-tsx.min.js"></script>
+</body>
+</html>
