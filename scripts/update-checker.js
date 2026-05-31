@@ -211,6 +211,46 @@ function addVersionChange(packageName, oldVersion, newVersion, changeType) {
   saveVersionHistory(history);
 }
 
+// 创建新版本文件（大版本更新时使用）
+function createNewVersionFile(filePath, oldVersion, newVersion) {
+  const fullPath = path.join(process.cwd(), filePath);
+  
+  if (!fs.existsSync(fullPath)) {
+    console.log(`    ⚠️  源文件不存在: ${filePath}`);
+    return null;
+  }
+  
+  // 生成新版本文件路径
+  const dir = path.dirname(filePath);
+  const ext = path.extname(filePath);
+  const baseName = path.basename(filePath, ext);
+  
+  // 检查是否是 .en.md 文件
+  const isEnFile = baseName.endsWith('.en');
+  const nameWithoutLang = isEnFile ? baseName.slice(0, -3) : baseName;
+  
+  const newFileName = `${nameWithoutLang}-v${newVersion.split('.')[0]}${isEnFile ? '.en' : ''}${ext}`;
+  const newFilePath = path.join(dir, newFileName);
+  
+  // 如果新版本文件已存在，跳过
+  if (fs.existsSync(newFilePath)) {
+    console.log(`    ℹ️  新版本文件已存在: ${newFilePath}`);
+    return newFilePath;
+  }
+  
+  // 复制文件
+  const content = fs.readFileSync(fullPath, 'utf8');
+  
+  // 添加版本标记到文件顶部
+  const versionHeader = `> **版本**: ${newVersion} | 创建时间: ${new Date().toISOString().split('T')[0]} | 从 v${oldVersion} 升级\n\n---\n\n`;
+  
+  fs.writeFileSync(newFilePath, versionHeader + content, 'utf8');
+  
+  console.log(`    ✅ 已创建新版本文件: ${newFilePath}`);
+  
+  return newFilePath;
+}
+
 // 生成带版本号的变更日志
 function generateChangelog(updates) {
   const changelogPath = path.join(process.cwd(), 'CHANGELOG.md');
@@ -298,6 +338,11 @@ async function main() {
           // 记录版本变更
           const changeType = isMajor ? 'major' : isMinor ? 'minor' : 'patch';
           addVersionChange(pkg.name, currentVersion, latestVersion, changeType);
+          
+          // 大版本更新时创建新版本文件
+          if (isMajor) {
+            createNewVersionFile(pkg.file, currentVersion, latestVersion);
+          }
           
           console.log(`⚠️  需要更新 (${currentVersion} → ${latestVersion})`);
         } else {

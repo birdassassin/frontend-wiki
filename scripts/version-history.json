@@ -10,6 +10,13 @@
           "type": "minor",
           "date": "2026-05-31T16:16:57.039Z",
           "status": "pending"
+        },
+        {
+          "from": "3.2",
+          "to": "3.5.35",
+          "type": "minor",
+          "date": "2026-05-31T16:20:23.212Z",
+          "status": "pending"
         }
       ]
     },
@@ -22,6 +29,13 @@
           "to": "16.2.6",
           "type": "major",
           "date": "2026-05-31T16:16:57.930Z",
+          "status": "pending"
+        },
+        {
+          "from": "6.2",
+          "to": "16.2.6",
+          "type": "major",
+          "date": "2026-05-31T16:20:23.760Z",
           "status": "pending"
         }
       ]
@@ -36,6 +50,13 @@
           "type": "major",
           "date": "2026-05-31T16:16:58.195Z",
           "status": "pending"
+        },
+        {
+          "from": "3.1",
+          "to": "4.4.6",
+          "type": "major",
+          "date": "2026-05-31T16:20:23.948Z",
+          "status": "pending"
         }
       ]
     },
@@ -48,6 +69,13 @@
           "to": "6.4.2",
           "type": "major",
           "date": "2026-05-31T16:16:58.710Z",
+          "status": "pending"
+        },
+        {
+          "from": "4.1",
+          "to": "6.4.2",
+          "type": "major",
+          "date": "2026-05-31T16:20:25.081Z",
           "status": "pending"
         }
       ]
@@ -62,6 +90,13 @@
           "type": "major",
           "date": "2026-05-31T16:17:03.879Z",
           "status": "pending"
+        },
+        {
+          "from": "4.1",
+          "to": "6.0.3",
+          "type": "major",
+          "date": "2026-05-31T16:20:30.696Z",
+          "status": "pending"
         }
       ]
     },
@@ -74,6 +109,13 @@
           "to": "5.0.14",
           "type": "major",
           "date": "2026-05-31T16:17:04.063Z",
+          "status": "pending"
+        },
+        {
+          "from": "2.1",
+          "to": "5.0.14",
+          "type": "major",
+          "date": "2026-05-31T16:20:31.134Z",
           "status": "pending"
         }
       ]
@@ -88,6 +130,13 @@
           "type": "major",
           "date": "2026-05-31T16:17:04.683Z",
           "status": "pending"
+        },
+        {
+          "from": "2.1",
+          "to": "3.0.4",
+          "type": "major",
+          "date": "2026-05-31T16:20:32.384Z",
+          "status": "pending"
         }
       ]
     },
@@ -100,6 +149,13 @@
           "to": "4.1.7",
           "type": "major",
           "date": "2026-05-31T16:17:07.644Z",
+          "status": "pending"
+        },
+        {
+          "from": "2.1",
+          "to": "4.1.7",
+          "type": "major",
+          "date": "2026-05-31T16:20:37.431Z",
           "status": "pending"
         }
       ]
