@@ -1,0 +1,12 @@
+{
+  "name": "frontend-wiki",
+  "version": "1.0.0",
+  "description": "前端知识库 - Frontend Knowledge Base",
+  "scripts": {
+    "check-updates": "node scripts/update-checker.js",
+    "update-check": "node scripts/update-checker.js"
+  },
+  "keywords": ["frontend", "wiki", "knowledge-base"],
+  "author": "",
+  "license": "MIT"
+}
