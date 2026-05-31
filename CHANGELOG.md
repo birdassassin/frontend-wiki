@@ -1,5 +1,28 @@
 # 版本变更日志
 
+## 2026-06-01 - v2.0.0 重大更新
+
+### 新增内容
+
+- ✨ 整合 [Front-end-course](https://github.com/birdassassin/Front-end-course) 仓库内容
+- 📚 新增前端经典教程目录（wiki/legacy/）
+  - JavaScript 系列（6 篇）
+  - React 系列（32 篇）
+  - Vue 系列（4 篇）
+  - Webpack 系列（3 篇）
+  - 前端系列（3 篇）
+  - 数据结构和算法（10 篇）
+  - 正则系列（3 篇）
+  - Lodash 源码解析（1 篇）
+- 🌐 新增 GitHub Pages 部署支持（docsify）
+- 🔄 新增同时推送到 Gitee 和 GitHub 的工作流
+
+### 版本升级
+
+- 📦 项目版本：1.0.0 → 2.0.0
+
+---
+
 ## 2026-05-31 - 版本更新
 
 ### 框架
