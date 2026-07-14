@@ -43,14 +43,14 @@ Action → Dispatcher → Store → View
 ```javascript
 // Action
 const action = {
-  type: 'ADD_TODO',
-  payload: { id: 1, text: 'Learn Redux' }
+  type: &amp;amp;#039;ADD_TODO&amp;amp;#039;,
+  payload: { id: 1, text: &amp;amp;#039;Learn Redux&amp;amp;#039; }
 };
 
 // Reducer (纯函数)
 function todos(state = [], action) {
   switch (action.type) {
-    case 'ADD_TODO':
+    case &amp;amp;#039;ADD_TODO&amp;amp;#039;:
       return [...state, action.payload];
     default:
       return state;
@@ -59,7 +59,7 @@ function todos(state = [], action) {
 
 // Store
 const store = createStore(todos);
-store.dispatch({ type: 'ADD_TODO', payload: { id: 1, text: 'Learn' } });
+store.dispatch({ type: &amp;amp;#039;ADD_TODO&amp;amp;#039;, payload: { id: 1, text: &amp;amp;#039;Learn&amp;amp;#039; } });
 ```
 
 ---
@@ -76,24 +76,24 @@ function TodoProvider({ children }) {
   const [todos, dispatch] = useReducer(todoReducer, []);
   
   return (
-    <TodoContext.Provider value={{ todos, dispatch }}>
+    &amp;amp;lt;TodoContext.Provider value=&amp;#123;&amp;#123; todos, dispatch &amp;#125;&amp;#125;&amp;amp;gt;
       {children}
-    </TodoContext.Provider>
+    &amp;amp;lt;/TodoContext.Provider&amp;amp;gt;
   );
 }
 ```
 
 #### Zustand
 ```javascript
-import { create } from 'zustand';
+import { create } from &amp;amp;#039;zustand&amp;amp;#039;;
 
-const useStore = create((set) => ({
+const useStore = create((set) =&amp;amp;gt; ({
   todos: [],
-  addTodo: (text) => set((state) => ({
+  addTodo: (text) =&amp;amp;gt; set((state) =&amp;amp;gt; ({
     todos: [...state.todos, { id: Date.now(), text }]
   })),
-  toggleTodo: (id) => set((state) => ({
-    todos: state.todos.map(todo =>
+  toggleTodo: (id) =&amp;amp;gt; set((state) =&amp;amp;gt; ({
+    todos: state.todos.map(todo =&amp;amp;gt;
       todo.id === id ? { ...todo, done: !todo.done } : todo
     )
   }))
@@ -102,17 +102,17 @@ const useStore = create((set) => ({
 
 #### Redux Toolkit
 ```javascript
-import { createSlice, configureStore } from '@reduxjs/toolkit';
+import { createSlice, configureStore } from &amp;amp;#039;@reduxjs/toolkit&amp;amp;#039;;
 
 const todosSlice = createSlice({
-  name: 'todos',
+  name: &amp;amp;#039;todos&amp;amp;#039;,
   initialState: [],
   reducers: {
-    addTodo: (state, action) => {
+    addTodo: (state, action) =&amp;amp;gt; {
       state.push({ id: Date.now(), text: action.payload });
     },
-    toggleTodo: (state, action) => {
-      const todo = state.find(t => t.id === action.payload);
+    toggleTodo: (state, action) =&amp;amp;gt; {
+      const todo = state.find(t =&amp;amp;gt; t.id === action.payload);
       if (todo) todo.done = !todo.done;
     }
   }
@@ -127,17 +127,17 @@ const store = configureStore({
 
 #### Pinia
 ```javascript
-import { defineStore } from 'pinia';
+import { defineStore } from &amp;amp;#039;pinia&amp;amp;#039;;
 
-export const useTodoStore = defineStore('todos', {
-  state: () => ({
+export const useTodoStore = defineStore(&amp;amp;#039;todos&amp;amp;#039;, {
+  state: () =&amp;amp;gt; ({
     todos: [],
-    filter: 'all'
+    filter: &amp;amp;#039;all&amp;amp;#039;
   }),
   getters: {
-    filteredTodos: (state) => {
-      if (state.filter === 'active') return state.todos.filter(t => !t.done);
-      if (state.filter === 'done') return state.todos.filter(t => t.done);
+    filteredTodos: (state) =&amp;amp;gt; {
+      if (state.filter === &amp;amp;#039;active&amp;amp;#039;) return state.todos.filter(t =&amp;amp;gt; !t.done);
+      if (state.filter === &amp;amp;#039;done&amp;amp;#039;) return state.todos.filter(t =&amp;amp;gt; t.done);
       return state.todos;
     }
   },
@@ -146,7 +146,7 @@ export const useTodoStore = defineStore('todos', {
       this.todos.push({ id: Date.now(), text, done: false });
     },
     async fetchTodos() {
-      this.todos = await fetch('/api/todos').then(r => r.json());
+      this.todos = await fetch(&amp;amp;#039;/api/todos&amp;amp;#039;).then(r =&amp;amp;gt; r.json());
     }
   }
 });
@@ -156,16 +156,16 @@ export const useTodoStore = defineStore('todos', {
 
 #### Solid.js Signals
 ```javascript
-import { createSignal, createMemo } from 'solid-js';
+import { createSignal, createMemo } from &amp;amp;#039;solid-js&amp;amp;#039;;
 
 function Counter() {
   const [count, setCount] = createSignal(0);
-  const doubled = createMemo(() => count() * 2);
+  const doubled = createMemo(() =&amp;amp;gt; count() * 2);
   
   return (
-    <button onClick={() => setCount(c => c + 1)}>
+    &amp;amp;lt;button onClick={() =&amp;amp;gt; setCount(c =&amp;amp;gt; c + 1)}&amp;amp;gt;
       {count()} - {doubled()}
-    </button>
+    &amp;amp;lt;/button&amp;amp;gt;
   );
 }
 ```
@@ -176,50 +176,50 @@ function Counter() {
 
 ### 4.1 React Query
 ```javascript
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from &amp;amp;#039;@tanstack/react-query&amp;amp;#039;;
 
 function Todos() {
   const queryClient = useQueryClient();
   
   const { data, isLoading, error } = useQuery({
-    queryKey: ['todos'],
-    queryFn: () => fetch('/api/todos').then(r => r.json())
+    queryKey: [&amp;amp;#039;todos&amp;amp;#039;],
+    queryFn: () =&amp;amp;gt; fetch(&amp;amp;#039;/api/todos&amp;amp;#039;).then(r =&amp;amp;gt; r.json())
   });
   
   const mutation = useMutation({
-    mutationFn: (newTodo) => fetch('/api/todos', {
-      method: 'POST',
+    mutationFn: (newTodo) =&amp;amp;gt; fetch(&amp;amp;#039;/api/todos&amp;amp;#039;, {
+      method: &amp;amp;#039;POST&amp;amp;#039;,
       body: JSON.stringify(newTodo)
     }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['todos'] });
+    onSuccess: () =&amp;amp;gt; {
+      queryClient.invalidateQueries({ queryKey: [&amp;amp;#039;todos&amp;amp;#039;] });
     }
   });
   
-  if (isLoading) return <Loading />;
-  if (error) return <Error />;
+  if (isLoading) return &amp;amp;lt;Loading /&amp;amp;gt;;
+  if (error) return &amp;amp;lt;Error /&amp;amp;gt;;
   
   return (
-    <ul>
-      {data.map(todo => <li key={todo.id}>{todo.text}</li>)}
-    </ul>
+    &amp;amp;lt;ul&amp;amp;gt;
+      {data.map(todo =&amp;amp;gt; &amp;amp;lt;li key={todo.id}&amp;amp;gt;{todo.text}&amp;amp;lt;/li&amp;amp;gt;)}
+    &amp;amp;lt;/ul&amp;amp;gt;
   );
 }
 ```
 
 ### 4.2 SWR
 ```javascript
-import useSWR from 'swr';
+import useSWR from &amp;amp;#039;swr&amp;amp;#039;;
 
-const fetcher = url => fetch(url).then(r => r.json());
+const fetcher = url =&amp;amp;gt; fetch(url).then(r =&amp;amp;gt; r.json());
 
 function Profile() {
-  const { data, error, isLoading } = useSWR('/api/user', fetcher);
+  const { data, error, isLoading } = useSWR(&amp;amp;#039;/api/user&amp;amp;#039;, fetcher);
   
-  if (isLoading) return <Loading />;
-  if (error) return <Error />;
+  if (isLoading) return &amp;amp;lt;Loading /&amp;amp;gt;;
+  if (error) return &amp;amp;lt;Error /&amp;amp;gt;;
   
-  return <div>Hello, {data.name}!</div>;
+  return &amp;amp;lt;div&amp;amp;gt;Hello, {data.name}!&amp;amp;lt;/div&amp;amp;gt;;
 }
 ```
 
@@ -231,19 +231,19 @@ function Profile() {
 ```jsx
 // ❌ 冗余状态
 function Component() {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [fullName, setFullName] = useState('');
+  const [firstName, setFirstName] = useState(&amp;amp;#039;&amp;amp;#039;);
+  const [lastName, setLastName] = useState(&amp;amp;#039;&amp;amp;#039;);
+  const [fullName, setFullName] = useState(&amp;amp;#039;&amp;amp;#039;);
   
-  useEffect(() => {
+  useEffect(() =&amp;amp;gt; {
     setFullName(`${firstName} ${lastName}`);
   }, [firstName, lastName]);
 }
 
 // ✅ 派生状态
 function Component() {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [firstName, setFirstName] = useState(&amp;amp;#039;&amp;amp;#039;);
+  const [lastName, setLastName] = useState(&amp;amp;#039;&amp;amp;#039;);
   const fullName = `${firstName} ${lastName}`;
 }
 ```
@@ -256,10 +256,10 @@ function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   
   return (
-    <>
-      <Header />
-      <Sidebar isMenuOpen={isMenuOpen} onToggle={setIsMenuOpen} />
-    </>
+    &amp;amp;lt;&amp;amp;gt;
+      &amp;amp;lt;Header /&amp;amp;gt;
+      &amp;amp;lt;Sidebar isMenuOpen={isMenuOpen} onToggle={setIsMenuOpen} /&amp;amp;gt;
+    &amp;amp;lt;/&amp;amp;gt;
   );
 }
 
@@ -268,10 +268,10 @@ function Sidebar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   
   return (
-    <nav>
-      <button onClick={() => setIsMenuOpen(!isMenuOpen)}>Menu</button>
-      {isMenuOpen && <Menu />}
-    </nav>
+    &amp;amp;lt;nav&amp;amp;gt;
+      &amp;amp;lt;button onClick={() =&amp;amp;gt; setIsMenuOpen(!isMenuOpen)}&amp;amp;gt;Menu&amp;amp;lt;/button&amp;amp;gt;
+      {isMenuOpen &amp;amp;amp;&amp;amp;amp; &amp;amp;lt;Menu /&amp;amp;gt;}
+    &amp;amp;lt;/nav&amp;amp;gt;
   );
 }
 ```
@@ -280,15 +280,15 @@ function Sidebar() {
 ```javascript
 // ❌ 直接修改
 state.todos.push(newTodo);
-state.user.name = 'New Name';
+state.user.name = &amp;amp;#039;New Name&amp;amp;#039;;
 
 // ✅ 不可变更新
 state = { ...state, todos: [...state.todos, newTodo] };
-state = { ...state, user: { ...state.user, name: 'New Name' } };
+state = { ...state, user: { ...state.user, name: &amp;amp;#039;New Name&amp;amp;#039; } };
 
 // ✅ Immer (Redux Toolkit)
 state.todos.push(newTodo); // 安全，Immer 代理
-state.user.name = 'New Name';
+state.user.name = &amp;amp;#039;New Name&amp;amp;#039;;
 ```
 
 ---
@@ -297,23 +297,23 @@ state.user.name = 'New Name';
 
 ### 6.1 XState
 ```javascript
-import { createMachine, interpret } from 'xstate';
+import { createMachine, interpret } from &amp;amp;#039;xstate&amp;amp;#039;;
 
 const toggleMachine = createMachine({
-  id: 'toggle',
-  initial: 'inactive',
+  id: &amp;amp;#039;toggle&amp;amp;#039;,
+  initial: &amp;amp;#039;inactive&amp;amp;#039;,
   states: {
     inactive: {
-      on: { TOGGLE: 'active' }
+      on: { TOGGLE: &amp;amp;#039;active&amp;amp;#039; }
     },
     active: {
-      on: { TOGGLE: 'inactive' }
+      on: { TOGGLE: &amp;amp;#039;inactive&amp;amp;#039; }
     }
   }
 });
 
 const actor = interpret(toggleMachine).start();
-actor.send({ type: 'TOGGLE' });
+actor.send({ type: &amp;amp;#039;TOGGLE&amp;amp;#039; });
 ```
 
 ---

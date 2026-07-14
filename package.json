@@ -1,12 +1,24 @@
 {
   "name": "frontend-wiki",
-  "version": "2.0.0",
+  "version": "3.0.0",
+  "type": "module",
   "description": "前端知识库 - Frontend Knowledge Base",
   "scripts": {
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs",
     "check-updates": "node scripts/update-checker.js",
     "update-check": "node scripts/update-checker.js"
   },
-  "keywords": ["frontend", "wiki", "knowledge-base"],
+  "keywords": [
+    "frontend",
+    "wiki",
+    "knowledge-base"
+  ],
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "vitepress": "^1.6.4",
+    "vue": "^3.5.39"
+  }
 }

@@ -1,25 +1,25 @@
 # Frontend Wiki
 
-<div align="center">
+&lt;div align="center"&gt;
 
 **English** · [简体中文](../README.zh-CN.md)
 
 [![Wiki](https://img.shields.io/badge/Wiki-frontend--wiki-blue?logo=github)](https://github.com/frontend-wiki)
 [![Knowledge](https://img.shields.io/badge/Knowledge-Frontend-green?logo=react)](./overview.en.md)
 
-</div>
+&lt;/div&gt;
 
 > A systematic frontend knowledge system — from fundamentals to architecture, from tools to philosophy.
 > **The goal isn't to list technologies, but to understand how frontend thinks, evolves, and builds user interfaces.**
 
-<div align="center">
-  <img src="https://img.shields.io/badge/HTML-Semantic-orange?logo=html5" alt="HTML" />
-  <img src="https://img.shields.io/badge/CSS-Modern-blue?logo=css3" alt="CSS" />
-  <img src="https://img.shields.io/badge/JavaScript-ES2025-yellow?logo=javascript" alt="JavaScript" />
-  <img src="https://img.shields.io/badge/Frameworks-React/Vue/Angular-61dafb?logo=react" alt="Frameworks" />
-  <img src="https://img.shields.io/badge/Performance-Web%20Vitals-green" alt="Performance" />
-  <img src="https://img.shields.io/badge/Architecture-Modern-purple" alt="Architecture" />
-</div>
+&lt;div align="center"&gt;
+  &lt;img src="https://img.shields.io/badge/HTML-Semantic-orange?logo=html5" alt="HTML" /&gt;
+  &lt;img src="https://img.shields.io/badge/CSS-Modern-blue?logo=css3" alt="CSS" /&gt;
+  &lt;img src="https://img.shields.io/badge/JavaScript-ES2025-yellow?logo=javascript" alt="JavaScript" /&gt;
+  &lt;img src="https://img.shields.io/badge/Frameworks-React/Vue/Angular-61dafb?logo=react" alt="Frameworks" /&gt;
+  &lt;img src="https://img.shields.io/badge/Performance-Web%20Vitals-green" alt="Performance" /&gt;
+  &lt;img src="https://img.shields.io/badge/Architecture-Modern-purple" alt="Architecture" /&gt;
+&lt;/div&gt;
 
 This wiki adopts the **Karpathy Wiki Method**: raw materials are systematically organized and distilled into high-compression concept pages, technique pages, and pattern pages. [`overview.en.md`](overview.en.md) is the highest-compression synthesis; [`index.en.md`](index.en.md) is the full catalog.
 
@@ -168,15 +168,15 @@ UI = f(state)
 
 ```mermaid
 flowchart LR
-    A[Fundamentals: HTML/CSS/JS] --> B[Advanced: Frameworks/Tools]
-    B --> C[Architecture: Patterns/Strategies]
-    C --> D[Optimization: Performance/Security]
-    D --> E[Engineering: Testing/Deployment]
-    A --> F[wiki/index.md]
-    B --> F
-    C --> F
-    D --> F
-    E --> F
+    A[Fundamentals: HTML/CSS/JS] --&amp;amp;gt; B[Advanced: Frameworks/Tools]
+    B --&amp;amp;gt; C[Architecture: Patterns/Strategies]
+    C --&amp;amp;gt; D[Optimization: Performance/Security]
+    D --&amp;amp;gt; E[Engineering: Testing/Deployment]
+    A --&amp;amp;gt; F[wiki/index.md]
+    B --&amp;amp;gt; F
+    C --&amp;amp;gt; F
+    D --&amp;amp;gt; F
+    E --&amp;amp;gt; F
 ```
 
 ---

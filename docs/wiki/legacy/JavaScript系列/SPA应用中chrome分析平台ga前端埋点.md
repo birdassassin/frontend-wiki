@@ -10,21 +10,21 @@ SPA也叫单页应用网站，它和普通网站不同的是，SPA有一个单�
 SPA的入口js中，我们需要调用这样一个函数。
 ```javascript
 window.onload = function() {
-    let doc = document.querySelector('body')
+    let doc = document.querySelector(&amp;amp;#039;body&amp;amp;#039;)
     if (doc) {
         doc.onclick = function(event) {
             let _event = event || window.event
             let target = _event.target || _event.srcElement
-            while (!!target && !target.hasAttribute('data-ga')) {
-                if ( target.tagName == 'BODY') {
+            while (!!target &amp;amp;amp;&amp;amp;amp; !target.hasAttribute(&amp;amp;#039;data-ga&amp;amp;#039;)) {
+                if ( target.tagName == &amp;amp;#039;BODY&amp;amp;#039;) {
                     break
                 }
                 target = target.parentNode
             }
-            if (target.hasAttribute('data-ga')) {
-                let events = target.getAttribute('data-ga').split(/[,，]/)
+            if (target.hasAttribute(&amp;amp;#039;data-ga&amp;amp;#039;)) {
+                let events = target.getAttribute(&amp;amp;#039;data-ga&amp;amp;#039;).split(/[,，]/)
                 if (!!window.ga) {
-                    ga('send', 'event', events[0], events[1], events[2] || "")
+                    ga(&amp;amp;#039;send&amp;amp;#039;, &amp;amp;#039;event&amp;amp;#039;, events[0], events[1], events[2] || &amp;amp;quot;&amp;amp;quot;)
                 }
             }
         }
@@ -35,19 +35,19 @@ window.onload = function() {
 
 ga()方法有5个参数，第一个表示动作，这里使用了send发送，第二个参数是类型，这里是event事件，后面3个分别表示3个说明文字。
 ```html
-<button data-ga="首页，xx按钮，点击事件">xx按钮</button>
+&amp;amp;lt;button data-ga=&amp;amp;quot;首页，xx按钮，点击事件&amp;amp;quot;&amp;amp;gt;xx按钮&amp;amp;lt;/button&amp;amp;gt;
 ```
 假设有这么一段HTML代码，在祖先元素埋点，当点击子元素span的时候，获取的event.target是span，那么使用target.hasAttribute('data-ga')获取不到祖先元素的data-ga。
 ```html
-<div data-ga="首页，祖先元素">
-    <div>
-        <span>子元素</span>
-    </div>
-</div>
+&amp;amp;lt;div data-ga=&amp;amp;quot;首页，祖先元素&amp;amp;quot;&amp;amp;gt;
+    &amp;amp;lt;div&amp;amp;gt;
+        &amp;amp;lt;span&amp;amp;gt;子元素&amp;amp;lt;/span&amp;amp;gt;
+    &amp;amp;lt;/div&amp;amp;gt;
+&amp;amp;lt;/div&amp;amp;gt;
 ```
 解决方法是使用DOM节点冒泡查找法，先查找父元素，没有的话继续往上查找，切记不要查找兄弟元素。
 ```javascript
-while (!!target && target.hasAttribute('data-ga') === false && target.tagName !== 'body') {
+while (!!target &amp;amp;amp;&amp;amp;amp; target.hasAttribute(&amp;amp;#039;data-ga&amp;amp;#039;) === false &amp;amp;amp;&amp;amp;amp; target.tagName !== &amp;amp;#039;body&amp;amp;#039;) {
     target = target.parentNode
 }
 ```

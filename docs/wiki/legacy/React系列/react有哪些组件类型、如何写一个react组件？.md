@@ -12,18 +12,18 @@
 
 写法1：函数写法
 ```
-import React, { Component } from 'react' //必须导入
+import React, { Component } from &amp;amp;#039;react&amp;amp;#039; //必须导入
 //定义一个header函数，传入参数，返回一个jsx模板,函数名小写字母开头
-exports const header = (params) => {
+exports const header = (params) =&amp;amp;gt; {
     return (
-        <div>{params}</div>
+        &amp;amp;lt;div&amp;amp;gt;{params}&amp;amp;lt;/div&amp;amp;gt;
     )
 }
 ```
 写法2：react组件写法
 
 ```
-import React, { Component } from 'react'
+import React, { Component } from &amp;amp;#039;react&amp;amp;#039;
 //定义一个react组件，组件名大写字母开头
 exports class List extends React.Component {
     constructor(props) {
@@ -33,14 +33,14 @@ exports class List extends React.Component {
     render() {
         const { data } = this.props
         return (
-            <ul>
+            &amp;amp;lt;ul&amp;amp;gt;
                 {
-                    data.length > 0 && 
-                    data.map((element, index) => {
-                       <li key={index}>{element}</li> 
+                    data.length &amp;amp;gt; 0 &amp;amp;amp;&amp;amp;amp; 
+                    data.map((element, index) =&amp;amp;gt; {
+                       &amp;amp;lt;li key={index}&amp;amp;gt;{element}&amp;amp;lt;/li&amp;amp;gt; 
                     })
                 }
-            </ul>
+            &amp;amp;lt;/ul&amp;amp;gt;
         )
     }
 }
@@ -51,8 +51,8 @@ exports class List extends React.Component {
 容器组件和展示型组件类似，本质就是react组件，只不过是将各种展示型组件组合起来，只不过函数组件和react组件导入方式有所区别。
 
 ```
-import React, { Component } from 'react'
-import { header, List } from './index'
+import React, { Component } from &amp;amp;#039;react&amp;amp;#039;
+import { header, List } from &amp;amp;#039;./index&amp;amp;#039;
 
 //定义一个react容器，组件名大写字母开头
 exports class Page extends React.Component {
@@ -60,10 +60,10 @@ exports class Page extends React.Component {
     render() {
         let data = [1, 2, 3, 4, 5]
         return (
-            <div>
+            &amp;amp;lt;div&amp;amp;gt;
                 {header(params)}
-                <List data={data} />
-            </div>
+                &amp;amp;lt;List data={data} /&amp;amp;gt;
+            &amp;amp;lt;/div&amp;amp;gt;
         )
     }
 }

@@ -6,27 +6,27 @@ webpack1已结不再维护了，官方在主推webpack2，原先使用webpack1�
 
 以前你可能这么写：
 
-    resolve: {
+    resolve: &#123;
 		extensions: ['', '.jsx', '.js', '.json'],
 		modulesDirectories: ['node_modules', 'src'],
-		alias: {
+		alias: &#123;
 			actions: __dirname + `/src/actions`,
 			components: __dirname + `/src/components`,
 			containers: __dirname + `/src/containers`,
 			reducers: __dirname + `/src/reducers`,
 			store: __dirname + `/src/store`
-		}
-	}
+		&#125;
+	&#125;
 
 现在你该这么写：取消了空字符串
 
-    resolve: {
+    resolve: &#123;
         extensions: ['.js', '.jsx', '.less', '.scss', '.css'],
         modules: [
           path.resolve(__dirname, 'node_modules'),
           path.join(__dirname, './src')
         ]
-      }
+      &#125;
 
 2、module配置
 
@@ -63,24 +63,24 @@ d、不再支持使用！连接插件，请使用数组形式。
 
 e、json-loader已经被移除，不需要手动添加，webpack会帮你处理好这些事情。
 
-    module: {
-          rules: [{
+    module: &#123;
+          rules: [&#123;
               test: /\.(js|jsx)$/,
               use: ['babel-loader'],
               exclude: /node_modules/,
               include: path.join(__dirname, 'src')
-          }, {
+          &#125;, &#123;
               test: /\.(less|css)$/,
               use: ["style-loader", "css-loader", "less-loader", "postcss-loader"]
-          }, {
+          &#125;, &#123;
               test: /\.(png|jpg|gif|md)$/,
               use: ['file-loader?limit=10000&name=[md5:hash:base64:10].[ext]']
-          }, {
+          &#125;, &#123;
               test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
               use: ['url-loader?limit=10000&mimetype=image/svg+xml']
-          }],
-      }
-    };
+          &#125;],
+      &#125;
+    &#125;;
     
 3、plugins配置
 
@@ -117,77 +117,77 @@ b、更多plugins配置请参考 https://webpack.js.org
     console.log("当前运行环境：", isPro)
     
     var plugins = []
-    if (isPro) {
+    if (isPro) &#123;
       plugins.push(
-          new webpack.optimize.UglifyJsPlugin({
-              compress: {
+          new webpack.optimize.UglifyJsPlugin(&#123;
+              compress: &#123;
                   warnings: false
-              }
-          }),
-          new webpack.DefinePlugin({
-              'process.env':{
+              &#125;
+          &#125;),
+          new webpack.DefinePlugin(&#123;
+              'process.env':&#123;
                   'NODE_ENV': JSON.stringify(nodeEnv)
-              }
-          })
+              &#125;
+          &#125;)
       )
-    } else {
+    &#125; else &#123;
       plugins.push(
-          new webpack.DefinePlugin({
-              'process.env':{
+          new webpack.DefinePlugin(&#123;
+              'process.env':&#123;
                   'NODE_ENV': JSON.stringify(nodeEnv)
-              },
+              &#125;,
               BASE_URL: JSON.stringify('http://localhost:9009'),
-          }),
+          &#125;),
           // new webpack.optimize.OccurenceOrderPlugin(),
           new webpack.HotModuleReplacementPlugin()
           // new webpack.NoErrorsPlugin()
       )
-    }
+    &#125;
     
-    module.exports = {
+    module.exports = &#123;
       devtool: false,
-      entry: {
+      entry: &#123;
         app: [
           'webpack-hot-middleware/client?path=http://localhost:3011/__webpack_hmr&reload=true&noInfo=false&quiet=false',
           'babel-polyfill',
           './src/index'
         ]
-      },
-      output: {
+      &#125;,
+      output: &#123;
         filename: '[name].js',
         path: path.join(__dirname, 'build'),
         publicPath: 'http://localhost:3011/build/',
         chunkFilename: '[name].js'
-      },
+      &#125;,
       // BASE_URL是全局的api接口访问地址
       plugins,
       // alias是配置全局的路径入口名称，只要涉及到下面配置的文件路径，可以直接用定义的单个字母表示整个路径
-      resolve: {
+      resolve: &#123;
         extensions: ['.js', '.jsx', '.less', '.scss', '.css'],
         modules: [
           path.resolve(__dirname, 'node_modules'),
           path.join(__dirname, './src')
         ]
-      },
+      &#125;,
     
-      module: {
-          rules: [{
+      module: &#123;
+          rules: [&#123;
               test: /\.(js|jsx)$/,
               use: ['babel-loader'],
               exclude: /node_modules/,
               include: path.join(__dirname, 'src')
-          }, {
+          &#125;, &#123;
               test: /\.(less|css)$/,
               use: ["style-loader", "css-loader", "less-loader", "postcss-loader"]
-          }, {
+          &#125;, &#123;
               test: /\.(png|jpg|gif|md)$/,
               use: ['file-loader?limit=10000&name=[md5:hash:base64:10].[ext]']
-          }, {
+          &#125;, &#123;
               test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
               use: ['url-loader?limit=10000&mimetype=image/svg+xml']
-          }],
-      }
-    };
+          &#125;],
+      &#125;
+    &#125;;
     
 
 

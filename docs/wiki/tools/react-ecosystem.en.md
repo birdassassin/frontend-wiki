@@ -8,22 +8,22 @@
 
 ### 1.1 React Router v6
 ```tsx
-import { BrowserRouter, Routes, Route, Link, useNavigate, useParams } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Link, useNavigate, useParams } from &amp;amp;#039;react-router-dom&amp;amp;#039;;
 
 function App() {
   return (
-    <BrowserRouter>
-      <nav>
-        <Link to="/">Home</Link>
-        <Link to="/users">Users</Link>
-      </nav>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/users" element={<UserList />} />
-        <Route path="/users/:id" element={<UserDetail />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </BrowserRouter>
+    &amp;amp;lt;BrowserRouter&amp;amp;gt;
+      &amp;amp;lt;nav&amp;amp;gt;
+        &amp;amp;lt;Link to=&amp;amp;quot;/&amp;amp;quot;&amp;amp;gt;Home&amp;amp;lt;/Link&amp;amp;gt;
+        &amp;amp;lt;Link to=&amp;amp;quot;/users&amp;amp;quot;&amp;amp;gt;Users&amp;amp;lt;/Link&amp;amp;gt;
+      &amp;amp;lt;/nav&amp;amp;gt;
+      &amp;amp;lt;Routes&amp;amp;gt;
+        &amp;amp;lt;Route path=&amp;amp;quot;/&amp;amp;quot; element={&amp;amp;lt;Home /&amp;amp;gt;} /&amp;amp;gt;
+        &amp;amp;lt;Route path=&amp;amp;quot;/users&amp;amp;quot; element={&amp;amp;lt;UserList /&amp;amp;gt;} /&amp;amp;gt;
+        &amp;amp;lt;Route path=&amp;amp;quot;/users/:id&amp;amp;quot; element={&amp;amp;lt;UserDetail /&amp;amp;gt;} /&amp;amp;gt;
+        &amp;amp;lt;Route path=&amp;amp;quot;*&amp;amp;quot; element={&amp;amp;lt;NotFound /&amp;amp;gt;} /&amp;amp;gt;
+      &amp;amp;lt;/Routes&amp;amp;gt;
+    &amp;amp;lt;/BrowserRouter&amp;amp;gt;
   );
 }
 
@@ -32,32 +32,32 @@ function UserDetail() {
   const navigate = useNavigate();
   
   return (
-    <div>
-      <h1>User {id}</h1>
-      <button onClick={() => navigate(-1)}>Back</button>
-    </div>
+    &amp;amp;lt;div&amp;amp;gt;
+      &amp;amp;lt;h1&amp;amp;gt;User {id}&amp;amp;lt;/h1&amp;amp;gt;
+      &amp;amp;lt;button onClick={() =&amp;amp;gt; navigate(-1)}&amp;amp;gt;Back&amp;amp;lt;/button&amp;amp;gt;
+    &amp;amp;lt;/div&amp;amp;gt;
   );
 }
 ```
 
 ### 1.2 Nested Routes
 ```tsx
-<Routes>
-  <Route path="/dashboard" element={<Dashboard />}>
-    <Route index element={<Overview />} />
-    <Route path="analytics" element={<Analytics />} />
-    <Route path="settings" element={<Settings />} />
-  </Route>
-</Routes>
+&amp;amp;lt;Routes&amp;amp;gt;
+  &amp;amp;lt;Route path=&amp;amp;quot;/dashboard&amp;amp;quot; element={&amp;amp;lt;Dashboard /&amp;amp;gt;}&amp;amp;gt;
+    &amp;amp;lt;Route index element={&amp;amp;lt;Overview /&amp;amp;gt;} /&amp;amp;gt;
+    &amp;amp;lt;Route path=&amp;amp;quot;analytics&amp;amp;quot; element={&amp;amp;lt;Analytics /&amp;amp;gt;} /&amp;amp;gt;
+    &amp;amp;lt;Route path=&amp;amp;quot;settings&amp;amp;quot; element={&amp;amp;lt;Settings /&amp;amp;gt;} /&amp;amp;gt;
+  &amp;amp;lt;/Route&amp;amp;gt;
+&amp;amp;lt;/Routes&amp;amp;gt;
 
 function Dashboard() {
   return (
-    <div>
-      <Sidebar />
-      <main>
-        <Outlet /> {/* Child routes render here */}
-      </main>
-    </div>
+    &amp;amp;lt;div&amp;amp;gt;
+      &amp;amp;lt;Sidebar /&amp;amp;gt;
+      &amp;amp;lt;main&amp;amp;gt;
+        &amp;amp;lt;Outlet /&amp;amp;gt; {/* Child routes render here */}
+      &amp;amp;lt;/main&amp;amp;gt;
+    &amp;amp;lt;/div&amp;amp;gt;
   );
 }
 ```
@@ -69,14 +69,14 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const location = useLocation();
   
   if (!isAuthenticated) {
-    return <Navigate to="/login" state={{ from: location }} replace />;
+    return &amp;amp;lt;Navigate to=&amp;amp;quot;/login&amp;amp;quot; state=&amp;#123;&amp;#123; from: location &amp;#125;&amp;#125; replace /&amp;amp;gt;;
   }
   
-  return <>{children}</>;
+  return &amp;amp;lt;&amp;amp;gt;{children}&amp;amp;lt;/&amp;amp;gt;;
 }
 
 // Usage
-<Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+&amp;amp;lt;Route path=&amp;amp;quot;/dashboard&amp;amp;quot; element={&amp;amp;lt;ProtectedRoute&amp;amp;gt;&amp;amp;lt;Dashboard /&amp;amp;gt;&amp;amp;lt;/ProtectedRoute&amp;amp;gt;} /&amp;amp;gt;
 ```
 
 ---
@@ -85,9 +85,9 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
 
 ### 2.1 Zustand
 ```typescript
-import { create } from 'zustand';
-import { devtools, persist } from 'zustand/middleware';
-import { immer } from 'zustand/middleware/immer';
+import { create } from &amp;amp;#039;zustand&amp;amp;#039;;
+import { devtools, persist } from &amp;amp;#039;zustand/middleware&amp;amp;#039;;
+import { immer } from &amp;amp;#039;zustand/middleware/immer&amp;amp;#039;;
 
 interface Todo {
   id: string;
@@ -97,22 +97,22 @@ interface Todo {
 
 interface TodoStore {
   todos: Todo[];
-  filter: 'all' | 'active' | 'done';
-  addTodo: (text: string) => void;
-  toggleTodo: (id: string) => void;
-  deleteTodo: (id: string) => void;
-  setFilter: (filter: 'all' | 'active' | 'done') => void;
+  filter: &amp;amp;#039;all&amp;amp;#039; | &amp;amp;#039;active&amp;amp;#039; | &amp;amp;#039;done&amp;amp;#039;;
+  addTodo: (text: string) =&amp;amp;gt; void;
+  toggleTodo: (id: string) =&amp;amp;gt; void;
+  deleteTodo: (id: string) =&amp;amp;gt; void;
+  setFilter: (filter: &amp;amp;#039;all&amp;amp;#039; | &amp;amp;#039;active&amp;amp;#039; | &amp;amp;#039;done&amp;amp;#039;) =&amp;amp;gt; void;
   filteredTodos: Todo[];
 }
 
-const useTodoStore = create<TodoStore>()(
+const useTodoStore = create&amp;amp;lt;TodoStore&amp;amp;gt;()(
   devtools(
     persist(
-      immer((set, get) => ({
+      immer((set, get) =&amp;amp;gt; ({
         todos: [],
-        filter: 'all',
+        filter: &amp;amp;#039;all&amp;amp;#039;,
         
-        addTodo: (text) => set((state) => {
+        addTodo: (text) =&amp;amp;gt; set((state) =&amp;amp;gt; {
           state.todos.push({
             id: crypto.randomUUID(),
             text,
@@ -120,52 +120,52 @@ const useTodoStore = create<TodoStore>()(
           });
         }),
         
-        toggleTodo: (id) => set((state) => {
-          const todo = state.todos.find(t => t.id === id);
+        toggleTodo: (id) =&amp;amp;gt; set((state) =&amp;amp;gt; {
+          const todo = state.todos.find(t =&amp;amp;gt; t.id === id);
           if (todo) todo.done = !todo.done;
         }),
         
-        deleteTodo: (id) => set((state) => {
-          state.todos = state.todos.filter(t => t.id !== id);
+        deleteTodo: (id) =&amp;amp;gt; set((state) =&amp;amp;gt; {
+          state.todos = state.todos.filter(t =&amp;amp;gt; t.id !== id);
         }),
         
-        setFilter: (filter) => set({ filter }),
+        setFilter: (filter) =&amp;amp;gt; set({ filter }),
         
         get filteredTodos() {
           const { todos, filter } = get();
           switch (filter) {
-            case 'active': return todos.filter(t => !t.done);
-            case 'done': return todos.filter(t => t.done);
+            case &amp;amp;#039;active&amp;amp;#039;: return todos.filter(t =&amp;amp;gt; !t.done);
+            case &amp;amp;#039;done&amp;amp;#039;: return todos.filter(t =&amp;amp;gt; t.done);
             default: return todos;
           }
         }
       })),
-      { name: 'todo-storage' }
+      { name: &amp;amp;#039;todo-storage&amp;amp;#039; }
     )
   )
 );
 
 // Usage
 function TodoList() {
-  const todos = useTodoStore(state => state.filteredTodos);
-  const addTodo = useTodoStore(state => state.addTodo);
-  return <div>...</div>;
+  const todos = useTodoStore(state =&amp;amp;gt; state.filteredTodos);
+  const addTodo = useTodoStore(state =&amp;amp;gt; state.addTodo);
+  return &amp;amp;lt;div&amp;amp;gt;...&amp;amp;lt;/div&amp;amp;gt;;
 }
 ```
 
 ### 2.2 Redux Toolkit
 ```typescript
-import { createSlice, configureStore } from '@reduxjs/toolkit';
+import { createSlice, configureStore } from &amp;amp;#039;@reduxjs/toolkit&amp;amp;#039;;
 
 const todoSlice = createSlice({
-  name: 'todos',
+  name: &amp;amp;#039;todos&amp;amp;#039;,
   initialState: [] as Todo[],
   reducers: {
-    addTodo: (state, action: PayloadAction<string>) => {
+    addTodo: (state, action: PayloadAction&amp;amp;lt;string&amp;amp;gt;) =&amp;amp;gt; {
       state.push({ id: crypto.randomUUID(), text: action.payload, done: false });
     },
-    toggleTodo: (state, action: PayloadAction<string>) => {
-      const todo = state.find(t => t.id === action.payload);
+    toggleTodo: (state, action: PayloadAction&amp;amp;lt;string&amp;amp;gt;) =&amp;amp;gt; {
+      const todo = state.find(t =&amp;amp;gt; t.id === action.payload);
       if (todo) todo.done = !todo.done;
     }
   }
@@ -175,7 +175,7 @@ const store = configureStore({
   reducer: { todos: todoSlice.reducer }
 });
 
-export type RootState = ReturnType<typeof store.getState>;
+export type RootState = ReturnType&amp;amp;lt;typeof store.getState&amp;amp;gt;;
 export type AppDispatch = typeof store.dispatch;
 ```
 
@@ -185,7 +185,7 @@ export type AppDispatch = typeof store.dispatch;
 
 ### 3.1 TanStack Query (React Query)
 ```tsx
-import { QueryClient, QueryClientProvider, useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider, useQuery, useMutation, useQueryClient } from &amp;amp;#039;@tanstack/react-query&amp;amp;#039;;
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -199,53 +199,53 @@ const queryClient = new QueryClient({
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <TodoApp />
-    </QueryClientProvider>
+    &amp;amp;lt;QueryClientProvider client={queryClient}&amp;amp;gt;
+      &amp;amp;lt;TodoApp /&amp;amp;gt;
+    &amp;amp;lt;/QueryClientProvider&amp;amp;gt;
   );
 }
 
 function TodoList() {
   const { data: todos, isLoading, error } = useQuery({
-    queryKey: ['todos'],
-    queryFn: () => fetch('/api/todos').then(r => r.json())
+    queryKey: [&amp;amp;#039;todos&amp;amp;#039;],
+    queryFn: () =&amp;amp;gt; fetch(&amp;amp;#039;/api/todos&amp;amp;#039;).then(r =&amp;amp;gt; r.json())
   });
   
-  if (isLoading) return <Loading />;
-  if (error) return <Error />;
-  return <List todos={todos} />;
+  if (isLoading) return &amp;amp;lt;Loading /&amp;amp;gt;;
+  if (error) return &amp;amp;lt;Error /&amp;amp;gt;;
+  return &amp;amp;lt;List todos={todos} /&amp;amp;gt;;
 }
 
 function AddTodo() {
   const queryClient = useQueryClient();
   
   const mutation = useMutation({
-    mutationFn: (text: string) => 
-      fetch('/api/todos', {
-        method: 'POST',
+    mutationFn: (text: string) =&amp;amp;gt; 
+      fetch(&amp;amp;#039;/api/todos&amp;amp;#039;, {
+        method: &amp;amp;#039;POST&amp;amp;#039;,
         body: JSON.stringify({ text })
       }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['todos'] });
+    onSuccess: () =&amp;amp;gt; {
+      queryClient.invalidateQueries({ queryKey: [&amp;amp;#039;todos&amp;amp;#039;] });
     }
   });
   
-  return <button onClick={() => mutation.mutate('New Todo')}>Add</button>;
+  return &amp;amp;lt;button onClick={() =&amp;amp;gt; mutation.mutate(&amp;amp;#039;New Todo&amp;amp;#039;)}&amp;amp;gt;Add&amp;amp;lt;/button&amp;amp;gt;;
 }
 ```
 
 ### 3.2 SWR
 ```tsx
-import useSWR from 'swr';
+import useSWR from &amp;amp;#039;swr&amp;amp;#039;;
 
-const fetcher = (url: string) => fetch(url).then(r => r.json());
+const fetcher = (url: string) =&amp;amp;gt; fetch(url).then(r =&amp;amp;gt; r.json());
 
 function Profile() {
-  const { data, error, isLoading, mutate } = useSWR('/api/user', fetcher);
+  const { data, error, isLoading, mutate } = useSWR(&amp;amp;#039;/api/user&amp;amp;#039;, fetcher);
   
-  if (isLoading) return <Loading />;
-  if (error) return <Error />;
-  return <div>{data.name}</div>;
+  if (isLoading) return &amp;amp;lt;Loading /&amp;amp;gt;;
+  if (error) return &amp;amp;lt;Error /&amp;amp;gt;;
+  return &amp;amp;lt;div&amp;amp;gt;{data.name}&amp;amp;lt;/div&amp;amp;gt;;
 }
 ```
 
@@ -255,39 +255,39 @@ function Profile() {
 
 ### 4.1 shadcn/ui
 ```tsx
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
+import { Button } from &amp;amp;quot;@/components/ui/button&amp;amp;quot;;
+import { Card, CardContent, CardHeader, CardTitle } from &amp;amp;quot;@/components/ui/card&amp;amp;quot;;
+import { Input } from &amp;amp;quot;@/components/ui/input&amp;amp;quot;;
 
 function UserCard() {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>User Profile</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <Input placeholder="Enter name" />
-        <Button>Save</Button>
-      </CardContent>
-    </Card>
+    &amp;amp;lt;Card&amp;amp;gt;
+      &amp;amp;lt;CardHeader&amp;amp;gt;
+        &amp;amp;lt;CardTitle&amp;amp;gt;User Profile&amp;amp;lt;/CardTitle&amp;amp;gt;
+      &amp;amp;lt;/CardHeader&amp;amp;gt;
+      &amp;amp;lt;CardContent&amp;amp;gt;
+        &amp;amp;lt;Input placeholder=&amp;amp;quot;Enter name&amp;amp;quot; /&amp;amp;gt;
+        &amp;amp;lt;Button&amp;amp;gt;Save&amp;amp;lt;/Button&amp;amp;gt;
+      &amp;amp;lt;/CardContent&amp;amp;gt;
+    &amp;amp;lt;/Card&amp;amp;gt;
   );
 }
 ```
 
 ### 4.2 Ant Design
 ```tsx
-import { Button, Form, Input, Table, Modal } from 'antd';
+import { Button, Form, Input, Table, Modal } from &amp;amp;#039;antd&amp;amp;#039;;
 
 function UserManagement() {
   const [form] = Form.useForm();
   
   return (
-    <Form form={form} onFinish={onSubmit}>
-      <Form.Item name="name" rules={[{ required: true }]}>
-        <Input placeholder="Name" />
-      </Form.Item>
-      <Button type="primary" htmlType="submit">Submit</Button>
-    </Form>
+    &amp;amp;lt;Form form={form} onFinish={onSubmit}&amp;amp;gt;
+      &amp;amp;lt;Form.Item name=&amp;amp;quot;name&amp;amp;quot; rules={[{ required: true }]}&amp;amp;gt;
+        &amp;amp;lt;Input placeholder=&amp;amp;quot;Name&amp;amp;quot; /&amp;amp;gt;
+      &amp;amp;lt;/Form.Item&amp;amp;gt;
+      &amp;amp;lt;Button type=&amp;amp;quot;primary&amp;amp;quot; htmlType=&amp;amp;quot;submit&amp;amp;quot;&amp;amp;gt;Submit&amp;amp;lt;/Button&amp;amp;gt;
+    &amp;amp;lt;/Form&amp;amp;gt;
   );
 }
 ```
@@ -298,36 +298,36 @@ function UserManagement() {
 
 ### 5.1 React Hook Form + Zod
 ```tsx
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
+import { useForm } from &amp;amp;#039;react-hook-form&amp;amp;#039;;
+import { zodResolver } from &amp;amp;#039;@hookform/resolvers/zod&amp;amp;#039;;
+import { z } from &amp;amp;#039;zod&amp;amp;#039;;
 
 const schema = z.object({
   email: z.string().email(),
   password: z.string().min(8)
 });
 
-type FormData = z.infer<typeof schema>;
+type FormData = z.infer&amp;amp;lt;typeof schema&amp;amp;gt;;
 
 function LoginForm() {
-  const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
+  const { register, handleSubmit, formState: { errors } } = useForm&amp;amp;lt;FormData&amp;amp;gt;({
     resolver: zodResolver(schema)
   });
   
-  const onSubmit = (data: FormData) => {
+  const onSubmit = (data: FormData) =&amp;amp;gt; {
     console.log(data);
   };
   
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <input {...register('email')} />
-      {errors.email && <span>{errors.email.message}</span>}
+    &amp;amp;lt;form onSubmit={handleSubmit(onSubmit)}&amp;amp;gt;
+      &amp;amp;lt;input {...register(&amp;amp;#039;email&amp;amp;#039;)} /&amp;amp;gt;
+      {errors.email &amp;amp;amp;&amp;amp;amp; &amp;amp;lt;span&amp;amp;gt;{errors.email.message}&amp;amp;lt;/span&amp;amp;gt;}
       
-      <input {...register('password')} type="password" />
-      {errors.password && <span>{errors.password.message}</span>}
+      &amp;amp;lt;input {...register(&amp;amp;#039;password&amp;amp;#039;)} type=&amp;amp;quot;password&amp;amp;quot; /&amp;amp;gt;
+      {errors.password &amp;amp;amp;&amp;amp;amp; &amp;amp;lt;span&amp;amp;gt;{errors.password.message}&amp;amp;lt;/span&amp;amp;gt;}
       
-      <button type="submit">Login</button>
-    </form>
+      &amp;amp;lt;button type=&amp;amp;quot;submit&amp;amp;quot;&amp;amp;gt;Login&amp;amp;lt;/button&amp;amp;gt;
+    &amp;amp;lt;/form&amp;amp;gt;
   );
 }
 ```
@@ -338,38 +338,38 @@ function LoginForm() {
 
 ### 6.1 React Testing Library
 ```tsx
-import { render, screen, fireEvent } from '@testing-library/react';
-import { TodoApp } from './TodoApp';
+import { render, screen, fireEvent } from &amp;amp;#039;@testing-library/react&amp;amp;#039;;
+import { TodoApp } from &amp;amp;#039;./TodoApp&amp;amp;#039;;
 
-test('adds a new todo', () => {
-  render(<TodoApp />);
+test(&amp;amp;#039;adds a new todo&amp;amp;#039;, () =&amp;amp;gt; {
+  render(&amp;amp;lt;TodoApp /&amp;amp;gt;);
   
   const input = screen.getByPlaceholderText(/add todo/i);
-  fireEvent.change(input, { target: { value: 'Learn testing' } });
+  fireEvent.change(input, { target: { value: &amp;amp;#039;Learn testing&amp;amp;#039; } });
   
-  const button = screen.getByRole('button', { name: /add/i });
+  const button = screen.getByRole(&amp;amp;#039;button&amp;amp;#039;, { name: /add/i });
   fireEvent.click(button);
   
-  expect(screen.getByText('Learn testing')).toBeInTheDocument();
+  expect(screen.getByText(&amp;amp;#039;Learn testing&amp;amp;#039;)).toBeInTheDocument();
 });
 ```
 
 ### 6.2 MSW (Mock Service Worker)
 ```typescript
-import { setupServer } from 'msw/node';
-import { http, HttpResponse } from 'msw';
+import { setupServer } from &amp;amp;#039;msw/node&amp;amp;#039;;
+import { http, HttpResponse } from &amp;amp;#039;msw&amp;amp;#039;;
 
 const server = setupServer(
-  http.get('/api/todos', () => {
+  http.get(&amp;amp;#039;/api/todos&amp;amp;#039;, () =&amp;amp;gt; {
     return HttpResponse.json([
-      { id: '1', text: 'Test', done: false }
+      { id: &amp;amp;#039;1&amp;amp;#039;, text: &amp;amp;#039;Test&amp;amp;#039;, done: false }
     ]);
   })
 );
 
-beforeAll(() => server.listen());
-afterEach(() => server.resetHandlers());
-afterAll(() => server.close());
+beforeAll(() =&amp;amp;gt; server.listen());
+afterEach(() =&amp;amp;gt; server.resetHandlers());
+afterAll(() =&amp;amp;gt; server.close());
 ```
 
 ---

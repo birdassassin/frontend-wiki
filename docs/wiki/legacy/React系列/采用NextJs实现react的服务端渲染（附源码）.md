@@ -59,4 +59,4 @@ react服务端渲染框架
 
 
   [1]: https://github.com/hyy1115/react-next
-  [2]: /img/bVWJ5y
+  [2]: https://gitee.com/birdassassin/frontend-wiki/raw/master/img/bVWJ5y

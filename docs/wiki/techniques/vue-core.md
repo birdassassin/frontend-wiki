@@ -9,97 +9,97 @@
 ### 1.1 ref 和 reactive
 
 ```vue
-<script setup lang="ts">
-import { ref, reactive } from 'vue';
+&amp;amp;lt;script setup lang=&amp;amp;quot;ts&amp;amp;quot;&amp;amp;gt;
+import { ref, reactive } from &amp;amp;#039;vue&amp;amp;#039;;
 
 // ref - 用于基本类型
 const count = ref(0);
-const name = ref('Vue');
+const name = ref(&amp;amp;#039;Vue&amp;amp;#039;);
 
 // reactive - 用于对象
 const state = reactive({
   todos: [],
-  filter: 'all'
+  filter: &amp;amp;#039;all&amp;amp;#039;
 });
 
 // 访问 ref 需要 .value
 count.value++;
 
 // reactive 直接访问
-state.todos.push({ id: 1, text: '学习 Vue' });
-</script>
+state.todos.push({ id: 1, text: &amp;amp;#039;学习 Vue&amp;amp;#039; });
+&amp;amp;lt;/script&amp;amp;gt;
 
-<template>
-  <div>
-    <p>{{ count }}</p>
-    <p>{{ name }}</p>
-    <p>{{ state.filter }}</p>
-  </div>
-</template>
+&amp;amp;lt;template&amp;amp;gt;
+  &amp;amp;lt;div&amp;amp;gt;
+    &amp;amp;lt;p&amp;amp;gt;&amp;#123;&amp;#123; count &amp;#125;&amp;#125;&amp;amp;lt;/p&amp;amp;gt;
+    &amp;amp;lt;p&amp;amp;gt;&amp;#123;&amp;#123; name &amp;#125;&amp;#125;&amp;amp;lt;/p&amp;amp;gt;
+    &amp;amp;lt;p&amp;amp;gt;&amp;#123;&amp;#123; state.filter &amp;#125;&amp;#125;&amp;amp;lt;/p&amp;amp;gt;
+  &amp;amp;lt;/div&amp;amp;gt;
+&amp;amp;lt;/template&amp;amp;gt;
 ```
 
 ### 1.2 computed
 
 ```vue
-<script setup lang="ts">
-import { ref, computed } from 'vue';
+&amp;amp;lt;script setup lang=&amp;amp;quot;ts&amp;amp;quot;&amp;amp;gt;
+import { ref, computed } from &amp;amp;#039;vue&amp;amp;#039;;
 
 const todos = ref([
-  { id: 1, text: '学习', done: false },
-  { id: 2, text: '练习', done: true }
+  { id: 1, text: &amp;amp;#039;学习&amp;amp;#039;, done: false },
+  { id: 2, text: &amp;amp;#039;练习&amp;amp;#039;, done: true }
 ]);
 
-const filteredTodos = computed(() => 
-  todos.value.filter(t => !t.done)
+const filteredTodos = computed(() =&amp;amp;gt; 
+  todos.value.filter(t =&amp;amp;gt; !t.done)
 );
 
-const doneCount = computed(() => 
-  todos.value.filter(t => t.done).length
+const doneCount = computed(() =&amp;amp;gt; 
+  todos.value.filter(t =&amp;amp;gt; t.done).length
 );
 
 // 可写 computed
 const fullName = computed({
-  get: () => `${firstName.value} ${lastName.value}`,
-  set: (value) => {
-    [firstName.value, lastName.value] = value.split(' ');
+  get: () =&amp;amp;gt; `${firstName.value} ${lastName.value}`,
+  set: (value) =&amp;amp;gt; {
+    [firstName.value, lastName.value] = value.split(&amp;amp;#039; &amp;amp;#039;);
   }
 });
-</script>
+&amp;amp;lt;/script&amp;amp;gt;
 ```
 
 ### 1.3 watch 和 watchEffect
 
 ```vue
-<script setup lang="ts">
-import { ref, watch, watchEffect } from 'vue';
+&amp;amp;lt;script setup lang=&amp;amp;quot;ts&amp;amp;quot;&amp;amp;gt;
+import { ref, watch, watchEffect } from &amp;amp;#039;vue&amp;amp;#039;;
 
-const query = ref('');
+const query = ref(&amp;amp;#039;&amp;amp;#039;);
 const results = ref([]);
 
 // watch - 明确依赖
-watch(query, async (newQuery, oldQuery) => {
+watch(query, async (newQuery, oldQuery) =&amp;amp;gt; {
   results.value = await search(newQuery);
 });
 
 // watch 多个值
-watch([query, filter], async ([newQuery, newFilter]) => {
+watch([query, filter], async ([newQuery, newFilter]) =&amp;amp;gt; {
   results.value = await search(newQuery, newFilter);
 });
 
 // watchEffect - 自动追踪依赖
-watchEffect(async () => {
+watchEffect(async () =&amp;amp;gt; {
   results.value = await search(query.value);
 });
 
 // 清理副作用
-watchEffect((onCleanup) => {
-  const timer = setTimeout(() => {
+watchEffect((onCleanup) =&amp;amp;gt; {
+  const timer = setTimeout(() =&amp;amp;gt; {
     console.log(query.value);
   }, 1000);
   
-  onCleanup(() => clearTimeout(timer));
+  onCleanup(() =&amp;amp;gt; clearTimeout(timer));
 });
-</script>
+&amp;amp;lt;/script&amp;amp;gt;
 ```
 
 ---
@@ -109,15 +109,15 @@ watchEffect((onCleanup) => {
 ### 2.1 setup 语法糖
 
 ```vue
-<script setup lang="ts">
+&amp;amp;lt;script setup lang=&amp;amp;quot;ts&amp;amp;quot;&amp;amp;gt;
 // 导入
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted } from &amp;amp;#039;vue&amp;amp;#039;;
 
 // 响应式状态
 const count = ref(0);
 
 // 计算属性
-const doubled = computed(() => count.value * 2);
+const doubled = computed(() =&amp;amp;gt; count.value * 2);
 
 // 方法
 function increment() {
@@ -125,35 +125,35 @@ function increment() {
 }
 
 // 生命周期
-onMounted(() => {
-  console.log('组件挂载');
+onMounted(() =&amp;amp;gt; {
+  console.log(&amp;amp;#039;组件挂载&amp;amp;#039;);
 });
 
 // 定义 Props
-const props = defineProps<{
+const props = defineProps&amp;amp;lt;{
   title: string;
   count?: number;
-}>();
+}&amp;amp;gt;();
 
 // 定义 Emits
-const emit = defineEmits<{
-  (e: 'update', value: number): void;
-  (e: 'delete', id: string): void;
-}>();
+const emit = defineEmits&amp;amp;lt;{
+  (e: &amp;amp;#039;update&amp;amp;#039;, value: number): void;
+  (e: &amp;amp;#039;delete&amp;amp;#039;, id: string): void;
+}&amp;amp;gt;();
 
 // 使用
 function handleClick() {
-  emit('update', count.value);
+  emit(&amp;amp;#039;update&amp;amp;#039;, count.value);
 }
-</script>
+&amp;amp;lt;/script&amp;amp;gt;
 
-<template>
-  <div>
-    <h1>{{ title }}</h1>
-    <p>{{ count }} - {{ doubled }}</p>
-    <button @click="increment">+1</button>
-  </div>
-</template>
+&amp;amp;lt;template&amp;amp;gt;
+  &amp;amp;lt;div&amp;amp;gt;
+    &amp;amp;lt;h1&amp;amp;gt;&amp;#123;&amp;#123; title &amp;#125;&amp;#125;&amp;amp;lt;/h1&amp;amp;gt;
+    &amp;amp;lt;p&amp;amp;gt;&amp;#123;&amp;#123; count &amp;#125;&amp;#125; - &amp;#123;&amp;#123; doubled &amp;#125;&amp;#125;&amp;amp;lt;/p&amp;amp;gt;
+    &amp;amp;lt;button @click=&amp;amp;quot;increment&amp;amp;quot;&amp;amp;gt;+1&amp;amp;lt;/button&amp;amp;gt;
+  &amp;amp;lt;/div&amp;amp;gt;
+&amp;amp;lt;/template&amp;amp;gt;
 ```
 
 ### 2.2 自定义 Composables
@@ -163,25 +163,25 @@ function handleClick() {
 export function useCounter(initialValue = 0) {
   const count = ref(initialValue);
   
-  const increment = () => count.value++;
-  const decrement = () => count.value--;
-  const reset = () => count.value = initialValue;
+  const increment = () =&amp;amp;gt; count.value++;
+  const decrement = () =&amp;amp;gt; count.value--;
+  const reset = () =&amp;amp;gt; count.value = initialValue;
   
   return { count, increment, decrement, reset };
 }
 
 // composables/useFetch.ts
-export function useFetch<T>(url: string) {
-  const data = ref<T | null>(null);
-  const error = ref<Error | null>(null);
+export function useFetch&amp;amp;lt;T&amp;amp;gt;(url: string) {
+  const data = ref&amp;amp;lt;T | null&amp;amp;gt;(null);
+  const error = ref&amp;amp;lt;Error | null&amp;amp;gt;(null);
   const loading = ref(true);
   
   watch(
-    () => url,
-    async (url) => {
+    () =&amp;amp;gt; url,
+    async (url) =&amp;amp;gt; {
       loading.value = true;
       try {
-        data.value = await fetch(url).then(r => r.json());
+        data.value = await fetch(url).then(r =&amp;amp;gt; r.json());
       } catch (e) {
         error.value = e as Error;
       } finally {
@@ -196,7 +196,7 @@ export function useFetch<T>(url: string) {
 
 // 使用
 const { count, increment } = useCounter(10);
-const { data: users, loading } = useFetch('/api/users');
+const { data: users, loading } = useFetch(&amp;amp;#039;/api/users&amp;amp;#039;);
 ```
 
 ---
@@ -206,7 +206,7 @@ const { data: users, loading } = useFetch('/api/users');
 ### 3.1 生命周期钩子
 
 ```vue
-<script setup lang="ts">
+&amp;amp;lt;script setup lang=&amp;amp;quot;ts&amp;amp;quot;&amp;amp;gt;
 import {
   onBeforeMount,
   onMounted,
@@ -215,40 +215,40 @@ import {
   onBeforeUnmount,
   onUnmounted,
   onErrorCaptured
-} from 'vue';
+} from &amp;amp;#039;vue&amp;amp;#039;;
 
-onBeforeMount(() => {
+onBeforeMount(() =&amp;amp;gt; {
   // DOM 挂载前
 });
 
-onMounted(() => {
+onMounted(() =&amp;amp;gt; {
   // DOM 挂载后，可以访问 DOM
-  const element = document.getElementById('my-element');
+  const element = document.getElementById(&amp;amp;#039;my-element&amp;amp;#039;);
 });
 
-onBeforeUpdate(() => {
+onBeforeUpdate(() =&amp;amp;gt; {
   // DOM 更新前
 });
 
-onUpdated(() => {
+onUpdated(() =&amp;amp;gt; {
   // DOM 更新后
 });
 
-onBeforeUnmount(() => {
+onBeforeUnmount(() =&amp;amp;gt; {
   // 组件卸载前
 });
 
-onUnmounted(() => {
+onUnmounted(() =&amp;amp;gt; {
   // 组件卸载后，清理定时器、事件监听等
-  window.removeEventListener('resize', handler);
+  window.removeEventListener(&amp;amp;#039;resize&amp;amp;#039;, handler);
 });
 
-onErrorCaptured((err, instance, info) => {
+onErrorCaptured((err, instance, info) =&amp;amp;gt; {
   // 捕获子组件错误
   console.error(err, info);
   return false; // 阻止错误继续传播
 });
-</script>
+&amp;amp;lt;/script&amp;amp;gt;
 ```
 
 ### 3.2 生命周期对比
@@ -272,122 +272,122 @@ onErrorCaptured((err, instance, info) => {
 ### 4.1 Props 和 Emits
 
 ```vue
-<!-- Parent.vue -->
-<script setup lang="ts">
-import { ref } from 'vue';
-import Child from './Child.vue';
+&amp;amp;lt;!-- Parent.vue --&amp;amp;gt;
+&amp;amp;lt;script setup lang=&amp;amp;quot;ts&amp;amp;quot;&amp;amp;gt;
+import { ref } from &amp;amp;#039;vue&amp;amp;#039;;
+import Child from &amp;amp;#039;./Child.vue&amp;amp;#039;;
 
-const message = ref('Hello');
+const message = ref(&amp;amp;#039;Hello&amp;amp;#039;);
 const count = ref(0);
 
 function handleUpdate(value: number) {
   count.value = value;
 }
-</script>
+&amp;amp;lt;/script&amp;amp;gt;
 
-<template>
-  <Child 
-    :message="message" 
-    :count="count"
-    @update="handleUpdate"
-  />
-</template>
+&amp;amp;lt;template&amp;amp;gt;
+  &amp;amp;lt;Child 
+    :message=&amp;amp;quot;message&amp;amp;quot; 
+    :count=&amp;amp;quot;count&amp;amp;quot;
+    @update=&amp;amp;quot;handleUpdate&amp;amp;quot;
+  /&amp;amp;gt;
+&amp;amp;lt;/template&amp;amp;gt;
 
-<!-- Child.vue -->
-<script setup lang="ts">
-defineProps<{
+&amp;amp;lt;!-- Child.vue --&amp;amp;gt;
+&amp;amp;lt;script setup lang=&amp;amp;quot;ts&amp;amp;quot;&amp;amp;gt;
+defineProps&amp;amp;lt;{
   message: string;
   count: number;
-}>();
+}&amp;amp;gt;();
 
-const emit = defineEmits<{
-  (e: 'update', value: number): void;
-}>();
+const emit = defineEmits&amp;amp;lt;{
+  (e: &amp;amp;#039;update&amp;amp;#039;, value: number): void;
+}&amp;amp;gt;();
 
 function increment() {
-  emit('update', count + 1);
+  emit(&amp;amp;#039;update&amp;amp;#039;, count + 1);
 }
-</script>
+&amp;amp;lt;/script&amp;amp;gt;
 
-<template>
-  <div>
-    <p>{{ message }}: {{ count }}</p>
-    <button @click="increment">+1</button>
-  </div>
-</template>
+&amp;amp;lt;template&amp;amp;gt;
+  &amp;amp;lt;div&amp;amp;gt;
+    &amp;amp;lt;p&amp;amp;gt;&amp;#123;&amp;#123; message &amp;#125;&amp;#125;: &amp;#123;&amp;#123; count &amp;#125;&amp;#125;&amp;amp;lt;/p&amp;amp;gt;
+    &amp;amp;lt;button @click=&amp;amp;quot;increment&amp;amp;quot;&amp;amp;gt;+1&amp;amp;lt;/button&amp;amp;gt;
+  &amp;amp;lt;/div&amp;amp;gt;
+&amp;amp;lt;/template&amp;amp;gt;
 ```
 
 ### 4.2 v-model
 
 ```vue
-<!-- 父组件 -->
-<template>
-  <CustomInput v-model="searchText" />
-  <CustomCheckbox v-model:checked="isChecked" />
-</template>
+&amp;amp;lt;!-- 父组件 --&amp;amp;gt;
+&amp;amp;lt;template&amp;amp;gt;
+  &amp;amp;lt;CustomInput v-model=&amp;amp;quot;searchText&amp;amp;quot; /&amp;amp;gt;
+  &amp;amp;lt;CustomCheckbox v-model:checked=&amp;amp;quot;isChecked&amp;amp;quot; /&amp;amp;gt;
+&amp;amp;lt;/template&amp;amp;gt;
 
-<!-- 子组件 CustomInput.vue -->
-<script setup lang="ts">
-defineProps<{
+&amp;amp;lt;!-- 子组件 CustomInput.vue --&amp;amp;gt;
+&amp;amp;lt;script setup lang=&amp;amp;quot;ts&amp;amp;quot;&amp;amp;gt;
+defineProps&amp;amp;lt;{
   modelValue: string;
-}>();
+}&amp;amp;gt;();
 
-defineEmits<{
-  (e: 'update:modelValue', value: string): void;
-}>();
-</script>
+defineEmits&amp;amp;lt;{
+  (e: &amp;amp;#039;update:modelValue&amp;amp;#039;, value: string): void;
+}&amp;amp;gt;();
+&amp;amp;lt;/script&amp;amp;gt;
 
-<template>
-  <input 
-    :value="modelValue" 
-    @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
-  />
-</template>
+&amp;amp;lt;template&amp;amp;gt;
+  &amp;amp;lt;input 
+    :value=&amp;amp;quot;modelValue&amp;amp;quot; 
+    @input=&amp;amp;quot;$emit(&amp;amp;#039;update:modelValue&amp;amp;#039;, ($event.target as HTMLInputElement).value)&amp;amp;quot;
+  /&amp;amp;gt;
+&amp;amp;lt;/template&amp;amp;gt;
 ```
 
 ### 4.3 Provide / Inject
 
 ```vue
-<!-- 祖先组件 -->
-<script setup lang="ts">
-import { provide, ref } from 'vue';
+&amp;amp;lt;!-- 祖先组件 --&amp;amp;gt;
+&amp;amp;lt;script setup lang=&amp;amp;quot;ts&amp;amp;quot;&amp;amp;gt;
+import { provide, ref } from &amp;amp;#039;vue&amp;amp;#039;;
 
-const theme = ref('light');
-const toggleTheme = () => {
-  theme.value = theme.value === 'light' ? 'dark' : 'light';
+const theme = ref(&amp;amp;#039;light&amp;amp;#039;);
+const toggleTheme = () =&amp;amp;gt; {
+  theme.value = theme.value === &amp;amp;#039;light&amp;amp;#039; ? &amp;amp;#039;dark&amp;amp;#039; : &amp;amp;#039;light&amp;amp;#039;;
 };
 
-provide('theme', theme);
-provide('toggleTheme', toggleTheme);
-</script>
+provide(&amp;amp;#039;theme&amp;amp;#039;, theme);
+provide(&amp;amp;#039;toggleTheme&amp;amp;#039;, toggleTheme);
+&amp;amp;lt;/script&amp;amp;gt;
 
-<!-- 后代组件 -->
-<script setup lang="ts">
-import { inject } from 'vue';
+&amp;amp;lt;!-- 后代组件 --&amp;amp;gt;
+&amp;amp;lt;script setup lang=&amp;amp;quot;ts&amp;amp;quot;&amp;amp;gt;
+import { inject } from &amp;amp;#039;vue&amp;amp;#039;;
 
-const theme = inject('theme');
-const toggleTheme = inject('toggleTheme');
-</script>
+const theme = inject(&amp;amp;#039;theme&amp;amp;#039;);
+const toggleTheme = inject(&amp;amp;#039;toggleTheme&amp;amp;#039;);
+&amp;amp;lt;/script&amp;amp;gt;
 ```
 
 ### 4.4 事件总线 (Vue 3 推荐 mitt)
 
 ```typescript
 // utils/emitter.ts
-import mitt from 'mitt';
+import mitt from &amp;amp;#039;mitt&amp;amp;#039;;
 
 export const emitter = mitt();
 
 // 发送事件
-emitter.emit('user-login', { id: 1, name: 'Alice' });
+emitter.emit(&amp;amp;#039;user-login&amp;amp;#039;, { id: 1, name: &amp;amp;#039;Alice&amp;amp;#039; });
 
 // 监听事件
-emitter.on('user-login', (data) => {
-  console.log('用户登录:', data);
+emitter.on(&amp;amp;#039;user-login&amp;amp;#039;, (data) =&amp;amp;gt; {
+  console.log(&amp;amp;#039;用户登录:&amp;amp;#039;, data);
 });
 
 // 移除监听
-emitter.off('user-login');
+emitter.off(&amp;amp;#039;user-login&amp;amp;#039;);
 ```
 
 ---
@@ -397,64 +397,64 @@ emitter.off('user-login');
 ### 5.1 指令
 
 ```vue
-<template>
-  <!-- 文本插值 -->
-  <p>{{ message }}</p>
+&amp;amp;lt;template&amp;amp;gt;
+  &amp;amp;lt;!-- 文本插值 --&amp;amp;gt;
+  &amp;amp;lt;p&amp;amp;gt;&amp;#123;&amp;#123; message &amp;#125;&amp;#125;&amp;amp;lt;/p&amp;amp;gt;
   
-  <!-- HTML 渲染 -->
-  <div v-html="htmlContent"></div>
+  &amp;amp;lt;!-- HTML 渲染 --&amp;amp;gt;
+  &amp;amp;lt;div v-html=&amp;amp;quot;htmlContent&amp;amp;quot;&amp;amp;gt;&amp;amp;lt;/div&amp;amp;gt;
   
-  <!-- 属性绑定 -->
-  <img :src="imageUrl" :alt="imageAlt" />
+  &amp;amp;lt;!-- 属性绑定 --&amp;amp;gt;
+  &amp;amp;lt;img :src=&amp;amp;quot;imageUrl&amp;amp;quot; :alt=&amp;amp;quot;imageAlt&amp;amp;quot; /&amp;amp;gt;
   
-  <!-- 事件绑定 -->
-  <button @click="handleClick" @mouseenter="onHover">点击</button>
+  &amp;amp;lt;!-- 事件绑定 --&amp;amp;gt;
+  &amp;amp;lt;button @click=&amp;amp;quot;handleClick&amp;amp;quot; @mouseenter=&amp;amp;quot;onHover&amp;amp;quot;&amp;amp;gt;点击&amp;amp;lt;/button&amp;amp;gt;
   
-  <!-- 条件渲染 -->
-  <div v-if="status === 'loading'">加载中...</div>
-  <div v-else-if="status === 'error'">加载失败</div>
-  <div v-else>加载成功</div>
+  &amp;amp;lt;!-- 条件渲染 --&amp;amp;gt;
+  &amp;amp;lt;div v-if=&amp;amp;quot;status === &amp;amp;#039;loading&amp;amp;#039;&amp;amp;quot;&amp;amp;gt;加载中...&amp;amp;lt;/div&amp;amp;gt;
+  &amp;amp;lt;div v-else-if=&amp;amp;quot;status === &amp;amp;#039;error&amp;amp;#039;&amp;amp;quot;&amp;amp;gt;加载失败&amp;amp;lt;/div&amp;amp;gt;
+  &amp;amp;lt;div v-else&amp;amp;gt;加载成功&amp;amp;lt;/div&amp;amp;gt;
   
-  <!-- 列表渲染 -->
-  <ul>
-    <li v-for="(item, index) in items" :key="item.id">
-      {{ index }}. {{ item.name }}
-    </li>
-  </ul>
+  &amp;amp;lt;!-- 列表渲染 --&amp;amp;gt;
+  &amp;amp;lt;ul&amp;amp;gt;
+    &amp;amp;lt;li v-for=&amp;amp;quot;(item, index) in items&amp;amp;quot; :key=&amp;amp;quot;item.id&amp;amp;quot;&amp;amp;gt;
+      &amp;#123;&amp;#123; index &amp;#125;&amp;#125;. &amp;#123;&amp;#123; item.name &amp;#125;&amp;#125;
+    &amp;amp;lt;/li&amp;amp;gt;
+  &amp;amp;lt;/ul&amp;amp;gt;
   
-  <!-- 显示/隐藏 -->
-  <div v-show="isVisible">内容</div>
+  &amp;amp;lt;!-- 显示/隐藏 --&amp;amp;gt;
+  &amp;amp;lt;div v-show=&amp;amp;quot;isVisible&amp;amp;quot;&amp;amp;gt;内容&amp;amp;lt;/div&amp;amp;gt;
   
-  <!-- 双向绑定 -->
-  <input v-model="searchQuery" />
+  &amp;amp;lt;!-- 双向绑定 --&amp;amp;gt;
+  &amp;amp;lt;input v-model=&amp;amp;quot;searchQuery&amp;amp;quot; /&amp;amp;gt;
   
-  <!-- 修饰符 -->
-  <form @submit.prevent="handleSubmit">
-    <input @keyup.enter="submit" />
-    <button @click.once="handleClick">只触发一次</button>
-  </form>
-</template>
+  &amp;amp;lt;!-- 修饰符 --&amp;amp;gt;
+  &amp;amp;lt;form @submit.prevent=&amp;amp;quot;handleSubmit&amp;amp;quot;&amp;amp;gt;
+    &amp;amp;lt;input @keyup.enter=&amp;amp;quot;submit&amp;amp;quot; /&amp;amp;gt;
+    &amp;amp;lt;button @click.once=&amp;amp;quot;handleClick&amp;amp;quot;&amp;amp;gt;只触发一次&amp;amp;lt;/button&amp;amp;gt;
+  &amp;amp;lt;/form&amp;amp;gt;
+&amp;amp;lt;/template&amp;amp;gt;
 ```
 
 ### 5.2 模板 Refs
 
 ```vue
-<script setup lang="ts">
-import { ref, onMounted } from 'vue';
+&amp;amp;lt;script setup lang=&amp;amp;quot;ts&amp;amp;quot;&amp;amp;gt;
+import { ref, onMounted } from &amp;amp;#039;vue&amp;amp;#039;;
 
-const inputRef = ref<HTMLInputElement | null>(null);
-const componentRef = ref<InstanceType<typeof MyComponent> | null>(null);
+const inputRef = ref&amp;amp;lt;HTMLInputElement | null&amp;amp;gt;(null);
+const componentRef = ref&amp;amp;lt;InstanceType&amp;amp;lt;typeof MyComponent&amp;amp;gt; | null&amp;amp;gt;(null);
 
-onMounted(() => {
+onMounted(() =&amp;amp;gt; {
   inputRef.value?.focus();
   componentRef.value?.someMethod();
 });
-</script>
+&amp;amp;lt;/script&amp;amp;gt;
 
-<template>
-  <input ref="inputRef" />
-  <MyComponent ref="componentRef" />
-</template>
+&amp;amp;lt;template&amp;amp;gt;
+  &amp;amp;lt;input ref=&amp;amp;quot;inputRef&amp;amp;quot; /&amp;amp;gt;
+  &amp;amp;lt;MyComponent ref=&amp;amp;quot;componentRef&amp;amp;quot; /&amp;amp;gt;
+&amp;amp;lt;/template&amp;amp;gt;
 ```
 
 ---
@@ -464,58 +464,58 @@ onMounted(() => {
 ### 6.1 默认插槽
 
 ```vue
-<!-- Card.vue -->
-<template>
-  <div class="card">
-    <header>
-      <slot name="header">默认标题</slot>
-    </header>
-    <main>
-      <slot />
-    </main>
-    <footer>
-      <slot name="footer" />
-    </footer>
-  </div>
-</template>
+&amp;amp;lt;!-- Card.vue --&amp;amp;gt;
+&amp;amp;lt;template&amp;amp;gt;
+  &amp;amp;lt;div class=&amp;amp;quot;card&amp;amp;quot;&amp;amp;gt;
+    &amp;amp;lt;header&amp;amp;gt;
+      &amp;amp;lt;slot name=&amp;amp;quot;header&amp;amp;quot;&amp;amp;gt;默认标题&amp;amp;lt;/slot&amp;amp;gt;
+    &amp;amp;lt;/header&amp;amp;gt;
+    &amp;amp;lt;main&amp;amp;gt;
+      &amp;amp;lt;slot /&amp;amp;gt;
+    &amp;amp;lt;/main&amp;amp;gt;
+    &amp;amp;lt;footer&amp;amp;gt;
+      &amp;amp;lt;slot name=&amp;amp;quot;footer&amp;amp;quot; /&amp;amp;gt;
+    &amp;amp;lt;/footer&amp;amp;gt;
+  &amp;amp;lt;/div&amp;amp;gt;
+&amp;amp;lt;/template&amp;amp;gt;
 
-<!-- 使用 -->
-<Card>
-  <template #header>
-    <h2>自定义标题</h2>
-  </template>
+&amp;amp;lt;!-- 使用 --&amp;amp;gt;
+&amp;amp;lt;Card&amp;amp;gt;
+  &amp;amp;lt;template #header&amp;amp;gt;
+    &amp;amp;lt;h2&amp;amp;gt;自定义标题&amp;amp;lt;/h2&amp;amp;gt;
+  &amp;amp;lt;/template&amp;amp;gt;
   
-  <p>卡片内容</p>
+  &amp;amp;lt;p&amp;amp;gt;卡片内容&amp;amp;lt;/p&amp;amp;gt;
   
-  <template #footer>
-    <button>操作</button>
-  </template>
-</Card>
+  &amp;amp;lt;template #footer&amp;amp;gt;
+    &amp;amp;lt;button&amp;amp;gt;操作&amp;amp;lt;/button&amp;amp;gt;
+  &amp;amp;lt;/template&amp;amp;gt;
+&amp;amp;lt;/Card&amp;amp;gt;
 ```
 
 ### 6.2 作用域插槽
 
 ```vue
-<!-- List.vue -->
-<template>
-  <ul>
-    <li v-for="item in items" :key="item.id">
-      <slot :item="item" :index="index">
-        {{ item.name }}
-      </slot>
-    </li>
-  </ul>
-</template>
+&amp;amp;lt;!-- List.vue --&amp;amp;gt;
+&amp;amp;lt;template&amp;amp;gt;
+  &amp;amp;lt;ul&amp;amp;gt;
+    &amp;amp;lt;li v-for=&amp;amp;quot;item in items&amp;amp;quot; :key=&amp;amp;quot;item.id&amp;amp;quot;&amp;amp;gt;
+      &amp;amp;lt;slot :item=&amp;amp;quot;item&amp;amp;quot; :index=&amp;amp;quot;index&amp;amp;quot;&amp;amp;gt;
+        &amp;#123;&amp;#123; item.name &amp;#125;&amp;#125;
+      &amp;amp;lt;/slot&amp;amp;gt;
+    &amp;amp;lt;/li&amp;amp;gt;
+  &amp;amp;lt;/ul&amp;amp;gt;
+&amp;amp;lt;/template&amp;amp;gt;
 
-<!-- 使用 -->
-<List :items="users">
-  <template #default="{ item, index }">
-    <div class="user-card">
-      <img :src="item.avatar" />
-      <span>{{ index }}. {{ item.name }}</span>
-    </div>
-  </template>
-</List>
+&amp;amp;lt;!-- 使用 --&amp;amp;gt;
+&amp;amp;lt;List :items=&amp;amp;quot;users&amp;amp;quot;&amp;amp;gt;
+  &amp;amp;lt;template #default=&amp;amp;quot;{ item, index }&amp;amp;quot;&amp;amp;gt;
+    &amp;amp;lt;div class=&amp;amp;quot;user-card&amp;amp;quot;&amp;amp;gt;
+      &amp;amp;lt;img :src=&amp;amp;quot;item.avatar&amp;amp;quot; /&amp;amp;gt;
+      &amp;amp;lt;span&amp;amp;gt;&amp;#123;&amp;#123; index &amp;#125;&amp;#125;. &amp;#123;&amp;#123; item.name &amp;#125;&amp;#125;&amp;amp;lt;/span&amp;amp;gt;
+    &amp;amp;lt;/div&amp;amp;gt;
+  &amp;amp;lt;/template&amp;amp;gt;
+&amp;amp;lt;/List&amp;amp;gt;
 ```
 
 ---
@@ -525,11 +525,11 @@ onMounted(() => {
 ### 7.1 defineAsyncComponent
 
 ```vue
-<script setup lang="ts">
-import { defineAsyncComponent } from 'vue';
+&amp;amp;lt;script setup lang=&amp;amp;quot;ts&amp;amp;quot;&amp;amp;gt;
+import { defineAsyncComponent } from &amp;amp;#039;vue&amp;amp;#039;;
 
 const AsyncComponent = defineAsyncComponent({
-  loader: () => import('./HeavyComponent.vue'),
+  loader: () =&amp;amp;gt; import(&amp;amp;#039;./HeavyComponent.vue&amp;amp;#039;),
   loadingComponent: LoadingSpinner,
   errorComponent: ErrorDisplay,
   delay: 200,
@@ -537,19 +537,19 @@ const AsyncComponent = defineAsyncComponent({
 });
 
 // 简单用法
-const SimpleAsync = defineAsyncComponent(() => import('./Simple.vue'));
-</script>
+const SimpleAsync = defineAsyncComponent(() =&amp;amp;gt; import(&amp;amp;#039;./Simple.vue&amp;amp;#039;));
+&amp;amp;lt;/script&amp;amp;gt;
 
-<template>
-  <Suspense>
-    <template #default>
-      <AsyncComponent />
-    </template>
-    <template #fallback>
-      <div>加载中...</div>
-    </template>
-  </Suspense>
-</template>
+&amp;amp;lt;template&amp;amp;gt;
+  &amp;amp;lt;Suspense&amp;amp;gt;
+    &amp;amp;lt;template #default&amp;amp;gt;
+      &amp;amp;lt;AsyncComponent /&amp;amp;gt;
+    &amp;amp;lt;/template&amp;amp;gt;
+    &amp;amp;lt;template #fallback&amp;amp;gt;
+      &amp;amp;lt;div&amp;amp;gt;加载中...&amp;amp;lt;/div&amp;amp;gt;
+    &amp;amp;lt;/template&amp;amp;gt;
+  &amp;amp;lt;/Suspense&amp;amp;gt;
+&amp;amp;lt;/template&amp;amp;gt;
 ```
 
 ---
@@ -559,33 +559,33 @@ const SimpleAsync = defineAsyncComponent(() => import('./Simple.vue'));
 ```typescript
 // directives/focus.ts
 export const vFocus = {
-  mounted: (el: HTMLElement) => el.focus()
+  mounted: (el: HTMLElement) =&amp;amp;gt; el.focus()
 };
 
 // directives/click-outside.ts
 export const vClickOutside = {
   mounted(el: HTMLElement, binding: DirectiveBinding) {
-    el.clickOutsideEvent = (event: Event) => {
+    el.clickOutsideEvent = (event: Event) =&amp;amp;gt; {
       if (!(el === event.target || el.contains(event.target as Node))) {
         binding.value(event);
       }
     };
-    document.addEventListener('click', el.clickOutsideEvent);
+    document.addEventListener(&amp;amp;#039;click&amp;amp;#039;, el.clickOutsideEvent);
   },
   unmounted(el: HTMLElement) {
-    document.removeEventListener('click', el.clickOutsideEvent);
+    document.removeEventListener(&amp;amp;#039;click&amp;amp;#039;, el.clickOutsideEvent);
   }
 };
 
 // 使用
-<script setup lang="ts">
-import { vFocus, vClickOutside } from '@/directives';
-</script>
+&amp;amp;lt;script setup lang=&amp;amp;quot;ts&amp;amp;quot;&amp;amp;gt;
+import { vFocus, vClickOutside } from &amp;amp;#039;@/directives&amp;amp;#039;;
+&amp;amp;lt;/script&amp;amp;gt;
 
-<template>
-  <input v-focus />
-  <div v-click-outside="handleClickOutside">点击外部关闭</div>
-</template>
+&amp;amp;lt;template&amp;amp;gt;
+  &amp;amp;lt;input v-focus /&amp;amp;gt;
+  &amp;amp;lt;div v-click-outside=&amp;amp;quot;handleClickOutside&amp;amp;quot;&amp;amp;gt;点击外部关闭&amp;amp;lt;/div&amp;amp;gt;
+&amp;amp;lt;/template&amp;amp;gt;
 ```
 
 ---
@@ -595,31 +595,31 @@ import { vFocus, vClickOutside } from '@/directives';
 ### 9.1 组件懒加载
 
 ```vue
-<script setup lang="ts">
-import { defineAsyncComponent } from 'vue';
+&amp;amp;lt;script setup lang=&amp;amp;quot;ts&amp;amp;quot;&amp;amp;gt;
+import { defineAsyncComponent } from &amp;amp;#039;vue&amp;amp;#039;;
 
-const HeavyComponent = defineAsyncComponent(() => 
-  import('./HeavyComponent.vue')
+const HeavyComponent = defineAsyncComponent(() =&amp;amp;gt; 
+  import(&amp;amp;#039;./HeavyComponent.vue&amp;amp;#039;)
 );
-</script>
+&amp;amp;lt;/script&amp;amp;gt;
 ```
 
 ### 9.2 v-memo (Vue 3.2+)
 
 ```vue
-<template>
-  <div v-memo="[selectedItem.id]">
-    <p>{{ selectedItem.name }}</p>
-    <p>{{ selectedItem.description }}</p>
-  </div>
-</template>
+&amp;amp;lt;template&amp;amp;gt;
+  &amp;amp;lt;div v-memo=&amp;amp;quot;[selectedItem.id]&amp;amp;quot;&amp;amp;gt;
+    &amp;amp;lt;p&amp;amp;gt;&amp;#123;&amp;#123; selectedItem.name &amp;#125;&amp;#125;&amp;amp;lt;/p&amp;amp;gt;
+    &amp;amp;lt;p&amp;amp;gt;&amp;#123;&amp;#123; selectedItem.description &amp;#125;&amp;#125;&amp;amp;lt;/p&amp;amp;gt;
+  &amp;amp;lt;/div&amp;amp;gt;
+&amp;amp;lt;/template&amp;amp;gt;
 ```
 
 ### 9.3 避免不必要的响应式
 
 ```vue
-<script setup lang="ts">
-import { ref, shallowRef } from 'vue';
+&amp;amp;lt;script setup lang=&amp;amp;quot;ts&amp;amp;quot;&amp;amp;gt;
+import { ref, shallowRef } from &amp;amp;#039;vue&amp;amp;#039;;
 
 // ref - 深度响应式
 const deepData = ref({ nested: { value: 1 } });
@@ -629,7 +629,7 @@ const largeData = shallowRef({ nested: { value: 1 } });
 
 // 冻结大对象
 const staticData = Object.freeze({ /* 大量数据 */ });
-</script>
+&amp;amp;lt;/script&amp;amp;gt;
 ```
 
 ---

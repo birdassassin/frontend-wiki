@@ -31,12 +31,12 @@ shouldComponentUpdate是react提供的生命周期函数，他发生在接收到
 在你的组件内部加上这段代码
   
 component.js  
-    shouldComponentUpdate(nextProps, nextState) {
-        if (_.isEqual(this.props, nextProps) || !_.isEmpty(this.props)) {
+    shouldComponentUpdate(nextProps, nextState) &#123;
+        if (_.isEqual(this.props, nextProps) || !_.isEmpty(this.props)) &#123;
             return false
-        }
+        &#125;
         return true
-    }
+    &#125;
     
 这里用到了_.isEqual和_.isEmpty，_.isEqual判断当前传进来的值和下一次传递的值是不是相等，是则返回true，_.isEmpty判断当前传递进来的对象是不是为空，为空则返回true。
 

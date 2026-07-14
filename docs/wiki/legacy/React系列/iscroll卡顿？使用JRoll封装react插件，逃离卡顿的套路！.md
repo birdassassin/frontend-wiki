@@ -17,61 +17,61 @@ Iscroll和JRoll使用的方式几乎一样，我仅仅改变了一个require('Is
     import React from 'react'
     const JRoll = require('jroll')
     
-    export default class MyJRoll extends React.Component {
-        constructor(props) {
+    export default class MyJRoll extends React.Component &#123;
+        constructor(props) &#123;
             super(props)
             this.jroll = null
-        }
-        componentDidMount() {
+        &#125;
+        componentDidMount() &#123;
             let wrappers = this.props.ID || 'wrappers'
-            this.jroll = new JRoll(`#${wrappers}`)
+            this.jroll = new JRoll(`#$&#123;wrappers&#125;`)
             this.jroll.refresh()
-        }
-        componentDidUpdate() {
+        &#125;
+        componentDidUpdate() &#123;
             this.jroll.refresh()
-        }
-        render() {
-            const { height } = this.props
+        &#125;
+        render() &#123;
+            const &#123; height &#125; = this.props
             return (
-                <div id={this.props.ID ? this.props.ID : 'wrappers'} style={{height: height ? height : "100%"}}>
-                    <ul id="scroller">
-                        {this.props.children}
-                    </ul>
-                </div>
+                &lt;div id=&#123;this.props.ID ? this.props.ID : 'wrappers'&#125; style=&#123;&#123;height: height ? height : "100%"&#125;&#125;&gt;
+                    &lt;ul id="scroller"&gt;
+                        &#123;this.props.children&#125;
+                    &lt;/ul&gt;
+                &lt;/div&gt;
             )
-        }
-    }
+        &#125;
+    &#125;
     
 #### 在react组件中使用MyScroll.js
 **记住，一定要给滚动容器设置一个具体的高度**，最好的办法是在组件渲染完成之后，去计算滚动区域需要的高度，然后设置给state，如果你使用了redux，那么传递到store里面保存这个高度。在组件内设置state可能存在异步无法即使更新的问题，但是在store中保存和读取就不存在。
 
     import React from 'react'
     import MyScroll from './MyScroll'
-    export class ReportPage extends React.Component {
-        constructor(props) {
+    export class ReportPage extends React.Component &#123;
+        constructor(props) &#123;
             super(props)
-            this.state = {
+            this.state = &#123;
                 scrollHeight: 0
-            }
-        }
+            &#125;
+        &#125;
         
-        componentDidMount() {
+        componentDidMount() &#123;
             //1、使用函数获取你当前MyScroll的滚动高度
             //2、将计算出来的高度存储到state或者store
             //这2个步骤推荐封装成一个函数。
-            this.setState({scrollHeight: newHeight + 'px'})
-        }
+            this.setState(&#123;scrollHeight: newHeight + 'px'&#125;)
+        &#125;
         
-        render() {
+        render() &#123;
             return (
-                <MyScroll ID="myWrapper" height={this.state.scrollHeight} ref={myRoll => this.myRoll = myRoll}>
-                      <div>1</div>
-                      <div>2</div>
-                      <div>3</div>
-                </MyScroll>
+                &lt;MyScroll ID="myWrapper" height=&#123;this.state.scrollHeight&#125; ref=&#123;myRoll =&gt; this.myRoll = myRoll&#125;>
+                      &lt;div&gt;1&lt;/div&gt;
+                      &lt;div&gt;2&lt;/div&gt;
+                      &lt;div&gt;3&lt;/div&gt;
+                &lt;/MyScroll&gt;
             )
-        }
-    }
+        &#125;
+    &#125;
 
 #### 额外的一些操作
 1、推荐在移动端添加FastClick插件解决移动端点击事件的一些bug。
@@ -81,31 +81,31 @@ Iscroll和JRoll使用的方式几乎一样，我仅仅改变了一个require('Is
     document.addEventListener('touchmove', (event) => event.preventDefault(), false);
 
 
-    html, body {
+    html, body &#123;
         height: 100%
-    }
+    &#125;
 
 3、在组件内部使用滚动插件，你需要在组件内部的componentDidMount()设置禁用函数，并且在卸载组件的时候取消禁用。
 
-    componentDidMonut() {
+    componentDidMonut() &#123;
         document.addEventListener('touchmove', this.handler(), false);
-    }
+    &#125;
     
-    handler() {
+    handler() &#123;
         event.preventDefault()
-    }
+    &#125;
     
-    componentWillUnmount() {
+    componentWillUnmount() &#123;
         document.removeEventListener('touchmove', this.handler(), false);
-    }
+    &#125;
     
 4、支持MyScroll插件嵌套使用，请使用新的ID命名和高度。
 
-    <MyScroll ID="myWrapper" height={this.state.scrollHeight} ref={myRoll => this.myRoll = myRoll}>
-             <div>1</div>
-             <MyScroll ID="childWrapper" height={this.state.childHeight} ref={childRoll => this.childRoll = childRoll}>
-             </MyScroll>
-    </MyScroll>
+    &lt;MyScroll ID="myWrapper" height=&#123;this.state.scrollHeight&#125; ref=&#123;myRoll =&gt; this.myRoll = myRoll&#125;>
+             &lt;div&gt;1&lt;/div&gt;
+             &lt;MyScroll ID="childWrapper" height=&#123;this.state.childHeight&#125; ref=&#123;childRoll =&gt; this.childRoll = childRoll&#125;>
+             &lt;/MyScroll&gt;
+    &lt;/MyScroll&gt;
 
 
 **如果文章对你有帮助，请点击一下推荐。**

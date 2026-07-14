@@ -32,9 +32,9 @@ c（使用apply和内置函数）：内置函数有很多，比如Array实现的
     //第一个参数表示正在调用调用push()的对象，这行代码的意思是说把arr2的参数传入arr1，你可以看成是arr1.push(arr2)这种行为，但不是等价的。
     Array.prototype.push.apply(arr1, arr2)  //[1, 3, 4, 2, 4, 5]
     //类似下面这种写法，他们的输出是一样的。
-    arr2.forEach(function(value) {
+    arr2.forEach(function(value) &#123;
     arr1.push(value)
-    }) // [1, 3, 4, 2, 4, 5]
+    &#125;) // [1, 3, 4, 2, 4, 5]
 
 案例2：假设我们调用内置函数Math的max()方法，使用apply可以写成下面这样。
 
@@ -82,29 +82,29 @@ b（使用call方法调用匿名函数）:
 案例：在一个for循环中，有一个匿名函数，设置一个定时器，想要在定时器定时输出循环的key和value。
 
     var people = [
-      {name: '阿里妈妈', age: 18},
-      {name: '阿里爸爸', age: 22}
+      &#123;name: '阿里妈妈', age: 18&#125;,
+      &#123;name: '阿里爸爸', age: 22&#125;
     ];
     //一开始你可能会这样写：
-    for (var i = 0; i < people.length; i++) {
-        (function (i) { 
-            setTimeout(function () { 
+    for (var i = 0; i < people.length; i++) &#123;
+        (function (i) &#123; 
+            setTimeout(function () &#123; 
               console.log(this.name + ': ' + this.age); 
-            }, i * 1000)
-        })(i);
-    } //输出 
+            &#125;, i * 1000)
+        &#125;)(i);
+    &#125; //输出 
     //"JS Bin Output : undefined"
     //"JS Bin Output : undefined"
 
 然后发现this指向不对，你可能会想到给函数设置一个变量指向当前的this，但是这样也不对，因为输出的this.name和this.age是指向数组animals的对象，那么这时候你需要给匿名函数用到call来绑定this指向的是animals里面循环的对象。
 
-    for (var i = 0; i < people.length; i++) {
-        (function (i) { 
-            setTimeout(function () { 
+    for (var i = 0; i < people.length; i++) &#123;
+        (function (i) &#123; 
+            setTimeout(function () &#123; 
               console.log(this.name + ': ' + this.age); 
-            }, i * 1000)
-        }).call(people[i], i);
-    } //输出
+            &#125;, i * 1000)
+        &#125;).call(people[i], i);
+    &#125; //输出
     //"JS Bin Output : undefined"
     //"JS Bin Output : undefined"
 
@@ -112,14 +112,14 @@ b（使用call方法调用匿名函数）:
 
 原因在于匿名函数里面的this是指向了people[i]的对象，但是setTimeout里面的this是指向window的，所以你需要用到bind()绑定this。
 
-    for (var i = 0; i < people.length; i++) {
-        (function (i) { 
+    for (var i = 0; i < people.length; i++) &#123;
+        (function (i) &#123; 
     //这里也可以用var  _this = this来改变this的上下文（指向）
-            setTimeout(function () { 
+            setTimeout(function () &#123; 
               console.log(this.name + ': ' + this.age); 
-            }.bind(this), i * 1000)
-        }).call(people[i], i);
-    } //输出
+            &#125;.bind(this), i * 1000)
+        &#125;).call(people[i], i);
+    &#125; //输出
     //"阿里妈妈: 18"
     //"阿里爸爸: 22"
 
@@ -128,14 +128,14 @@ b（使用call方法调用匿名函数）:
 c（使用call方法调用函数并且指定上下文的'this'）：
 案例：定义一个people函数，用来输出name和age参数，接着定义一个参数对象，我们要把这个对象传入函数，使函数的this可以指向i对象，这样才能保证读取到i对象里面的key。
 
-    function people() {
+    function people() &#123;
       var arr = this.name + this.age;
       console.log(arr);
-    }
-    var i = {
+    &#125;
+    var i = &#123;
       name: '阿里爸爸', 
       age: 22
-    };
+    &#125;;
     //如果你直接people(i)，是读取不到的，因为people相当于构造函数，那么通过call的方式就简单了，直接下面这种形式。把people的this用call绑定到i对象上，你用apply也是一样的。
     people.call(i);  ===  people.apply(i)
     //输出 "阿里爸爸22"

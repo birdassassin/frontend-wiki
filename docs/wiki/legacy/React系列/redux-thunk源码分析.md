@@ -4,7 +4,7 @@
 
 #### 使用场景
 
-    import { createStore, applyMiddleware } from 'redux';
+    import &#123; createStore, applyMiddleware &#125; from 'redux';
     import thunk from 'redux-thunk';
     import rootReducer from './reducers/index';
     //注册thunk到applyMiddleware
@@ -15,19 +15,19 @@
     const store = createStoreWithMiddleware(rootReducer);
     
     //action方法
-    function increment() {
-      return {
+    function increment() &#123;
+      return &#123;
         type: INCREMENT_COUNTER
-      };
-    }
+      &#125;;
+    &#125;
     //执行一个异步的dispatch
-    function incrementAsync() {
-      return dispatch => {
-        setTimeout(() => {
+    function incrementAsync() &#123;
+      return dispatch => &#123;
+        setTimeout(() => &#123;
           dispatch(increment());
-        }, 1000);
-      };
-    }
+        &#125;, 1000);
+      &#125;;
+    &#125;
         
 
 主要代码：
@@ -46,15 +46,15 @@
 
 #### redux-thunk源码
 
-    function createThunkMiddleware(extraArgument) {
-      return ({ dispatch, getState }) => next => action => {
-        if (typeof action === 'function') {
+    function createThunkMiddleware(extraArgument) &#123;
+      return (&#123; dispatch, getState &#125;) => next => action => &#123;
+        if (typeof action === 'function') &#123;
           return action(dispatch, getState, extraArgument);
-        }
+        &#125;
     
         return next(action);
-      };
-    }
+      &#125;;
+    &#125;
     
     const thunk = createThunkMiddleware();
     thunk.withExtraArgument = createThunkMiddleware;
@@ -67,19 +67,19 @@
 
 **1、定义了createThunkMiddleware()方法，可以传入参数extraArgument。**
 
-    function createThunkMiddleware(extraArgument){}
+    function createThunkMiddleware(extraArgument)&#123;&#125;
 
 **2、该方法返回的是一个action对象。**
 
 我们知道action本身是一个object，带有type和arguments。我们将**dispatch**和**getState**传入action，next()和action()是redux提供的方法。接着做判断，如果action是一个function，就返回action(dispatch, getState, extraArgument)，否则返回next(action)。
 
-    return ({ dispatch, getState }) => next => action => {
-        if (typeof action === 'function') {
+    return (&#123; dispatch, getState &#125;) => next => action => &#123;
+        if (typeof action === 'function') &#123;
           return action(dispatch, getState, extraArgument);
-        }
+        &#125;
     
         return next(action);
-      };
+      &#125;;
 
 **3、执行createThunkMiddleware()**
 
@@ -101,14 +101,14 @@ const thunk = createThunkMiddleware();
 
 例如有这样一个action，带有多个参数：
 
-    function test(arg1, arg2, ...) {
-        return {
+    function test(arg1, arg2, ...) &#123;
+        return &#123;
             type: "TEST",
             arg1,
             arg2,
             ...
-        }
-    }
+        &#125;
+    &#125;
 
 然后我们执行dispatch()方法，我们需要把test()函数作为一个参数传递。这样就解决了多参数传递的问题，这个test()就成了一个thunk。
 

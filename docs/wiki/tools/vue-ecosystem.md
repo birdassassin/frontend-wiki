@@ -9,33 +9,33 @@
 ### 1.1 Vue Router 4
 
 ```vue
-<!-- router/index.ts -->
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+&amp;amp;lt;!-- router/index.ts --&amp;amp;gt;
+import { createRouter, createWebHistory, RouteRecordRaw } from &amp;amp;#039;vue-router&amp;amp;#039;;
 
 const routes: RouteRecordRaw[] = [
   {
-    path: '/',
-    name: 'Home',
-    component: () => import('@/views/Home.vue')
+    path: &amp;amp;#039;/&amp;amp;#039;,
+    name: &amp;amp;#039;Home&amp;amp;#039;,
+    component: () =&amp;amp;gt; import(&amp;amp;#039;@/views/Home.vue&amp;amp;#039;)
   },
   {
-    path: '/users',
-    name: 'UserList',
-    component: () => import('@/views/UserList.vue')
+    path: &amp;amp;#039;/users&amp;amp;#039;,
+    name: &amp;amp;#039;UserList&amp;amp;#039;,
+    component: () =&amp;amp;gt; import(&amp;amp;#039;@/views/UserList.vue&amp;amp;#039;)
   },
   {
-    path: '/users/:id',
-    name: 'UserDetail',
-    component: () => import('@/views/UserDetail.vue'),
+    path: &amp;amp;#039;/users/:id&amp;amp;#039;,
+    name: &amp;amp;#039;UserDetail&amp;amp;#039;,
+    component: () =&amp;amp;gt; import(&amp;amp;#039;@/views/UserDetail.vue&amp;amp;#039;),
     props: true
   },
   {
-    path: '/admin',
-    component: () => import('@/views/AdminLayout.vue'),
+    path: &amp;amp;#039;/admin&amp;amp;#039;,
+    component: () =&amp;amp;gt; import(&amp;amp;#039;@/views/AdminLayout.vue&amp;amp;#039;),
     meta: { requiresAuth: true },
     children: [
-      { path: '', component: () => import('@/views/AdminDashboard.vue') },
-      { path: 'settings', component: () => import('@/views/AdminSettings.vue') }
+      { path: &amp;amp;#039;&amp;amp;#039;, component: () =&amp;amp;gt; import(&amp;amp;#039;@/views/AdminDashboard.vue&amp;amp;#039;) },
+      { path: &amp;amp;#039;settings&amp;amp;#039;, component: () =&amp;amp;gt; import(&amp;amp;#039;@/views/AdminSettings.vue&amp;amp;#039;) }
     ]
   }
 ];
@@ -50,9 +50,9 @@ const router = createRouter({
 });
 
 // 路由守卫
-router.beforeEach((to, from, next) => {
-  if (to.meta.requiresAuth && !isAuthenticated()) {
-    next({ name: 'Login', query: { redirect: to.fullPath } });
+router.beforeEach((to, from, next) =&amp;amp;gt; {
+  if (to.meta.requiresAuth &amp;amp;amp;&amp;amp;amp; !isAuthenticated()) {
+    next({ name: &amp;amp;#039;Login&amp;amp;#039;, query: { redirect: to.fullPath } });
   } else {
     next();
   }
@@ -64,8 +64,8 @@ export default router;
 ### 1.2 路由使用
 
 ```vue
-<script setup lang="ts">
-import { useRoute, useRouter } from 'vue-router';
+&amp;amp;lt;script setup lang=&amp;amp;quot;ts&amp;amp;quot;&amp;amp;gt;
+import { useRoute, useRouter } from &amp;amp;#039;vue-router&amp;amp;#039;;
 
 const route = useRoute();
 const router = useRouter();
@@ -78,7 +78,7 @@ const page = route.query.page;
 
 // 编程式导航
 function goToUser(id: string) {
-  router.push({ name: 'UserDetail', params: { id } });
+  router.push({ name: &amp;amp;#039;UserDetail&amp;amp;#039;, params: { id } });
 }
 
 // 替换历史
@@ -89,39 +89,39 @@ function replace(path: string) {
 // 前进后退
 router.go(-1);
 router.forward();
-</script>
+&amp;amp;lt;/script&amp;amp;gt;
 
-<template>
-  <nav>
-    <router-link to="/">首页</router-link>
-    <router-link :to="{ name: 'UserList' }">用户列表</router-link>
-    <router-link :to="{ path: '/users/1' }">用户 1</router-link>
-  </nav>
+&amp;amp;lt;template&amp;amp;gt;
+  &amp;amp;lt;nav&amp;amp;gt;
+    &amp;amp;lt;router-link to=&amp;amp;quot;/&amp;amp;quot;&amp;amp;gt;首页&amp;amp;lt;/router-link&amp;amp;gt;
+    &amp;amp;lt;router-link :to=&amp;amp;quot;{ name: &amp;amp;#039;UserList&amp;amp;#039; }&amp;amp;quot;&amp;amp;gt;用户列表&amp;amp;lt;/router-link&amp;amp;gt;
+    &amp;amp;lt;router-link :to=&amp;amp;quot;{ path: &amp;amp;#039;/users/1&amp;amp;#039; }&amp;amp;quot;&amp;amp;gt;用户 1&amp;amp;lt;/router-link&amp;amp;gt;
+  &amp;amp;lt;/nav&amp;amp;gt;
   
-  <router-view />
-</template>
+  &amp;amp;lt;router-view /&amp;amp;gt;
+&amp;amp;lt;/template&amp;amp;gt;
 ```
 
 ### 1.3 导航守卫
 
 ```typescript
 // 全局守卫
-router.beforeEach((to, from) => { /* ... */ });
-router.afterEach((to, from) => { /* ... */ });
+router.beforeEach((to, from) =&amp;amp;gt; { /* ... */ });
+router.afterEach((to, from) =&amp;amp;gt; { /* ... */ });
 
 // 路由独享守卫
 const routes = [
   {
-    path: '/admin',
+    path: &amp;amp;#039;/admin&amp;amp;#039;,
     component: Admin,
-    beforeEnter: (to, from) => { /* ... */ }
+    beforeEnter: (to, from) =&amp;amp;gt; { /* ... */ }
   }
 ];
 
 // 组件内守卫
 defineOptions({
   beforeRouteEnter(to, from, next) {
-    next(vm => {
+    next(vm =&amp;amp;gt; {
       // 通过 vm 访问组件实例
     });
   },
@@ -130,7 +130,7 @@ defineOptions({
   },
   beforeRouteLeave(to, from) {
     // 离开时
-    const answer = window.confirm('确定离开？未保存的更改会丢失');
+    const answer = window.confirm(&amp;amp;#039;确定离开？未保存的更改会丢失&amp;amp;#039;);
     if (!answer) return false;
   }
 });
@@ -144,8 +144,8 @@ defineOptions({
 
 ```typescript
 // stores/todo.ts
-import { defineStore } from 'pinia';
-import { ref, computed } from 'vue';
+import { defineStore } from &amp;amp;#039;pinia&amp;amp;#039;;
+import { ref, computed } from &amp;amp;#039;vue&amp;amp;#039;;
 
 interface Todo {
   id: string;
@@ -153,22 +153,22 @@ interface Todo {
   done: boolean;
 }
 
-export const useTodoStore = defineStore('todo', () => {
+export const useTodoStore = defineStore(&amp;amp;#039;todo&amp;amp;#039;, () =&amp;amp;gt; {
   // State
-  const todos = ref<Todo[]>([]);
-  const filter = ref<'all' | 'active' | 'done'>('all');
+  const todos = ref&amp;amp;lt;Todo[]&amp;amp;gt;([]);
+  const filter = ref&amp;amp;lt;&amp;amp;#039;all&amp;amp;#039; | &amp;amp;#039;active&amp;amp;#039; | &amp;amp;#039;done&amp;amp;#039;&amp;amp;gt;(&amp;amp;#039;all&amp;amp;#039;);
   
   // Getters
-  const filteredTodos = computed(() => {
+  const filteredTodos = computed(() =&amp;amp;gt; {
     switch (filter.value) {
-      case 'active': return todos.value.filter(t => !t.done);
-      case 'done': return todos.value.filter(t => t.done);
+      case &amp;amp;#039;active&amp;amp;#039;: return todos.value.filter(t =&amp;amp;gt; !t.done);
+      case &amp;amp;#039;done&amp;amp;#039;: return todos.value.filter(t =&amp;amp;gt; t.done);
       default: return todos.value;
     }
   });
   
-  const doneCount = computed(() => 
-    todos.value.filter(t => t.done).length
+  const doneCount = computed(() =&amp;amp;gt; 
+    todos.value.filter(t =&amp;amp;gt; t.done).length
   );
   
   // Actions
@@ -178,13 +178,13 @@ export const useTodoStore = defineStore('todo', () => {
   }
   
   function toggleTodo(id: string) {
-    const todo = todos.value.find(t => t.id === id);
+    const todo = todos.value.find(t =&amp;amp;gt; t.id === id);
     if (todo) todo.done = !todo.done;
   }
   
   async function deleteTodo(id: string) {
     await api.deleteTodo(id);
-    todos.value = todos.value.filter(t => t.id !== id);
+    todos.value = todos.value.filter(t =&amp;amp;gt; t.id !== id);
   }
   
   async function fetchTodos() {
@@ -207,20 +207,20 @@ export const useTodoStore = defineStore('todo', () => {
 ### 2.2 选项式 API
 
 ```typescript
-export const useTodoStore = defineStore('todo', {
-  state: () => ({
+export const useTodoStore = defineStore(&amp;amp;#039;todo&amp;amp;#039;, {
+  state: () =&amp;amp;gt; ({
     todos: [] as Todo[],
-    filter: 'all' as 'all' | 'active' | 'done'
+    filter: &amp;amp;#039;all&amp;amp;#039; as &amp;amp;#039;all&amp;amp;#039; | &amp;amp;#039;active&amp;amp;#039; | &amp;amp;#039;done&amp;amp;#039;
   }),
   getters: {
-    filteredTodos: (state) => {
+    filteredTodos: (state) =&amp;amp;gt; {
       switch (state.filter) {
-        case 'active': return state.todos.filter(t => !t.done);
-        case 'done': return state.todos.filter(t => t.done);
+        case &amp;amp;#039;active&amp;amp;#039;: return state.todos.filter(t =&amp;amp;gt; !t.done);
+        case &amp;amp;#039;done&amp;amp;#039;: return state.todos.filter(t =&amp;amp;gt; t.done);
         default: return state.todos;
       }
     },
-    doneCount: (state) => state.todos.filter(t => t.done).length
+    doneCount: (state) =&amp;amp;gt; state.todos.filter(t =&amp;amp;gt; t.done).length
   },
   actions: {
     async fetchTodos() {
@@ -230,7 +230,7 @@ export const useTodoStore = defineStore('todo', {
       this.todos.push({ id: Date.now().toString(), text, done: false });
     },
     toggleTodo(id: string) {
-      const todo = this.todos.find(t => t.id === id);
+      const todo = this.todos.find(t =&amp;amp;gt; t.id === id);
       if (todo) todo.done = !todo.done;
     }
   }
@@ -240,8 +240,8 @@ export const useTodoStore = defineStore('todo', {
 ### 2.3 Store 使用
 
 ```vue
-<script setup lang="ts">
-import { useTodoStore } from '@/stores/todo';
+&amp;amp;lt;script setup lang=&amp;amp;quot;ts&amp;amp;quot;&amp;amp;gt;
+import { useTodoStore } from &amp;amp;#039;@/stores/todo&amp;amp;#039;;
 
 const todoStore = useTodoStore();
 
@@ -252,29 +252,29 @@ console.log(todoStore.todos);
 console.log(todoStore.filteredTodos);
 
 // 调用 actions
-todoStore.addTodo('新任务');
+todoStore.addTodo(&amp;amp;#039;新任务&amp;amp;#039;);
 
 // 解构 (需要 storeToRefs)
-import { storeToRefs } from 'pinia';
+import { storeToRefs } from &amp;amp;#039;pinia&amp;amp;#039;;
 const { todos, filteredTodos } = storeToRefs(todoStore);
 const { addTodo, toggleTodo } = todoStore;
-</script>
+&amp;amp;lt;/script&amp;amp;gt;
 
-<template>
-  <div>
-    <ul>
-      <li v-for="todo in filteredTodos" :key="todo.id">
-        <input 
-          type="checkbox" 
-          :checked="todo.done" 
-          @change="toggleTodo(todo.id)"
-        >
-        <span :class="{ done: todo.done }">{{ todo.text }}</span>
-      </li>
-    </ul>
-    <button @click="addTodo('新任务')">添加</button>
-  </div>
-</template>
+&amp;amp;lt;template&amp;amp;gt;
+  &amp;amp;lt;div&amp;amp;gt;
+    &amp;amp;lt;ul&amp;amp;gt;
+      &amp;amp;lt;li v-for=&amp;amp;quot;todo in filteredTodos&amp;amp;quot; :key=&amp;amp;quot;todo.id&amp;amp;quot;&amp;amp;gt;
+        &amp;amp;lt;input 
+          type=&amp;amp;quot;checkbox&amp;amp;quot; 
+          :checked=&amp;amp;quot;todo.done&amp;amp;quot; 
+          @change=&amp;amp;quot;toggleTodo(todo.id)&amp;amp;quot;
+        &amp;amp;gt;
+        &amp;amp;lt;span :class=&amp;amp;quot;{ done: todo.done }&amp;amp;quot;&amp;amp;gt;&amp;#123;&amp;#123; todo.text &amp;#125;&amp;#125;&amp;amp;lt;/span&amp;amp;gt;
+      &amp;amp;lt;/li&amp;amp;gt;
+    &amp;amp;lt;/ul&amp;amp;gt;
+    &amp;amp;lt;button @click=&amp;amp;quot;addTodo(&amp;amp;#039;新任务&amp;amp;#039;)&amp;amp;quot;&amp;amp;gt;添加&amp;amp;lt;/button&amp;amp;gt;
+  &amp;amp;lt;/div&amp;amp;gt;
+&amp;amp;lt;/template&amp;amp;gt;
 ```
 
 ### 2.4 其他状态管理方案
@@ -294,18 +294,18 @@ const { addTodo, toggleTodo } = todoStore;
 
 ```typescript
 // composables/useFetch.ts
-export function useFetch<T>(url: MaybeRefOrGetter<string>) {
-  const data = ref<T | null>(null);
-  const error = ref<Error | null>(null);
+export function useFetch&amp;amp;lt;T&amp;amp;gt;(url: MaybeRefOrGetter&amp;amp;lt;string&amp;amp;gt;) {
+  const data = ref&amp;amp;lt;T | null&amp;amp;gt;(null);
+  const error = ref&amp;amp;lt;Error | null&amp;amp;gt;(null);
   const loading = ref(true);
   
   watch(
     toGetter(url),
-    async (url) => {
+    async (url) =&amp;amp;gt; {
       loading.value = true;
       error.value = null;
       try {
-        data.value = await fetch(url).then(r => r.json());
+        data.value = await fetch(url).then(r =&amp;amp;gt; r.json());
       } catch (e) {
         error.value = e as Error;
       } finally {
@@ -319,11 +319,11 @@ export function useFetch<T>(url: MaybeRefOrGetter<string>) {
 }
 
 // composables/useLocalStorage.ts
-export function useLocalStorage<T>(key: string, initialValue: T) {
+export function useLocalStorage&amp;amp;lt;T&amp;amp;gt;(key: string, initialValue: T) {
   const stored = localStorage.getItem(key);
-  const data = ref<T>(stored ? JSON.parse(stored) : initialValue);
+  const data = ref&amp;amp;lt;T&amp;amp;gt;(stored ? JSON.parse(stored) : initialValue);
   
-  watch(data, (val) => {
+  watch(data, (val) =&amp;amp;gt; {
     localStorage.setItem(key, JSON.stringify(val));
   }, { deep: true });
   
@@ -335,8 +335,8 @@ export function useMouse() {
   const x = ref(0);
   const y = ref(0);
   
-  onMounted(() => {
-    window.addEventListener('mousemove', (e) => {
+  onMounted(() =&amp;amp;gt; {
+    window.addEventListener(&amp;amp;#039;mousemove&amp;amp;#039;, (e) =&amp;amp;gt; {
       x.value = e.clientX;
       y.value = e.clientY;
     });
@@ -349,24 +349,24 @@ export function useMouse() {
 ### 3.2 使用 Composables
 
 ```vue
-<script setup lang="ts">
-import { useFetch } from '@/composables/useFetch';
-import { useMouse } from '@/composables/useMouse';
+&amp;amp;lt;script setup lang=&amp;amp;quot;ts&amp;amp;quot;&amp;amp;gt;
+import { useFetch } from &amp;amp;#039;@/composables/useFetch&amp;amp;#039;;
+import { useMouse } from &amp;amp;#039;@/composables/useMouse&amp;amp;#039;;
 
-const { data: users, loading, error } = useFetch<User[]>('/api/users');
+const { data: users, loading, error } = useFetch&amp;amp;lt;User[]&amp;amp;gt;(&amp;amp;#039;/api/users&amp;amp;#039;);
 const { x, y } = useMouse();
-</script>
+&amp;amp;lt;/script&amp;amp;gt;
 
-<template>
-  <div>
-    <p>鼠标位置: {{ x }}, {{ y }}</p>
-    <div v-if="loading">加载中...</div>
-    <div v-else-if="error">加载失败</div>
-    <ul v-else>
-      <li v-for="user in users" :key="user.id">{{ user.name }}</li>
-    </ul>
-  </div>
-</template>
+&amp;amp;lt;template&amp;amp;gt;
+  &amp;amp;lt;div&amp;amp;gt;
+    &amp;amp;lt;p&amp;amp;gt;鼠标位置: &amp;#123;&amp;#123; x &amp;#125;&amp;#125;, &amp;#123;&amp;#123; y &amp;#125;&amp;#125;&amp;amp;lt;/p&amp;amp;gt;
+    &amp;amp;lt;div v-if=&amp;amp;quot;loading&amp;amp;quot;&amp;amp;gt;加载中...&amp;amp;lt;/div&amp;amp;gt;
+    &amp;amp;lt;div v-else-if=&amp;amp;quot;error&amp;amp;quot;&amp;amp;gt;加载失败&amp;amp;lt;/div&amp;amp;gt;
+    &amp;amp;lt;ul v-else&amp;amp;gt;
+      &amp;amp;lt;li v-for=&amp;amp;quot;user in users&amp;amp;quot; :key=&amp;amp;quot;user.id&amp;amp;quot;&amp;amp;gt;&amp;#123;&amp;#123; user.name &amp;#125;&amp;#125;&amp;amp;lt;/li&amp;amp;gt;
+    &amp;amp;lt;/ul&amp;amp;gt;
+  &amp;amp;lt;/div&amp;amp;gt;
+&amp;amp;lt;/template&amp;amp;gt;
 ```
 
 ---
@@ -387,26 +387,26 @@ const { x, y } = useMouse();
 ### 4.2 Element Plus 示例
 
 ```vue
-<script setup lang="ts">
-import { ElMessage, ElMessageBox } from 'element-plus';
-import type { FormInstance, FormRules } from 'element-plus';
+&amp;amp;lt;script setup lang=&amp;amp;quot;ts&amp;amp;quot;&amp;amp;gt;
+import { ElMessage, ElMessageBox } from &amp;amp;#039;element-plus&amp;amp;#039;;
+import type { FormInstance, FormRules } from &amp;amp;#039;element-plus&amp;amp;#039;;
 
-const formRef = ref<FormInstance>();
+const formRef = ref&amp;amp;lt;FormInstance&amp;amp;gt;();
 const form = ref({
-  name: '',
-  email: '',
-  password: ''
+  name: &amp;amp;#039;&amp;amp;#039;,
+  email: &amp;amp;#039;&amp;amp;#039;,
+  password: &amp;amp;#039;&amp;amp;#039;
 });
 
 const rules: FormRules = {
-  name: [{ required: true, message: '请输入姓名', trigger: 'blur' }],
+  name: [{ required: true, message: &amp;amp;#039;请输入姓名&amp;amp;#039;, trigger: &amp;amp;#039;blur&amp;amp;#039; }],
   email: [
-    { required: true, message: '请输入邮箱', trigger: 'blur' },
-    { type: 'email', message: '邮箱格式不正确', trigger: 'blur' }
+    { required: true, message: &amp;amp;#039;请输入邮箱&amp;amp;#039;, trigger: &amp;amp;#039;blur&amp;amp;#039; },
+    { type: &amp;amp;#039;email&amp;amp;#039;, message: &amp;amp;#039;邮箱格式不正确&amp;amp;#039;, trigger: &amp;amp;#039;blur&amp;amp;#039; }
   ],
   password: [
-    { required: true, message: '请输入密码', trigger: 'blur' },
-    { min: 8, message: '密码至少 8 位', trigger: 'blur' }
+    { required: true, message: &amp;amp;#039;请输入密码&amp;amp;#039;, trigger: &amp;amp;#039;blur&amp;amp;#039; },
+    { min: 8, message: &amp;amp;#039;密码至少 8 位&amp;amp;#039;, trigger: &amp;amp;#039;blur&amp;amp;#039; }
   ]
 };
 
@@ -417,81 +417,81 @@ async function handleSubmit() {
   
   try {
     await api.register(form.value);
-    ElMessage.success('注册成功');
+    ElMessage.success(&amp;amp;#039;注册成功&amp;amp;#039;);
   } catch {
-    ElMessage.error('注册失败');
+    ElMessage.error(&amp;amp;#039;注册失败&amp;amp;#039;);
   }
 }
 
 function handleDelete(id: string) {
-  ElMessageBox.confirm('确定删除？', '提示', {
-    confirmButtonText: '确定',
-    cancelButtonText: '取消',
-    type: 'warning'
-  }).then(async () => {
+  ElMessageBox.confirm(&amp;amp;#039;确定删除？&amp;amp;#039;, &amp;amp;#039;提示&amp;amp;#039;, {
+    confirmButtonText: &amp;amp;#039;确定&amp;amp;#039;,
+    cancelButtonText: &amp;amp;#039;取消&amp;amp;#039;,
+    type: &amp;amp;#039;warning&amp;amp;#039;
+  }).then(async () =&amp;amp;gt; {
     await api.delete(id);
-    ElMessage.success('删除成功');
+    ElMessage.success(&amp;amp;#039;删除成功&amp;amp;#039;);
   });
 }
-</script>
+&amp;amp;lt;/script&amp;amp;gt;
 
-<template>
-  <el-form ref="formRef" :model="form" :rules="rules" label-width="80px">
-    <el-form-item label="姓名" prop="name">
-      <el-input v-model="form.name" />
-    </el-form-item>
+&amp;amp;lt;template&amp;amp;gt;
+  &amp;amp;lt;el-form ref=&amp;amp;quot;formRef&amp;amp;quot; :model=&amp;amp;quot;form&amp;amp;quot; :rules=&amp;amp;quot;rules&amp;amp;quot; label-width=&amp;amp;quot;80px&amp;amp;quot;&amp;amp;gt;
+    &amp;amp;lt;el-form-item label=&amp;amp;quot;姓名&amp;amp;quot; prop=&amp;amp;quot;name&amp;amp;quot;&amp;amp;gt;
+      &amp;amp;lt;el-input v-model=&amp;amp;quot;form.name&amp;amp;quot; /&amp;amp;gt;
+    &amp;amp;lt;/el-form-item&amp;amp;gt;
     
-    <el-form-item label="邮箱" prop="email">
-      <el-input v-model="form.email" />
-    </el-form-item>
+    &amp;amp;lt;el-form-item label=&amp;amp;quot;邮箱&amp;amp;quot; prop=&amp;amp;quot;email&amp;amp;quot;&amp;amp;gt;
+      &amp;amp;lt;el-input v-model=&amp;amp;quot;form.email&amp;amp;quot; /&amp;amp;gt;
+    &amp;amp;lt;/el-form-item&amp;amp;gt;
     
-    <el-form-item label="密码" prop="password">
-      <el-input v-model="form.password" type="password" />
-    </el-form-item>
+    &amp;amp;lt;el-form-item label=&amp;amp;quot;密码&amp;amp;quot; prop=&amp;amp;quot;password&amp;amp;quot;&amp;amp;gt;
+      &amp;amp;lt;el-input v-model=&amp;amp;quot;form.password&amp;amp;quot; type=&amp;amp;quot;password&amp;amp;quot; /&amp;amp;gt;
+    &amp;amp;lt;/el-form-item&amp;amp;gt;
     
-    <el-form-item>
-      <el-button type="primary" @click="handleSubmit">注册</el-button>
-    </el-form-item>
-  </el-form>
-</template>
+    &amp;amp;lt;el-form-item&amp;amp;gt;
+      &amp;amp;lt;el-button type=&amp;amp;quot;primary&amp;amp;quot; @click=&amp;amp;quot;handleSubmit&amp;amp;quot;&amp;amp;gt;注册&amp;amp;lt;/el-button&amp;amp;gt;
+    &amp;amp;lt;/el-form-item&amp;amp;gt;
+  &amp;amp;lt;/el-form&amp;amp;gt;
+&amp;amp;lt;/template&amp;amp;gt;
 ```
 
 ### 4.3 Naive UI 示例
 
 ```vue
-<script setup lang="ts">
-import { useMessage, useDialog } from 'naive-ui';
+&amp;amp;lt;script setup lang=&amp;amp;quot;ts&amp;amp;quot;&amp;amp;gt;
+import { useMessage, useDialog } from &amp;amp;#039;naive-ui&amp;amp;#039;;
 
 const message = useMessage();
 const dialog = useDialog();
 
 function showSuccess() {
-  message.success('操作成功');
+  message.success(&amp;amp;#039;操作成功&amp;amp;#039;);
 }
 
 function showConfirm() {
   dialog.warning({
-    title: '确认',
-    content: '确定要删除吗？',
-    positiveText: '确定',
-    negativeText: '取消',
-    onPositiveClick: () => {
+    title: &amp;amp;#039;确认&amp;amp;#039;,
+    content: &amp;amp;#039;确定要删除吗？&amp;amp;#039;,
+    positiveText: &amp;amp;#039;确定&amp;amp;#039;,
+    negativeText: &amp;amp;#039;取消&amp;amp;#039;,
+    onPositiveClick: () =&amp;amp;gt; {
       // 删除逻辑
-      message.success('已删除');
+      message.success(&amp;amp;#039;已删除&amp;amp;#039;);
     }
   });
 }
-</script>
+&amp;amp;lt;/script&amp;amp;gt;
 
-<template>
-  <n-config-provider>
-    <n-message-provider>
-      <n-dialog-provider>
-        <App />
-      </n-dialog-provider>
-    </n-message-provider>
-  </n-config-provider>
-</template>
+&amp;amp;lt;template&amp;amp;gt;
+  &amp;amp;lt;n-config-provider&amp;amp;gt;
+    &amp;amp;lt;n-message-provider&amp;amp;gt;
+      &amp;amp;lt;n-dialog-provider&amp;amp;gt;
+        &amp;amp;lt;App /&amp;amp;gt;
+      &amp;amp;lt;/n-dialog-provider&amp;amp;gt;
+    &amp;amp;lt;/n-message-provider&amp;amp;gt;
+  &amp;amp;lt;/n-config-provider&amp;amp;gt;
+&amp;amp;lt;/template&amp;amp;gt;
 ```
 
 ---
@@ -501,13 +501,13 @@ function showConfirm() {
 ### 5.1 VeeValidate
 
 ```vue
-<script setup lang="ts">
-import { useForm, useField } from 'vee-validate';
-import * as yup from 'yup';
+&amp;amp;lt;script setup lang=&amp;amp;quot;ts&amp;amp;quot;&amp;amp;gt;
+import { useForm, useField } from &amp;amp;#039;vee-validate&amp;amp;#039;;
+import * as yup from &amp;amp;#039;yup&amp;amp;#039;;
 
 const schema = yup.object({
-  email: yup.string().email('邮箱格式不正确').required('邮箱必填'),
-  password: yup.string().min(8, '密码至少 8 位').required('密码必填'),
+  email: yup.string().email(&amp;amp;#039;邮箱格式不正确&amp;amp;#039;).required(&amp;amp;#039;邮箱必填&amp;amp;#039;),
+  password: yup.string().min(8, &amp;amp;#039;密码至少 8 位&amp;amp;#039;).required(&amp;amp;#039;密码必填&amp;amp;#039;),
   age: yup.number().min(18).max(100).required()
 });
 
@@ -515,63 +515,63 @@ const { handleSubmit, errors } = useForm({
   validationSchema: schema
 });
 
-const { value: email, errorMessage: emailError } = useField('email');
-const { value: password, errorMessage: passwordError } = useField('password');
+const { value: email, errorMessage: emailError } = useField(&amp;amp;#039;email&amp;amp;#039;);
+const { value: password, errorMessage: passwordError } = useField(&amp;amp;#039;password&amp;amp;#039;);
 
-const onSubmit = handleSubmit(async (values) => {
+const onSubmit = handleSubmit(async (values) =&amp;amp;gt; {
   await api.register(values);
 });
-</script>
+&amp;amp;lt;/script&amp;amp;gt;
 
-<template>
-  <form @submit="onSubmit">
-    <input v-model="email" name="email" type="email" />
-    <span>{{ emailError }}</span>
+&amp;amp;lt;template&amp;amp;gt;
+  &amp;amp;lt;form @submit=&amp;amp;quot;onSubmit&amp;amp;quot;&amp;amp;gt;
+    &amp;amp;lt;input v-model=&amp;amp;quot;email&amp;amp;quot; name=&amp;amp;quot;email&amp;amp;quot; type=&amp;amp;quot;email&amp;amp;quot; /&amp;amp;gt;
+    &amp;amp;lt;span&amp;amp;gt;&amp;#123;&amp;#123; emailError &amp;#125;&amp;#125;&amp;amp;lt;/span&amp;amp;gt;
     
-    <input v-model="password" name="password" type="password" />
-    <span>{{ passwordError }}</span>
+    &amp;amp;lt;input v-model=&amp;amp;quot;password&amp;amp;quot; name=&amp;amp;quot;password&amp;amp;quot; type=&amp;amp;quot;password&amp;amp;quot; /&amp;amp;gt;
+    &amp;amp;lt;span&amp;amp;gt;&amp;#123;&amp;#123; passwordError &amp;#125;&amp;#125;&amp;amp;lt;/span&amp;amp;gt;
     
-    <button type="submit">注册</button>
-  </form>
-</template>
+    &amp;amp;lt;button type=&amp;amp;quot;submit&amp;amp;quot;&amp;amp;gt;注册&amp;amp;lt;/button&amp;amp;gt;
+  &amp;amp;lt;/form&amp;amp;gt;
+&amp;amp;lt;/template&amp;amp;gt;
 ```
 
 ### 5.2 FormKit
 
 ```vue
-<script setup lang="ts">
-import { createFormKit } from '@formkit/vue';
+&amp;amp;lt;script setup lang=&amp;amp;quot;ts&amp;amp;quot;&amp;amp;gt;
+import { createFormKit } from &amp;amp;#039;@formkit/vue&amp;amp;#039;;
 
 const config = {
   rules: {
-    email: (value: string) => {
-      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) || '邮箱格式不正确';
+    email: (value: string) =&amp;amp;gt; {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) || &amp;amp;#039;邮箱格式不正确&amp;amp;#039;;
     }
   }
 };
-</script>
+&amp;amp;lt;/script&amp;amp;gt;
 
-<template>
-  <FormKit
-    type="form"
-    :actions="false"
-    @submit="handleSubmit"
-  >
-    <FormKit
-      type="email"
-      name="email"
-      label="邮箱"
-      validation="required|email"
-    />
-    <FormKit
-      type="password"
-      name="password"
-      label="密码"
-      validation="required|min:8"
-    />
-    <FormKit type="submit" label="注册" />
-  </FormKit>
-</template>
+&amp;amp;lt;template&amp;amp;gt;
+  &amp;amp;lt;FormKit
+    type=&amp;amp;quot;form&amp;amp;quot;
+    :actions=&amp;amp;quot;false&amp;amp;quot;
+    @submit=&amp;amp;quot;handleSubmit&amp;amp;quot;
+  &amp;amp;gt;
+    &amp;amp;lt;FormKit
+      type=&amp;amp;quot;email&amp;amp;quot;
+      name=&amp;amp;quot;email&amp;amp;quot;
+      label=&amp;amp;quot;邮箱&amp;amp;quot;
+      validation=&amp;amp;quot;required|email&amp;amp;quot;
+    /&amp;amp;gt;
+    &amp;amp;lt;FormKit
+      type=&amp;amp;quot;password&amp;amp;quot;
+      name=&amp;amp;quot;password&amp;amp;quot;
+      label=&amp;amp;quot;密码&amp;amp;quot;
+      validation=&amp;amp;quot;required|min:8&amp;amp;quot;
+    /&amp;amp;gt;
+    &amp;amp;lt;FormKit type=&amp;amp;quot;submit&amp;amp;quot; label=&amp;amp;quot;注册&amp;amp;quot; /&amp;amp;gt;
+  &amp;amp;lt;/FormKit&amp;amp;gt;
+&amp;amp;lt;/template&amp;amp;gt;
 ```
 
 ---
@@ -581,9 +581,9 @@ const config = {
 ### 6.1 VueUse useFetch
 
 ```typescript
-import { useFetch } from '@vueuse/core';
+import { useFetch } from &amp;amp;#039;@vueuse/core&amp;amp;#039;;
 
-const { data, error, isFetching, execute } = useFetch('/api/users')
+const { data, error, isFetching, execute } = useFetch(&amp;amp;#039;/api/users&amp;amp;#039;)
   .get()
   .json();
 
@@ -591,7 +591,7 @@ const { data, error, isFetching, execute } = useFetch('/api/users')
 execute();
 
 // 带参数
-const { data } = useFetch(() => `/api/users/${userId}`)
+const { data } = useFetch(() =&amp;amp;gt; `/api/users/${userId}`)
   .get()
   .json();
 ```
@@ -599,44 +599,44 @@ const { data } = useFetch(() => `/api/users/${userId}`)
 ### 6.2 Vue Query (TanStack Query)
 
 ```typescript
-import { useQuery, useMutation, useQueryClient } from '@tanstack/vue-query';
+import { useQuery, useMutation, useQueryClient } from &amp;amp;#039;@tanstack/vue-query&amp;amp;#039;;
 
 const queryClient = useQueryClient();
 
 // 查询
 const { data, isLoading, error } = useQuery({
-  queryKey: ['users'],
-  queryFn: () => fetch('/api/users').then(r => r.json())
+  queryKey: [&amp;amp;#039;users&amp;amp;#039;],
+  queryFn: () =&amp;amp;gt; fetch(&amp;amp;#039;/api/users&amp;amp;#039;).then(r =&amp;amp;gt; r.json())
 });
 
 // 分页
 const { data } = useQuery({
-  queryKey: ['users', page],
-  queryFn: () => fetch(`/api/users?page=${page.value}`).then(r => r.json())
+  queryKey: [&amp;amp;#039;users&amp;amp;#039;, page],
+  queryFn: () =&amp;amp;gt; fetch(`/api/users?page=${page.value}`).then(r =&amp;amp;gt; r.json())
 });
 
 // Mutation
 const mutation = useMutation({
-  mutationFn: (newUser) => fetch('/api/users', {
-    method: 'POST',
+  mutationFn: (newUser) =&amp;amp;gt; fetch(&amp;amp;#039;/api/users&amp;amp;#039;, {
+    method: &amp;amp;#039;POST&amp;amp;#039;,
     body: JSON.stringify(newUser)
   }),
-  onSuccess: () => {
-    queryClient.invalidateQueries({ queryKey: ['users'] });
+  onSuccess: () =&amp;amp;gt; {
+    queryClient.invalidateQueries({ queryKey: [&amp;amp;#039;users&amp;amp;#039;] });
   }
 });
 
 // 使用
-mutation.mutate({ name: 'Alice' });
+mutation.mutate({ name: &amp;amp;#039;Alice&amp;amp;#039; });
 ```
 
 ### 6.3 Axios 封装
 
 ```typescript
 // utils/request.ts
-import axios from 'axios';
-import { useUserStore } from '@/stores/user';
-import { useRouter } from 'vue-router';
+import axios from &amp;amp;#039;axios&amp;amp;#039;;
+import { useUserStore } from &amp;amp;#039;@/stores/user&amp;amp;#039;;
+import { useRouter } from &amp;amp;#039;vue-router&amp;amp;#039;;
 
 const request = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
@@ -645,24 +645,24 @@ const request = axios.create({
 
 // 请求拦截器
 request.interceptors.request.use(
-  (config) => {
+  (config) =&amp;amp;gt; {
     const userStore = useUserStore();
     if (userStore.token) {
       config.headers.Authorization = `Bearer ${userStore.token}`;
     }
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) =&amp;amp;gt; Promise.reject(error)
 );
 
 // 响应拦截器
 request.interceptors.response.use(
-  (response) => response.data,
-  (error) => {
+  (response) =&amp;amp;gt; response.data,
+  (error) =&amp;amp;gt; {
     if (error.response?.status === 401) {
       const userStore = useUserStore();
       userStore.logout();
-      useRouter().push('/login');
+      useRouter().push(&amp;amp;#039;/login&amp;amp;#039;);
     }
     return Promise.reject(error);
   }
@@ -688,10 +688,10 @@ import {
   useThrottleFn,
   useClipboard,
   useMediaQuery
-} from '@vueuse/core';
+} from &amp;amp;#039;@vueuse/core&amp;amp;#039;;
 
 // 本地存储
-const user = useLocalStorage('user', { name: '' });
+const user = useLocalStorage(&amp;amp;#039;user&amp;amp;#039;, { name: &amp;amp;#039;&amp;amp;#039; });
 
 // 鼠标位置
 const { x, y } = useMouse();
@@ -704,7 +704,7 @@ const isDark = useDark();
 const toggleDark = useToggle(isDark);
 
 // 防抖函数
-const search = useDebounceFn((query) => {
+const search = useDebounceFn((query) =&amp;amp;gt; {
   fetchResults(query);
 }, 300);
 
@@ -712,21 +712,21 @@ const search = useDebounceFn((query) => {
 const { copy, copied } = useClipboard();
 
 // 媒体查询
-const isMobile = useMediaQuery('(max-width: 768px)');
+const isMobile = useMediaQuery(&amp;amp;#039;(max-width: 768px)&amp;amp;#039;);
 ```
 
 ### 7.2 日期处理
 
 ```typescript
-import dayjs from 'dayjs';
-import 'dayjs/locale/zh-cn';
-import relativeTime from 'dayjs/plugin/relativeTime';
+import dayjs from &amp;amp;#039;dayjs&amp;amp;#039;;
+import &amp;amp;#039;dayjs/locale/zh-cn&amp;amp;#039;;
+import relativeTime from &amp;amp;#039;dayjs/plugin/relativeTime&amp;amp;#039;;
 
 dayjs.extend(relativeTime);
-dayjs.locale('zh-cn');
+dayjs.locale(&amp;amp;#039;zh-cn&amp;amp;#039;);
 
-dayjs().format('YYYY-MM-DD HH:mm');
-dayjs('2024-01-01').fromNow(); // 3 个月前
+dayjs().format(&amp;amp;#039;YYYY-MM-DD HH:mm&amp;amp;#039;);
+dayjs(&amp;amp;#039;2024-01-01&amp;amp;#039;).fromNow(); // 3 个月前
 ```
 
 ### 7.3 动画
@@ -738,18 +738,18 @@ dayjs('2024-01-01').fromNow(); // 3 个月前
 | **GSAP** | 专业动画 |
 
 ```vue
-<!-- 内置 Transition -->
-<template>
-  <Transition name="fade" mode="out-in">
-    <component :is="currentComponent" />
-  </Transition>
+&amp;amp;lt;!-- 内置 Transition --&amp;amp;gt;
+&amp;amp;lt;template&amp;amp;gt;
+  &amp;amp;lt;Transition name=&amp;amp;quot;fade&amp;amp;quot; mode=&amp;amp;quot;out-in&amp;amp;quot;&amp;amp;gt;
+    &amp;amp;lt;component :is=&amp;amp;quot;currentComponent&amp;amp;quot; /&amp;amp;gt;
+  &amp;amp;lt;/Transition&amp;amp;gt;
   
-  <TransitionGroup name="list">
-    <li v-for="item in items" :key="item.id">{{ item.text }}</li>
-  </TransitionGroup>
-</template>
+  &amp;amp;lt;TransitionGroup name=&amp;amp;quot;list&amp;amp;quot;&amp;amp;gt;
+    &amp;amp;lt;li v-for=&amp;amp;quot;item in items&amp;amp;quot; :key=&amp;amp;quot;item.id&amp;amp;quot;&amp;amp;gt;&amp;#123;&amp;#123; item.text &amp;#125;&amp;#125;&amp;amp;lt;/li&amp;amp;gt;
+  &amp;amp;lt;/TransitionGroup&amp;amp;gt;
+&amp;amp;lt;/template&amp;amp;gt;
 
-<style>
+&amp;amp;lt;style&amp;amp;gt;
 .fade-enter-active, .fade-leave-active {
   transition: opacity 0.3s ease;
 }
@@ -764,7 +764,7 @@ dayjs('2024-01-01').fromNow(); // 3 个月前
   opacity: 0;
   transform: translateX(30px);
 }
-</style>
+&amp;amp;lt;/style&amp;amp;gt;
 ```
 
 ---
@@ -782,18 +782,18 @@ dayjs('2024-01-01').fromNow(); // 3 个月前
 ```json
 // tsconfig.json
 {
-  "compilerOptions": {
-    "types": ["vue"]
+  &amp;amp;quot;compilerOptions&amp;amp;quot;: {
+    &amp;amp;quot;types&amp;amp;quot;: [&amp;amp;quot;vue&amp;amp;quot;]
   },
-  "include": ["src/**/*.ts", "src/**/*.vue"]
+  &amp;amp;quot;include&amp;amp;quot;: [&amp;amp;quot;src/**/*.ts&amp;amp;quot;, &amp;amp;quot;src/**/*.vue&amp;amp;quot;]
 }
 ```
 
 ```vue
-<!-- 推荐脚本标签格式 -->
-<script setup lang="ts">
+&amp;amp;lt;!-- 推荐脚本标签格式 --&amp;amp;gt;
+&amp;amp;lt;script setup lang=&amp;amp;quot;ts&amp;amp;quot;&amp;amp;gt;
 // 完整的类型推断
-</script>
+&amp;amp;lt;/script&amp;amp;gt;
 ```
 
 ### 8.3 ESLint 配置
@@ -804,11 +804,11 @@ npm install -D eslint-plugin-vue @vue/eslint-config-typescript
 
 ```javascript
 // eslint.config.js
-import pluginVue from 'eslint-plugin-vue';
-import ts from '@vue/eslint-config-typescript';
+import pluginVue from &amp;amp;#039;eslint-plugin-vue&amp;amp;#039;;
+import ts from &amp;amp;#039;@vue/eslint-config-typescript&amp;amp;#039;;
 
 export default [
-  ...pluginVue.configs['flat/recommended'],
+  ...pluginVue.configs[&amp;amp;#039;flat/recommended&amp;amp;#039;],
   ...ts()
 ];
 ```
@@ -821,31 +821,31 @@ export default [
 
 ```typescript
 // components/TodoItem.test.ts
-import { describe, it, expect } from 'vitest';
-import { mount } from '@vue/test-utils';
-import TodoItem from './TodoItem.vue';
+import { describe, it, expect } from &amp;amp;#039;vitest&amp;amp;#039;;
+import { mount } from &amp;amp;#039;@vue/test-utils&amp;amp;#039;;
+import TodoItem from &amp;amp;#039;./TodoItem.vue&amp;amp;#039;;
 
-describe('TodoItem', () => {
-  it('渲染待办文本', () => {
+describe(&amp;amp;#039;TodoItem&amp;amp;#039;, () =&amp;amp;gt; {
+  it(&amp;amp;#039;渲染待办文本&amp;amp;#039;, () =&amp;amp;gt; {
     const wrapper = mount(TodoItem, {
       props: {
-        todo: { id: '1', text: '测试任务', done: false }
+        todo: { id: &amp;amp;#039;1&amp;amp;#039;, text: &amp;amp;#039;测试任务&amp;amp;#039;, done: false }
       }
     });
     
-    expect(wrapper.text()).toContain('测试任务');
+    expect(wrapper.text()).toContain(&amp;amp;#039;测试任务&amp;amp;#039;);
   });
   
-  it('点击复选框触发 toggle', async () => {
+  it(&amp;amp;#039;点击复选框触发 toggle&amp;amp;#039;, async () =&amp;amp;gt; {
     const wrapper = mount(TodoItem, {
       props: {
-        todo: { id: '1', text: '测试任务', done: false }
+        todo: { id: &amp;amp;#039;1&amp;amp;#039;, text: &amp;amp;#039;测试任务&amp;amp;#039;, done: false }
       }
     });
     
-    await wrapper.find('input[type="checkbox"]').trigger('change');
+    await wrapper.find(&amp;amp;#039;input[type=&amp;amp;quot;checkbox&amp;amp;quot;]&amp;amp;#039;).trigger(&amp;amp;#039;change&amp;amp;#039;);
     
-    expect(wrapper.emitted('toggle')).toBeTruthy();
+    expect(wrapper.emitted(&amp;amp;#039;toggle&amp;amp;#039;)).toBeTruthy();
   });
 });
 ```
@@ -854,15 +854,15 @@ describe('TodoItem', () => {
 
 ```typescript
 // tests/e2e/todo.spec.ts
-import { test, expect } from '@playwright/test';
+import { test, expect } from &amp;amp;#039;@playwright/test&amp;amp;#039;;
 
-test('可以添加待办事项', async ({ page }) => {
-  await page.goto('/');
+test(&amp;amp;#039;可以添加待办事项&amp;amp;#039;, async ({ page }) =&amp;amp;gt; {
+  await page.goto(&amp;amp;#039;/&amp;amp;#039;);
   
-  await page.fill('[placeholder="添加待办"]', '学习 Vue');
-  await page.click('button:has-text("添加")');
+  await page.fill(&amp;amp;#039;[placeholder=&amp;amp;quot;添加待办&amp;amp;quot;]&amp;amp;#039;, &amp;amp;#039;学习 Vue&amp;amp;#039;);
+  await page.click(&amp;amp;#039;button:has-text(&amp;amp;quot;添加&amp;amp;quot;)&amp;amp;#039;);
   
-  await expect(page.getByText('学习 Vue')).toBeVisible();
+  await expect(page.getByText(&amp;amp;#039;学习 Vue&amp;amp;#039;)).toBeVisible();
 });
 ```
 
@@ -873,20 +873,20 @@ test('可以添加待办事项', async ({ page }) => {
 ### 10.1 Nuxt 3 核心
 
 ```vue
-<!-- app.vue -->
-<template>
-  <NuxtLayout>
-    <NuxtPage />
-  </NuxtLayout>
-</template>
+&amp;amp;lt;!-- app.vue --&amp;amp;gt;
+&amp;amp;lt;template&amp;amp;gt;
+  &amp;amp;lt;NuxtLayout&amp;amp;gt;
+    &amp;amp;lt;NuxtPage /&amp;amp;gt;
+  &amp;amp;lt;/NuxtLayout&amp;amp;gt;
+&amp;amp;lt;/template&amp;amp;gt;
 
-<!-- pages/index.vue -->
-<script setup lang="ts">
+&amp;amp;lt;!-- pages/index.vue --&amp;amp;gt;
+&amp;amp;lt;script setup lang=&amp;amp;quot;ts&amp;amp;quot;&amp;amp;gt;
 // 自动导入
-const { data: users } = await useFetch('/api/users');
+const { data: users } = await useFetch(&amp;amp;#039;/api/users&amp;amp;#039;);
 
 // 状态管理
-const count = useState('count', () => 0);
+const count = useState(&amp;amp;#039;count&amp;amp;#039;, () =&amp;amp;gt; 0);
 
 // 路由
 const router = useRouter();
@@ -894,10 +894,10 @@ const route = useRoute();
 
 // SEO
 useHead({
-  title: '首页',
-  meta: [{ name: 'description', content: '描述' }]
+  title: &amp;amp;#039;首页&amp;amp;#039;,
+  meta: [{ name: &amp;amp;#039;description&amp;amp;#039;, content: &amp;amp;#039;描述&amp;amp;#039; }]
 });
-</script>
+&amp;amp;lt;/script&amp;amp;gt;
 ```
 
 ### 10.2 Nuxt 模块
@@ -906,15 +906,15 @@ useHead({
 // nuxt.config.ts
 export default defineNuxtConfig({
   modules: [
-    '@nuxtjs/tailwindcss',
-    '@pinia/nuxt',
-    '@vueuse/nuxt',
-    '@nuxtjs/i18n'
+    &amp;amp;#039;@nuxtjs/tailwindcss&amp;amp;#039;,
+    &amp;amp;#039;@pinia/nuxt&amp;amp;#039;,
+    &amp;amp;#039;@vueuse/nuxt&amp;amp;#039;,
+    &amp;amp;#039;@nuxtjs/i18n&amp;amp;#039;
   ],
   
   i18n: {
-    locales: ['zh', 'en'],
-    defaultLocale: 'zh'
+    locales: [&amp;amp;#039;zh&amp;amp;#039;, &amp;amp;#039;en&amp;amp;#039;],
+    defaultLocale: &amp;amp;#039;zh&amp;amp;#039;
   }
 });
 ```

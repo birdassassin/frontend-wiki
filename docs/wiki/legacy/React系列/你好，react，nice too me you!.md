@@ -17,40 +17,40 @@
 
 
 #### hello world react
-react很多实践是SPA应用，而SPA通常只有一个入口，ReactDOM.render()会把组件或者jsx渲染在根元素“root”下，比如这个例子中会在root下面渲染 <h1>Hello, world!</h1>
+react很多实践是SPA应用，而SPA通常只有一个入口，ReactDOM.render()会把组件或者jsx渲染在根元素“root”下，比如这个例子中会在root下面渲染 &lt;h1&gt;Hello, world!&lt;/h1&gt;
 ```
 ReactDOM.render(
-  <h1>Hello, world!</h1>,
-  document.getElementById('root')
+  &amp;amp;lt;h1&amp;amp;gt;Hello, world!&amp;amp;lt;/h1&amp;amp;gt;,
+  document.getElementById(&amp;amp;#039;root&amp;amp;#039;)
 );
 ```
-![clipboard.png](/img/bVNtQ3)
+![clipboard.png](https://gitee.com/birdassassin/frontend-wiki/raw/master/img/bVNtQ3)
 
 #### App根组件
 
-我们把 <h1>Hello, world!</h1> 用react组件的形式来写，这里也提到了props的用法，用来从父组件传递属性给子组件。
+我们把 &lt;h1&gt;Hello, world!&lt;/h1&gt; 用react组件的形式来写，这里也提到了props的用法，用来从父组件传递属性给子组件。
 ```
 class App extends React.Component {
   render() {
     return (
-      <div>
+      &amp;amp;lt;div&amp;amp;gt;
         hello {this.props.name}!
-      </div>
+      &amp;amp;lt;/div&amp;amp;gt;
     )
   }
 }
 
 ReactDOM.render(
-  <App name="world" />,
-  document.getElementById('root')
+  &amp;amp;lt;App name=&amp;amp;quot;world&amp;amp;quot; /&amp;amp;gt;,
+  document.getElementById(&amp;amp;#039;root&amp;amp;#039;)
 );
 ```
 
-![clipboard.png](/img/bVNtTG)
+![clipboard.png](https://gitee.com/birdassassin/frontend-wiki/raw/master/img/bVNtTG)
 
 #### 父组件嵌套子组件，子组件嵌套子组件。
 这里面比较绕，但是你可以知道的是父子组件可以任意嵌套，每个组件都像一个盒子，盒子里面可以装下大盒子或者小盒子。
-我们增加一个子组件child，在父组件App中调用子组件，child又嵌套了一个表单组件。Forms是Child的子组件，Forms的结构和Child有些不同，比如在App中调用Child是<Child />，在Child中调用Forms是<Forms>你的内容</Forms>。
+我们增加一个子组件child，在父组件App中调用子组件，child又嵌套了一个表单组件。Forms是Child的子组件，Forms的结构和Child有些不同，比如在App中调用Child是&lt;Child /&gt;，在Child中调用Forms是&lt;Forms&gt;你的内容&lt;/Forms&gt;。
 先来看Child：Child定义了一个state用来保存输入框的值，当onChange事件发生的时候，输入框的值会通过handleClick实时保存到state中，我们把value传递到Forms组件里面同步显示出来。
 Forms组件：Forms可以嵌套jsx，因为在Forms组件的内部，我使用了this.props.children这个属性，用来表示Forms中嵌套节点的传递，在这里就是传递input。
 
@@ -73,12 +73,12 @@ class Child extends React.Component {
   
   render() {
     return (
-      <div>
+      &amp;amp;lt;div&amp;amp;gt;
         子组件
-        <Forms value={this.state.value}>
-          <input type="text" onChange={(e) => this.handleClick(e)} />
-        </Forms>
-      </div>
+        &amp;amp;lt;Forms value={this.state.value}&amp;amp;gt;
+          &amp;amp;lt;input type=&amp;amp;quot;text&amp;amp;quot; onChange={(e) =&amp;amp;gt; this.handleClick(e)} /&amp;amp;gt;
+        &amp;amp;lt;/Forms&amp;amp;gt;
+      &amp;amp;lt;/div&amp;amp;gt;
     )
   }
 }
@@ -86,16 +86,16 @@ class Child extends React.Component {
 class Forms extends React.Component {
   render() {
     return (
-      <form>
+      &amp;amp;lt;form&amp;amp;gt;
         {this.props.children}
         您输入的值是：{this.props.value}
-      </form>
+      &amp;amp;lt;/form&amp;amp;gt;
     )
   }
 }
 ```
 
-![clipboard.png](/img/bVNtZX)
+![clipboard.png](https://gitee.com/birdassassin/frontend-wiki/raw/master/img/bVNtZX)
 
 这么一个简单的在线实时编辑教程，教给你react组件的常用写法、嵌套、属性传递、jsx传递、单入口等知识，相信你对react会有个基本的认识。
 
@@ -104,7 +104,7 @@ class Forms extends React.Component {
 demo在线编程地址：[http://codepen.io/hyy1115/pen/vmdrgo?editors=1010][4]
 
 
-  [1]: /img/bVZwRf
+  [1]: https://gitee.com/birdassassin/frontend-wiki/raw/master/img/bVZwRf
   [2]: http://codepen.io/gaearon/pen/ZpvBNJ?editors=0010
   [3]: http://codepen.io/gaearon/pen/ZpvBNJ?editors=0010
   [4]: http://codepen.io/hyy1115/pen/vmdrgo?editors=1010

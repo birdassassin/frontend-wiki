@@ -56,11 +56,11 @@ function qSort(arr) {
   //使用数组最后一个元素作为基准值
   var base = arr[arr.length - 1]
   //当数组长度只有1或者为空时，直接返回数组，不需要排序
-  if(arr.length <= 1) return arr
+  if(arr.length &amp;amp;lt;= 1) return arr
   
   //进行遍历
-  for(var i = 0, len = arr.length; i < len - 1; i++) {
-	if(arr[i] <= base) {
+  for(var i = 0, len = arr.length; i &amp;amp;lt; len - 1; i++) {
+	if(arr[i] &amp;amp;lt;= base) {
     //如果小于基准值，push到左边的数组
       left.push(arr[i])
     } else {

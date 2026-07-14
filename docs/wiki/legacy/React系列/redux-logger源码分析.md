@@ -32,9 +32,9 @@
     //使用新的性能API可以获得更好的精度（如果可用）
     const timer = typeof performance !== `undefined` && typeof performance.now === `function` ? performance : Date;
     
-    function createLogger(options = {}) {
-      return ({ getState }) => (next) => (action) => {
-        const {
+    function createLogger(options = &#123;&#125;) &#123;
+      return (&#123; getState &#125;) => (next) => (action) => &#123;
+        const &#123;
           level, //级别
           logger, //console的API
           collapsed, //
@@ -43,19 +43,19 @@
           timestamp = true, //打印每个action的时间戳
           transformer = state => state, //在打印之前转换state
           actionTransformer = actn => actn, //在打印之前转换action
-        } = options;
+        &#125; = options;
     
         const console = logger || window.console;
     
         // 如果控制台未定义则退出
-        if (typeof console === `undefined`) {
+        if (typeof console === `undefined`) &#123;
           return next(action);
-        }
+        &#125;
     
         // 如果谓词函数返回false，则退出
-        if (typeof predicate === `function` && !predicate(getState, action)) {
+        if (typeof predicate === `function` && !predicate(getState, action)) &#123;
           return next(action);
-        }
+        &#125;
     
         const started = timer.now();
         const prevState = transformer(getState());
@@ -69,38 +69,38 @@
         const time = new Date();
         const isCollapsed = (typeof collapsed === `function`) ? collapsed(getState, action) : collapsed;
     
-        const formattedTime = timestamp ? ` @ ${pad(time.getHours(), 2)}:${pad(time.getMinutes(), 2)}:${pad(time.getSeconds(), 2)}.${pad(time.getMilliseconds(), 3)}` : ``;
-        const formattedDuration = duration ? ` in ${took.toFixed(2)} ms` : ``;
+        const formattedTime = timestamp ? ` @ $&#123;pad(time.getHours(), 2)&#125;:$&#123;pad(time.getMinutes(), 2)&#125;:$&#123;pad(time.getSeconds(), 2)&#125;.$&#123;pad(time.getMilliseconds(), 3)&#125;` : ``;
+        const formattedDuration = duration ? ` in $&#123;took.toFixed(2)&#125; ms` : ``;
         const formattedAction = actionTransformer(action);
-        const message = `action ${formattedAction.type}${formattedTime}${formattedDuration}`;
+        const message = `action $&#123;formattedAction.type&#125;$&#123;formattedTime&#125;$&#123;formattedDuration&#125;`;
         const startMessage = isCollapsed ? console.groupCollapsed : console.group;
     
         // 渲染
-        try {
+        try &#123;
           startMessage.call(console, message);
-        } catch (e) {
+        &#125; catch (e) &#123;
           console.log(message);
-        }
+        &#125;
     
-        if (level) {
+        if (level) &#123;
           console[level](`%c prev state`, `color: #9E9E9E; font-weight: bold`, prevState);
           console[level](`%c action`, `color: #03A9F4; font-weight: bold`, formattedAction);
           console[level](`%c next state`, `color: #4CAF50; font-weight: bold`, nextState);
-        } else {
+        &#125; else &#123;
           console.log(`%c prev state`, `color: #9E9E9E; font-weight: bold`, prevState);
           console.log(`%c action`, `color: #03A9F4; font-weight: bold`, formattedAction);
           console.log(`%c next state`, `color: #4CAF50; font-weight: bold`, nextState);
-        }
+        &#125;
     
-        try {
+        try &#123;
           console.groupEnd();
-        } catch (e) {
+        &#125; catch (e) &#123;
           console.log(`—— log end ——`);
-        }
+        &#125;
     
         return returnValue;
-      };
-    }
+      &#125;;
+    &#125;
     
     export default createLogger;
 
@@ -115,7 +115,7 @@
 **3、定义option的配置参数**
 我们在使用redux-logger的时候，习惯了不配置任何参数，直接调用createLogger()，使用默认的配置。但其实还可以手动传入一个option配置，不过并不常用。
 
-    const {
+    const &#123;
           level, //级别
           logger, //console的API
           collapsed, //
@@ -124,7 +124,7 @@
           timestamp = true, //打印每个action的时间戳
           transformer = state => state, //在打印之前转换state
           actionTransformer = actn => actn, //在打印之前转换action
-        } = options;
+        &#125; = options;
 
 **4、定义console**
 如果你给option配置了console相关的API，那么就使用你的配置，如果没有配置，就使用window.console
@@ -136,19 +136,19 @@
 第二个if语句的predicate表示warn、log、error等属于console的方法。&&表示2个条件要同时满足才执行下面的操作。predicate(getState, action)其实就是类似console.log(getState, action)
 
     // 如果控制台未定义则退出
-        if (typeof console === `undefined`) {
+        if (typeof console === `undefined`) &#123;
           return next(action);
-        }
+        &#125;
     
         // 如果谓词函数返回false，则退出
-        if (typeof predicate === `function` && !predicate(getState, action)) {
+        if (typeof predicate === `function` && !predicate(getState, action)) &#123;
           return next(action);
-        }
+        &#125;
 
 **6、给各个常量赋值**
 为什么会有这么多常量呢？我们来看一张图，图上展示了需要打印的各种信息。
 
-![clipboard.png](/img/bVQK0J)
+![clipboard.png](https://gitee.com/birdassassin/frontend-wiki/raw/master/img/bVQK0J)
 
 **总结出来就是：**
 
@@ -172,10 +172,10 @@ action **action.type** @ **timer**
     const time = new Date();
     const isCollapsed = (typeof collapsed === `function`) ? collapsed(getState, action) : collapsed;
     
-    const formattedTime = timestamp ? ` @ ${pad(time.getHours(), 2)}:${pad(time.getMinutes(), 2)}:${pad(time.getSeconds(), 2)}.${pad(time.getMilliseconds(), 3)}` : ``;
-    const formattedDuration = duration ? ` in ${took.toFixed(2)} ms` : ``;
+    const formattedTime = timestamp ? ` @ $&#123;pad(time.getHours(), 2)&#125;:$&#123;pad(time.getMinutes(), 2)&#125;:$&#123;pad(time.getSeconds(), 2)&#125;.$&#123;pad(time.getMilliseconds(), 3)&#125;` : ``;
+    const formattedDuration = duration ? ` in $&#123;took.toFixed(2)&#125; ms` : ``;
     const formattedAction = actionTransformer(action);
-    const message = `action ${formattedAction.type}${formattedTime}${formattedDuration}`;
+    const message = `action $&#123;formattedAction.type&#125;$&#123;formattedTime&#125;$&#123;formattedDuration&#125;`;
     const startMessage = isCollapsed ? console.groupCollapsed : console.group;
 
 **上面代码信息量比较大，我们还可以拆分出来看看。**
@@ -198,15 +198,15 @@ b、下面的代码做了一件事情，设置打印的信息。
     const time = new Date();
     const isCollapsed = (typeof collapsed === `function`) ? collapsed(getState, action) : collapsed;
     
-    const formattedTime = timestamp ? ` @ ${pad(time.getHours(), 2)}:${pad(time.getMinutes(), 2)}:${pad(time.getSeconds(), 2)}.${pad(time.getMilliseconds(), 3)}` : ``;
-    const formattedDuration = duration ? ` in ${took.toFixed(2)} ms` : ``;
+    const formattedTime = timestamp ? ` @ $&#123;pad(time.getHours(), 2)&#125;:$&#123;pad(time.getMinutes(), 2)&#125;:$&#123;pad(time.getSeconds(), 2)&#125;.$&#123;pad(time.getMilliseconds(), 3)&#125;` : ``;
+    const formattedDuration = duration ? ` in $&#123;took.toFixed(2)&#125; ms` : ``;
     const formattedAction = actionTransformer(action);
-    const message = `action ${formattedAction.type}${formattedTime}${formattedDuration}`;
+    const message = `action $&#123;formattedAction.type&#125;$&#123;formattedTime&#125;$&#123;formattedDuration&#125;`;
     const startMessage = isCollapsed ? console.groupCollapsed : console.group;
 
 这几行代码做的事情也非常简单，给需要打印的常量赋值。然后组合之后赋值给message：
 
-    const message = `action ${formattedAction.type}${formattedTime}${formattedDuration}`;
+    const message = `action $&#123;formattedAction.type&#125;$&#123;formattedTime&#125;$&#123;formattedDuration&#125;`;
 
 **message == action action.type @ time**
 
@@ -214,35 +214,35 @@ b、下面的代码做了一件事情，设置打印的信息。
 
 startMessage.call(console, message);表示将message当做参数传入startMessage，call的第一个参数是指运行环境，意思就是在console打印message信息。
 
-    try {
+    try &#123;
       startMessage.call(console, message);
-    } catch (e) {
+    &#125; catch (e) &#123;
       console.log(message);
-    }
+    &#125;
     
 **8、打印console的信息，这就图上打印出来的部分了。**
 
 因为我们通常没有配置level，所以执行的是else语句的操作。
 
-    if (level) {
+    if (level) &#123;
           console[level](`%c prev state`, `color: #9E9E9E; font-weight: bold`, prevState);
           console[level](`%c action`, `color: #03A9F4; font-weight: bold`, formattedAction);
           console[level](`%c next state`, `color: #4CAF50; font-weight: bold`, nextState);
-        } else {
+        &#125; else &#123;
           console.log(`%c prev state`, `color: #9E9E9E; font-weight: bold`, prevState);
           console.log(`%c action`, `color: #03A9F4; font-weight: bold`, formattedAction);
           console.log(`%c next state`, `color: #4CAF50; font-weight: bold`, nextState);
-        }
+        &#125;
 
 **9、游戏结束**
 
  
 
-    try {
+    try &#123;
           console.groupEnd();
-        } catch (e) {
+        &#125; catch (e) &#123;
           console.log(`—— log end ——`);
-        }
+        &#125;
     
 **10、返回值**
 

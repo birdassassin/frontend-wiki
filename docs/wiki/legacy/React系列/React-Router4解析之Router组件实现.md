@@ -1,14 +1,14 @@
 ### Router组件的使用
 react-router中有Router和Route两种看起来名字很接近的组件，但他们的作用不一样，Router作为顶级的容器使用，而Route作为一个子路由组件。react-router4的思想是一切皆组件，在使用的时候，可以把Route当做页面组件，也可以当做普通组件。**别再把Router和Route搞混了！**
 ```javascript
-import { Router } from 'react-router'
-import createBrowserHistory from 'history/createBrowserHistory'
+import { Router } from &amp;amp;#039;react-router&amp;amp;#039;
+import createBrowserHistory from &amp;amp;#039;history/createBrowserHistory&amp;amp;#039;
 
 const history = createBrowserHistory()
 
-<Router history={history}>
-  <App/>
-</Router>
+&amp;amp;lt;Router history={history}&amp;amp;gt;
+  &amp;amp;lt;App/&amp;amp;gt;
+&amp;amp;lt;/Router&amp;amp;gt;
 ```
 
 ### Router组件的实现
@@ -20,7 +20,7 @@ const history = createBrowserHistory()
 首先思考一下，history传入Router之后，要用来做什么？
 下面的代码实现了渲染一个子组件的Router，可history要放在那里呢？
 ```javascript
-import React from 'react'
+import React from &amp;amp;#039;react&amp;amp;#039;
 export default class Router extends React.Component {
     render() {
         const { children, history } = this.props  
@@ -48,7 +48,7 @@ getChildContext：react方法，获取子组件中的某个上下文对象（如
 
 首先定义childContextTypes，定义了上下文router对象。
 ```javascript
-import React from 'react'
+import React from &amp;amp;#039;react&amp;amp;#039;
 export default class Router extends React.Component {
     static childContextTypes = {
         router: PropTypes.object.isRequired
@@ -61,7 +61,7 @@ export default class Router extends React.Component {
 ```
 router对象具体包含哪些属性，就得使用getChildContext()方法。像history、match、location都是经常用到的。
 ```javascript
-import React from 'react'
+import React from &amp;amp;#039;react&amp;amp;#039;
 export default class Router extends React.Component {
     static childContextTypes = {
         router: PropTypes.object.isRequired
@@ -86,7 +86,7 @@ export default class Router extends React.Component {
 ```
 在父组件定义了上下文，如果父组件想要接收子组件的上下文更新，就需要contextTypes。
 ```javascript
-import React from 'react'
+import React from &amp;amp;#039;react&amp;amp;#039;
 export default class Router extends React.Component {
     static contextTypes = {
       router: PropTypes.object
@@ -114,8 +114,8 @@ export default class Router extends React.Component {
 ```
 在子组件接收Router父组件的上下文很简单，比如Link组件。在Link组件中定义静态属性contextTypes的对象为父组件中的router对象即可用this.context.router读取上下文了。
 ```javascript
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from &amp;amp;#039;react&amp;amp;#039;
+import PropTypes from &amp;amp;#039;prop-types&amp;amp;#039;
 
 export default class Link extends React.Component {
   static defaultProps = {
@@ -131,7 +131,7 @@ export default class Link extends React.Component {
       }).isRequired
     }).isRequired
   }
-  handleClick = (event) => {
+  handleClick = (event) =&amp;amp;gt; {
       const { history } = this.context.router //重点
       const { replace, to } = this.props
       if (replace) {
@@ -150,10 +150,10 @@ export default class Link extends React.Component {
 match是一个封装好的方法，它返回一个对象，这个对象你肯定很熟悉，它就是Route组件的属性配置。
 ```javascript
 {
-  path: '/',
-  url: '/',
+  path: &amp;amp;#039;/&amp;amp;#039;,
+  url: &amp;amp;#039;/&amp;amp;#039;,
   params: {},
-  isExact: pathname === '/'
+  isExact: pathname === &amp;amp;#039;/&amp;amp;#039;
 }
 ```
 match作为上下文属性中通信的最重要的功能，它可以监听路由的变化，利用了react的state可以实现自动更新组件的特性。
@@ -164,10 +164,10 @@ state = {
   }
 computeMatch(pathname) {
     return {
-      path: '/',
-      url: '/',
+      path: &amp;amp;#039;/&amp;amp;#039;,
+      url: &amp;amp;#039;/&amp;amp;#039;,
       params: {},
-      isExact: pathname === '/'
+      isExact: pathname === &amp;amp;#039;/&amp;amp;#039;
     }
   }
 ```
@@ -175,7 +175,7 @@ computeMatch(pathname) {
 ```javascript
 componentWillMount() {
     const { children, history } = this.props
-    this.unlisten = history.listen(() => {
+    this.unlisten = history.listen(() =&amp;amp;gt; {
       this.setState({
         match: this.computeMatch(history.location.pathname)
       })
@@ -187,8 +187,8 @@ componentWillMount() {
 
 ### Router源码（省去了错误提示的代码） 
 ```
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from &amp;amp;#039;react&amp;amp;#039;
+import PropTypes from &amp;amp;#039;prop-types&amp;amp;#039;
 
 export default class Router extends React.Component {
   static propTypes = {
@@ -218,15 +218,15 @@ export default class Router extends React.Component {
   }
   computeMatch(pathname) {
     return {
-      path: '/',
-      url: '/',
+      path: &amp;amp;#039;/&amp;amp;#039;,
+      url: &amp;amp;#039;/&amp;amp;#039;,
       params: {},
-      isExact: pathname === '/'
+      isExact: pathname === &amp;amp;#039;/&amp;amp;#039;
     }
   }
   componentWillMount() {
     const { children, history } = this.props
-    this.unlisten = history.listen(() => {
+    this.unlisten = history.listen(() =&amp;amp;gt; {
       this.setState({
         match: this.computeMatch(history.location.pathname)
       })

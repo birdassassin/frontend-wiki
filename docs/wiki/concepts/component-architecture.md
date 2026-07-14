@@ -35,26 +35,26 @@ function UserCard({ user }) {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState(null);
   
-  const fetchPosts = async () => { /* ... */ };
-  const fetchComments = async () => { /* ... */ };
+  const fetchPosts = async () =&amp;amp;gt; { /* ... */ };
+  const fetchComments = async () =&amp;amp;gt; { /* ... */ };
   
   return (
-    <div>
-      <UserProfile user={user} />
-      <UserPosts posts={data?.posts} />
-      <UserComments comments={data?.comments} />
-    </div>
+    &amp;amp;lt;div&amp;amp;gt;
+      &amp;amp;lt;UserProfile user={user} /&amp;amp;gt;
+      &amp;amp;lt;UserPosts posts={data?.posts} /&amp;amp;gt;
+      &amp;amp;lt;UserComments comments={data?.comments} /&amp;amp;gt;
+    &amp;amp;lt;/div&amp;amp;gt;
   );
 }
 
 // ✅ 职责分离
 function UserCard({ user }) {
   return (
-    <div>
-      <UserProfile user={user} />
-      <UserPosts userId={user.id} />
-      <UserComments userId={user.id} />
-    </div>
+    &amp;amp;lt;div&amp;amp;gt;
+      &amp;amp;lt;UserProfile user={user} /&amp;amp;gt;
+      &amp;amp;lt;UserPosts userId={user.id} /&amp;amp;gt;
+      &amp;amp;lt;UserComments userId={user.id} /&amp;amp;gt;
+    &amp;amp;lt;/div&amp;amp;gt;
   );
 }
 ```
@@ -69,20 +69,20 @@ class FormModal extends Modal { /* ... */ }
 // ✅ 组合模式
 function Modal({ children, title, onClose }) {
   return (
-    <div className="modal">
-      <ModalHeader title={title} onClose={onClose} />
-      <ModalBody>{children}</ModalBody>
-      <ModalFooter />
-    </div>
+    &amp;amp;lt;div className=&amp;amp;quot;modal&amp;amp;quot;&amp;amp;gt;
+      &amp;amp;lt;ModalHeader title={title} onClose={onClose} /&amp;amp;gt;
+      &amp;amp;lt;ModalBody&amp;amp;gt;{children}&amp;amp;lt;/ModalBody&amp;amp;gt;
+      &amp;amp;lt;ModalFooter /&amp;amp;gt;
+    &amp;amp;lt;/div&amp;amp;gt;
   );
 }
 
 function ConfirmModal({ message, onConfirm }) {
   return (
-    <Modal title="确认">
-      <p>{message}</p>
-      <Button onClick={onConfirm}>确认</Button>
-    </Modal>
+    &amp;amp;lt;Modal title=&amp;amp;quot;确认&amp;amp;quot;&amp;amp;gt;
+      &amp;amp;lt;p&amp;amp;gt;{message}&amp;amp;lt;/p&amp;amp;gt;
+      &amp;amp;lt;Button onClick={onConfirm}&amp;amp;gt;确认&amp;amp;lt;/Button&amp;amp;gt;
+    &amp;amp;lt;/Modal&amp;amp;gt;
   );
 }
 ```
@@ -91,12 +91,12 @@ function ConfirmModal({ message, onConfirm }) {
 ```jsx
 // 1. 明确的 Props 类型
 interface ButtonProps {
-  variant?: 'primary' | 'secondary' | 'ghost';
-  size?: 'sm' | 'md' | 'lg';
+  variant?: &amp;amp;#039;primary&amp;amp;#039; | &amp;amp;#039;secondary&amp;amp;#039; | &amp;amp;#039;ghost&amp;amp;#039;;
+  size?: &amp;amp;#039;sm&amp;amp;#039; | &amp;amp;#039;md&amp;amp;#039; | &amp;amp;#039;lg&amp;amp;#039;;
   disabled?: boolean;
   loading?: boolean;
   children: React.ReactNode;
-  onClick?: (e: MouseEvent) => void;
+  onClick?: (e: MouseEvent) =&amp;amp;gt; void;
 }
 
 // 2. 组合 Props
@@ -111,8 +111,8 @@ interface AsProp {
   as?: React.ElementType;
 }
 
-function Container<T>({ as: Component = 'div', ...props }: ContainerProps<T> & T) {
-  return <Component {...props} />;
+function Container&amp;amp;lt;T&amp;amp;gt;({ as: Component = &amp;amp;#039;div&amp;amp;#039;, ...props }: ContainerProps&amp;amp;lt;T&amp;amp;gt; &amp;amp;amp; T) {
+  return &amp;amp;lt;Component {...props} /&amp;amp;gt;;
 }
 ```
 
@@ -134,13 +134,13 @@ function Container<T>({ as: Component = 'div', ...props }: ContainerProps<T> & T
 ```jsx
 // 状态提升到最近的共同父组件
 function App() {
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState(&amp;amp;#039;&amp;amp;#039;);
   
   return (
-    <>
-      <SearchInput value={search} onChange={setSearch} />
-      <SearchResults query={search} />
-    </>
+    &amp;amp;lt;&amp;amp;gt;
+      &amp;amp;lt;SearchInput value={search} onChange={setSearch} /&amp;amp;gt;
+      &amp;amp;lt;SearchResults query={search} /&amp;amp;gt;
+    &amp;amp;lt;/&amp;amp;gt;
   );
 }
 ```
@@ -153,12 +153,12 @@ function TodoList({ todos }) {
   const [completedCount, setCompletedCount] = useState(0);
   
   // ✅ 派生状态
-  const completedCount = todos.filter(t => t.completed).length;
-  const filteredTodos = todos.filter(t => 
+  const completedCount = todos.filter(t =&amp;amp;gt; t.completed).length;
+  const filteredTodos = todos.filter(t =&amp;amp;gt; 
     t.title.toLowerCase().includes(search.toLowerCase())
   );
   
-  return <List items={filteredTodos} />;
+  return &amp;amp;lt;List items={filteredTodos} /&amp;amp;gt;;
 }
 ```
 
@@ -174,20 +174,20 @@ function TodoList({ todos }) {
 ```jsx
 function Component() {
   // 挂载和更新时执行
-  useEffect(() => {
-    const timer = setInterval(() => { /* ... */ }, 1000);
+  useEffect(() =&amp;amp;gt; {
+    const timer = setInterval(() =&amp;amp;gt; { /* ... */ }, 1000);
     
     // 清理函数（卸载或依赖变化时执行）
-    return () => clearInterval(timer);
+    return () =&amp;amp;gt; clearInterval(timer);
   }, [dependency]);
   
   // 仅挂载时执行
-  useEffect(() => {
+  useEffect(() =&amp;amp;gt; {
     fetchInitialData();
   }, []);
   
   // 每次渲染后执行
-  useEffect(() => {
+  useEffect(() =&amp;amp;gt; {
     updateDocumentTitle();
   });
 }
@@ -199,21 +199,21 @@ function Component() {
 ```
 
 ```vue
-<script setup>
-import { onMounted, onUpdated, onUnmounted } from 'vue';
+&amp;amp;lt;script setup&amp;amp;gt;
+import { onMounted, onUpdated, onUnmounted } from &amp;amp;#039;vue&amp;amp;#039;;
 
-onMounted(() => {
+onMounted(() =&amp;amp;gt; {
   // DOM 挂载后
 });
 
-onUpdated(() => {
+onUpdated(() =&amp;amp;gt; {
   // DOM 更新后
 });
 
-onUnmounted(() => {
+onUnmounted(() =&amp;amp;gt; {
   // 清理
 });
-</script>
+&amp;amp;lt;/script&amp;amp;gt;
 ```
 
 ---
@@ -224,23 +224,23 @@ onUnmounted(() => {
 ```jsx
 function Select({ children, value, onChange }) {
   return (
-    <div className="select">
-      {React.Children.map(children, child =>
+    &amp;amp;lt;div className=&amp;amp;quot;select&amp;amp;quot;&amp;amp;gt;
+      {React.Children.map(children, child =&amp;amp;gt;
         React.cloneElement(child, { value, onChange })
       )}
-    </div>
+    &amp;amp;lt;/div&amp;amp;gt;
   );
 }
 
 Select.Option = function Option({ value, children }) {
-  return <option value={value}>{children}</option>;
+  return &amp;amp;lt;option value={value}&amp;amp;gt;{children}&amp;amp;lt;/option&amp;amp;gt;;
 };
 
 // 使用
-<Select value={selected} onChange={setSelected}>
-  <Select.Option value="a">A</Select.Option>
-  <Select.Option value="b">B</Select.Option>
-</Select>
+&amp;amp;lt;Select value={selected} onChange={setSelected}&amp;amp;gt;
+  &amp;amp;lt;Select.Option value=&amp;amp;quot;a&amp;amp;quot;&amp;amp;gt;A&amp;amp;lt;/Select.Option&amp;amp;gt;
+  &amp;amp;lt;Select.Option value=&amp;amp;quot;b&amp;amp;quot;&amp;amp;gt;B&amp;amp;lt;/Select.Option&amp;amp;gt;
+&amp;amp;lt;/Select&amp;amp;gt;
 ```
 
 ### 5.2 渲染 Props
@@ -248,26 +248,26 @@ Select.Option = function Option({ value, children }) {
 function MouseTracker({ render }) {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   
-  useEffect(() => {
-    const handler = (e) => setPosition({ x: e.clientX, y: e.clientY });
-    window.addEventListener('mousemove', handler);
-    return () => window.removeEventListener('mousemove', handler);
+  useEffect(() =&amp;amp;gt; {
+    const handler = (e) =&amp;amp;gt; setPosition({ x: e.clientX, y: e.clientY });
+    window.addEventListener(&amp;amp;#039;mousemove&amp;amp;#039;, handler);
+    return () =&amp;amp;gt; window.removeEventListener(&amp;amp;#039;mousemove&amp;amp;#039;, handler);
   }, []);
   
   return render(position);
 }
 
-<MouseTracker render={({ x, y }) => (
-  <div>鼠标位置: {x}, {y}</div>
-)} />
+&amp;amp;lt;MouseTracker render={({ x, y }) =&amp;amp;gt; (
+  &amp;amp;lt;div&amp;amp;gt;鼠标位置: {x}, {y}&amp;amp;lt;/div&amp;amp;gt;
+)} /&amp;amp;gt;
 ```
 
 ### 5.3 高阶组件
 ```jsx
 function withLoading(WrappedComponent) {
   return function WithLoadingComponent({ isLoading, ...props }) {
-    if (isLoading) return <LoadingSpinner />;
-    return <WrappedComponent {...props} />;
+    if (isLoading) return &amp;amp;lt;LoadingSpinner /&amp;amp;gt;;
+    return &amp;amp;lt;WrappedComponent {...props} /&amp;amp;gt;;
   };
 }
 
@@ -281,18 +281,18 @@ const UserListWithLoading = withLoading(UserList);
 ### 6.1 避免不必要的重渲染
 ```jsx
 // 1. React.memo 缓存组件
-const ExpensiveComponent = React.memo(({ data }) => {
-  return <div>{/* 复杂渲染 */}</div>;
+const ExpensiveComponent = React.memo(({ data }) =&amp;amp;gt; {
+  return &amp;amp;lt;div&amp;amp;gt;{/* 复杂渲染 */}&amp;amp;lt;/div&amp;amp;gt;;
 });
 
 // 2. useMemo 缓存计算
-const filteredData = useMemo(() => 
-  data.filter(item => item.active),
+const filteredData = useMemo(() =&amp;amp;gt; 
+  data.filter(item =&amp;amp;gt; item.active),
   [data]
 );
 
 // 3. useCallback 缓存函数
-const handleClick = useCallback((id) => {
+const handleClick = useCallback((id) =&amp;amp;gt; {
   setSelectedId(id);
 }, []);
 ```
@@ -300,16 +300,16 @@ const handleClick = useCallback((id) => {
 ### 6.2 代码分割
 ```jsx
 // 路由级别分割
-const Dashboard = lazy(() => import('./Dashboard'));
+const Dashboard = lazy(() =&amp;amp;gt; import(&amp;amp;#039;./Dashboard&amp;amp;#039;));
 
 // 组件级别分割
-const HeavyComponent = lazy(() => import('./HeavyComponent'));
+const HeavyComponent = lazy(() =&amp;amp;gt; import(&amp;amp;#039;./HeavyComponent&amp;amp;#039;));
 
 function App() {
   return (
-    <Suspense fallback={<Loading />}>
-      <Dashboard />
-    </Suspense>
+    &amp;amp;lt;Suspense fallback={&amp;amp;lt;Loading /&amp;amp;gt;}&amp;amp;gt;
+      &amp;amp;lt;Dashboard /&amp;amp;gt;
+    &amp;amp;lt;/Suspense&amp;amp;gt;
   );
 }
 ```

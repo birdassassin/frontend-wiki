@@ -12,11 +12,11 @@ class Form extends TraditionalObjectOrientedView {
     // 读取传递给视图的一些数据
     const { isSubmitted, buttonText } = this.attrs;
 
-    if (!isSubmitted && !this.button) {
+    if (!isSubmitted &amp;amp;amp;&amp;amp;amp; !this.button) {
       // 表格尚未提交。创建按钮！
       this.button = new Button({
         children: buttonText,
-        color: 'blue'
+        color: &amp;amp;#039;blue&amp;amp;#039;
       });
       this.el.appendChild(this.button.el);
     }
@@ -27,15 +27,15 @@ class Form extends TraditionalObjectOrientedView {
       this.button.render();
     }
 
-    if (isSubmitted && this.button) {
+    if (isSubmitted &amp;amp;amp;&amp;amp;amp; this.button) {
       // 表格已提交。销毁按钮！
       this.el.removeChild(this.button.el);
       this.button.destroy();
     }
 
-    if (isSubmitted && !this.message) {
+    if (isSubmitted &amp;amp;amp;&amp;amp;amp; !this.message) {
       // 表格已提交。显示成功消息！
-      this.message = new Message({ text: 'Success!' });
+      this.message = new Message({ text: &amp;amp;#039;Success!&amp;amp;#039; });
       this.el.appendChild(this.message.el);
     }
   }
@@ -47,7 +47,7 @@ class Form extends TraditionalObjectOrientedView {
 
 那么，React与众不同呢？
 
-<hr />
+&lt;hr /&gt;
 
 ### 元素描述树
 在React中，这是元素来拯救的地方。元素是一个普通的对象，描述组件实例或DOM节点及其所需的属性。它仅包含有关组件类型（例如Button），其属性（例如其颜色）以及其中的任何子元素的信息。
@@ -59,13 +59,13 @@ class Form extends TraditionalObjectOrientedView {
 
 ```javascript
 {
-  type: 'button',
+  type: &amp;amp;#039;button&amp;amp;#039;,
   props: {
-    className: 'button button-blue',
+    className: &amp;amp;#039;button button-blue&amp;amp;#039;,
     children: {
-      type: 'b',
+      type: &amp;amp;#039;b&amp;amp;#039;,
       props: {
-        children: 'OK!'
+        children: &amp;amp;#039;OK!&amp;amp;#039;
       }
     }
   }
@@ -73,11 +73,11 @@ class Form extends TraditionalObjectOrientedView {
 ```
 这个元素只是将下面的HTML表示为一个普通对象的一种方式：
 ```javascript
-<button class='button button-blue'>
-  <b>
+&amp;amp;lt;button class=&amp;amp;#039;button button-blue&amp;amp;#039;&amp;amp;gt;
+  &amp;amp;lt;b&amp;amp;gt;
     OK!
-  </b>
-</button>
+  &amp;amp;lt;/b&amp;amp;gt;
+&amp;amp;lt;/button&amp;amp;gt;
 ```
 注意元素是如何嵌套的。按照惯例，当我们要创建一个元素树时，我们指定一个或多个子元素作为其包含元素的子元素。
 
@@ -90,8 +90,8 @@ React元素很容易遍历，不需要被解析，当然，它们比实际的DOM
 {
   type: Button,
   props: {
-    color: 'blue',
-    children: 'OK!'
+    color: &amp;amp;#039;blue&amp;amp;#039;,
+    children: &amp;amp;#039;OK!&amp;amp;#039;
   }
 }
 ```
@@ -99,55 +99,55 @@ React元素很容易遍历，不需要被解析，当然，它们比实际的DOM
 
 **描述组件的元素也是一个元素，就像描述DOM节点的元素一样。它们可以互相嵌套和混合。**
 
-这个特性可以让你定义一个DangerButton组件作为一个具有特定颜色属性值的Button，而不用担心Button是否呈现给DOM <button>，<div>或者其他东西：
+这个特性可以让你定义一个DangerButton组件作为一个具有特定颜色属性值的Button，而不用担心Button是否呈现给DOM &lt;button&gt;，&lt;div&gt;或者其他东西：
 ```javascript
-const DangerButton = ({ children }) => ({
+const DangerButton = ({ children }) =&amp;amp;gt; ({
   type: Button,
   props: {
-    color: 'red',
+    color: &amp;amp;#039;red&amp;amp;#039;,
     children: children
   }
 });
 ```
 您可以在单个元素树中混合和匹配DOM和组件元素：
 ```javascript
-const DeleteAccount = () => ({
-  type: 'div',
+const DeleteAccount = () =&amp;amp;gt; ({
+  type: &amp;amp;#039;div&amp;amp;#039;,
   props: {
     children: [{
-      type: 'p',
+      type: &amp;amp;#039;p&amp;amp;#039;,
       props: {
-        children: 'Are you sure?'
+        children: &amp;amp;#039;Are you sure?&amp;amp;#039;
       }
     }, {
       type: DangerButton,
       props: {
-        children: 'Yep'
+        children: &amp;amp;#039;Yep&amp;amp;#039;
       }
     }, {
       type: Button,
       props: {
-        color: 'blue',
-        children: 'Cancel'
+        color: &amp;amp;#039;blue&amp;amp;#039;,
+        children: &amp;amp;#039;Cancel&amp;amp;#039;
       }
    }]
 });
 ```
 或者，如果您更喜欢JSX：
 ```javascript
-const DeleteAccount = () => (
-  <div>
-    <p>Are you sure?</p>
-    <DangerButton>Yep</DangerButton>
-    <Button color='blue'>Cancel</Button>
-  </div>
+const DeleteAccount = () =&amp;amp;gt; (
+  &amp;amp;lt;div&amp;amp;gt;
+    &amp;amp;lt;p&amp;amp;gt;Are you sure?&amp;amp;lt;/p&amp;amp;gt;
+    &amp;amp;lt;DangerButton&amp;amp;gt;Yep&amp;amp;lt;/DangerButton&amp;amp;gt;
+    &amp;amp;lt;Button color=&amp;amp;#039;blue&amp;amp;#039;&amp;amp;gt;Cancel&amp;amp;lt;/Button&amp;amp;gt;
+  &amp;amp;lt;/div&amp;amp;gt;
 );
 ```
 这种混合和匹配有助于保持组件彼此分离，因为它们可以仅通过组合来表达既是和唯一的关系：
 
 - 按钮是具有特定属性的DOM <按钮>。 
 - DangerButton是一个具有特定属性的按钮。 
-- DeleteAccount在<div>中包含一个Button和一个DangerButton。
+- DeleteAccount在&lt;div&gt;中包含一个Button和一个DangerButton。
 
 ### 组件封装元素树
 当React看到一个具有函数或类类型的元素时，它知道要求该元件呈现什么元素，给定相应的props。
@@ -157,21 +157,21 @@ const DeleteAccount = () => (
 {
   type: Button,
   props: {
-    color: 'blue',
-    children: 'OK!'
+    color: &amp;amp;#039;blue&amp;amp;#039;,
+    children: &amp;amp;#039;OK!&amp;amp;#039;
   }
 }
 ```
 React会询问Button呈现的内容。按钮将返回这个元素：
 ```javascript
 {
-  type: 'button',
+  type: &amp;amp;#039;button&amp;amp;#039;,
   props: {
-    className: 'button button-blue',
+    className: &amp;amp;#039;button button-blue&amp;amp;#039;,
     children: {
-      type: 'b',
+      type: &amp;amp;#039;b&amp;amp;#039;,
       props: {
-        children: 'OK!'
+        children: &amp;amp;#039;OK!&amp;amp;#039;
       }
     }
   }
@@ -183,13 +183,13 @@ React就像一个小孩，问“Y是什么”，每一个“X是Y”，你解释
 
 记得上面的表单示例吗？它可以用React写成如下：
 ```javascript
-const Form = ({ isSubmitted, buttonText }) => {
+const Form = ({ isSubmitted, buttonText }) =&amp;amp;gt; {
   if (isSubmitted) {
     // 表格提交！返回一个消息元素。
     return {
       type: Message,
       props: {
-        text: 'Success!'
+        text: &amp;amp;#039;Success!&amp;amp;#039;
       }
     };
   }
@@ -199,7 +199,7 @@ const Form = ({ isSubmitted, buttonText }) => {
     type: Button,
     props: {
       children: buttonText,
-      color: 'blue'
+      color: &amp;amp;#039;blue&amp;amp;#039;
     }
   };
 };
@@ -214,12 +214,12 @@ const Form = ({ isSubmitted, buttonText }) => {
 上面的代码中，Form，Message和Button是React组件。它们既可以像上面那样写成函数，也可以写成从React.Component降序的类。这三种声明组件的方式大部分是等价的：
 ```javascript
 // 作为props的功能
-const Button = ({ children, color }) => ({
-  type: 'button',
+const Button = ({ children, color }) =&amp;amp;gt; ({
+  type: &amp;amp;#039;button&amp;amp;#039;,
   props: {
-    className: 'button button-' + color,
+    className: &amp;amp;#039;button button-&amp;amp;#039; + color,
     children: {
-      type: 'b',
+      type: &amp;amp;#039;b&amp;amp;#039;,
       props: {
         children: children
       }
@@ -232,11 +232,11 @@ const Button = React.createClass({
   render() {
     const { children, color } = this.props;
     return {
-      type: 'button',
+      type: &amp;amp;#039;button&amp;amp;#039;,
       props: {
-        className: 'button button-' + color,
+        className: &amp;amp;#039;button button-&amp;amp;#039; + color,
         children: {
-          type: 'b',
+          type: &amp;amp;#039;b&amp;amp;#039;,
           props: {
             children: children
           }
@@ -251,11 +251,11 @@ class Button extends React.Component {
   render() {
     const { children, color } = this.props;
     return {
-      type: 'button',
+      type: &amp;amp;#039;button&amp;amp;#039;,
       props: {
-        className: 'button button-' + color,
+        className: &amp;amp;#039;button button-&amp;amp;#039; + color,
         children: {
-          type: 'b',
+          type: &amp;amp;#039;b&amp;amp;#039;,
           props: {
             children: children
           }
@@ -278,9 +278,9 @@ ReactDOM.render({
   type: Form,
   props: {
     isSubmitted: false,
-    buttonText: 'OK!'
+    buttonText: &amp;amp;#039;OK!&amp;amp;#039;
   }
-}, document.getElementById('root'));
+}, document.getElementById(&amp;amp;#039;root&amp;amp;#039;));
 ```
 React将会询问Form组件返回的元素树，给出这些props。它将逐渐“提炼”对简单原语的理解：
 
@@ -290,7 +290,7 @@ React将会询问Form组件返回的元素树，给出这些props。它将逐渐
   type: Form,
   props: {
     isSubmitted: false,
-    buttonText: 'OK!'
+    buttonText: &amp;amp;#039;OK!&amp;amp;#039;
   }
 }
 
@@ -298,20 +298,20 @@ React将会询问Form组件返回的元素树，给出这些props。它将逐渐
 {
   type: Button,
   props: {
-    children: 'OK!',
-    color: 'blue'
+    children: &amp;amp;#039;OK!&amp;amp;#039;,
+    color: &amp;amp;#039;blue&amp;amp;#039;
   }
 }
 
 // React: ...Button告诉我这个！我想我已经完成了。
 {
-  type: 'button',
+  type: &amp;amp;#039;button&amp;amp;#039;,
   props: {
-    className: 'button button-blue',
+    className: &amp;amp;#039;button button-blue&amp;amp;#039;,
     children: {
-      type: 'b',
+      type: &amp;amp;#039;b&amp;amp;#039;,
       props: {
-        children: 'OK!'
+        children: &amp;amp;#039;OK!&amp;amp;#039;
       }
     }
   }
@@ -327,7 +327,7 @@ React将会询问Form组件返回的元素树，给出这些props。它将逐渐
 
 React负责为每个类组件创建一个实例，因此可以用方法和本地状态以面向对象的方式编写组件，但除此之外，实例在React的编程模型中并不是非常重要，并且由React本身来管理。
 
-<hr />
+&lt;hr /&gt;
 
 ### 总结
 元素是一个普通的对象，用DOM节点或其他组件来描述你想要在屏幕上显示的内容。元素可以在其props中包含其他元素。创建一个React元素很便宜。一旦创建了一个元素，它就不会发生变异。

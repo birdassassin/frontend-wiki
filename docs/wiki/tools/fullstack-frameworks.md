@@ -11,21 +11,21 @@
 // app/layout.tsx
 export default function RootLayout({ children }) {
   return (
-    <html lang="zh">
-      <body>{children}</body>
-    </html>
+    &amp;amp;lt;html lang=&amp;amp;quot;zh&amp;amp;quot;&amp;amp;gt;
+      &amp;amp;lt;body&amp;amp;gt;{children}&amp;amp;lt;/body&amp;amp;gt;
+    &amp;amp;lt;/html&amp;amp;gt;
   );
 }
 
 // app/page.tsx
 export default function Home() {
-  return <h1>Hello Next.js</h1>;
+  return &amp;amp;lt;h1&amp;amp;gt;Hello Next.js&amp;amp;lt;/h1&amp;amp;gt;;
 }
 
 // app/users/[id]/page.tsx
 export default async function UserPage({ params }) {
   const user = await fetch(`https://api.example.com/users/${params.id}`);
-  return <div>{user.name}</div>;
+  return &amp;amp;lt;div&amp;amp;gt;{user.name}&amp;amp;lt;/div&amp;amp;gt;;
 }
 ```
 
@@ -33,36 +33,36 @@ export default async function UserPage({ params }) {
 ```tsx
 // 服务器组件 (默认)
 async function getData() {
-  const res = await fetch('https://api.example.com/data', {
+  const res = await fetch(&amp;amp;#039;https://api.example.com/data&amp;amp;#039;, {
     next: { revalidate: 3600 } // ISR
   });
   return res.json();
 }
 
 // 客户端组件
-'use client';
+&amp;amp;#039;use client&amp;amp;#039;;
 
-import { useState } from 'react';
+import { useState } from &amp;amp;#039;react&amp;amp;#039;;
 
 function ClientComponent() {
   const [data, setData] = useState(null);
-  return <button onClick={() => fetchData()}>Load</button>;
+  return &amp;amp;lt;button onClick={() =&amp;amp;gt; fetchData()}&amp;amp;gt;Load&amp;amp;lt;/button&amp;amp;gt;;
 }
 ```
 
 ### 1.3 路由与导航
 ```tsx
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import Link from &amp;amp;#039;next/link&amp;amp;#039;;
+import { useRouter } from &amp;amp;#039;next/navigation&amp;amp;#039;;
 
 function Navigation() {
   const router = useRouter();
   
   return (
-    <nav>
-      <Link href="/about">About</Link>
-      <button onClick={() => router.push('/dashboard')}>Dashboard</button>
-    </nav>
+    &amp;amp;lt;nav&amp;amp;gt;
+      &amp;amp;lt;Link href=&amp;amp;quot;/about&amp;amp;quot;&amp;amp;gt;About&amp;amp;lt;/Link&amp;amp;gt;
+      &amp;amp;lt;button onClick={() =&amp;amp;gt; router.push(&amp;amp;#039;/dashboard&amp;amp;#039;)}&amp;amp;gt;Dashboard&amp;amp;lt;/button&amp;amp;gt;
+    &amp;amp;lt;/nav&amp;amp;gt;
   );
 }
 ```
@@ -82,12 +82,12 @@ export async function loader({ request }) {
 export async function action({ request }) {
   const formData = await request.formData();
   await createUser(formData);
-  return redirect('/users');
+  return redirect(&amp;amp;#039;/users&amp;amp;#039;);
 }
 
 export default function Users() {
-  const { users } = useLoaderData<typeof loader>();
-  return <ul>{users.map(u => <li key={u.id}>{u.name}</li>)}</ul>;
+  const { users } = useLoaderData&amp;amp;lt;typeof loader&amp;amp;gt;();
+  return &amp;amp;lt;ul&amp;amp;gt;{users.map(u =&amp;amp;gt; &amp;amp;lt;li key={u.id}&amp;amp;gt;{u.name}&amp;amp;lt;/li&amp;amp;gt;)}&amp;amp;lt;/ul&amp;amp;gt;;
 }
 ```
 
@@ -95,10 +95,10 @@ export default function Users() {
 ```tsx
 function NewUserForm() {
   return (
-    <Form method="post">
-      <input name="name" type="text" />
-      <button type="submit">Create</button>
-    </Form>
+    &amp;amp;lt;Form method=&amp;amp;quot;post&amp;amp;quot;&amp;amp;gt;
+      &amp;amp;lt;input name=&amp;amp;quot;name&amp;amp;quot; type=&amp;amp;quot;text&amp;amp;quot; /&amp;amp;gt;
+      &amp;amp;lt;button type=&amp;amp;quot;submit&amp;amp;quot;&amp;amp;gt;Create&amp;amp;lt;/button&amp;amp;gt;
+    &amp;amp;lt;/Form&amp;amp;gt;
   );
 }
 ```
@@ -109,27 +109,27 @@ function NewUserForm() {
 
 ### 3.1 文件路由
 ```vue
-<!-- pages/index.vue -->
-<template>
-  <div>
-    <h1>{{ data.title }}</h1>
-  </div>
-</template>
+&amp;amp;lt;!-- pages/index.vue --&amp;amp;gt;
+&amp;amp;lt;template&amp;amp;gt;
+  &amp;amp;lt;div&amp;amp;gt;
+    &amp;amp;lt;h1&amp;amp;gt;&amp;#123;&amp;#123; data.title &amp;#125;&amp;#125;&amp;amp;lt;/h1&amp;amp;gt;
+  &amp;amp;lt;/div&amp;amp;gt;
+&amp;amp;lt;/template&amp;amp;gt;
 
-<script setup>
-const { data } = await useFetch('/api/data');
-</script>
+&amp;amp;lt;script setup&amp;amp;gt;
+const { data } = await useFetch(&amp;amp;#039;/api/data&amp;amp;#039;);
+&amp;amp;lt;/script&amp;amp;gt;
 ```
 
 ### 3.2 自动导入
 ```vue
-<script setup>
+&amp;amp;lt;script setup&amp;amp;gt;
 // 自动导入 composables
-const count = useState('count', () => 0);
+const count = useState(&amp;amp;#039;count&amp;amp;#039;, () =&amp;amp;gt; 0);
 
 // 自动导入组件
-// <AppHeader /> 无需导入
-</script>
+// &amp;amp;lt;AppHeader /&amp;amp;gt; 无需导入
+&amp;amp;lt;/script&amp;amp;gt;
 ```
 
 ---
@@ -139,27 +139,27 @@ const count = useState('count', () => 0);
 ### 4.1 岛屿架构
 ```astro
 ---
-import ReactButton from '../components/ReactButton.jsx';
-import VueWidget from '../components/VueWidget.vue';
+import ReactButton from &amp;amp;#039;../components/ReactButton.jsx&amp;amp;#039;;
+import VueWidget from &amp;amp;#039;../components/VueWidget.vue&amp;amp;#039;;
 ---
 
-<!-- 静态 HTML -->
-<header>
-  <h1>Astro Site</h1>
-</header>
+&amp;amp;lt;!-- 静态 HTML --&amp;amp;gt;
+&amp;amp;lt;header&amp;amp;gt;
+  &amp;amp;lt;h1&amp;amp;gt;Astro Site&amp;amp;lt;/h1&amp;amp;gt;
+&amp;amp;lt;/header&amp;amp;gt;
 
-<!-- 交互式岛屿 -->
-<ReactButton client:load />
-<VueWidget client:visible />
+&amp;amp;lt;!-- 交互式岛屿 --&amp;amp;gt;
+&amp;amp;lt;ReactButton client:load /&amp;amp;gt;
+&amp;amp;lt;VueWidget client:visible /&amp;amp;gt;
 ```
 
 ### 4.2 内容集合
 ```typescript
 // src/content/config.ts
-import { defineCollection, z } from 'astro:content';
+import { defineCollection, z } from &amp;amp;#039;astro:content&amp;amp;#039;;
 
 const blog = defineCollection({
-  type: 'content',
+  type: &amp;amp;#039;content&amp;amp;#039;,
   schema: z.object({
     title: z.string(),
     date: z.date(),

@@ -8,7 +8,7 @@ connect方法比较复杂，虽然代码只有368行，但是为redux中常用�
 
 **一个基础的connect方法如下：**
 
-    connect(mapStateToProps, mapDispatchToProps, mergeProps, options = {}) 
+    connect(mapStateToProps, mapDispatchToProps, mergeProps, options = &#123;&#125;) 
 
 #### 为什么我们需要react-redux？
 
@@ -32,18 +32,18 @@ react-redux文件体积非常小，你完全不需要担心给你的项目带来
 
     import * as todoActionCreators from './todoActionCreators'
     import * as counterActionCreators from './counterActionCreators'
-    import { bindActionCreators } from 'redux'
+    import &#123; bindActionCreators &#125; from 'redux'
     
-    function mapStateToProps(state) {
-      return { todos: state.todos }
-    }
+    function mapStateToProps(state) &#123;
+      return &#123; todos: state.todos &#125;
+    &#125;
     
-    function mapDispatchToProps(dispatch) {
-      return {
+    function mapDispatchToProps(dispatch) &#123;
+      return &#123;
         todoActions: bindActionCreators(todoActionCreators, dispatch),
         counterActions: bindActionCreators(counterActionCreators, dispatch)
-      }
-    }
+      &#125;
+    &#125;
     
     export default connect(mapStateToProps, mapDispatchToProps)(TodoApp)
 
@@ -51,16 +51,16 @@ react-redux文件体积非常小，你完全不需要担心给你的项目带来
 mergeProps的用法：
     import * as actionCreators from './actionCreators'
     
-    function mapStateToProps(state) {
-      return { todos: state.todos }
-    }
+    function mapStateToProps(state) &#123;
+      return &#123; todos: state.todos &#125;
+    &#125;
     
-    function mergeProps(stateProps, dispatchProps, ownProps) {
-      return Object.assign({}, ownProps, {
+    function mergeProps(stateProps, dispatchProps, ownProps) &#123;
+      return Object.assign(&#123;&#125;, ownProps, &#123;
         todos: stateProps.todos[ownProps.userId],
         addTodo: (text) => dispatchProps.addTodo(ownProps.userId, text)
-      })
-    }
+      &#125;)
+    &#125;
     
     export default connect(mapStateToProps, actionCreators, mergeProps)(TodoApp)
 
@@ -69,25 +69,25 @@ mergeProps的用法：
 **源码有点长，你可以选择性的查看：**
 
 ```
-import { Component, createElement } from 'react'
-import storeShape from '../utils/storeShape'
-import shallowEqual from '../utils/shallowEqual'
-import wrapActionCreators from '../utils/wrapActionCreators'
-import warning from '../utils/warning'
-import isPlainObject from 'lodash/isPlainObject'
-import hoistStatics from 'hoist-non-react-statics'
-import invariant from 'invariant'
+import { Component, createElement } from &amp;amp;#039;react&amp;amp;#039;
+import storeShape from &amp;amp;#039;../utils/storeShape&amp;amp;#039;
+import shallowEqual from &amp;amp;#039;../utils/shallowEqual&amp;amp;#039;
+import wrapActionCreators from &amp;amp;#039;../utils/wrapActionCreators&amp;amp;#039;
+import warning from &amp;amp;#039;../utils/warning&amp;amp;#039;
+import isPlainObject from &amp;amp;#039;lodash/isPlainObject&amp;amp;#039;
+import hoistStatics from &amp;amp;#039;hoist-non-react-statics&amp;amp;#039;
+import invariant from &amp;amp;#039;invariant&amp;amp;#039;
 
-const defaultMapStateToProps = state => ({}) // eslint-disable-line no-unused-vars
-const defaultMapDispatchToProps = dispatch => ({ dispatch })
-const defaultMergeProps = (stateProps, dispatchProps, parentProps) => ({
+const defaultMapStateToProps = state =&amp;amp;gt; ({}) // eslint-disable-line no-unused-vars
+const defaultMapDispatchToProps = dispatch =&amp;amp;gt; ({ dispatch })
+const defaultMergeProps = (stateProps, dispatchProps, parentProps) =&amp;amp;gt; ({
   ...parentProps,
   ...stateProps,
   ...dispatchProps
 })
 
 function getDisplayName(WrappedComponent) {
-  return WrappedComponent.displayName || WrappedComponent.name || 'Component'
+  return WrappedComponent.displayName || WrappedComponent.name || &amp;amp;#039;Component&amp;amp;#039;
 }
 
 let errorObject = { value: null }
@@ -108,7 +108,7 @@ export default function connect(mapStateToProps, mapDispatchToProps, mergeProps,
   const mapState = mapStateToProps || defaultMapStateToProps
 
   let mapDispatch
-  if (typeof mapDispatchToProps === 'function') {
+  if (typeof mapDispatchToProps === &amp;amp;#039;function&amp;amp;#039;) {
     mapDispatch = mapDispatchToProps
   } else if (!mapDispatchToProps) {
     mapDispatch = defaultMapDispatchToProps
@@ -118,7 +118,7 @@ export default function connect(mapStateToProps, mapDispatchToProps, mergeProps,
 
   const finalMergeProps = mergeProps || defaultMergeProps
   const { pure = true, withRef = false } = options
-  const checkMergedEquals = pure && finalMergeProps !== defaultMergeProps
+  const checkMergedEquals = pure &amp;amp;amp;&amp;amp;amp; finalMergeProps !== defaultMergeProps
 
   // Helps track hot reloading.
   const version = nextVersion++
@@ -137,8 +137,8 @@ export default function connect(mapStateToProps, mapDispatchToProps, mergeProps,
 
     function computeMergedProps(stateProps, dispatchProps, parentProps) {
       const mergedProps = finalMergeProps(stateProps, dispatchProps, parentProps)
-      if (process.env.NODE_ENV !== 'production') {
-        checkStateShape(mergedProps, 'mergeProps')
+      if (process.env.NODE_ENV !== &amp;amp;#039;production&amp;amp;#039;) {
+        checkStateShape(mergedProps, &amp;amp;#039;mergeProps&amp;amp;#039;)
       }
       return mergedProps
     }
@@ -154,10 +154,10 @@ export default function connect(mapStateToProps, mapDispatchToProps, mergeProps,
         this.store = props.store || context.store
 
         invariant(this.store,
-          `Could not find "store" in either the context or ` +
-          `props of "${connectDisplayName}". ` +
-          `Either wrap the root component in a <Provider>, ` +
-          `or explicitly pass "store" as a prop to "${connectDisplayName}".`
+          `Could not find &amp;amp;quot;store&amp;amp;quot; in either the context or ` +
+          `props of &amp;amp;quot;${connectDisplayName}&amp;amp;quot;. ` +
+          `Either wrap the root component in a &amp;amp;lt;Provider&amp;amp;gt;, ` +
+          `or explicitly pass &amp;amp;quot;store&amp;amp;quot; as a prop to &amp;amp;quot;${connectDisplayName}&amp;amp;quot;.`
         )
 
         const storeState = this.store.getState()
@@ -175,15 +175,15 @@ export default function connect(mapStateToProps, mapDispatchToProps, mergeProps,
           this.finalMapStateToProps(state, props) :
           this.finalMapStateToProps(state)
 
-        if (process.env.NODE_ENV !== 'production') {
-          checkStateShape(stateProps, 'mapStateToProps')
+        if (process.env.NODE_ENV !== &amp;amp;#039;production&amp;amp;#039;) {
+          checkStateShape(stateProps, &amp;amp;#039;mapStateToProps&amp;amp;#039;)
         }
         return stateProps
       }
 
       configureFinalMapState(store, props) {
         const mappedState = mapState(store.getState(), props)
-        const isFactory = typeof mappedState === 'function'
+        const isFactory = typeof mappedState === &amp;amp;#039;function&amp;amp;#039;
 
         this.finalMapStateToProps = isFactory ? mappedState : mapState
         this.doStatePropsDependOnOwnProps = this.finalMapStateToProps.length !== 1
@@ -192,8 +192,8 @@ export default function connect(mapStateToProps, mapDispatchToProps, mergeProps,
           return this.computeStateProps(store, props)
         }
 
-        if (process.env.NODE_ENV !== 'production') {
-          checkStateShape(mappedState, 'mapStateToProps')
+        if (process.env.NODE_ENV !== &amp;amp;#039;production&amp;amp;#039;) {
+          checkStateShape(mappedState, &amp;amp;#039;mapStateToProps&amp;amp;#039;)
         }
         return mappedState
       }
@@ -208,15 +208,15 @@ export default function connect(mapStateToProps, mapDispatchToProps, mergeProps,
           this.finalMapDispatchToProps(dispatch, props) :
           this.finalMapDispatchToProps(dispatch)
 
-        if (process.env.NODE_ENV !== 'production') {
-          checkStateShape(dispatchProps, 'mapDispatchToProps')
+        if (process.env.NODE_ENV !== &amp;amp;#039;production&amp;amp;#039;) {
+          checkStateShape(dispatchProps, &amp;amp;#039;mapDispatchToProps&amp;amp;#039;)
         }
         return dispatchProps
       }
 
       configureFinalMapDispatch(store, props) {
         const mappedDispatch = mapDispatch(store.dispatch, props)
-        const isFactory = typeof mappedDispatch === 'function'
+        const isFactory = typeof mappedDispatch === &amp;amp;#039;function&amp;amp;#039;
 
         this.finalMapDispatchToProps = isFactory ? mappedDispatch : mapDispatch
         this.doDispatchPropsDependOnOwnProps = this.finalMapDispatchToProps.length !== 1
@@ -225,15 +225,15 @@ export default function connect(mapStateToProps, mapDispatchToProps, mergeProps,
           return this.computeDispatchProps(store, props)
         }
 
-        if (process.env.NODE_ENV !== 'production') {
-          checkStateShape(mappedDispatch, 'mapDispatchToProps')
+        if (process.env.NODE_ENV !== &amp;amp;#039;production&amp;amp;#039;) {
+          checkStateShape(mappedDispatch, &amp;amp;#039;mapDispatchToProps&amp;amp;#039;)
         }
         return mappedDispatch
       }
 
       updateStatePropsIfNeeded() {
         const nextStateProps = this.computeStateProps(this.store, this.props)
-        if (this.stateProps && shallowEqual(nextStateProps, this.stateProps)) {
+        if (this.stateProps &amp;amp;amp;&amp;amp;amp; shallowEqual(nextStateProps, this.stateProps)) {
           return false
         }
 
@@ -243,7 +243,7 @@ export default function connect(mapStateToProps, mapDispatchToProps, mergeProps,
 
       updateDispatchPropsIfNeeded() {
         const nextDispatchProps = this.computeDispatchProps(this.store, this.props)
-        if (this.dispatchProps && shallowEqual(nextDispatchProps, this.dispatchProps)) {
+        if (this.dispatchProps &amp;amp;amp;&amp;amp;amp; shallowEqual(nextDispatchProps, this.dispatchProps)) {
           return false
         }
 
@@ -253,7 +253,7 @@ export default function connect(mapStateToProps, mapDispatchToProps, mergeProps,
 
       updateMergedPropsIfNeeded() {
         const nextMergedProps = computeMergedProps(this.stateProps, this.dispatchProps, this.props)
-        if (this.mergedProps && checkMergedEquals && shallowEqual(nextMergedProps, this.mergedProps)) {
+        if (this.mergedProps &amp;amp;amp;&amp;amp;amp; checkMergedEquals &amp;amp;amp;&amp;amp;amp; shallowEqual(nextMergedProps, this.mergedProps)) {
           return false
         }
 
@@ -262,11 +262,11 @@ export default function connect(mapStateToProps, mapDispatchToProps, mergeProps,
       }
 
       isSubscribed() {
-        return typeof this.unsubscribe === 'function'
+        return typeof this.unsubscribe === &amp;amp;#039;function&amp;amp;#039;
       }
 
       trySubscribe() {
-        if (shouldSubscribe && !this.unsubscribe) {
+        if (shouldSubscribe &amp;amp;amp;&amp;amp;amp; !this.unsubscribe) {
           this.unsubscribe = this.store.subscribe(this.handleChange.bind(this))
           this.handleChange()
         }
@@ -314,11 +314,11 @@ export default function connect(mapStateToProps, mapDispatchToProps, mergeProps,
 
         const storeState = this.store.getState()
         const prevStoreState = this.state.storeState
-        if (pure && prevStoreState === storeState) {
+        if (pure &amp;amp;amp;&amp;amp;amp; prevStoreState === storeState) {
           return
         }
 
-        if (pure && !this.doStatePropsDependOnOwnProps) {
+        if (pure &amp;amp;amp;&amp;amp;amp; !this.doStatePropsDependOnOwnProps) {
           const haveStatePropsChanged = tryCatch(this.updateStatePropsIfNeeded, this)
           if (!haveStatePropsChanged) {
             return
@@ -362,12 +362,12 @@ export default function connect(mapStateToProps, mapDispatchToProps, mergeProps,
 
         let shouldUpdateStateProps = true
         let shouldUpdateDispatchProps = true
-        if (pure && renderedElement) {
+        if (pure &amp;amp;amp;&amp;amp;amp; renderedElement) {
           shouldUpdateStateProps = hasStoreStateChanged || (
-            haveOwnPropsChanged && this.doStatePropsDependOnOwnProps
+            haveOwnPropsChanged &amp;amp;amp;&amp;amp;amp; this.doStatePropsDependOnOwnProps
           )
           shouldUpdateDispatchProps =
-            haveOwnPropsChanged && this.doDispatchPropsDependOnOwnProps
+            haveOwnPropsChanged &amp;amp;amp;&amp;amp;amp; this.doDispatchPropsDependOnOwnProps
         }
 
         let haveStatePropsChanged = false
@@ -392,14 +392,14 @@ export default function connect(mapStateToProps, mapDispatchToProps, mergeProps,
           haveMergedPropsChanged = false
         }
 
-        if (!haveMergedPropsChanged && renderedElement) {
+        if (!haveMergedPropsChanged &amp;amp;amp;&amp;amp;amp; renderedElement) {
           return renderedElement
         }
 
         if (withRef) {
           this.renderedElement = createElement(WrappedComponent, {
             ...this.mergedProps,
-            ref: 'wrappedInstance'
+            ref: &amp;amp;#039;wrappedInstance&amp;amp;#039;
           })
         } else {
           this.renderedElement = createElement(WrappedComponent,
@@ -420,7 +420,7 @@ export default function connect(mapStateToProps, mapDispatchToProps, mergeProps,
       store: storeShape
     }
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (process.env.NODE_ENV !== &amp;amp;#039;production&amp;amp;#039;) {
       Connect.prototype.componentWillUpdate = function componentWillUpdate() {
         if (this.version === version) {
           return
@@ -446,34 +446,34 @@ export default function connect(mapStateToProps, mapDispatchToProps, mergeProps,
 
 如果只是看这样一个函数体，我们无法得知每个参数到底是什么？有什么作用？但是，我们可以先结合使用的demo初步了解各个参数的作用。
 
-    export default function connect(mapStateToProps, mapDispatchToProps, mergeProps, options = {}) {}
+    export default function connect(mapStateToProps, mapDispatchToProps, mergeProps, options = &#123;&#125;) &#123;&#125;
     
 **mapStateToProps**：传入所有state，返回指定的state数据。
 
-    function mapStateToProps(state) {
-          return { todos: state.todos }
-        }
+    function mapStateToProps(state) &#123;
+          return &#123; todos: state.todos &#125;
+        &#125;
 
 **mapDispatchToProps**：传入dispatch，返回使用bindActionCreators()绑定的action方法。我们不再这里讨论bindActionCreators的用法，这个知识将会放到redux解析的文章中。
 
-    function mapDispatchToProps(dispatch) {
-      return bindActionCreators(Object.assign({}, todoActionCreators, counterActionCreators), dispatch)
-    }
+    function mapDispatchToProps(dispatch) &#123;
+      return bindActionCreators(Object.assign(&#123;&#125;, todoActionCreators, counterActionCreators), dispatch)
+    &#125;
 
 **mergeProps**：mergeProps如果不指定，则默认返回 Object.assign({}, ownProps, stateProps, dispatchProps)，顾名思义，mergeProps是合并的意思，将state合并后传递给组件。
 
-    function mergeProps(stateProps, dispatchProps, ownProps) {
-      return Object.assign({}, ownProps, {
+    function mergeProps(stateProps, dispatchProps, ownProps) &#123;
+      return Object.assign(&#123;&#125;, ownProps, &#123;
         todos: stateProps.todos[ownProps.userId],
         addTodo: (text) => dispatchProps.addTodo(ownProps.userId, text)
-      })
-    }
+      &#125;)
+    &#125;
 
 **options**：通过配置项可以更加详细的定义connect的行为，通常只需要执行默认值。
 
 **2、查看导入了哪些插件**
 
-    import { Component, createElement } from 'react'
+    import &#123; Component, createElement &#125; from 'react'
     import storeShape from '../utils/storeShape'
     import shallowEqual from '../utils/shallowEqual'
     import wrapActionCreators from '../utils/wrapActionCreators'
@@ -487,32 +487,32 @@ export default function connect(mapStateToProps, mapDispatchToProps, mergeProps,
 **storeShape**：通过了redux常用API的类型验证。
 
     import PropTypes from 'prop-types'
-    export default PropTypes.shape({
+    export default PropTypes.shape(&#123;
       subscribe: PropTypes.func.isRequired,
       dispatch: PropTypes.func.isRequired,
       getState: PropTypes.func.isRequired
-    })
+    &#125;)
 
 **shallowEqual**：这个文件的作用是传入2个对象，首先比较对象是否一致，如果一致，则返回true，如果不一致，则获取2个对象的key数组，判断2个对象key数组的长度是否相等，如果不相等，返回false，如果相等，最后用for循环遍历A对象的key，如果当前的遍历值不存在于B的key中或者A对象的当前key的value不等于B对象的当前key的value，则返回false，如果不属于上面的任何情况，则返回true。（如果认为我这段讲的迷迷糊糊，你也可以自己理解下面的代码。）
 
-    export default function shallowEqual(objA, objB) {
-      if (objA === objB) {
+    export default function shallowEqual(objA, objB) &#123;
+      if (objA === objB) &#123;
         return true
-      }
+      &#125;
       const keysA = Object.keys(objA)
       const keysB = Object.keys(objB)
-      if (keysA.length !== keysB.length) {
+      if (keysA.length !== keysB.length) &#123;
         return false
-      }
+      &#125;
       // 测试A对象的key和B对象的key不一致
       const hasOwn = Object.prototype.hasOwnProperty
-      for (let i = 0; i < keysA.length; i++) {
-        if (!hasOwn.call(objB, keysA[i]) || objA[keysA[i]] !== objB[keysA[i]]) {
+      for (let i = 0; i < keysA.length; i++) &#123;
+        if (!hasOwn.call(objB, keysA[i]) || objA[keysA[i]] !== objB[keysA[i]]) &#123;
           return false
-        }
-      }
+        &#125;
+      &#125;
       return true
-    }
+    &#125;
 
 hasOwn的作用是判断对象里面是否包含某个属性。这段代码的实际用途是判断下一个props和当前的props是否一致。
 
@@ -520,11 +520,11 @@ hasOwn的作用是判断对象里面是否包含某个属性。这段代码的�
 
 **wrapActionCreators**：实现了bindActionCreators方法绑定action到组件的操作。
 
-    import { bindActionCreators } from 'redux'
+    import &#123; bindActionCreators &#125; from 'redux'
     
-    export default function wrapActionCreators(actionCreators) {
+    export default function wrapActionCreators(actionCreators) &#123;
       return dispatch => bindActionCreators(actionCreators, dispatch)
-    }
+    &#125;
 
 函数使用方法
 
@@ -532,33 +532,33 @@ hasOwn的作用是判断对象里面是否包含某个属性。这段代码的�
 
 **warning**：在控制台打印warning信息
 
-    export default function warning(message) {
-      if (typeof console !== 'undefined' && typeof console.error === 'function') {
+    export default function warning(message) &#123;
+      if (typeof console !== 'undefined' && typeof console.error === 'function') &#123;
         console.error(message)
-      }
-      try {
+      &#125;
+      try &#123;
         throw new Error(message)
-      } catch (e) {}
-    }
+      &#125; catch (e) &#123;&#125;
+    &#125;
 
 **lodash/isPlainObject**：检查传入的值是不是纯对象，如果是，返回true，否则返回false。方法详情查看 [lodash之isPlainObject][1]
 
-    function isPlainObject(value) {
-      if (!isObjectLike(value) || baseGetTag(value) != objectTag) {
+    function isPlainObject(value) &#123;
+      if (!isObjectLike(value) || baseGetTag(value) != objectTag) &#123;
         return false;
-      }
+      &#125;
       var proto = getPrototype(value);
-      if (proto === null) {
+      if (proto === null) &#123;
         return true;
-      }
+      &#125;
       var Ctor = hasOwnProperty.call(proto, 'constructor') && proto.constructor;
       return typeof Ctor == 'function' && Ctor instanceof Ctor &&
         funcToString.call(Ctor) == objectCtorString;
-    }
+    &#125;
 
 **hoist-non-react-statics**：这段代码有点神奇，**REACT_STATICS**是一堆react的常用方法，**KNOWN_STATICS**是函数的一些属性。
 
-    var REACT_STATICS = {
+    var REACT_STATICS = &#123;
         childContextTypes: true,
         contextTypes: true,
         defaultProps: true,
@@ -567,37 +567,37 @@ hasOwn的作用是判断对象里面是否包含某个属性。这段代码的�
         mixins: true,
         propTypes: true,
         type: true
-    };
-    var KNOWN_STATICS = {
+    &#125;;
+    var KNOWN_STATICS = &#123;
         name: true,
         length: true,
         prototype: true,
         caller: true,
         arguments: true,
         arity: true
-    };
+    &#125;;
     var isGetOwnPropertySymbolsAvailable = typeof Object.getOwnPropertySymbols === 'function';
     
-    module.exports = function hoistNonReactStatics(targetComponent, sourceComponent, customStatics) {
-        if (typeof sourceComponent !== 'string') { // don't hoist over string (html) components
+    module.exports = function hoistNonReactStatics(targetComponent, sourceComponent, customStatics) &#123;
+        if (typeof sourceComponent !== 'string') &#123; // don't hoist over string (html) components
             var keys = Object.getOwnPropertyNames(sourceComponent);
-            if (isGetOwnPropertySymbolsAvailable) {
+            if (isGetOwnPropertySymbolsAvailable) &#123;
                 keys = keys.concat(Object.getOwnPropertySymbols(sourceComponent));
-            }
+            &#125;
     
-            for (var i = 0; i < keys.length; ++i) {
-                if (!REACT_STATICS[keys[i]] && !KNOWN_STATICS[keys[i]] && (!customStatics || !customStatics[keys[i]])) {
-                    try {
+            for (var i = 0; i < keys.length; ++i) &#123;
+                if (!REACT_STATICS[keys[i]] && !KNOWN_STATICS[keys[i]] && (!customStatics || !customStatics[keys[i]])) &#123;
+                    try &#123;
                         targetComponent[keys[i]] = sourceComponent[keys[i]];
-                    } catch (error) {
+                    &#125; catch (error) &#123;
     
-                    }
-                }
-            }
-        }
+                    &#125;
+                &#125;
+            &#125;
+        &#125;
     
         return targetComponent;
-    };
+    &#125;;
 
 我们首先从函数入口解读，入口传入了3个参数，**targetComponent**, **sourceComponent**, **customStatics**，首先判断sourceComponent的类型不是一个字符串，然后使用getOwnPropertyNames获取sourceComponent对象的key，返回值是key组成的数组keys。接着判断isGetOwnPropertySymbolsAvailable（肯定是true），如果为true，执行下面的语句：
 
@@ -622,34 +622,34 @@ getOwnPropertySymbols和getOwnPropertyNames作用类似，但是**getOwnProperty
 
     var NODE_ENV = process.env.NODE_ENV;
     
-    var invariant = function(condition, format, a, b, c, d, e, f) {
-      if (NODE_ENV !== 'production') {
-        if (format === undefined) {
+    var invariant = function(condition, format, a, b, c, d, e, f) &#123;
+      if (NODE_ENV !== 'production') &#123;
+        if (format === undefined) &#123;
           throw new Error('invariant requires an error message argument');
-        }
-      }
+        &#125;
+      &#125;
     
-      if (!condition) {
+      if (!condition) &#123;
         var error;
-        if (format === undefined) {
+        if (format === undefined) &#123;
           error = new Error(
             'Minified exception occurred; use the non-minified dev environment ' +
             'for the full error message and additional helpful warnings.'
           );
-        } else {
+        &#125; else &#123;
           var args = [a, b, c, d, e, f];
           var argIndex = 0;
           error = new Error(
-            format.replace(/%s/g, function() { return args[argIndex++]; })
+            format.replace(/%s/g, function() &#123; return args[argIndex++]; &#125;)
           );
           error.name = 'Invariant Violation';
-        }
+        &#125;
     
         error.framesToPop = 1; // we don't care about invariant's own frame
         throw error;
-      }
+      &#125;
 
-    };
+    &#125;;
     
     module.exports = invariant;
 
@@ -657,9 +657,9 @@ getOwnPropertySymbols和getOwnPropertyNames作用类似，但是**getOwnProperty
 
     invariant(this.store,
               `Could not find "store" in either the context or ` +
-              `props of "${connectDisplayName}". ` +
-              `Either wrap the root component in a <Provider>, ` +
-              `or explicitly pass "store" as a prop to "${connectDisplayName}".`
+              `props of "$&#123;connectDisplayName&#125;". ` +
+              `Either wrap the root component in a &lt;Provider&gt;, ` +
+              `or explicitly pass "store" as a prop to "$&#123;connectDisplayName&#125;".`
             )
 
 **3、定义几个参数默认值常量**
@@ -672,32 +672,32 @@ getOwnPropertySymbols和getOwnPropertyNames作用类似，但是**getOwnProperty
 
 **defaultMergeProps**：传入stateProps, dispatchProps, parentProps，返回当前传入的对象。
 
-    const defaultMapStateToProps = state => ({})
-    const defaultMapDispatchToProps = dispatch => ({ dispatch })
-    const defaultMergeProps = (stateProps, dispatchProps, parentProps) => ({
+    const defaultMapStateToProps = state => (&#123;&#125;)
+    const defaultMapDispatchToProps = dispatch => (&#123; dispatch &#125;)
+    const defaultMergeProps = (stateProps, dispatchProps, parentProps) => (&#123;
       ...parentProps,
       ...stateProps,
       ...dispatchProps
-    })
+    &#125;)
 
 **4、getDisplayName方法**
 
 返回当前传入的组件名
-    function getDisplayName(WrappedComponent) {
+    function getDisplayName(WrappedComponent) &#123;
       return WrappedComponent.displayName || WrappedComponent.name || 'Component'
-    }
+    &#125;
 
 **5、tryCatch方法**
 给fn函数指定上下文。
-    let errorObject = { value: null }
-    function tryCatch(fn, ctx) {
-      try {
+    let errorObject = &#123; value: null &#125;
+    function tryCatch(fn, ctx) &#123;
+      try &#123;
         return fn.apply(ctx)
-      } catch (e) {
+      &#125; catch (e) &#123;
         errorObject.value = e
         return errorObject
-      }
-    }
+      &#125;
+    &#125;
 
 使用场景：在connect内调用tryCatch给updateStatePropsIfNeeded方法指定当前的上下文
 
@@ -705,15 +705,15 @@ getOwnPropertySymbols和getOwnPropertyNames作用类似，但是**getOwnProperty
 
 如果你不明白上面的代码，可以看下面比较简单的例子：
 
-    let b = {
+    let b = &#123;
       a: 1,
-      e: function() {
+      e: function() &#123;
         console.log(this.a)
-      },
-      c: function() {
+      &#125;,
+      c: function() &#123;
         tryCatch(this.e, this)
-      }
-    }
+      &#125;
+    &#125;
     
     b.c() // 1
 
@@ -728,14 +728,14 @@ connect函数是核心，我们需要大概了解函数做的事情，才能更�
     
 我把connect的核心实现简化提取出来，是下面这种形式：WrappedComponent参数对应的就是TodoApp。函数最终返回的是将state和dispatch绑定到Connect之后的新组件。
 
-    funtion connect(mapStateToProps) {
-        return function wrapWithConnect(WrappedComponent) {
-            class Connect extends Component {
+    funtion connect(mapStateToProps) &#123;
+        return function wrapWithConnect(WrappedComponent) &#123;
+            class Connect extends Component &#123;
             
-            }
+            &#125;
             return hoistStatics(Connect, WrappedComponent)
-        }
-    }
+        &#125;
+    &#125;
 
 **7、Connect组件执行**
 
@@ -743,27 +743,27 @@ connect函数是核心，我们需要大概了解函数做的事情，才能更�
 
 **Connect组件方法组成：**方法虽然很多，但是我们只需要紧跟react生命周期函数去了解代码，而其他方法都是在生命周期函数中调用的。
 
-    class Connect extends Component {
-          shouldComponentUpdate() {}
-          constructor(props, context) {}    
-          computeStateProps(store, props) {}    
-          configureFinalMapState(store, props) {}    
-          computeDispatchProps(store, props) {}    
-          configureFinalMapDispatch(store, props) {}    
-          updateStatePropsIfNeeded() {}
-          updateDispatchPropsIfNeeded() {}    
-          updateMergedPropsIfNeeded() {}    
-          isSubscribed() {}    
-          trySubscribe() {}    
-          tryUnsubscribe() {}    
-          componentDidMount() {}    
-          componentWillReceiveProps(nextProps) {}    
-          componentWillUnmount() {}    
-          clearCache() {}    
-          handleChange() {}    
-          getWrappedInstance() {}
-          render() {}
-    }
+    class Connect extends Component &#123;
+          shouldComponentUpdate() &#123;&#125;
+          constructor(props, context) &#123;&#125;    
+          computeStateProps(store, props) &#123;&#125;    
+          configureFinalMapState(store, props) &#123;&#125;    
+          computeDispatchProps(store, props) &#123;&#125;    
+          configureFinalMapDispatch(store, props) &#123;&#125;    
+          updateStatePropsIfNeeded() &#123;&#125;
+          updateDispatchPropsIfNeeded() &#123;&#125;    
+          updateMergedPropsIfNeeded() &#123;&#125;    
+          isSubscribed() &#123;&#125;    
+          trySubscribe() &#123;&#125;    
+          tryUnsubscribe() &#123;&#125;    
+          componentDidMount() &#123;&#125;    
+          componentWillReceiveProps(nextProps) &#123;&#125;    
+          componentWillUnmount() &#123;&#125;    
+          clearCache() &#123;&#125;    
+          handleChange() &#123;&#125;    
+          getWrappedInstance() &#123;&#125;
+          render() &#123;&#125;
+    &#125;
 
 简单了解react生命周期的函数执行顺序：
 
@@ -773,63 +773,63 @@ connect函数是核心，我们需要大概了解函数做的事情，才能更�
 
 **render：**进入Connect组件执行的时候，先进入render方法。
 
-    render() {
-            const {haveOwnPropsChanged, hasStoreStateChanged, haveStatePropsBeenPrecalculated, statePropsPrecalculationError, renderedElement} = this
+    render() &#123;
+            const &#123;haveOwnPropsChanged, hasStoreStateChanged, haveStatePropsBeenPrecalculated, statePropsPrecalculationError, renderedElement&#125; = this
     
             this.haveOwnPropsChanged = false
             this.hasStoreStateChanged = false
             this.haveStatePropsBeenPrecalculated = false
             this.statePropsPrecalculationError = null
     
-            if (statePropsPrecalculationError) {
+            if (statePropsPrecalculationError) &#123;
               throw statePropsPrecalculationError
-            }
+            &#125;
     
             let shouldUpdateStateProps = true
             let shouldUpdateDispatchProps = true
-            if (pure && renderedElement) {
+            if (pure && renderedElement) &#123;
               shouldUpdateStateProps = hasStoreStateChanged || (
                 haveOwnPropsChanged && this.doStatePropsDependOnOwnProps
               )
               shouldUpdateDispatchProps =
                 haveOwnPropsChanged && this.doDispatchPropsDependOnOwnProps
-            }
+            &#125;
     
             let haveStatePropsChanged = false
             let haveDispatchPropsChanged = false
-            if (haveStatePropsBeenPrecalculated) {
+            if (haveStatePropsBeenPrecalculated) &#123;
               haveStatePropsChanged = true
-            } else if (shouldUpdateStateProps) {
+            &#125; else if (shouldUpdateStateProps) &#123;
               haveStatePropsChanged = this.updateStatePropsIfNeeded()
-            }
-            if (shouldUpdateDispatchProps) {
+            &#125;
+            if (shouldUpdateDispatchProps) &#123;
               haveDispatchPropsChanged = this.updateDispatchPropsIfNeeded()
-            }
+            &#125;
     
             let haveMergedPropsChanged = true
-            if (haveStatePropsChanged || haveDispatchPropsChanged || haveOwnPropsChanged) {
+            if (haveStatePropsChanged || haveDispatchPropsChanged || haveOwnPropsChanged) &#123;
               haveMergedPropsChanged = this.updateMergedPropsIfNeeded()
-            } else {
+            &#125; else &#123;
               haveMergedPropsChanged = false
-            }
+            &#125;
     
-            if (!haveMergedPropsChanged && renderedElement) {
+            if (!haveMergedPropsChanged && renderedElement) &#123;
               return renderedElement
-            }
+            &#125;
     
-            if (withRef) {
-              this.renderedElement = createElement(WrappedComponent, {
+            if (withRef) &#123;
+              this.renderedElement = createElement(WrappedComponent, &#123;
                 ...this.mergedProps,
                 ref: 'wrappedInstance'
-              })
-            } else {
+              &#125;)
+            &#125; else &#123;
               this.renderedElement = createElement(WrappedComponent,
                 this.mergedProps
               )
-            }
+            &#125;
 
 **a、首先定义了5个成员变量，在Connect组件内部的任意函数位置可以访问到this定义的成员变量。**
-    const {haveOwnPropsChanged, hasStoreStateChanged, haveStatePropsBeenPrecalculated, statePropsPrecalculationError, renderedElement} = this
+    const &#123;haveOwnPropsChanged, hasStoreStateChanged, haveStatePropsBeenPrecalculated, statePropsPrecalculationError, renderedElement&#125; = this
     
     //上面的代码等于下面的写法，this指当前的组件对象。
     
@@ -853,14 +853,14 @@ connect函数是核心，我们需要大概了解函数做的事情，才能更�
 
 **c、抛出异常**：初次渲染时，statePropsPrecalculationError为null，不会抛出异常，当执行state和props更新出现异常时，会抛出错误。
 
-    if (statePropsPrecalculationError) {
+    if (statePropsPrecalculationError) &#123;
           throw statePropsPrecalculationError
-    }
+    &#125;
 我们追踪到statePropsPrecalculationError的赋值是在handleChange()里面执行的，受到haveStatePropsChanged的结果影响。当haveStatePropsChanged出现错误时，就把报错内容赋值给statePropsPrecalculationError。
 
-    if (haveStatePropsChanged === errorObject) {
+    if (haveStatePropsChanged === errorObject) &#123;
           this.statePropsPrecalculationError = errorObject.value
-    }
+    &#125;
 **d、定义shouldUpdateStateProps和shouldUpdateDispatchProps**：默认为true前者表示默认允许更新state和props，后者表示默认允许更新dispatch。
 pure：options的配置项，初始值为true。
 shouldUpdateStateProps：我们看到 || 符号，只要左右2边满足一个为true，则返回true，如果2个都是false，则返回false。
@@ -868,30 +868,30 @@ shouldUpdateDispatchProps：同时满足haveOwnPropsChanged、doDispatchPropsDep
 
         let shouldUpdateStateProps = true
         let shouldUpdateDispatchProps = true
-        if (pure && renderedElement) {
+        if (pure && renderedElement) &#123;
             shouldUpdateStateProps = hasStoreStateChanged ||
      (haveOwnPropsChanged && this.doStatePropsDependOnOwnProps)
             shouldUpdateDispatchProps = haveOwnPropsChanged && this.doDispatchPropsDependOnOwnProps
-         }
+         &#125;
 
 **e、上面几个步骤都是定义state和props的各种状态的变量，目的是为了判断render方法返回怎样的renderedElement。**
 
     //如果haveMergedPropsChanged为false，并且renderedElement不为null，则返回renderedElement
     //这段代码在初次渲染是不会执行，只有在更新state和props的时候执行
-    if (!haveMergedPropsChanged && renderedElement) {
+    if (!haveMergedPropsChanged && renderedElement) &#123;
         return renderedElement
-    }
+    &#125;
     
     //haveMergedPropsChanged由updateMergedPropsIfNeeded方法的返回值控制，如果mergedProps等于nextMergedProps，返回false，不相等则返回true，表示应该更新state和props
-    updateMergedPropsIfNeeded() {
+    updateMergedPropsIfNeeded() &#123;
         const nextMergedProps = computeMergedProps(this.stateProps, this.dispatchProps, this.props)
-        if (this.mergedProps && checkMergedEquals && shallowEqual(nextMergedProps, this.mergedProps)) {
+        if (this.mergedProps && checkMergedEquals && shallowEqual(nextMergedProps, this.mergedProps)) &#123;
           return false
-        }
+        &#125;
 
         this.mergedProps = nextMergedProps
         return true
-      }
+      &#125;
 
 初次进入组件最先渲染的返回值是下面这段：
 
@@ -899,7 +899,7 @@ shouldUpdateDispatchProps：同时满足haveOwnPropsChanged、doDispatchPropsDep
     if (withRef) {
           this.renderedElement = createElement(WrappedComponent, {
             ...this.mergedProps,
-            ref: 'wrappedInstance'
+            ref: &amp;amp;#039;wrappedInstance&amp;amp;#039;
           })
         } else {
           this.renderedElement = createElement(WrappedComponent,
@@ -910,37 +910,37 @@ shouldUpdateDispatchProps：同时满足haveOwnPropsChanged、doDispatchPropsDep
 
 **connect渲染结果**：在你绑定的组件外层包裹了Connect组件，看下面的图你应该能更加清晰的了解connect做的事情。
 
-![clipboard.png](/img/bVQXkk)
+![clipboard.png](https://gitee.com/birdassassin/frontend-wiki/raw/master/img/bVQXkk)
 
 
 **componentWillReceiveProps**：组件接收到新的state。如果pure为false，并且nextProps和this.props不相等，则设置this.haveOwnPropsChanged为true。
 
-    componentWillReceiveProps(nextProps) {
-            if (!pure || !shallowEqual(nextProps, this.props)) {
+    componentWillReceiveProps(nextProps) &#123;
+            if (!pure || !shallowEqual(nextProps, this.props)) &#123;
               this.haveOwnPropsChanged = true
-            }
-          }
+            &#125;
+          &#125;
 
 **shouldComponentUpdate()**：判断组件是否允许更新。
 
-    shouldComponentUpdate() {
+    shouldComponentUpdate() &#123;
             return !pure || this.haveOwnPropsChanged || this.hasStoreStateChanged
-          }
+          &#125;
 
 **componentDidMount()：**组件初次渲染完成，执行订阅更新
 
-    componentDidMount() {
+    componentDidMount() &#123;
             this.trySubscribe()
-          }
+          &#125;
 
 **componentWillUnmount()：**组件卸载时恢复状态。
 
-        componentWillUnmount() {
+        componentWillUnmount() &#123;
             this.tryUnsubscribe()
             this.clearCache()
-          }
+          &#125;
     
-          clearCache() {
+          clearCache() &#123;
             this.dispatchProps = null
             this.stateProps = null
             this.mergedProps = null
@@ -951,7 +951,7 @@ shouldUpdateDispatchProps：同时满足haveOwnPropsChanged、doDispatchPropsDep
             this.renderedElement = null
             this.finalMapDispatchToProps = null
             this.finalMapStateToProps = null
-          }
+          &#125;
 
 **8、总结**
 如果看到这里，你还没有理清思路，那么可以看完总结再回过头去理解源码。

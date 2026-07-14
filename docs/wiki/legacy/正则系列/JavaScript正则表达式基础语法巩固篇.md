@@ -13,19 +13,19 @@
 1、RegExp
 下面其实是同一种写法，一个用 "正则"，一个是用 /正则/，注意使用字符串写法的时候，特殊字符要进行转义。
 ```javascript
-var r = new RegExp("\\d+", 'g') //r.test('123') true
+var r = new RegExp(&amp;amp;quot;\\d+&amp;amp;quot;, &amp;amp;#039;g&amp;amp;#039;) //r.test(&amp;amp;#039;123&amp;amp;#039;) true
 //或者是
-var r = new RegExp(/\d+/, 'g')  //r.test('123') true
+var r = new RegExp(/\d+/, &amp;amp;#039;g&amp;amp;#039;)  //r.test(&amp;amp;#039;123&amp;amp;#039;) true
 ```
 如果你没有转义特殊字符，那么正则就是错的，比如：
 ```javascript
 //我错了
-var r = new RegExp("\d+", 'g') //r.test('123') false
+var r = new RegExp(&amp;amp;quot;\d+&amp;amp;quot;, &amp;amp;#039;g&amp;amp;#039;) //r.test(&amp;amp;#039;123&amp;amp;#039;) false
 ```
 2、/正则/
 你还可以直接使用 /正则/ 的写法。
 ```javascript
-/\d+/g.test('123') // true
+/\d+/g.test(&amp;amp;#039;123&amp;amp;#039;) // true
 ```
 
 **和RegExp有关的几个方法，compile()、exec()、test()，与之相对于的是search()、match()、replace()、split()，为了好记，我把她们叫做 “3妻4妾”。**
@@ -37,26 +37,26 @@ var r = new RegExp("\d+", 'g') //r.test('123') false
 ```javascript
 var r = /2/
 r.compile(r) //重新编译正则，这个不太常用
-r.exec('123') //获取正则匹配的字符所在的位置
-r.test('123') //最受欢迎的妻子，判断字符串是否符合某个正则，true 或者 false
+r.exec(&amp;amp;#039;123&amp;amp;#039;) //获取正则匹配的字符所在的位置
+r.test(&amp;amp;#039;123&amp;amp;#039;) //最受欢迎的妻子，判断字符串是否符合某个正则，true 或者 false
 ```
 2、4妾
 4妾不是RegExp的方法，而是字符串的方法。在控制台输入 ''.__proto__ ，就能看到字符串原型中的这4个方法，又因为她们都和正则有关，所以叫做RegExp的4个小妾。
 ```javascript
 var r = /2/
-'123'.search(r) //返回匹配字符的位置，范围是0-n，如果不存在，则返回-1。
-'123'.match(r) //返回数组，这个方法常用在提取字符串中的某些字符。
-'123'.replace(r, '4') //最基本的用法是替换正则匹配到的字符串，还有一种高级用法，后面再讲。
-'123'.split(r) //表示切割字符串，这里把2切割出来，'123'变成了["1", "3"].
+&amp;amp;#039;123&amp;amp;#039;.search(r) //返回匹配字符的位置，范围是0-n，如果不存在，则返回-1。
+&amp;amp;#039;123&amp;amp;#039;.match(r) //返回数组，这个方法常用在提取字符串中的某些字符。
+&amp;amp;#039;123&amp;amp;#039;.replace(r, &amp;amp;#039;4&amp;amp;#039;) //最基本的用法是替换正则匹配到的字符串，还有一种高级用法，后面再讲。
+&amp;amp;#039;123&amp;amp;#039;.split(r) //表示切割字符串，这里把2切割出来，&amp;amp;#039;123&amp;amp;#039;变成了[&amp;amp;quot;1&amp;amp;quot;, &amp;amp;quot;3&amp;amp;quot;].
 //通常我们用它来切割字符串里面的空格或者回车符，然后再map渲染。
-'1 2\n3'.split(/[\s\n]/g).map(v => v) //["1", "2", "3"].map()
+&amp;amp;#039;1 2\n3&amp;amp;#039;.split(/[\s\n]/g).map(v =&amp;amp;gt; v) //[&amp;amp;quot;1&amp;amp;quot;, &amp;amp;quot;2&amp;amp;quot;, &amp;amp;quot;3&amp;amp;quot;].map()
 ```
 
 #### 修饰符
 JavaScript中常用的修饰符有3种，i、g、m，g你可能经常看得到。
 ```text
-'Aasb'.match(/a/i) //i表示忽略大小写，匹配出来的是第一个A
-'Aasb'.match(/a/ig) //想要匹配所有的a，就需要加上g全局搜索 ["A", "a"]
+&amp;amp;#039;Aasb&amp;amp;#039;.match(/a/i) //i表示忽略大小写，匹配出来的是第一个A
+&amp;amp;#039;Aasb&amp;amp;#039;.match(/a/ig) //想要匹配所有的a，就需要加上g全局搜索 [&amp;amp;quot;A&amp;amp;quot;, &amp;amp;quot;a&amp;amp;quot;]
 m: 多行匹配，具体用法不了解
 ```
 
@@ -82,15 +82,15 @@ m: 多行匹配，具体用法不了解
 **查找单个字符，除了换行和行结束符。**
 换行符你可能知道，但是结束符是什么？在一个字符串最后，你肉眼看不到的地方，有一个结束符号，在101网站使用 /.*/ 测试一下就能看到了
 ```javascript
-'第一段\n第二段'.match(/./g) //["第", "一", "段", "第", "二", "段"]
+&amp;amp;#039;第一段\n第二段&amp;amp;#039;.match(/./g) //[&amp;amp;quot;第&amp;amp;quot;, &amp;amp;quot;一&amp;amp;quot;, &amp;amp;quot;段&amp;amp;quot;, &amp;amp;quot;第&amp;amp;quot;, &amp;amp;quot;二&amp;amp;quot;, &amp;amp;quot;段&amp;amp;quot;]
 
 //使用.+之后，匹配出来的效果就和split切割一样了。
-'第一段\n第二段'.match(/.+/g) //["第一段", "第二段"]
+&amp;amp;#039;第一段\n第二段&amp;amp;#039;.match(/.+/g) //[&amp;amp;quot;第一段&amp;amp;quot;, &amp;amp;quot;第二段&amp;amp;quot;]
 ```
 **查找字母和数字**
 ```javascript
-'aA1'.match(/\w/g) // ["a", "A", "1"]
-'aA1'.match(/\w+/g) // ["aA1"]
+&amp;amp;#039;aA1&amp;amp;#039;.match(/\w/g) // [&amp;amp;quot;a&amp;amp;quot;, &amp;amp;quot;A&amp;amp;quot;, &amp;amp;quot;1&amp;amp;quot;]
+&amp;amp;#039;aA1&amp;amp;#039;.match(/\w+/g) // [&amp;amp;quot;aA1&amp;amp;quot;]
 ```
 其他字符自己去101网站测试玩一下，很有趣的。
 
@@ -106,18 +106,18 @@ m: 多行匹配，具体用法不了解
 **看几个实例**
 
 实例1：
-![clipboard.png](/img/bVVa2j)
+![clipboard.png](https://gitee.com/birdassassin/frontend-wiki/raw/master/img/bVVa2j)
 
 实例2：
-![clipboard.png](/img/bVVa2o)
+![clipboard.png](https://gitee.com/birdassassin/frontend-wiki/raw/master/img/bVVa2o)
 
 实例3：
 
-![clipboard.png](/img/bVVa2C)
+![clipboard.png](https://gitee.com/birdassassin/frontend-wiki/raw/master/img/bVVa2C)
 
 实例4：
 
-![clipboard.png](/img/bVVa3g)
+![clipboard.png](https://gitee.com/birdassassin/frontend-wiki/raw/master/img/bVVa3g)
 
 #### 量词
 量词的意思是次数，前面我们已经使用到了一些量词符号，比如 +、 ?、 *、 {n, m}、 ^x$、最后还有零宽断言 ?=n、?!n

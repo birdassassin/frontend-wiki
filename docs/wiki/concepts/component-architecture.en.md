@@ -26,22 +26,22 @@ function UserCard() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   
-  useEffect(() => {
-    fetchUser().then(setUser).finally(() => setLoading(false));
+  useEffect(() =&amp;amp;gt; {
+    fetchUser().then(setUser).finally(() =&amp;amp;gt; setLoading(false));
   }, []);
   
-  return <div>...</div>;
+  return &amp;amp;lt;div&amp;amp;gt;...&amp;amp;lt;/div&amp;amp;gt;;
 }
 
 // Good: Separated responsibilities
 function UserCard({ user }) {
-  return <div>...</div>;
+  return &amp;amp;lt;div&amp;amp;gt;...&amp;amp;lt;/div&amp;amp;gt;;
 }
 
 function UserCardContainer({ userId }) {
   const { data: user, loading } = useUser(userId);
-  if (loading) return <Skeleton />;
-  return <UserCard user={user} />;
+  if (loading) return &amp;amp;lt;Skeleton /&amp;amp;gt;;
+  return &amp;amp;lt;UserCard user={user} /&amp;amp;gt;;
 }
 ```
 
@@ -52,18 +52,18 @@ function UserCardContainer({ userId }) {
 ### 2.1 Props Design
 ```tsx
 interface ButtonProps {
-  variant?: 'primary' | 'secondary' | 'ghost';
-  size?: 'sm' | 'md' | 'lg';
+  variant?: &amp;amp;#039;primary&amp;amp;#039; | &amp;amp;#039;secondary&amp;amp;#039; | &amp;amp;#039;ghost&amp;amp;#039;;
+  size?: &amp;amp;#039;sm&amp;amp;#039; | &amp;amp;#039;md&amp;amp;#039; | &amp;amp;#039;lg&amp;amp;#039;;
   disabled?: boolean;
   loading?: boolean;
   children: React.ReactNode;
-  onClick?: (e: React.MouseEvent) => void;
+  onClick?: (e: React.MouseEvent) =&amp;amp;gt; void;
 }
 
 // Usage
-<Button variant="primary" size="md" loading={isSubmitting}>
+&amp;amp;lt;Button variant=&amp;amp;quot;primary&amp;amp;quot; size=&amp;amp;quot;md&amp;amp;quot; loading={isSubmitting}&amp;amp;gt;
   Submit
-</Button>
+&amp;amp;lt;/Button&amp;amp;gt;
 ```
 
 **Rules:**
@@ -75,39 +75,39 @@ interface ButtonProps {
 ### 2.2 Composition over Configuration
 ```tsx
 // Bad: Configuration hell
-<Modal
+&amp;amp;lt;Modal
   showHeader={true}
   showFooter={true}
-  headerTitle="Title"
-  footerButtons={[{ label: 'OK', action: handleOk }]}
+  headerTitle=&amp;amp;quot;Title&amp;amp;quot;
+  footerButtons={[{ label: &amp;amp;#039;OK&amp;amp;#039;, action: handleOk }]}
   width={600}
   closable={true}
-/>
+/&amp;amp;gt;
 
 // Good: Composition
-<Modal>
-  <Modal.Header>
-    <Modal.Title>Title</Modal.Title>
-    <Modal.Close />
-  </Modal.Header>
-  <Modal.Body>Content</Modal.Body>
-  <Modal.Footer>
-    <Button onClick={handleOk}>OK</Button>
-  </Modal.Footer>
-</Modal>
+&amp;amp;lt;Modal&amp;amp;gt;
+  &amp;amp;lt;Modal.Header&amp;amp;gt;
+    &amp;amp;lt;Modal.Title&amp;amp;gt;Title&amp;amp;lt;/Modal.Title&amp;amp;gt;
+    &amp;amp;lt;Modal.Close /&amp;amp;gt;
+  &amp;amp;lt;/Modal.Header&amp;amp;gt;
+  &amp;amp;lt;Modal.Body&amp;amp;gt;Content&amp;amp;lt;/Modal.Body&amp;amp;gt;
+  &amp;amp;lt;Modal.Footer&amp;amp;gt;
+    &amp;amp;lt;Button onClick={handleOk}&amp;amp;gt;OK&amp;amp;lt;/Button&amp;amp;gt;
+  &amp;amp;lt;/Modal.Footer&amp;amp;gt;
+&amp;amp;lt;/Modal&amp;amp;gt;
 ```
 
 ### 2.3 Controlled vs Uncontrolled
 ```tsx
 // Controlled component
 function ControlledInput({ value, onChange }) {
-  return <input value={value} onChange={e => onChange(e.target.value)} />;
+  return &amp;amp;lt;input value={value} onChange={e =&amp;amp;gt; onChange(e.target.value)} /&amp;amp;gt;;
 }
 
 // Uncontrolled component
 function UncontrolledInput({ defaultValue }) {
   const ref = useRef();
-  return <input ref={ref} defaultValue={defaultValue} />;
+  return &amp;amp;lt;input ref={ref} defaultValue={defaultValue} /&amp;amp;gt;;
 }
 ```
 
@@ -129,10 +129,10 @@ function UncontrolledInput({ defaultValue }) {
 // Before: Duplicate state
 function Parent() {
   return (
-    <>
-      <ChildA />
-      <ChildB />
-    </>
+    &amp;amp;lt;&amp;amp;gt;
+      &amp;amp;lt;ChildA /&amp;amp;gt;
+      &amp;amp;lt;ChildB /&amp;amp;gt;
+    &amp;amp;lt;/&amp;amp;gt;
   );
 }
 
@@ -140,10 +140,10 @@ function Parent() {
 function Parent() {
   const [sharedState, setSharedState] = useState(initial);
   return (
-    <>
-      <ChildA state={sharedState} onChange={setSharedState} />
-      <ChildB state={sharedState} onChange={setSharedState} />
-    </>
+    &amp;amp;lt;&amp;amp;gt;
+      &amp;amp;lt;ChildA state={sharedState} onChange={setSharedState} /&amp;amp;gt;
+      &amp;amp;lt;ChildB state={sharedState} onChange={setSharedState} /&amp;amp;gt;
+    &amp;amp;lt;/&amp;amp;gt;
   );
 }
 ```
@@ -158,7 +158,7 @@ const globalStore = { sidebarOpen: false };
 // Good: State in component
 function Layout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  return <Sidebar open={sidebarOpen} />;
+  return &amp;amp;lt;Sidebar open={sidebarOpen} /&amp;amp;gt;;
 }
 ```
 
@@ -170,18 +170,18 @@ function Layout() {
 ```tsx
 function Component() {
   // Mount
-  useEffect(() => {
+  useEffect(() =&amp;amp;gt; {
     const subscription = subscribe();
     
     // Update (cleanup before re-run)
-    return () => {
+    return () =&amp;amp;gt; {
       subscription.unsubscribe();
     };
   }, [dependency]);
   
   // Unmount
-  useEffect(() => {
-    return () => {
+  useEffect(() =&amp;amp;gt; {
+    return () =&amp;amp;gt; {
       // Cleanup on unmount
     };
   }, []);
@@ -203,23 +203,23 @@ function Component() {
 ```tsx
 function Select({ children, value, onChange }) {
   return (
-    <div className="select">
-      {React.Children.map(children, child =>
+    &amp;amp;lt;div className=&amp;amp;quot;select&amp;amp;quot;&amp;amp;gt;
+      {React.Children.map(children, child =&amp;amp;gt;
         React.cloneElement(child, { value, onChange })
       )}
-    </div>
+    &amp;amp;lt;/div&amp;amp;gt;
   );
 }
 
 Select.Option = function Option({ value, children, ...props }) {
-  return <div {...props}>{children}</div>;
+  return &amp;amp;lt;div {...props}&amp;amp;gt;{children}&amp;amp;lt;/div&amp;amp;gt;;
 };
 
 // Usage
-<Select value={selected} onChange={setSelected}>
-  <Select.Option value="a">Option A</Select.Option>
-  <Select.Option value="b">Option B</Select.Option>
-</Select>
+&amp;amp;lt;Select value={selected} onChange={setSelected}&amp;amp;gt;
+  &amp;amp;lt;Select.Option value=&amp;amp;quot;a&amp;amp;quot;&amp;amp;gt;Option A&amp;amp;lt;/Select.Option&amp;amp;gt;
+  &amp;amp;lt;Select.Option value=&amp;amp;quot;b&amp;amp;quot;&amp;amp;gt;Option B&amp;amp;lt;/Select.Option&amp;amp;gt;
+&amp;amp;lt;/Select&amp;amp;gt;
 ```
 
 ### 5.2 Render Props
@@ -227,25 +227,25 @@ Select.Option = function Option({ value, children, ...props }) {
 function MouseTracker({ render }) {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   
-  useEffect(() => {
-    const handler = (e) => setPosition({ x: e.clientX, y: e.clientY });
-    window.addEventListener('mousemove', handler);
-    return () => window.removeEventListener('mousemove', handler);
+  useEffect(() =&amp;amp;gt; {
+    const handler = (e) =&amp;amp;gt; setPosition({ x: e.clientX, y: e.clientY });
+    window.addEventListener(&amp;amp;#039;mousemove&amp;amp;#039;, handler);
+    return () =&amp;amp;gt; window.removeEventListener(&amp;amp;#039;mousemove&amp;amp;#039;, handler);
   }, []);
   
   return render(position);
 }
 
 // Usage
-<MouseTracker render={({ x, y }) => <p>Mouse at {x}, {y}</p>} />
+&amp;amp;lt;MouseTracker render={({ x, y }) =&amp;amp;gt; &amp;amp;lt;p&amp;amp;gt;Mouse at {x}, {y}&amp;amp;lt;/p&amp;amp;gt;} /&amp;amp;gt;
 ```
 
 ### 5.3 Higher-Order Components
 ```tsx
 function withLoading(WrappedComponent) {
   return function WithLoading({ isLoading, ...props }) {
-    if (isLoading) return <Loading />;
-    return <WrappedComponent {...props} />;
+    if (isLoading) return &amp;amp;lt;Loading /&amp;amp;gt;;
+    return &amp;amp;lt;WrappedComponent {...props} /&amp;amp;gt;;
   };
 }
 
@@ -259,46 +259,46 @@ const UserListWithLoading = withLoading(UserList);
 ### 6.1 Parent → Child (Props)
 ```tsx
 function Parent() {
-  return <Child message="Hello" />;
+  return &amp;amp;lt;Child message=&amp;amp;quot;Hello&amp;amp;quot; /&amp;amp;gt;;
 }
 ```
 
 ### 6.2 Child → Parent (Callbacks)
 ```tsx
 function Parent() {
-  const handleEvent = (data) => console.log(data);
-  return <Child onEvent={handleEvent} />;
+  const handleEvent = (data) =&amp;amp;gt; console.log(data);
+  return &amp;amp;lt;Child onEvent={handleEvent} /&amp;amp;gt;;
 }
 ```
 
 ### 6.3 Sibling (Lift State)
 ```tsx
 function Parent() {
-  const [shared, setShared] = useState('');
+  const [shared, setShared] = useState(&amp;amp;#039;&amp;amp;#039;);
   return (
-    <>
-      <SiblingA value={shared} onChange={setShared} />
-      <SiblingB value={shared} />
-    </>
+    &amp;amp;lt;&amp;amp;gt;
+      &amp;amp;lt;SiblingA value={shared} onChange={setShared} /&amp;amp;gt;
+      &amp;amp;lt;SiblingB value={shared} /&amp;amp;gt;
+    &amp;amp;lt;/&amp;amp;gt;
   );
 }
 ```
 
 ### 6.4 Cross-level (Context)
 ```tsx
-const ThemeContext = createContext('light');
+const ThemeContext = createContext(&amp;amp;#039;light&amp;amp;#039;);
 
 function App() {
   return (
-    <ThemeContext.Provider value="dark">
-      <DeepComponent />
-    </ThemeContext.Provider>
+    &amp;amp;lt;ThemeContext.Provider value=&amp;amp;quot;dark&amp;amp;quot;&amp;amp;gt;
+      &amp;amp;lt;DeepComponent /&amp;amp;gt;
+    &amp;amp;lt;/ThemeContext.Provider&amp;amp;gt;
   );
 }
 
 function DeepComponent() {
   const theme = useContext(ThemeContext);
-  return <div className={theme}>...</div>;
+  return &amp;amp;lt;div className={theme}&amp;amp;gt;...&amp;amp;lt;/div&amp;amp;gt;;
 }
 ```
 
@@ -312,10 +312,10 @@ function DeepComponent() {
 const MemoizedComponent = React.memo(Component);
 
 // useMemo - cache expensive computation
-const sortedList = useMemo(() => list.sort(compareFn), [list]);
+const sortedList = useMemo(() =&amp;amp;gt; list.sort(compareFn), [list]);
 
 // useCallback - cache function reference
-const handleClick = useCallback((id) => {
+const handleClick = useCallback((id) =&amp;amp;gt; {
   setSelected(id);
 }, []);
 ```
@@ -323,31 +323,31 @@ const handleClick = useCallback((id) => {
 ### 7.2 Code Splitting
 ```tsx
 // Route-level splitting
-const LazyPage = React.lazy(() => import('./pages/LazyPage'));
+const LazyPage = React.lazy(() =&amp;amp;gt; import(&amp;amp;#039;./pages/LazyPage&amp;amp;#039;));
 
 // Component-level splitting
-const HeavyComponent = React.lazy(() => import('./HeavyComponent'));
+const HeavyComponent = React.lazy(() =&amp;amp;gt; import(&amp;amp;#039;./HeavyComponent&amp;amp;#039;));
 
 function App() {
   return (
-    <Suspense fallback={<Loading />}>
-      <LazyPage />
-    </Suspense>
+    &amp;amp;lt;Suspense fallback={&amp;amp;lt;Loading /&amp;amp;gt;}&amp;amp;gt;
+      &amp;amp;lt;LazyPage /&amp;amp;gt;
+    &amp;amp;lt;/Suspense&amp;amp;gt;
   );
 }
 ```
 
 ### 7.3 Virtual Lists
 ```tsx
-import { FixedSizeList } from 'react-window';
+import { FixedSizeList } from &amp;amp;#039;react-window&amp;amp;#039;;
 
 function VirtualList({ items }) {
   return (
-    <FixedSizeList height={600} itemCount={items.length} itemSize={50}>
-      {({ index, style }) => (
-        <div style={style}>{items[index]}</div>
+    &amp;amp;lt;FixedSizeList height={600} itemCount={items.length} itemSize={50}&amp;amp;gt;
+      {({ index, style }) =&amp;amp;gt; (
+        &amp;amp;lt;div style={style}&amp;amp;gt;{items[index]}&amp;amp;lt;/div&amp;amp;gt;
       )}
-    </FixedSizeList>
+    &amp;amp;lt;/FixedSizeList&amp;amp;gt;
   );
 }
 ```

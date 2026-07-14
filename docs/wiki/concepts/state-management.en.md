@@ -41,12 +41,12 @@ function Counter() {
   const [count, setCount] = useState(0); // State
   
   return (
-    <div>
-      <p>{count}</p> {/* UI derived from state */}
-      <button onClick={() => setCount(count + 1)}> {/* Event triggers state update */}
+    &amp;amp;lt;div&amp;amp;gt;
+      &amp;amp;lt;p&amp;amp;gt;{count}&amp;amp;lt;/p&amp;amp;gt; {/* UI derived from state */}
+      &amp;amp;lt;button onClick={() =&amp;amp;gt; setCount(count + 1)}&amp;amp;gt; {/* Event triggers state update */}
         Increment
-      </button>
-    </div>
+      &amp;amp;lt;/button&amp;amp;gt;
+    &amp;amp;lt;/div&amp;amp;gt;
   );
 }
 ```
@@ -58,13 +58,13 @@ Action → Dispatcher → Store → View
 
 ```typescript
 // Action
-const increment = { type: 'INCREMENT' };
+const increment = { type: &amp;amp;#039;INCREMENT&amp;amp;#039; };
 
 // Reducer (pure function)
 function counter(state = 0, action) {
   switch (action.type) {
-    case 'INCREMENT': return state + 1;
-    case 'DECREMENT': return state - 1;
+    case &amp;amp;#039;INCREMENT&amp;amp;#039;: return state + 1;
+    case &amp;amp;#039;DECREMENT&amp;amp;#039;: return state - 1;
     default: return state;
   }
 }
@@ -80,16 +80,16 @@ State Change → Dependency Tracking → Auto Update
 ```
 
 ```vue
-<script setup>
-import { ref, computed } from 'vue';
+&amp;amp;lt;script setup&amp;amp;gt;
+import { ref, computed } from &amp;amp;#039;vue&amp;amp;#039;;
 
 const count = ref(0);
-const doubled = computed(() => count.value * 2);
+const doubled = computed(() =&amp;amp;gt; count.value * 2);
 
 function increment() {
   count.value++; // Automatically triggers UI update
 }
-</script>
+&amp;amp;lt;/script&amp;amp;gt;
 ```
 
 ---
@@ -98,23 +98,23 @@ function increment() {
 
 ### 3.1 Zustand (React)
 ```typescript
-import { create } from 'zustand';
+import { create } from &amp;amp;#039;zustand&amp;amp;#039;;
 
 interface TodoStore {
   todos: Todo[];
-  addTodo: (text: string) => void;
-  toggleTodo: (id: string) => void;
+  addTodo: (text: string) =&amp;amp;gt; void;
+  toggleTodo: (id: string) =&amp;amp;gt; void;
 }
 
-const useTodoStore = create<TodoStore>((set) => ({
+const useTodoStore = create&amp;amp;lt;TodoStore&amp;amp;gt;((set) =&amp;amp;gt; ({
   todos: [],
   
-  addTodo: (text) => set((state) => ({
+  addTodo: (text) =&amp;amp;gt; set((state) =&amp;amp;gt; ({
     todos: [...state.todos, { id: crypto.randomUUID(), text, done: false }]
   })),
   
-  toggleTodo: (id) => set((state) => ({
-    todos: state.todos.map(todo =>
+  toggleTodo: (id) =&amp;amp;gt; set((state) =&amp;amp;gt; ({
+    todos: state.todos.map(todo =&amp;amp;gt;
       todo.id === id ? { ...todo, done: !todo.done } : todo
     )
   }))
@@ -122,25 +122,25 @@ const useTodoStore = create<TodoStore>((set) => ({
 
 // Usage
 function TodoList() {
-  const todos = useTodoStore(state => state.todos);
-  const addTodo = useTodoStore(state => state.addTodo);
-  return <div>...</div>;
+  const todos = useTodoStore(state =&amp;amp;gt; state.todos);
+  const addTodo = useTodoStore(state =&amp;amp;gt; state.addTodo);
+  return &amp;amp;lt;div&amp;amp;gt;...&amp;amp;lt;/div&amp;amp;gt;;
 }
 ```
 
 ### 3.2 Redux Toolkit
 ```typescript
-import { createSlice, configureStore } from '@reduxjs/toolkit';
+import { createSlice, configureStore } from &amp;amp;#039;@reduxjs/toolkit&amp;amp;#039;;
 
 const todoSlice = createSlice({
-  name: 'todos',
+  name: &amp;amp;#039;todos&amp;amp;#039;,
   initialState: [],
   reducers: {
-    addTodo: (state, action) => {
+    addTodo: (state, action) =&amp;amp;gt; {
       state.push({ id: crypto.randomUUID(), text: action.payload, done: false });
     },
-    toggleTodo: (state, action) => {
-      const todo = state.find(t => t.id === action.payload);
+    toggleTodo: (state, action) =&amp;amp;gt; {
+      const todo = state.find(t =&amp;amp;gt; t.id === action.payload);
       if (todo) todo.done = !todo.done;
     }
   }
@@ -151,19 +151,19 @@ const store = configureStore({ reducer: { todos: todoSlice.reducer } });
 
 ### 3.3 Pinia (Vue)
 ```typescript
-import { defineStore } from 'pinia';
+import { defineStore } from &amp;amp;#039;pinia&amp;amp;#039;;
 
-export const useTodoStore = defineStore('todo', () => {
-  const todos = ref<Todo[]>([]);
+export const useTodoStore = defineStore(&amp;amp;#039;todo&amp;amp;#039;, () =&amp;amp;gt; {
+  const todos = ref&amp;amp;lt;Todo[]&amp;amp;gt;([]);
   
-  const doneCount = computed(() => todos.value.filter(t => t.done).length);
+  const doneCount = computed(() =&amp;amp;gt; todos.value.filter(t =&amp;amp;gt; t.done).length);
   
   function addTodo(text: string) {
     todos.value.push({ id: crypto.randomUUID(), text, done: false });
   }
   
   function toggleTodo(id: string) {
-    const todo = todos.value.find(t => t.id === id);
+    const todo = todos.value.find(t =&amp;amp;gt; t.id === id);
     if (todo) todo.done = !todo.done;
   }
   
@@ -188,18 +188,18 @@ Server State:
 
 ### 4.2 React Query
 ```typescript
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from &amp;amp;#039;@tanstack/react-query&amp;amp;#039;;
 
 // Query
 function Todos() {
   const { data, isLoading, error } = useQuery({
-    queryKey: ['todos'],
-    queryFn: () => fetch('/api/todos').then(r => r.json())
+    queryKey: [&amp;amp;#039;todos&amp;amp;#039;],
+    queryFn: () =&amp;amp;gt; fetch(&amp;amp;#039;/api/todos&amp;amp;#039;).then(r =&amp;amp;gt; r.json())
   });
   
-  if (isLoading) return <Loading />;
-  if (error) return <Error />;
-  return <TodoList todos={data} />;
+  if (isLoading) return &amp;amp;lt;Loading /&amp;amp;gt;;
+  if (error) return &amp;amp;lt;Error /&amp;amp;gt;;
+  return &amp;amp;lt;TodoList todos={data} /&amp;amp;gt;;
 }
 
 // Mutation
@@ -207,31 +207,31 @@ function AddTodo() {
   const queryClient = useQueryClient();
   
   const mutation = useMutation({
-    mutationFn: (text) => fetch('/api/todos', {
-      method: 'POST',
+    mutationFn: (text) =&amp;amp;gt; fetch(&amp;amp;#039;/api/todos&amp;amp;#039;, {
+      method: &amp;amp;#039;POST&amp;amp;#039;,
       body: JSON.stringify({ text })
     }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['todos'] });
+    onSuccess: () =&amp;amp;gt; {
+      queryClient.invalidateQueries({ queryKey: [&amp;amp;#039;todos&amp;amp;#039;] });
     }
   });
   
-  return <button onClick={() => mutation.mutate('New Todo')}>Add</button>;
+  return &amp;amp;lt;button onClick={() =&amp;amp;gt; mutation.mutate(&amp;amp;#039;New Todo&amp;amp;#039;)}&amp;amp;gt;Add&amp;amp;lt;/button&amp;amp;gt;;
 }
 ```
 
 ### 4.3 SWR
 ```typescript
-import useSWR from 'swr';
+import useSWR from &amp;amp;#039;swr&amp;amp;#039;;
 
-const fetcher = (url) => fetch(url).then(r => r.json());
+const fetcher = (url) =&amp;amp;gt; fetch(url).then(r =&amp;amp;gt; r.json());
 
 function Profile() {
-  const { data, error, isLoading, mutate } = useSWR('/api/user', fetcher);
+  const { data, error, isLoading, mutate } = useSWR(&amp;amp;#039;/api/user&amp;amp;#039;, fetcher);
   
-  if (isLoading) return <Loading />;
-  if (error) return <Error />;
-  return <div>{data.name}</div>;
+  if (isLoading) return &amp;amp;lt;Loading /&amp;amp;gt;;
+  if (error) return &amp;amp;lt;Error /&amp;amp;gt;;
+  return &amp;amp;lt;div&amp;amp;gt;{data.name}&amp;amp;lt;/div&amp;amp;gt;;
 }
 ```
 
@@ -243,25 +243,25 @@ function Profile() {
 ```typescript
 const mutation = useMutation({
   mutationFn: updateTodo,
-  onMutate: async (newTodo) => {
+  onMutate: async (newTodo) =&amp;amp;gt; {
     // Cancel outgoing refetches
-    await queryClient.cancelQueries({ queryKey: ['todos'] });
+    await queryClient.cancelQueries({ queryKey: [&amp;amp;#039;todos&amp;amp;#039;] });
     
     // Snapshot previous state
-    const previous = queryClient.getQueryData(['todos']);
+    const previous = queryClient.getQueryData([&amp;amp;#039;todos&amp;amp;#039;]);
     
     // Optimistically update
-    queryClient.setQueryData(['todos'], (old) => [...old, newTodo]);
+    queryClient.setQueryData([&amp;amp;#039;todos&amp;amp;#039;], (old) =&amp;amp;gt; [...old, newTodo]);
     
     return { previous };
   },
-  onError: (err, newTodo, context) => {
+  onError: (err, newTodo, context) =&amp;amp;gt; {
     // Rollback on error
-    queryClient.setQueryData(['todos'], context.previous);
+    queryClient.setQueryData([&amp;amp;#039;todos&amp;amp;#039;], context.previous);
   },
-  onSettled: () => {
+  onSettled: () =&amp;amp;gt; {
     // Refetch after success or error
-    queryClient.invalidateQueries({ queryKey: ['todos'] });
+    queryClient.invalidateQueries({ queryKey: [&amp;amp;#039;todos&amp;amp;#039;] });
   }
 });
 ```
@@ -269,7 +269,7 @@ const mutation = useMutation({
 ### 5.2 Polling
 ```typescript
 const { data } = useQuery({
-  queryKey: ['live-data'],
+  queryKey: [&amp;amp;#039;live-data&amp;amp;#039;],
   queryFn: fetchLiveData,
   refetchInterval: 5000 // Poll every 5 seconds
 });
@@ -277,15 +277,15 @@ const { data } = useQuery({
 
 ### 5.3 Real-time (WebSocket)
 ```typescript
-useEffect(() => {
-  const ws = new WebSocket('ws://api.example.com/live');
+useEffect(() =&amp;amp;gt; {
+  const ws = new WebSocket(&amp;amp;#039;ws://api.example.com/live&amp;amp;#039;);
   
-  ws.onmessage = (event) => {
+  ws.onmessage = (event) =&amp;amp;gt; {
     const data = JSON.parse(event.data);
-    queryClient.setQueryData(['live-data'], data);
+    queryClient.setQueryData([&amp;amp;#039;live-data&amp;amp;#039;], data);
   };
   
-  return () => ws.close();
+  return () =&amp;amp;gt; ws.close();
 }, []);
 ```
 
@@ -296,9 +296,9 @@ useEffect(() => {
 ### 6.1 State Duplication
 ```typescript
 // Bad: Duplicated state
-const [firstName, setFirstName] = useState('John');
-const [lastName, setLastName] = useState('Doe');
-const [fullName, setFullName] = useState('John Doe');
+const [firstName, setFirstName] = useState(&amp;amp;#039;John&amp;amp;#039;);
+const [lastName, setLastName] = useState(&amp;amp;#039;Doe&amp;amp;#039;);
+const [fullName, setFullName] = useState(&amp;amp;#039;John Doe&amp;amp;#039;);
 
 // Good: Derived state
 const fullName = `${firstName} ${lastName}`;
@@ -312,31 +312,31 @@ const [isError, setIsError] = useState(false);
 const [isSuccess, setIsSuccess] = useState(false);
 
 // Good: State machine
-type Status = 'idle' | 'loading' | 'success' | 'error';
-const [status, setStatus] = useState<Status>('idle');
+type Status = &amp;amp;#039;idle&amp;amp;#039; | &amp;amp;#039;loading&amp;amp;#039; | &amp;amp;#039;success&amp;amp;#039; | &amp;amp;#039;error&amp;amp;#039;;
+const [status, setStatus] = useState&amp;amp;lt;Status&amp;amp;gt;(&amp;amp;#039;idle&amp;amp;#039;);
 ```
 
 ### 6.3 Prop Drilling
 ```tsx
 // Bad: Passing through multiple levels
-<GrandParent>
-  <Parent data={data}>
-    <Child data={data}>
-      <GrandChild data={data} />
-    </Child>
-  </Parent>
-</GrandParent>
+&amp;amp;lt;GrandParent&amp;amp;gt;
+  &amp;amp;lt;Parent data={data}&amp;amp;gt;
+    &amp;amp;lt;Child data={data}&amp;amp;gt;
+      &amp;amp;lt;GrandChild data={data} /&amp;amp;gt;
+    &amp;amp;lt;/Child&amp;amp;gt;
+  &amp;amp;lt;/Parent&amp;amp;gt;
+&amp;amp;lt;/GrandParent&amp;amp;gt;
 
 // Good: Context or state management
-<DataProvider data={data}>
-  <GrandParent>
-    <Parent>
-      <Child>
-        <GrandChild />
-      </Child>
-    </Parent>
-  </GrandParent>
-</DataProvider>
+&amp;amp;lt;DataProvider data={data}&amp;amp;gt;
+  &amp;amp;lt;GrandParent&amp;amp;gt;
+    &amp;amp;lt;Parent&amp;amp;gt;
+      &amp;amp;lt;Child&amp;amp;gt;
+        &amp;amp;lt;GrandChild /&amp;amp;gt;
+      &amp;amp;lt;/Child&amp;amp;gt;
+    &amp;amp;lt;/Parent&amp;amp;gt;
+  &amp;amp;lt;/GrandParent&amp;amp;gt;
+&amp;amp;lt;/DataProvider&amp;amp;gt;
 ```
 
 ---

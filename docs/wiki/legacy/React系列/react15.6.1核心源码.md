@@ -4,7 +4,7 @@ React对象中，你可能会看到一些熟悉的API，比如React.Component。
 ```javascript
 const React = {
   Children: {
-    map: ReactChildren.map, //使用方法React.Children.map(this.props.children, children => children)
+    map: ReactChildren.map, //使用方法React.Children.map(this.props.children, children =&amp;amp;gt; children)
     forEach: ReactChildren.forEach,
     count: ReactChildren.count,
     toArray: ReactChildren.toArray,
@@ -44,11 +44,11 @@ class ReactComponent {
         this.refs = emptyObject;
         this.updater = updater || ReactNoopUpdateQueue;
     }
-    //setState的使用大家已经很熟悉了，推荐this.setState(() => {return {state}})
+    //setState的使用大家已经很熟悉了，推荐this.setState(() =&amp;amp;gt; {return {state&amp;#125;&amp;#125;)
     setState(partialState, callback) {
         this.updater.enqueueSetState(this, partialState);
         if (callback) {
-            this.updater.enqueueCallback(this, callback, 'setState');
+            this.updater.enqueueCallback(this, callback, &amp;amp;#039;setState&amp;amp;#039;);
         }
     }
 
@@ -56,7 +56,7 @@ class ReactComponent {
     forceUpdate(callback) {
         this.updater.enqueueForceUpdate(this);
         if (callback) {
-            this.updater.enqueueCallback(this, callback, 'forceUpdate');
+            this.updater.enqueueCallback(this, callback, &amp;amp;#039;forceUpdate&amp;amp;#039;);
         }
     }
 }
@@ -67,20 +67,20 @@ class ReactComponent {
 ```javascript
 state = {count: 0}
 handleClick() {
-	this.setState((prevState) => {
+	this.setState((prevState) =&amp;amp;gt; {
         return {count: prevState.count + 1}
     })
-    console.log('count: ', this.state.count) //读取到的值是0
+    console.log(&amp;amp;#039;count: &amp;amp;#039;, this.state.count) //读取到的值是0
 }
 ```
 你可能希望读到新的值1，其实很简单，使用async。
 ```javascript
 state = {count: 0}
 async handleClick() {
-	await this.setState((prevState) => {
+	await this.setState((prevState) =&amp;amp;gt; {
         return {count: prevState.count + 1}
     })
-    console.log('count: ', this.state.count) //读取到的值是1
+    console.log(&amp;amp;#039;count: &amp;amp;#039;, this.state.count) //读取到的值是1
 }
 ```
 

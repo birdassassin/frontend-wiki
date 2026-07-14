@@ -22,20 +22,20 @@
 
 ## 主要插件
 ```text
-    "axios": "^0.16.2",
-    "core-js": "^2.5.1",
-    "fastclick": "^1.0.6",
-    "history": "^4.6.1",
-    "http-proxy-middleware": "^0.17.4",
-    "jroll": "^2.5.0",
-    "jsonp": "^0.2.1",
-    "prop-types": "^15.6.0",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
-    "react-hot-loader": "^3.0.0-beta.7",
-    "react-router": "^4.2.0",
-    "react-router-dom": "^4.2.2",
-    "xdomain": "^0.7.3"
+    &amp;amp;quot;axios&amp;amp;quot;: &amp;amp;quot;^0.16.2&amp;amp;quot;,
+    &amp;amp;quot;core-js&amp;amp;quot;: &amp;amp;quot;^2.5.1&amp;amp;quot;,
+    &amp;amp;quot;fastclick&amp;amp;quot;: &amp;amp;quot;^1.0.6&amp;amp;quot;,
+    &amp;amp;quot;history&amp;amp;quot;: &amp;amp;quot;^4.6.1&amp;amp;quot;,
+    &amp;amp;quot;http-proxy-middleware&amp;amp;quot;: &amp;amp;quot;^0.17.4&amp;amp;quot;,
+    &amp;amp;quot;jroll&amp;amp;quot;: &amp;amp;quot;^2.5.0&amp;amp;quot;,
+    &amp;amp;quot;jsonp&amp;amp;quot;: &amp;amp;quot;^0.2.1&amp;amp;quot;,
+    &amp;amp;quot;prop-types&amp;amp;quot;: &amp;amp;quot;^15.6.0&amp;amp;quot;,
+    &amp;amp;quot;react&amp;amp;quot;: &amp;amp;quot;^16.0.0&amp;amp;quot;,
+    &amp;amp;quot;react-dom&amp;amp;quot;: &amp;amp;quot;^16.0.0&amp;amp;quot;,
+    &amp;amp;quot;react-hot-loader&amp;amp;quot;: &amp;amp;quot;^3.0.0-beta.7&amp;amp;quot;,
+    &amp;amp;quot;react-router&amp;amp;quot;: &amp;amp;quot;^4.2.0&amp;amp;quot;,
+    &amp;amp;quot;react-router-dom&amp;amp;quot;: &amp;amp;quot;^4.2.2&amp;amp;quot;,
+    &amp;amp;quot;xdomain&amp;amp;quot;: &amp;amp;quot;^0.7.3&amp;amp;quot;
 ```
 
 ## 招募
@@ -51,6 +51,6 @@
 
 
   [1]: https://github.com/hyy1115/fictions
-  [2]: /img/bVWpvF
+  [2]: https://gitee.com/birdassassin/frontend-wiki/raw/master/img/bVWpvF
   [3]: http://www.easy-mock.com/
   [4]: https://m.qidian.com

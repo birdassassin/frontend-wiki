@@ -13,9 +13,9 @@
 有一道经典的面试题：
 
 ```
-for (var i = 0; i < 5; i++) {
+for (var i = 0; i &amp;amp;lt; 5; i++) {
     setTimeout(function() {
-        console.log('i: ',i);
+        console.log(&amp;amp;#039;i: &amp;amp;#039;,i);
     }, 1000);
 }
 
@@ -46,7 +46,7 @@ i:  5
 
 
 
-![clipboard.png](/img/bVLAVg)
+![clipboard.png](https://gitee.com/birdassassin/frontend-wiki/raw/master/img/bVLAVg)
 
 《图片来自于MDN官方》
 
@@ -67,11 +67,11 @@ i:  5
 我们给第一个例子加一行代码。
 
 ```
-for (var i = 0; i < 5; ++i) {
+for (var i = 0; i &amp;amp;lt; 5; ++i) {
     setTimeout(function() {
-        console.log('2: ',i);
+        console.log(&amp;amp;#039;2: &amp;amp;#039;,i);
     }, 1000);
-    console.log('1: ', i); //新加一行代码
+    console.log(&amp;amp;#039;1: &amp;amp;#039;, i); //新加一行代码
 }
 
 console.log(i);
@@ -102,9 +102,9 @@ console.log(i);
 最简单的当然是let语法啦。。
 
 ```
-for (let i = 0; i < 5; ++i) {
+for (let i = 0; i &amp;amp;lt; 5; ++i) {
     setTimeout(function() {
-        console.log('2: ',i);
+        console.log(&amp;amp;#039;2: &amp;amp;#039;,i);
     }, 1000);
 }
 
@@ -126,11 +126,11 @@ let是ES6语法，ES5中的变量作用域是函数，而let语法的作用域�
 ```
 var loop = function (_i) {
     setTimeout(function() {
-        console.log('2：', _i);
+        console.log(&amp;amp;#039;2：&amp;amp;#039;, _i);
     }, 1000);
 };
 
-for (var _i = 0; _i < 5; _i++) {
+for (var _i = 0; _i &amp;amp;lt; 5; _i++) {
     loop(_i);
 }
 
@@ -170,20 +170,20 @@ t(); //输出 10
 let a = new Promise(
   function(resolve, reject) {
     console.log(1)
-    setTimeout(() => console.log(2), 0)
+    setTimeout(() =&amp;amp;gt; console.log(2), 0)
     console.log(3)
     console.log(4)
     resolve(true)
   }
 )
-a.then(v => {
+a.then(v =&amp;amp;gt; {
   console.log(8)
 })
 
 let b = new Promise(
   function() {
     console.log(5)
-    setTimeout(() => console.log(6), 0)
+    setTimeout(() =&amp;amp;gt; console.log(6), 0)
   }
 )
 
@@ -196,7 +196,7 @@ console.log(7)
 
 ```
     console.log(1)
-    setTimeout(() => console.log(2), 0) //回调
+    setTimeout(() =&amp;amp;gt; console.log(2), 0) //回调
     console.log(3)
     console.log(4)
 ```

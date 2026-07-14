@@ -1,25 +1,25 @@
 # 前端知识库
 
-<div align="center">
+&lt;div align="center"&gt;
 
 **简体中文** · [English](../README.md)
 
 [![Wiki](https://img.shields.io/badge/Wiki-frontend--wiki-blue?logo=github)](https://github.com/frontend-wiki)
 [![Knowledge](https://img.shields.io/badge/Knowledge-Frontend-green?logo=react)](./overview.md)
 
-</div>
+&lt;/div&gt;
 
 > 一个系统化的前端知识体系 — 从基础到架构，从工具到哲学。
 > **目标不是罗列技术，而是理解前端如何思考、如何演进、如何构建用户界面。**
 
-<div align="center">
-  <img src="https://img.shields.io/badge/HTML-Semantic-orange?logo=html5" alt="HTML" />
-  <img src="https://img.shields.io/badge/CSS-Modern-blue?logo=css3" alt="CSS" />
-  <img src="https://img.shields.io/badge/JavaScript-ES2025-yellow?logo=javascript" alt="JavaScript" />
-  <img src="https://img.shields.io/badge/Frameworks-React/Vue/Angular-61dafb?logo=react" alt="Frameworks" />
-  <img src="https://img.shields.io/badge/Performance-Web%20Vitals-green" alt="Performance" />
-  <img src="https://img.shields.io/badge/Architecture-Modern-purple" alt="Architecture" />
-</div>
+&lt;div align="center"&gt;
+  &lt;img src="https://img.shields.io/badge/HTML-Semantic-orange?logo=html5" alt="HTML" /&gt;
+  &lt;img src="https://img.shields.io/badge/CSS-Modern-blue?logo=css3" alt="CSS" /&gt;
+  &lt;img src="https://img.shields.io/badge/JavaScript-ES2025-yellow?logo=javascript" alt="JavaScript" /&gt;
+  &lt;img src="https://img.shields.io/badge/Frameworks-React/Vue/Angular-61dafb?logo=react" alt="Frameworks" /&gt;
+  &lt;img src="https://img.shields.io/badge/Performance-Web%20Vitals-green" alt="Performance" /&gt;
+  &lt;img src="https://img.shields.io/badge/Architecture-Modern-purple" alt="Architecture" /&gt;
+&lt;/div&gt;
 
 本知识库采用 **Karpathy Wiki 方法**：原始材料经过系统化整理，提炼为高压缩比的概念页面、技术页面和模式页面。[`overview.md`](overview.md) 是最高压缩的综合概述；[`index.md`](index.md) 是完整目录。
 
@@ -168,15 +168,15 @@ UI = f(state)
 
 ```mermaid
 flowchart LR
-    A[基础: HTML/CSS/JS] --> B[进阶: 框架/工具]
-    B --> C[架构: 模式/策略]
-    C --> D[优化: 性能/安全]
-    D --> E[工程: 测试/部署]
-    A --> F[wiki/index.md]
-    B --> F
-    C --> F
-    D --> F
-    E --> F
+    A[基础: HTML/CSS/JS] --&amp;amp;gt; B[进阶: 框架/工具]
+    B --&amp;amp;gt; C[架构: 模式/策略]
+    C --&amp;amp;gt; D[优化: 性能/安全]
+    D --&amp;amp;gt; E[工程: 测试/部署]
+    A --&amp;amp;gt; F[wiki/index.md]
+    B --&amp;amp;gt; F
+    C --&amp;amp;gt; F
+    D --&amp;amp;gt; F
+    E --&amp;amp;gt; F
 ```
 
 ---

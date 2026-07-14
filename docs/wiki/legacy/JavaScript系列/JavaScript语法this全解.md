@@ -1,14 +1,14 @@
 先玩一个小游戏，你能回答下面的问题吗？
 
-    <script type="text/javascript">     
+    &lt;script type="text/javascript"&gt;     
     foo = "bar";      
-    function testThis() { 
+    function testThis() &#123; 
           foo = "foo";    
-     }     
+     &#125;     
      console.log(this.foo);  //第一个this.foo是什么？     
      testThis();    
      console.log(this.foo);  //第二个this.foo又是什么？
-    </script>
+    &lt;/script&gt;
 
 进入正题，如果你学过其他编程语言，你就知道this不只是JavaScript独有的东西。
 在ES5的浏览器端中，根据作用域来分，有2种情况。
@@ -28,36 +28,36 @@ this运行在函数之外，那么不管是不是严格模式，都是指向wind
 非严格模式下，直接调用函数，内部的this将指向window。
 
     t = 10 //定义一个全局变量t
-    function test(){
+    function test()&#123;
       return this.t;
-    }
+    &#125;
     console.log(test()) // 10
 
 严格模式下，直接调用函数，内部的this将指向该函数运行时的环境。
 
-    function test(){
+    function test()&#123;
       "user strict" //严格模式
       return this;
-    }
+    &#125;
     console.log(test()) //undefined
 
 这个例子中，虽然函数是在window下面直接运行的，但是他没有被调用，而是直接运行，所以this是undefined。
 我们稍微改一下上面的代码，你就知道了什么叫做运行环境。
 
-    function test(){
+    function test()&#123;
       "user strict" //严格模式
       return this;
-    }
+    &#125;
     console.log(window.test()) //window
 
 使用了window来调用函数，那么，函数的执行环境就是window，所以函数内部的this === window。当然，这已经不属于函数直接调用的情况了。
 再写一个自执行函数的例子。
 
-    (function test(){
+    (function test()&#123;
       //"use strict"; 严格模式下this指向undefined
       var t = 9;
       console.log(this) // window
-    })()
+    &#125;)()
 
 无论是自执行还是直接调用函数，都是一样的，他没有“被调用”，所以就没有上下文环境。那么为什么非严格模式下面，会指向window呢，是不是说明非严格模式下默认指向window.test()？没错，但严格模式下就没有默认的说法了，严格模式下也没法给自执行函数指定window是不。
 
@@ -67,12 +67,12 @@ this运行在函数之外，那么不管是不是严格模式，都是指向wind
 当用对象调用自己里面定义的方法时，this指向的这个对象。
 例如：
 
-    var obj = {
+    var obj = &#123;
       id: 9,
-      test: function() {
+      test: function() &#123;
         return this.id;
-      }
-    };
+      &#125;
+    &#125;;
     console.log(obj.test()); //9
 
 这个例子中，test()是对象obj里面的方法，通过obj调用test方法obj.test()，那么该函数的运行环境就是obj所在的上下文，所以this指向obj。
@@ -80,10 +80,10 @@ this运行在函数之外，那么不管是不是严格模式，都是指向wind
 
 接着就是匿名函数的调用，this又指向什么？
 
-    var obj = {id: 9};
-    function test() {
+    var obj = &#123;id: 9&#125;;
+    function test() &#123;
       return this.prop;
-    }
+    &#125;
     obj.t = test;
     console.log(obj.t()); // logs 9
 
@@ -92,11 +92,11 @@ this运行在函数之外，那么不管是不是严格模式，都是指向wind
 **3、原型链中的this（属于对象例子的衍生）**
 看官方提供的一个有趣的例子。
 
-    var o = {
-      f : function(){ 
+    var o = &#123;
+      f : function()&#123; 
         return this.a + this.b; 
-      }
-    };
+      &#125;
+    &#125;;
     var p = Object.create(o);
     p.a = 1;
     p.b = 4;
@@ -107,37 +107,37 @@ this运行在函数之外，那么不管是不是严格模式，都是指向wind
 设置p.a = 1, p.b = 4，通过p.f()调用，则this的执行环境指向了对象p。
 如果不创建原型，它是这样的。
 
-    var o = {
-      f : function(){ 
+    var o = &#123;
+      f : function()&#123; 
         return this.a + this.b; 
-      }
-    };
+      &#125;
+    &#125;;
     o.a = 1, o.b = 4
     =>
-    var o = {
+    var o = &#123;
       a: 1,
       b: 4,
-      f : function(){ 
+      f : function()&#123; 
         return this.a + this.b; 
-      }
-    };
+      &#125;
+    &#125;;
     =>
     o.f() // 5
 
 **4、getter与setter中的this（属于对象例子的衍生）**
 get和set可能很多人没有用过，get用来获取对象的属性，set用来设置对象的属性。
 
-    var obj = {
+    var obj = &#123;
       a: 1,
       b: 2,
-      get test(){
+      get test()&#123;
         return this.a + this.b;
-      },
-      set f(x) {
+      &#125;,
+      set f(x) &#123;
         this.a = x;
         this.b = x + 1;
-      }
-    };
+      &#125;
+    &#125;;
     console.log(obj.test) //3
     obj.f = 5
     console.log(obj.test) //11
@@ -148,9 +148,9 @@ get和set可能很多人没有用过，get用来获取对象的属性，set用�
 **5、构造函数中的this**
 如果你懂java或者C++，那么你一定知道“实例”这个概念，在JavaScript中，创建了一个构造函数，当我们使用new来实例化的时候，这个实例化的的对象就是一个运行环境，构造函数中的this就是指向实例化的对象。
 
-    function Templete(){
+    function Templete()&#123;
       this.a = 8;
-    }
+    &#125;
     var t = new Templete();
     console.log(t.a); // 8
 
@@ -159,12 +159,12 @@ get和set可能很多人没有用过，get用来获取对象的属性，set用�
 **6、call和apply中的this**
 call和apply你如果熟悉的话，就会知道它的第一个参数是绑定函数的运行环境。
 
-    function add(x) {
+    function add(x) &#123;
       return this.a + x
-    }
-    var obj = {
+    &#125;
+    var obj = &#123;
       a: 10
-    }
+    &#125;
     var sum = add.call(obj, 8)
     //var sum = add.apply(obj, [8])
     console.log(sum) // 18
@@ -176,12 +176,12 @@ call和apply你如果熟悉的话，就会知道它的第一个参数是绑定�
 **7、bind中的this**
 bind中的this和apply和call是一样的，它的第一个参数用来绑定this指向的对象，记住是一个对象。
 
-    function f(x){
+    function f(x)&#123;
       return this.a + x;
-    }
-    var obj = {
+    &#125;
+    var obj = &#123;
       a: 10
-    }
+    &#125;
     var sum = f.bind(obj, 8);
     console.log(sum()) // 18
 
@@ -192,24 +192,24 @@ bind中的this和apply和call是一样的，它的第一个参数用来绑定thi
 
     var ele = document.getElementById('tab');
     ele.addEventListener('click', func, false);
-    function func(e) {
+    function func(e) &#123;
         console.log(this === e.target) //true
-    }
+    &#125;
 
 这个例子中，给id叫做tab的元素绑定了click事件，事件名称叫做func，那么使得func()函数执行的环境是ele，所以func()函数中的this是指向ele元素。
 
 **9、内联事件中的this。**
 我们如果直接在dom元素上绑定一个事件，事件函数中的this直接指向的是它对应的dom元素，和第8种情况类似。
 
-    <div onclick="alert(this.tagName.toLowerCase())"></div>
+    &lt;div onclick="alert(this.tagName.toLowerCase())"&gt;&lt;/div&gt;
 
 打印出来是当前的div元素。
 
 官方还举了一个特殊的例子，看下面。
 
-    <button onclick="alert((function(){return this})());">
+    &lt;button onclick="alert((function()&#123;return this&#125;)());"&gt;
       Show inner this
-    </button>
+    &lt;/button&gt;
 
 在这个特殊的例子中，alert里面是一个自执行函数，还记得我在第1种情况说的话吗？自执行函数没有被调用，所以严格模式下this是指向undefined的，而非严格模式下是指向window。
 
@@ -226,15 +226,15 @@ bind中的this和apply和call是一样的，它的第一个参数用来绑定thi
 **小试牛刀：学了这么多，累不累，不知道自己学懂没有，做题目测试一下吧。**
 题目1：
 
-    function Thing1() {}
+    function Thing1() &#123;&#125;
     Thing1.prototype.foo = "thing1";
-    Thing1.prototype.logFoo = function () {
+    Thing1.prototype.logFoo = function () &#123;
         console.log(this.foo);
-    }
+    &#125;
     
-    function Thing2() {
+    function Thing2() &#123;
         this.foo = "thing2";
-    }
+    &#125;
     Thing2.prototype = new Thing1();
     
     var thing = new Thing2();
@@ -242,15 +242,15 @@ bind中的this和apply和call是一样的，它的第一个参数用来绑定thi
 
 题目2：
 
-    function Thing() {}
+    function Thing() &#123;&#125;
     Thing.prototype.foo = "bar";
-    Thing.prototype.logFoo = function () {  
+    Thing.prototype.logFoo = function () &#123;  
         console.log(this.foo);   
-    }
+    &#125;
     
-    function doIt(method) {
+    function doIt(method) &#123;
         method();
-    }
+    &#125;
     
     var thing = new Thing();
     thing.logFoo();
@@ -258,32 +258,32 @@ bind中的this和apply和call是一样的，它的第一个参数用来绑定thi
 
 题目3：
 
-    var obj = {
+    var obj = &#123;
         foo: "bar",
-        deeper: {
-            logFoo: function () {
+        deeper: &#123;
+            logFoo: function () &#123;
                 console.log(this.foo);
-            }
-        }
-    };
+            &#125;
+        &#125;
+    &#125;;
     
     obj.deeper.logFoo();
 
 
 题目4：
 
-    <div class="foo bar1"></div>
-    <div class="foo bar2"></div>
-    <script type="text/javascript">
+    &lt;div class="foo bar1"&gt;&lt;/div&gt;
+    &lt;div class="foo bar2"&gt;&lt;/div&gt;
+    &lt;script type="text/javascript"&gt;
     
-    $(".foo").each(function () {
+    $(".foo").each(function () &#123;
         console.log(this); 
-    });
+    &#125;);
     
-    $(".foo").each(function () {
+    $(".foo").each(function () &#123;
         this.click();
-    });
-    </script>
+    &#125;);
+    &lt;/script&gt;
 
 
 **如果你觉得有说的不对的地方，可以指出来，觉得说的好，收藏一下呗。**

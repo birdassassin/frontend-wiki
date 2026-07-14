@@ -19,10 +19,10 @@
 
 ```javascript
 new webpack.ProvidePlugin({
-    $: 'jquery',
-    jQuery: 'jquery',
-    'window.jQuery': 'jquery',
-    'window.$': 'jquery',
+    $: &amp;amp;#039;jquery&amp;amp;#039;,
+    jQuery: &amp;amp;#039;jquery&amp;amp;#039;,
+    &amp;amp;#039;window.jQuery&amp;amp;#039;: &amp;amp;#039;jquery&amp;amp;#039;,
+    &amp;amp;#039;window.$&amp;amp;#039;: &amp;amp;#039;jquery&amp;amp;#039;,
   });
 ```
 
@@ -46,13 +46,13 @@ npm install --save expose-loader
 2、在webpack.config中加入下面这段loader代码
 ```
 {
-   test: require.resolve('jquery'),
+   test: require.resolve(&amp;amp;#039;jquery&amp;amp;#039;),
    use: [{
-      loader: 'expose-loader',
-      options: 'jQuery'
+      loader: &amp;amp;#039;expose-loader&amp;amp;#039;,
+      options: &amp;amp;#039;jQuery&amp;amp;#039;
    },{
-      loader: 'expose-loader',
-      options: '$'
+      loader: &amp;amp;#039;expose-loader&amp;amp;#039;,
+      options: &amp;amp;#039;$&amp;amp;#039;
    }]
 }
 ```
@@ -60,10 +60,10 @@ npm install --save expose-loader
 3、下面该干嘛？放心，你什么都不用干了，接着很轻松的在你的react组件中导入jQuery
 
 ```
-import React from 'react'
+import React from &amp;amp;#039;react&amp;amp;#039;
 
-require('jquery')
-require('jQuery第三方插件')
+require(&amp;amp;#039;jquery&amp;amp;#039;)
+require(&amp;amp;#039;jQuery第三方插件&amp;amp;#039;)
 
 class Components extends React.Component {
     constructor(props) {

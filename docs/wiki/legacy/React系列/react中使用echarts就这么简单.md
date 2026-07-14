@@ -13,9 +13,9 @@
 ### 插件版本号
 
 ```
-  "echarts": "^3.6.2",
-  "react": "^15.6.1",
-  "react-dom": "^15.6.1"
+  &amp;amp;quot;echarts&amp;amp;quot;: &amp;amp;quot;^3.6.2&amp;amp;quot;,
+  &amp;amp;quot;react&amp;amp;quot;: &amp;amp;quot;^15.6.1&amp;amp;quot;,
+  &amp;amp;quot;react-dom&amp;amp;quot;: &amp;amp;quot;^15.6.1&amp;amp;quot;
 
 ```
 
@@ -50,7 +50,7 @@
 
 demo中采用单个echarts组件异步打包加载的模式，因为echarts组件普遍偏大，即使压缩也效果不明显，所以异步加载是最好的方式。
 
-    import { pieOption, barOption, lineOption, scatterOption, mapOption, radarOption, candlestickOption } from './optionConfig/options'
+    import &#123; pieOption, barOption, lineOption, scatterOption, mapOption, radarOption, candlestickOption &#125; from './optionConfig/options'
     const PieReact = asyncComponent(() => import(/* webpackChunkName: "PieReact" */'./EchartsDemo/PieReact'))  //饼图组件
     const BarReact = asyncComponent(() => import(/* webpackChunkName: "BarReact" */'./EchartsDemo/BarReact')) //柱状图组件
     const LineReact = asyncComponent(() => import(/* webpackChunkName: "LineReact" */'./EchartsDemo/LineReact'))  //折线图组件

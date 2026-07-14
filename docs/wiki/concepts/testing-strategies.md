@@ -23,19 +23,19 @@
 ### 2.1 Vitest
 ```typescript
 // math.test.ts
-import { describe, it, expect, vi } from 'vitest';
-import { add, multiply } from './math';
+import { describe, it, expect, vi } from &amp;amp;#039;vitest&amp;amp;#039;;
+import { add, multiply } from &amp;amp;#039;./math&amp;amp;#039;;
 
-describe('数学函数', () => {
-  it('应该正确相加', () => {
+describe(&amp;amp;#039;数学函数&amp;amp;#039;, () =&amp;amp;gt; {
+  it(&amp;amp;#039;应该正确相加&amp;amp;#039;, () =&amp;amp;gt; {
     expect(add(1, 2)).toBe(3);
   });
   
-  it('应该正确相乘', () => {
+  it(&amp;amp;#039;应该正确相乘&amp;amp;#039;, () =&amp;amp;gt; {
     expect(multiply(2, 3)).toBe(6);
   });
   
-  it('应该处理负数', () => {
+  it(&amp;amp;#039;应该处理负数&amp;amp;#039;, () =&amp;amp;gt; {
     expect(add(-1, -1)).toBe(-2);
   });
 });
@@ -44,18 +44,18 @@ describe('数学函数', () => {
 ### 2.2 Mocking
 ```typescript
 // api.test.ts
-import { vi } from 'vitest';
-import { fetchUser } from './api';
+import { vi } from &amp;amp;#039;vitest&amp;amp;#039;;
+import { fetchUser } from &amp;amp;#039;./api&amp;amp;#039;;
 
-vi.mock('./api', () => ({
+vi.mock(&amp;amp;#039;./api&amp;amp;#039;, () =&amp;amp;gt; ({
   fetchUser: vi.fn()
 }));
 
-it('应该获取用户', async () => {
-  vi.mocked(fetchUser).mockResolvedValue({ id: 1, name: 'Alice' });
+it(&amp;amp;#039;应该获取用户&amp;amp;#039;, async () =&amp;amp;gt; {
+  vi.mocked(fetchUser).mockResolvedValue({ id: 1, name: &amp;amp;#039;Alice&amp;amp;#039; });
   
   const user = await fetchUser(1);
-  expect(user.name).toBe('Alice');
+  expect(user.name).toBe(&amp;amp;#039;Alice&amp;amp;#039;);
 });
 ```
 
@@ -65,36 +65,36 @@ it('应该获取用户', async () => {
 
 ### 3.1 React Testing Library
 ```typescript
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { TodoApp } from './TodoApp';
+import { render, screen, fireEvent, waitFor } from &amp;amp;#039;@testing-library/react&amp;amp;#039;;
+import { TodoApp } from &amp;amp;#039;./TodoApp&amp;amp;#039;;
 
-test('可以添加待办事项', async () => {
-  render(<TodoApp />);
+test(&amp;amp;#039;可以添加待办事项&amp;amp;#039;, async () =&amp;amp;gt; {
+  render(&amp;amp;lt;TodoApp /&amp;amp;gt;);
   
-  const input = screen.getByPlaceholderText('添加待办');
-  const button = screen.getByText('添加');
+  const input = screen.getByPlaceholderText(&amp;amp;#039;添加待办&amp;amp;#039;);
+  const button = screen.getByText(&amp;amp;#039;添加&amp;amp;#039;);
   
-  fireEvent.change(input, { target: { value: '学习测试' } });
+  fireEvent.change(input, { target: { value: &amp;amp;#039;学习测试&amp;amp;#039; } });
   fireEvent.click(button);
   
-  await waitFor(() => {
-    expect(screen.getByText('学习测试')).toBeInTheDocument();
+  await waitFor(() =&amp;amp;gt; {
+    expect(screen.getByText(&amp;amp;#039;学习测试&amp;amp;#039;)).toBeInTheDocument();
   });
 });
 ```
 
 ### 3.2 用户事件
 ```typescript
-import { userEvent } from '@testing-library/user-event';
+import { userEvent } from &amp;amp;#039;@testing-library/user-event&amp;amp;#039;;
 
-test('表单验证', async () => {
+test(&amp;amp;#039;表单验证&amp;amp;#039;, async () =&amp;amp;gt; {
   const user = userEvent.setup();
-  render(<LoginForm />);
+  render(&amp;amp;lt;LoginForm /&amp;amp;gt;);
   
-  await user.type(screen.getByLabelText('邮箱'), 'invalid-email');
-  await user.click(screen.getByText('登录'));
+  await user.type(screen.getByLabelText(&amp;amp;#039;邮箱&amp;amp;#039;), &amp;amp;#039;invalid-email&amp;amp;#039;);
+  await user.click(screen.getByText(&amp;amp;#039;登录&amp;amp;#039;));
   
-  expect(await screen.findByText('邮箱格式不正确')).toBeInTheDocument();
+  expect(await screen.findByText(&amp;amp;#039;邮箱格式不正确&amp;amp;#039;)).toBeInTheDocument();
 });
 ```
 
@@ -105,26 +105,26 @@ test('表单验证', async () => {
 ### 4.1 Playwright
 ```typescript
 // tests/login.spec.ts
-import { test, expect } from '@playwright/test';
+import { test, expect } from &amp;amp;#039;@playwright/test&amp;amp;#039;;
 
-test.describe('登录流程', () => {
-  test('应该成功登录', async ({ page }) => {
-    await page.goto('/login');
-    await page.fill('[name="email"]', 'user@example.com');
-    await page.fill('[name="password"]', 'password123');
-    await page.click('button[type="submit"]');
+test.describe(&amp;amp;#039;登录流程&amp;amp;#039;, () =&amp;amp;gt; {
+  test(&amp;amp;#039;应该成功登录&amp;amp;#039;, async ({ page }) =&amp;amp;gt; {
+    await page.goto(&amp;amp;#039;/login&amp;amp;#039;);
+    await page.fill(&amp;amp;#039;[name=&amp;amp;quot;email&amp;amp;quot;]&amp;amp;#039;, &amp;amp;#039;user@example.com&amp;amp;#039;);
+    await page.fill(&amp;amp;#039;[name=&amp;amp;quot;password&amp;amp;quot;]&amp;amp;#039;, &amp;amp;#039;password123&amp;amp;#039;);
+    await page.click(&amp;amp;#039;button[type=&amp;amp;quot;submit&amp;amp;quot;]&amp;amp;#039;);
     
-    await expect(page).toHaveURL('/dashboard');
-    await expect(page.getByText('欢迎回来')).toBeVisible();
+    await expect(page).toHaveURL(&amp;amp;#039;/dashboard&amp;amp;#039;);
+    await expect(page.getByText(&amp;amp;#039;欢迎回来&amp;amp;#039;)).toBeVisible();
   });
   
-  test('应该显示错误信息', async ({ page }) => {
-    await page.goto('/login');
-    await page.fill('[name="email"]', 'wrong@example.com');
-    await page.fill('[name="password"]', 'wrong');
-    await page.click('button[type="submit"]');
+  test(&amp;amp;#039;应该显示错误信息&amp;amp;#039;, async ({ page }) =&amp;amp;gt; {
+    await page.goto(&amp;amp;#039;/login&amp;amp;#039;);
+    await page.fill(&amp;amp;#039;[name=&amp;amp;quot;email&amp;amp;quot;]&amp;amp;#039;, &amp;amp;#039;wrong@example.com&amp;amp;#039;);
+    await page.fill(&amp;amp;#039;[name=&amp;amp;quot;password&amp;amp;quot;]&amp;amp;#039;, &amp;amp;#039;wrong&amp;amp;#039;);
+    await page.click(&amp;amp;#039;button[type=&amp;amp;quot;submit&amp;amp;quot;]&amp;amp;#039;);
     
-    await expect(page.getByText('邮箱或密码错误')).toBeVisible();
+    await expect(page.getByText(&amp;amp;#039;邮箱或密码错误&amp;amp;#039;)).toBeVisible();
   });
 });
 ```
@@ -132,23 +132,23 @@ test.describe('登录流程', () => {
 ### 4.2 测试模式
 ```typescript
 // fixtures.ts
-import { test as base } from '@playwright/test';
+import { test as base } from &amp;amp;#039;@playwright/test&amp;amp;#039;;
 
-export const test = base.extend<{ loggedInPage: Page }>({
-  loggedInPage: async ({ page }, use) => {
-    await page.goto('/login');
-    await page.fill('[name="email"]', 'test@example.com');
-    await page.fill('[name="password"]', 'password');
-    await page.click('button[type="submit"]');
-    await page.waitForURL('/dashboard');
+export const test = base.extend&amp;amp;lt;{ loggedInPage: Page }&amp;amp;gt;({
+  loggedInPage: async ({ page }, use) =&amp;amp;gt; {
+    await page.goto(&amp;amp;#039;/login&amp;amp;#039;);
+    await page.fill(&amp;amp;#039;[name=&amp;amp;quot;email&amp;amp;quot;]&amp;amp;#039;, &amp;amp;#039;test@example.com&amp;amp;#039;);
+    await page.fill(&amp;amp;#039;[name=&amp;amp;quot;password&amp;amp;quot;]&amp;amp;#039;, &amp;amp;#039;password&amp;amp;#039;);
+    await page.click(&amp;amp;#039;button[type=&amp;amp;quot;submit&amp;amp;quot;]&amp;amp;#039;);
+    await page.waitForURL(&amp;amp;#039;/dashboard&amp;amp;#039;);
     await use(page);
   }
 });
 
 // 使用 fixture
-test('应该显示用户信息', async ({ loggedInPage }) => {
-  await loggedInPage.goto('/profile');
-  await expect(loggedInPage.getByText('测试用户')).toBeVisible();
+test(&amp;amp;#039;应该显示用户信息&amp;amp;#039;, async ({ loggedInPage }) =&amp;amp;gt; {
+  await loggedInPage.goto(&amp;amp;#039;/profile&amp;amp;#039;);
+  await expect(loggedInPage.getByText(&amp;amp;#039;测试用户&amp;amp;#039;)).toBeVisible();
 });
 ```
 
@@ -158,10 +158,10 @@ test('应该显示用户信息', async ({ loggedInPage }) => {
 
 ### 5.1 AAA 模式
 ```typescript
-test('应该更新用户名称', async () => {
+test(&amp;amp;#039;应该更新用户名称&amp;amp;#039;, async () =&amp;amp;gt; {
   // Arrange (准备)
-  const user = { id: 1, name: 'Alice' };
-  const newName = 'Bob';
+  const user = { id: 1, name: &amp;amp;#039;Alice&amp;amp;#039; };
+  const newName = &amp;amp;#039;Bob&amp;amp;#039;;
   
   // Act (执行)
   const updated = await updateUser(user.id, { name: newName });
@@ -173,7 +173,7 @@ test('应该更新用户名称', async () => {
 
 ### 5.2 测试数据工厂
 ```typescript
-function createUser(overrides: Partial<User> = {}): User {
+function createUser(overrides: Partial&amp;amp;lt;User&amp;amp;gt; = {}): User {
   return {
     id: faker.string.uuid(),
     name: faker.person.fullName(),
@@ -183,14 +183,14 @@ function createUser(overrides: Partial<User> = {}): User {
 }
 
 // 使用
-const admin = createUser({ role: 'admin' });
+const admin = createUser({ role: &amp;amp;#039;admin&amp;amp;#039; });
 const user = createUser();
 ```
 
 ### 5.3 快照测试
 ```typescript
-test('应该渲染正确的 UI', () => {
-  const { container } = render(<UserProfile user={mockUser} />);
+test(&amp;amp;#039;应该渲染正确的 UI&amp;amp;#039;, () =&amp;amp;gt; {
+  const { container } = render(&amp;amp;lt;UserProfile user={mockUser} /&amp;amp;gt;);
   expect(container).toMatchSnapshot();
 });
 ```
@@ -205,8 +205,8 @@ test('应该渲染正确的 UI', () => {
 export default defineConfig({
   test: {
     coverage: {
-      provider: 'v8',
-      reporter: ['text', 'json', 'html'],
+      provider: &amp;amp;#039;v8&amp;amp;#039;,
+      reporter: [&amp;amp;#039;text&amp;amp;#039;, &amp;amp;#039;json&amp;amp;#039;, &amp;amp;#039;html&amp;amp;#039;],
       thresholds: {
         lines: 80,
         functions: 80,

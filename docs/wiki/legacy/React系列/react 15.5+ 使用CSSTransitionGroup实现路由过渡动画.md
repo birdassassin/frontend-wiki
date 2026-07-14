@@ -33,32 +33,32 @@ npm install react-transition-group --save
 在 App.js中，关键代码
 
 ```
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
-import createHistory from 'history/createHashHistory'
+import CSSTransitionGroup from &amp;amp;#039;react-transition-group/CSSTransitionGroup&amp;amp;#039;
+import createHistory from &amp;amp;#039;history/createHashHistory&amp;amp;#039;
 const history = createHistory()
 
 export default class App extends React.Component {
     render() {
         const { animateCls } = this.props.global
         return (
-            <Router history={history}>
-              <Route render={({ location }) => {
+            &amp;amp;lt;Router history={history}&amp;amp;gt;
+              &amp;amp;lt;Route render={({ location }) =&amp;amp;gt; {
                   return(
-                      <CSSTransitionGroup
+                      &amp;amp;lt;CSSTransitionGroup
                           transitionName={animateCls}
                           transitionEnter={true}
                           transitionLeave={true}
                           transitionEnterTimeout={400}
                           transitionLeaveTimeout={400}
-                      >
-                          <div key={location.pathname}>
-                              <Route location={location} exact path="/" component={Home} />
-                              <Route location={location} path="/search" component={Search} />
-                          </div>
-                      </CSSTransitionGroup>
+                      &amp;amp;gt;
+                          &amp;amp;lt;div key={location.pathname}&amp;amp;gt;
+                              &amp;amp;lt;Route location={location} exact path=&amp;amp;quot;/&amp;amp;quot; component={Home} /&amp;amp;gt;
+                              &amp;amp;lt;Route location={location} path=&amp;amp;quot;/search&amp;amp;quot; component={Search} /&amp;amp;gt;
+                          &amp;amp;lt;/div&amp;amp;gt;
+                      &amp;amp;lt;/CSSTransitionGroup&amp;amp;gt;
                   )
-              }}/>
-          </Router>
+              &amp;#125;&amp;#125;/&amp;amp;gt;
+          &amp;amp;lt;/Router&amp;amp;gt;
         )
     }
 }
@@ -73,8 +73,8 @@ animateCls是存储在store中的变量，他用来表示动画的transitionName
 我写了一个action，来控制animateCls值的变化。这个action很简单，就是传入一个样式参数，当不同的状态的时候，传入不同的参数就能实现动画的定制了。
 
 ```
-export const currentAnimate = (cls) => ({
-    type: 'CURRENT_ANIMATE',
+export const currentAnimate = (cls) =&amp;amp;gt; ({
+    type: &amp;amp;#039;CURRENT_ANIMATE&amp;amp;#039;,
     cls
 })
 ```
@@ -82,12 +82,12 @@ export const currentAnimate = (cls) => ({
 
 ```
 const initState = {
-    animateCls: 'normal', //过渡动画样式
+    animateCls: &amp;amp;#039;normal&amp;amp;#039;, //过渡动画样式
 }
 
-export const global = (state = initState, action) => {
+export const global = (state = initState, action) =&amp;amp;gt; {
     switch (action.type) {
-        case "CURRENT_ANIMATE":
+        case &amp;amp;quot;CURRENT_ANIMATE&amp;amp;quot;:
             return {
                 ...state,
                 animateCls: action.cls
@@ -182,7 +182,7 @@ right表示的是 animateCls，也就是我们要动态设置的值，react动�
 比如我只监听了网页中的返回按钮onCLick事件。  
 
 ```
-<Link to="/" className="style_a" onClick={() => handleClick('right')}>返回首页</Link>
+&amp;amp;lt;Link to=&amp;amp;quot;/&amp;amp;quot; className=&amp;amp;quot;style_a&amp;amp;quot; onClick={() =&amp;amp;gt; handleClick(&amp;amp;#039;right&amp;amp;#039;)}&amp;amp;gt;返回首页&amp;amp;lt;/Link&amp;amp;gt;
 ```
 2、别忘了设置一个唯一的key，如果你的组件是一个列表，那么需要在map的时候设置一个key。
 

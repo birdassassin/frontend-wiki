@@ -14,26 +14,26 @@
 - **Poor**: > 4s
 
 **What counts as LCP element:**
-- `<img>` elements
-- `<video>` poster images
+- `&lt;img&gt;` elements
+- `&lt;video&gt;` poster images
 - Background images with `url()`
 - Block-level elements with text
 
 **Optimization:**
 ```html
-<!-- Preload LCP image -->
-<link rel="preload" href="/hero.jpg" as="image">
+&amp;amp;lt;!-- Preload LCP image --&amp;amp;gt;
+&amp;amp;lt;link rel=&amp;amp;quot;preload&amp;amp;quot; href=&amp;amp;quot;/hero.jpg&amp;amp;quot; as=&amp;amp;quot;image&amp;amp;quot;&amp;amp;gt;
 
-<!-- Use modern formats -->
-<picture>
-  <source srcset="hero.avif" type="image/avif">
-  <img src="hero.jpg" alt="Hero" fetchpriority="high">
-</picture>
+&amp;amp;lt;!-- Use modern formats --&amp;amp;gt;
+&amp;amp;lt;picture&amp;amp;gt;
+  &amp;amp;lt;source srcset=&amp;amp;quot;hero.avif&amp;amp;quot; type=&amp;amp;quot;image/avif&amp;amp;quot;&amp;amp;gt;
+  &amp;amp;lt;img src=&amp;amp;quot;hero.jpg&amp;amp;quot; alt=&amp;amp;quot;Hero&amp;amp;quot; fetchpriority=&amp;amp;quot;high&amp;amp;quot;&amp;amp;gt;
+&amp;amp;lt;/picture&amp;amp;gt;
 
-<!-- Inline critical CSS -->
-<style>
-  .hero { background: url('/hero.jpg') center/cover; }
-</style>
+&amp;amp;lt;!-- Inline critical CSS --&amp;amp;gt;
+&amp;amp;lt;style&amp;amp;gt;
+  .hero { background: url(&amp;amp;#039;/hero.jpg&amp;amp;#039;) center/cover; }
+&amp;amp;lt;/style&amp;amp;gt;
 ```
 
 ### 1.2 INP (Interaction to Next Paint)
@@ -50,15 +50,15 @@
 // Break up long tasks
 // Bad: Blocks main thread for 100ms
 function processData(data) {
-  data.forEach(item => heavyComputation(item));
+  data.forEach(item =&amp;amp;gt; heavyComputation(item));
 }
 
 // Good: Yield to main thread periodically
 async function processData(data) {
-  for (let i = 0; i < data.length; i++) {
+  for (let i = 0; i &amp;amp;lt; data.length; i++) {
     heavyComputation(data[i]);
     if (i % 50 === 0) {
-      await new Promise(r => setTimeout(r, 0)); // Yield
+      await new Promise(r =&amp;amp;gt; setTimeout(r, 0)); // Yield
     }
   }
 }
@@ -78,16 +78,16 @@ await scheduler.yield();
 
 **Optimization:**
 ```html
-<!-- Always specify dimensions -->
-<img src="photo.jpg" width="800" height="600" alt="Photo">
+&amp;amp;lt;!-- Always specify dimensions --&amp;amp;gt;
+&amp;amp;lt;img src=&amp;amp;quot;photo.jpg&amp;amp;quot; width=&amp;amp;quot;800&amp;amp;quot; height=&amp;amp;quot;600&amp;amp;quot; alt=&amp;amp;quot;Photo&amp;amp;quot;&amp;amp;gt;
 
-<!-- Reserve space for ads -->
-<div class="ad-container" style="min-height: 250px;"></div>
+&amp;amp;lt;!-- Reserve space for ads --&amp;amp;gt;
+&amp;amp;lt;div class=&amp;amp;quot;ad-container&amp;amp;quot; style=&amp;amp;quot;min-height: 250px;&amp;amp;quot;&amp;amp;gt;&amp;amp;lt;/div&amp;amp;gt;
 
-<!-- Use aspect-ratio for responsive images -->
-<img src="photo.jpg" style="aspect-ratio: 4/3;" alt="Photo">
+&amp;amp;lt;!-- Use aspect-ratio for responsive images --&amp;amp;gt;
+&amp;amp;lt;img src=&amp;amp;quot;photo.jpg&amp;amp;quot; style=&amp;amp;quot;aspect-ratio: 4/3;&amp;amp;quot; alt=&amp;amp;quot;Photo&amp;amp;quot;&amp;amp;gt;
 
-<!-- Transform instead of layout-changing animations -->
+&amp;amp;lt;!-- Transform instead of layout-changing animations --&amp;amp;gt;
 .bad  { animation: expand 1s; }
 .good { animation: scale-up 1s; }
 
@@ -129,11 +129,11 @@ await scheduler.yield();
 ### 3.1 Field Data (Real Users)
 ```javascript
 // Web Vitals library
-import { onLCP, onINP, onCLS } from 'web-vitals';
+import { onLCP, onINP, onCLS } from &amp;amp;#039;web-vitals&amp;amp;#039;;
 
-onLCP(({ value }) => sendToAnalytics('LCP', value));
-onINP(({ value }) => sendToAnalytics('INP', value));
-onCLS(({ value }) => sendToAnalytics('CLS', value));
+onLCP(({ value }) =&amp;amp;gt; sendToAnalytics(&amp;amp;#039;LCP&amp;amp;#039;, value));
+onINP(({ value }) =&amp;amp;gt; sendToAnalytics(&amp;amp;#039;INP&amp;amp;#039;, value));
+onCLS(({ value }) =&amp;amp;gt; sendToAnalytics(&amp;amp;#039;CLS&amp;amp;#039;, value));
 
 // Chrome User Experience Report (CrUX)
 // Available via BigQuery or PageSpeed Insights API
@@ -153,20 +153,20 @@ npx lighthouse https://example.com --view
 ### 3.3 Performance API
 ```javascript
 // Navigation Timing
-const [nav] = performance.getEntriesByType('navigation');
-console.log('TTFB:', nav.responseStart - nav.requestStart);
+const [nav] = performance.getEntriesByType(&amp;amp;#039;navigation&amp;amp;#039;);
+console.log(&amp;amp;#039;TTFB:&amp;amp;#039;, nav.responseStart - nav.requestStart);
 
 // Resource Timing
-performance.getEntriesByType('resource').forEach(entry => {
+performance.getEntriesByType(&amp;amp;#039;resource&amp;amp;#039;).forEach(entry =&amp;amp;gt; {
   console.log(`${entry.name}: ${entry.duration}ms`);
 });
 
 // Long Tasks API
-new PerformanceObserver((list) => {
-  list.getEntries().forEach(entry => {
-    console.log('Long task:', entry.duration, 'ms');
+new PerformanceObserver((list) =&amp;amp;gt; {
+  list.getEntries().forEach(entry =&amp;amp;gt; {
+    console.log(&amp;amp;#039;Long task:&amp;amp;#039;, entry.duration, &amp;amp;#039;ms&amp;amp;#039;);
   });
-}).observe({ type: 'longtask', buffered: true });
+}).observe({ type: &amp;amp;#039;longtask&amp;amp;#039;, buffered: true });
 ```
 
 ---
@@ -175,17 +175,17 @@ new PerformanceObserver((list) => {
 
 ### 4.1 Loading Optimization
 ```html
-<!-- Critical resources -->
-<link rel="preload" href="/font.woff2" as="font" crossorigin>
-<link rel="preload" href="/critical.js" as="script">
+&amp;amp;lt;!-- Critical resources --&amp;amp;gt;
+&amp;amp;lt;link rel=&amp;amp;quot;preload&amp;amp;quot; href=&amp;amp;quot;/font.woff2&amp;amp;quot; as=&amp;amp;quot;font&amp;amp;quot; crossorigin&amp;amp;gt;
+&amp;amp;lt;link rel=&amp;amp;quot;preload&amp;amp;quot; href=&amp;amp;quot;/critical.js&amp;amp;quot; as=&amp;amp;quot;script&amp;amp;quot;&amp;amp;gt;
 
-<!-- Non-critical resources -->
-<link rel="prefetch" href="/next-page.js">
-<link rel="preconnect" href="https://api.example.com">
+&amp;amp;lt;!-- Non-critical resources --&amp;amp;gt;
+&amp;amp;lt;link rel=&amp;amp;quot;prefetch&amp;amp;quot; href=&amp;amp;quot;/next-page.js&amp;amp;quot;&amp;amp;gt;
+&amp;amp;lt;link rel=&amp;amp;quot;preconnect&amp;amp;quot; href=&amp;amp;quot;https://api.example.com&amp;amp;quot;&amp;amp;gt;
 
-<!-- Defer non-critical JS -->
-<script src="/analytics.js" defer></script>
-<script src="/non-critical.js" async></script>
+&amp;amp;lt;!-- Defer non-critical JS --&amp;amp;gt;
+&amp;amp;lt;script src=&amp;amp;quot;/analytics.js&amp;amp;quot; defer&amp;amp;gt;&amp;amp;lt;/script&amp;amp;gt;
+&amp;amp;lt;script src=&amp;amp;quot;/non-critical.js&amp;amp;quot; async&amp;amp;gt;&amp;amp;lt;/script&amp;amp;gt;
 ```
 
 ### 4.2 Rendering Optimization
@@ -203,8 +203,8 @@ new PerformanceObserver((list) => {
 
 /* Font optimization */
 @font-face {
-  font-family: 'Custom';
-  src: url('/font.woff2') format('woff2');
+  font-family: &amp;amp;#039;Custom&amp;amp;#039;;
+  src: url(&amp;amp;#039;/font.woff2&amp;amp;#039;) format(&amp;amp;#039;woff2&amp;amp;#039;);
   font-display: swap; /* Show fallback font first */
 }
 ```
@@ -212,15 +212,15 @@ new PerformanceObserver((list) => {
 ### 4.3 JavaScript Optimization
 ```javascript
 // Code splitting
-const HeavyComponent = React.lazy(() => import('./Heavy'));
+const HeavyComponent = React.lazy(() =&amp;amp;gt; import(&amp;amp;#039;./Heavy&amp;amp;#039;));
 
 // Tree shaking (ESM only)
-import { debounce } from 'lodash-es'; // Not lodash
+import { debounce } from &amp;amp;#039;lodash-es&amp;amp;#039;; // Not lodash
 
 // Web Workers for heavy computation
-const worker = new Worker('/worker.js');
+const worker = new Worker(&amp;amp;#039;/worker.js&amp;amp;#039;);
 worker.postMessage(data);
-worker.onmessage = (e) => console.log(e.data);
+worker.onmessage = (e) =&amp;amp;gt; console.log(e.data);
 ```
 
 ---
@@ -231,12 +231,12 @@ worker.onmessage = (e) => console.log(e.data);
 ```json
 // package.json
 {
-  "performance": {
-    "budgets": [
-      { "path": "/*", "resourceTypes": ["script"], "maxSize": 200000 },
-      { "path": "/*", "resourceTypes": ["image"], "maxSize": 500000 },
-      { "path": "/*", "metric": "lcp", "max": 2500 },
-      { "path": "/*", "metric": "cls", "max": 0.1 }
+  &amp;amp;quot;performance&amp;amp;quot;: {
+    &amp;amp;quot;budgets&amp;amp;quot;: [
+      { &amp;amp;quot;path&amp;amp;quot;: &amp;amp;quot;/*&amp;amp;quot;, &amp;amp;quot;resourceTypes&amp;amp;quot;: [&amp;amp;quot;script&amp;amp;quot;], &amp;amp;quot;maxSize&amp;amp;quot;: 200000 },
+      { &amp;amp;quot;path&amp;amp;quot;: &amp;amp;quot;/*&amp;amp;quot;, &amp;amp;quot;resourceTypes&amp;amp;quot;: [&amp;amp;quot;image&amp;amp;quot;], &amp;amp;quot;maxSize&amp;amp;quot;: 500000 },
+      { &amp;amp;quot;path&amp;amp;quot;: &amp;amp;quot;/*&amp;amp;quot;, &amp;amp;quot;metric&amp;amp;quot;: &amp;amp;quot;lcp&amp;amp;quot;, &amp;amp;quot;max&amp;amp;quot;: 2500 },
+      { &amp;amp;quot;path&amp;amp;quot;: &amp;amp;quot;/*&amp;amp;quot;, &amp;amp;quot;metric&amp;amp;quot;: &amp;amp;quot;cls&amp;amp;quot;, &amp;amp;quot;max&amp;amp;quot;: 0.1 }
     ]
   }
 }

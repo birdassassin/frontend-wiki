@@ -31,14 +31,14 @@ webpack中，从v1到v2，v3暂且不提，一共有3种代码切割加载的方
 [webpack2.2文档关于require.ensure使用的介绍][2]
 
 简单介绍下require.ensure的经典使用方法，你若是没用过，别担心，看下面的代码就足够了。
-    const Foo = require.ensure([], () => {
+    const Foo = require.ensure([], () => &#123;
         require("a");
-    }, err => {
+    &#125;, err => &#123;
         console.error("We failed to load chunk: " + err);
-    }, "chunk-name");
+    &#125;, "chunk-name");
     
     //react-router2 or 3
-    <Route path="/xx" getComponent={Foo} />
+    &lt;Route path="/xx" getComponent=&#123;Foo&#125; /&gt;
 
 #### import()
 
@@ -48,13 +48,13 @@ webpack中，从v1到v2，v3暂且不提，一共有3种代码切割加载的方
 
 1、导入局部模块
 
-    function determineDate() {
-      import('moment').then(function(moment) {
+    function determineDate() &#123;
+      import('moment').then(function(moment) &#123;
         console.log(moment().format());
-      }).catch(function(err) {
+      &#125;).catch(function(err) &#123;
         console.log('Failed to load moment', err);
-      });
-    }
+      &#125;);
+    &#125;
     
     determineDate();
     
@@ -65,10 +65,10 @@ webpack中，从v1到v2，v3暂且不提，一共有3种代码切割加载的方
 
 3、使用await
 
-    async function determineDate() {
+    async function determineDate() &#123;
       const moment = await import('moment');
       return moment().format('LLLL');
-    }
+    &#125;
     
     determineDate().then(str => console.log(str));
 
@@ -79,7 +79,7 @@ webpack中，从v1到v2，v3暂且不提，一共有3种代码切割加载的方
 
     const Foo = import("./xx") // 错误的写法
     
-    <Route path="/xx" component={import("./xxx")} /> //错误的写法
+    &lt;Route path="/xx" component=&#123;import("./xxx")&#125; /&gt; //错误的写法
     
 少年，别太天真，Promise的返回值只能通过then()来读取，所以你会发现官方的3种使用场景全都是在then()里面操作，那怎么办？我想把import()获取到的组件赋给一个变量或常量。
 
@@ -94,45 +94,45 @@ webpack中，从v1到v2，v3暂且不提，一共有3种代码切割加载的方
 1、asyncComponent函数（惊天函数）：函数很好理解，loadComponent参数表示需要代码切割的路径，函数返回值是一个react组件，组件内部帮你做好了then()方法的操作。
     import React from 'react'
     export const asyncComponent = loadComponent => (
-        class AsyncComponent extends React.Component {
-            state = {
+        class AsyncComponent extends React.Component &#123;
+            state = &#123;
                 Component: null,
-            }
+            &#125;
     
-            componentWillMount() {
-                if (this.hasLoadedComponent()) {
+            componentWillMount() &#123;
+                if (this.hasLoadedComponent()) &#123;
                     return;
-                }
+                &#125;
     
                 loadComponent()
                     .then(module => module.default)
-                    .then((Component) => {
-                        this.setState({ Component });
-                    })
-                    .catch((err) => {
-                        console.error(`Cannot load component in <AsyncComponent />`);
+                    .then((Component) => &#123;
+                        this.setState(&#123; Component &#125;);
+                    &#125;)
+                    .catch((err) => &#123;
+                        console.error(`Cannot load component in &lt;AsyncComponent /&gt;`);
                         throw err;
-                    });
-            }
+                    &#125;);
+            &#125;
     
-            hasLoadedComponent() {
+            hasLoadedComponent() &#123;
                 return this.state.Component !== null;
-            }
+            &#125;
     
-            render() {
-                const { Component } = this.state;
-                return (Component) ? <Component {...this.props} /> : null;
-            }
-        }
+            render() &#123;
+                const &#123; Component &#125; = this.state;
+                return (Component) ? &lt;Component &#123;...this.props&#125; /&gt; : null;
+            &#125;
+        &#125;
     );
 
 2、在react中使用
 
-    import { asyncComponent } from './AsyncComponent'
+    import &#123; asyncComponent &#125; from './AsyncComponent'
     
     const Foo = asyncComponent(() => import(/* webpackChunkName: "foo" */ "./foo"))
     
-    <Route path="/xx" component={Foo} />
+    &lt;Route path="/xx" component=&#123;Foo&#125; /&gt;
 
 3、好了，这样你就成功了，但是，请注意下面几个问题：
 

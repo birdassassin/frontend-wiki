@@ -15,19 +15,19 @@ react-router把每个页面包装成了一个唯一的路由，这样的话，�
 看文字有点累，下面贴上代码给大家看一下基本的react-router长什么样。
 
 ```
-import React from 'react';
-import { Route } from 'react-router';
+import React from &amp;amp;#039;react&amp;amp;#039;;
+import { Route } from &amp;amp;#039;react-router&amp;amp;#039;;
 
 /* containers */
-import { AppContainer } from 'appContainer'
-import { HomeContainer } from 'containers/Home/homeContainer'//首页
-import { SearchContainer } from 'containers/Search/searchContainer'//搜索页面
+import { AppContainer } from &amp;amp;#039;appContainer&amp;amp;#039;
+import { HomeContainer } from &amp;amp;#039;containers/Home/homeContainer&amp;amp;#039;//首页
+import { SearchContainer } from &amp;amp;#039;containers/Search/searchContainer&amp;amp;#039;//搜索页面
 
 export default (
-    <Route path="/" component={AppContainer}>
-        <Route path="home" component={HomeContainer} />
-        <Route path="search" component={SearchContainer} />
-    </Route>
+    &amp;amp;lt;Route path=&amp;amp;quot;/&amp;amp;quot; component={AppContainer}&amp;amp;gt;
+        &amp;amp;lt;Route path=&amp;amp;quot;home&amp;amp;quot; component={HomeContainer} /&amp;amp;gt;
+        &amp;amp;lt;Route path=&amp;amp;quot;search&amp;amp;quot; component={SearchContainer} /&amp;amp;gt;
+    &amp;amp;lt;/Route&amp;amp;gt;
 )
 ```
 
@@ -36,24 +36,24 @@ export default (
 1、修改你的路由
 
 ```
-import React from 'react';
-import { Route, IndexRoute } from 'react-router';
+import React from &amp;amp;#039;react&amp;amp;#039;;
+import { Route, IndexRoute } from &amp;amp;#039;react-router&amp;amp;#039;;
 
-import { AppContainer } from './appContainer';
-import { HomeContainer } from './containers/Home/homeContainer';
+import { AppContainer } from &amp;amp;#039;./appContainer&amp;amp;#039;;
+import { HomeContainer } from &amp;amp;#039;./containers/Home/homeContainer&amp;amp;#039;;
 //首页不变，搜索页面是子页面，我把他切割出来作为单独的一个js文件，cb里面有一个default，表示导出带有**default**的容器组件。
-const searchContainer = (location, cb) => {
-    require.ensure([], require => {
-        cb(null, require('./containers/Search/searchContainer').default)
-    },'search')
+const searchContainer = (location, cb) =&amp;amp;gt; {
+    require.ensure([], require =&amp;amp;gt; {
+        cb(null, require(&amp;amp;#039;./containers/Search/searchContainer&amp;amp;#039;).default)
+    },&amp;amp;#039;search&amp;amp;#039;)
 }
 
 export default (
-    <Route path="/" component={AppContainer}>
-        <IndexRoute component={HomeContainer} />
-        <Route path="home" component={HomeContainer} />
-        <Route path="search" getComponent={searchContainer} />
-    </Route>
+    &amp;amp;lt;Route path=&amp;amp;quot;/&amp;amp;quot; component={AppContainer}&amp;amp;gt;
+        &amp;amp;lt;IndexRoute component={HomeContainer} /&amp;amp;gt;
+        &amp;amp;lt;Route path=&amp;amp;quot;home&amp;amp;quot; component={HomeContainer} /&amp;amp;gt;
+        &amp;amp;lt;Route path=&amp;amp;quot;search&amp;amp;quot; getComponent={searchContainer} /&amp;amp;gt;
+    &amp;amp;lt;/Route&amp;amp;gt;
 );
 
 
@@ -64,26 +64,26 @@ export default (
 //入口文件
 entry: {
     app: [
-      'babel-polyfill',
-      './src/index' 
+      &amp;amp;#039;babel-polyfill&amp;amp;#039;,
+      &amp;amp;#039;./src/index&amp;amp;#039; 
     ],
-    vendor: ['react'] //提取react模块作为公共的js文件
+    vendor: [&amp;amp;#039;react&amp;amp;#039;] //提取react模块作为公共的js文件
   },
 
 //输入文件
 output: {
-    filename: '[name].js', //注意这里，用[name]可以自动生成路由名称对应的js文件
-    path: path.join(__dirname, 'build'),
-    publicPath: '/build/',
-    chunkFilename: '[name].js' //注意这里，用[name]可以自动生成路由名称对应的js文件
+    filename: &amp;amp;#039;[name].js&amp;amp;#039;, //注意这里，用[name]可以自动生成路由名称对应的js文件
+    path: path.join(__dirname, &amp;amp;#039;build&amp;amp;#039;),
+    publicPath: &amp;amp;#039;/build/&amp;amp;#039;,
+    chunkFilename: &amp;amp;#039;[name].js&amp;amp;#039; //注意这里，用[name]可以自动生成路由名称对应的js文件
   },
 
 //插件
 plugins: [
 //必须配置，react的公共模块
     new webpack.optimize.CommonsChunkPlugin({
-      names: ['vendor'],
-      filename: 'vendor.js'
+      names: [&amp;amp;#039;vendor&amp;amp;#039;],
+      filename: &amp;amp;#039;vendor.js&amp;amp;#039;
     })
   ],
 ```
@@ -93,14 +93,14 @@ plugins: [
 
 ```
 前端静态html只需要这初始化加载这2个文件，search.js会异步加载进来（你可以叫它懒加载）
-<script src="/build/vendor.js"></script>
-<script src="app.js"></script>
+&amp;amp;lt;script src=&amp;amp;quot;/build/vendor.js&amp;amp;quot;&amp;amp;gt;&amp;amp;lt;/script&amp;amp;gt;
+&amp;amp;lt;script src=&amp;amp;quot;app.js&amp;amp;quot;&amp;amp;gt;&amp;amp;lt;/script&amp;amp;gt;
 ```
 
 5、好了，现在开发完了，准备打包成静态文件。输入**npm run build**刷刷刷的图片、js打包出来了。看一个打包效果图。
 ![图片描述][1]
 
 
-  [1]: /img/bVHwha
+  [1]: https://gitee.com/birdassassin/frontend-wiki/raw/master/img/bVHwha
 
 6、要发布了？no，你需要学会服务端渲染，不送。。

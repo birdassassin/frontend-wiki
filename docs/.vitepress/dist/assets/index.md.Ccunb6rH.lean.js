@@ -1,0 +1,1 @@
+import{_ as a,o as s,c as e,a2 as n}from"./chunks/framework.BWuWLRhz.js";const g=JSON.parse('{"title":"前端知识库","description":"","frontmatter":{},"headers":[],"relativePath":"index.md","filePath":"index.md"}'),r={name:"index.md"};function i(l,t,p,o,d,c){return s(),e("div",null,[...t[0]||(t[0]=[n("",24)])])}const m=a(r,[["render",i]]);export{g as __pageData,m as default};
