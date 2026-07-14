@@ -1,0 +1,1 @@
+import{_ as t,o as a,c as n,a2 as s}from"./chunks/framework.BWuWLRhz.js";const m=JSON.parse('{"title":"Frontend Wiki","description":"","frontmatter":{},"headers":[],"relativePath":"README.md","filePath":"README.md"}'),i={name:"README.md"};function r(o,e,l,d,c,p){return a(),n("div",null,[...e[0]||(e[0]=[s("",65)])])}const u=t(i,[["render",r]]);export{m as __pageData,u as default};
