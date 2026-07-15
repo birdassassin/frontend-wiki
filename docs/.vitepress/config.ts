@@ -58,6 +58,7 @@ export default defineConfig({
           text: '前端工具链',
           link: '/wiki/tools/fullstack-frameworks.md',
           items: [
+            { text: '构建工具 (Webpack/Vite)', link: '/wiki/tools/build-tools.md' },
             { text: 'React 生态', link: '/wiki/tools/react-ecosystem.md' },
             { text: 'Vue 生态', link: '/wiki/tools/vue-ecosystem.md' }
           ]
