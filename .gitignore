@@ -1,0 +1,8 @@
+node_modules/
+dist/
+docs/.vitepress/cache/
+docs/.vitepress/dist/
+.DS_Store
+*.log
+*.tmp
+convert-to-epub.cjs
