@@ -68,7 +68,8 @@ export default defineConfig({
           text: '技术详解',
           items: [
             { text: 'React 核心', link: '/wiki/techniques/react-core.md' },
-            { text: 'Vue 核心', link: '/wiki/techniques/vue-core.md' }
+            { text: 'Vue 核心', link: '/wiki/techniques/vue-core.md' },
+            { text: 'Create React App', link: '/wiki/techniques/create-react-app.md' }
           ]
         },
         {
