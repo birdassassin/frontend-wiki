@@ -60,6 +60,7 @@ export default defineConfig({
           items: [
             { text: 'Webpack', link: '/wiki/tools/webpack.md' },
             { text: 'Vite', link: '/wiki/tools/vite.md' },
+            { text: 'Create React App', link: '/wiki/tools/create-react-app.md' },
             { text: 'React 生态', link: '/wiki/tools/react-ecosystem.md' },
             { text: 'Vue 生态', link: '/wiki/tools/vue-ecosystem.md' }
           ]
