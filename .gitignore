@@ -6,3 +6,4 @@ docs/.vitepress/dist/
 *.log
 *.tmp
 convert-to-epub.cjs
+output/
