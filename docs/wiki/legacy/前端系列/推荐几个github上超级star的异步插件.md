@@ -5,9 +5,9 @@
 原作者自认为这个插件是设计的最最最简单的异步操作，例如这个例子，并且默认支持https，如果看到这种写法觉得很好用，赶紧点击链接去看看吧。
 
 ```
-var request = require(&amp;amp;#039;request&amp;amp;#039;);
-request(&amp;amp;#039;http://www.google.com&amp;amp;#039;, function (error, response, body) {
-  if (!error &amp;amp;amp;&amp;amp;amp; response.statusCode == 200) {
+var request = require('request');
+request('http://www.google.com', function (error, response, body) {
+  if (!error && response.statusCode == 200) {
     console.log(body)
   }
 })
@@ -23,7 +23,7 @@ request(&amp;amp;#039;http://www.google.com&amp;amp;#039;, function (error, resp
 客户端支持保护安全免受XSRF攻击
 ...
 ```
-axios.get(&amp;amp;#039;/user?ID=12345&amp;amp;#039;)
+axios.get('/user?ID=12345')
   .then(function (response) {
     console.log(response);
   })
@@ -39,10 +39,10 @@ axios.get(&amp;amp;#039;/user?ID=12345&amp;amp;#039;)
 
 ```
 request
-  .post(&amp;amp;#039;/api/pet&amp;amp;#039;)
-  .send({ name: &amp;amp;#039;Manny&amp;amp;#039;, species: &amp;amp;#039;cat&amp;amp;#039; })
-  .set(&amp;amp;#039;X-API-Key&amp;amp;#039;, &amp;amp;#039;foobar&amp;amp;#039;)
-  .set(&amp;amp;#039;Accept&amp;amp;#039;, &amp;amp;#039;application/json&amp;amp;#039;)
+  .post('/api/pet')
+  .send({ name: 'Manny', species: 'cat' })
+  .set('X-API-Key', 'foobar')
+  .set('Accept', 'application/json')
   .end(function(err, res){
     // Calling the end function will send the request
   });

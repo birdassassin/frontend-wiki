@@ -8,95 +8,95 @@
 
 ### 1.1 ref and reactive
 ```vue
-&amp;amp;lt;script setup lang=&amp;amp;quot;ts&amp;amp;quot;&amp;amp;gt;
-import { ref, reactive } from &amp;amp;#039;vue&amp;amp;#039;;
+<script setup lang="ts">
+import { ref, reactive } from 'vue';
 
 // ref - for primitive types
 const count = ref(0);
-const name = ref(&amp;amp;#039;Vue&amp;amp;#039;);
+const name = ref('Vue');
 
 // reactive - for objects
 const state = reactive({
   todos: [],
-  filter: &amp;amp;#039;all&amp;amp;#039;
+  filter: 'all'
 });
 
 // Access ref with .value
 count.value++;
 
 // Reactive accessed directly
-state.todos.push({ id: 1, text: &amp;amp;#039;Learn Vue&amp;amp;#039; });
-&amp;amp;lt;/script&amp;amp;gt;
+state.todos.push({ id: 1, text: 'Learn Vue' });
+</script>
 
-&amp;amp;lt;template&amp;amp;gt;
-  &amp;amp;lt;div&amp;amp;gt;
-    &amp;amp;lt;p&amp;amp;gt;&amp;#123;&amp;#123; count &amp;#125;&amp;#125;&amp;amp;lt;/p&amp;amp;gt;
-    &amp;amp;lt;p&amp;amp;gt;&amp;#123;&amp;#123; name &amp;#125;&amp;#125;&amp;amp;lt;/p&amp;amp;gt;
-    &amp;amp;lt;p&amp;amp;gt;&amp;#123;&amp;#123; state.filter &amp;#125;&amp;#125;&amp;amp;lt;/p&amp;amp;gt;
-  &amp;amp;lt;/div&amp;amp;gt;
-&amp;amp;lt;/template&amp;amp;gt;
+<template>
+  <div>
+    <p>&amp;#123;&amp;#123; count &amp;#125;&amp;#125;</p>
+    <p>&amp;#123;&amp;#123; name &amp;#125;&amp;#125;</p>
+    <p>&amp;#123;&amp;#123; state.filter &amp;#125;&amp;#125;</p>
+  </div>
+</template>
 ```
 
 ### 1.2 computed
 ```vue
-&amp;amp;lt;script setup lang=&amp;amp;quot;ts&amp;amp;quot;&amp;amp;gt;
-import { ref, computed } from &amp;amp;#039;vue&amp;amp;#039;;
+<script setup lang="ts">
+import { ref, computed } from 'vue';
 
 const todos = ref([
-  { id: 1, text: &amp;amp;#039;Learn&amp;amp;#039;, done: false },
-  { id: 2, text: &amp;amp;#039;Practice&amp;amp;#039;, done: true }
+  { id: 1, text: 'Learn', done: false },
+  { id: 2, text: 'Practice', done: true }
 ]);
 
-const filteredTodos = computed(() =&amp;amp;gt; 
-  todos.value.filter(t =&amp;amp;gt; !t.done)
+const filteredTodos = computed(() => 
+  todos.value.filter(t => !t.done)
 );
 
-const doneCount = computed(() =&amp;amp;gt; 
-  todos.value.filter(t =&amp;amp;gt; t.done).length
+const doneCount = computed(() => 
+  todos.value.filter(t => t.done).length
 );
 
 // Writable computed
 const fullName = computed({
-  get: () =&amp;amp;gt; `${firstName.value} ${lastName.value}`,
-  set: (value) =&amp;amp;gt; {
-    [firstName.value, lastName.value] = value.split(&amp;amp;#039; &amp;amp;#039;);
+  get: () => `${firstName.value} ${lastName.value}`,
+  set: (value) => {
+    [firstName.value, lastName.value] = value.split(' ');
   }
 });
-&amp;amp;lt;/script&amp;amp;gt;
+</script>
 ```
 
 ### 1.3 watch and watchEffect
 ```vue
-&amp;amp;lt;script setup lang=&amp;amp;quot;ts&amp;amp;quot;&amp;amp;gt;
-import { ref, watch, watchEffect } from &amp;amp;#039;vue&amp;amp;#039;;
+<script setup lang="ts">
+import { ref, watch, watchEffect } from 'vue';
 
-const query = ref(&amp;amp;#039;&amp;amp;#039;);
+const query = ref('');
 const results = ref([]);
 
 // watch - explicit dependencies
-watch(query, async (newQuery, oldQuery) =&amp;amp;gt; {
+watch(query, async (newQuery, oldQuery) => {
   results.value = await search(newQuery);
 });
 
 // watch multiple values
-watch([query, filter], async ([newQuery, newFilter]) =&amp;amp;gt; {
+watch([query, filter], async ([newQuery, newFilter]) => {
   results.value = await search(newQuery, newFilter);
 });
 
 // watchEffect - auto-track dependencies
-watchEffect(async () =&amp;amp;gt; {
+watchEffect(async () => {
   results.value = await search(query.value);
 });
 
 // Cleanup side effects
-watchEffect((onCleanup) =&amp;amp;gt; {
-  const timer = setTimeout(() =&amp;amp;gt; {
+watchEffect((onCleanup) => {
+  const timer = setTimeout(() => {
     console.log(query.value);
   }, 1000);
   
-  onCleanup(() =&amp;amp;gt; clearTimeout(timer));
+  onCleanup(() => clearTimeout(timer));
 });
-&amp;amp;lt;/script&amp;amp;gt;
+</script>
 ```
 
 ---
@@ -105,15 +105,15 @@ watchEffect((onCleanup) =&amp;amp;gt; {
 
 ### 2.1 setup Syntax Sugar
 ```vue
-&amp;amp;lt;script setup lang=&amp;amp;quot;ts&amp;amp;quot;&amp;amp;gt;
+<script setup lang="ts">
 // Imports
-import { ref, computed, onMounted } from &amp;amp;#039;vue&amp;amp;#039;;
+import { ref, computed, onMounted } from 'vue';
 
 // Reactive state
 const count = ref(0);
 
 // Computed
-const doubled = computed(() =&amp;amp;gt; count.value * 2);
+const doubled = computed(() => count.value * 2);
 
 // Methods
 function increment() {
@@ -121,35 +121,35 @@ function increment() {
 }
 
 // Lifecycle
-onMounted(() =&amp;amp;gt; {
-  console.log(&amp;amp;#039;Component mounted&amp;amp;#039;);
+onMounted(() => {
+  console.log('Component mounted');
 });
 
 // Define Props
-const props = defineProps&amp;amp;lt;{
+const props = defineProps<{
   title: string;
   count?: number;
-}&amp;amp;gt;();
+}>();
 
 // Define Emits
-const emit = defineEmits&amp;amp;lt;{
-  (e: &amp;amp;#039;update&amp;amp;#039;, value: number): void;
-  (e: &amp;amp;#039;delete&amp;amp;#039;, id: string): void;
-}&amp;amp;gt;();
+const emit = defineEmits<{
+  (e: 'update', value: number): void;
+  (e: 'delete', id: string): void;
+}>();
 
 // Usage
 function handleClick() {
-  emit(&amp;amp;#039;update&amp;amp;#039;, count.value);
+  emit('update', count.value);
 }
-&amp;amp;lt;/script&amp;amp;gt;
+</script>
 
-&amp;amp;lt;template&amp;amp;gt;
-  &amp;amp;lt;div&amp;amp;gt;
-    &amp;amp;lt;h1&amp;amp;gt;&amp;#123;&amp;#123; title &amp;#125;&amp;#125;&amp;amp;lt;/h1&amp;amp;gt;
-    &amp;amp;lt;p&amp;amp;gt;&amp;#123;&amp;#123; count &amp;#125;&amp;#125; - &amp;#123;&amp;#123; doubled &amp;#125;&amp;#125;&amp;amp;lt;/p&amp;amp;gt;
-    &amp;amp;lt;button @click=&amp;amp;quot;increment&amp;amp;quot;&amp;amp;gt;+1&amp;amp;lt;/button&amp;amp;gt;
-  &amp;amp;lt;/div&amp;amp;gt;
-&amp;amp;lt;/template&amp;amp;gt;
+<template>
+  <div>
+    <h1>&amp;#123;&amp;#123; title &amp;#125;&amp;#125;</h1>
+    <p>&amp;#123;&amp;#123; count &amp;#125;&amp;#125; - &amp;#123;&amp;#123; doubled &amp;#125;&amp;#125;</p>
+    <button @click="increment">+1</button>
+  </div>
+</template>
 ```
 
 ### 2.2 Custom Composables
@@ -158,25 +158,25 @@ function handleClick() {
 export function useCounter(initialValue = 0) {
   const count = ref(initialValue);
   
-  const increment = () =&amp;amp;gt; count.value++;
-  const decrement = () =&amp;amp;gt; count.value--;
-  const reset = () =&amp;amp;gt; count.value = initialValue;
+  const increment = () => count.value++;
+  const decrement = () => count.value--;
+  const reset = () => count.value = initialValue;
   
   return { count, increment, decrement, reset };
 }
 
 // composables/useFetch.ts
-export function useFetch&amp;amp;lt;T&amp;amp;gt;(url: string) {
-  const data = ref&amp;amp;lt;T | null&amp;amp;gt;(null);
-  const error = ref&amp;amp;lt;Error | null&amp;amp;gt;(null);
+export function useFetch<T>(url: string) {
+  const data = ref<T | null>(null);
+  const error = ref<Error | null>(null);
   const loading = ref(true);
   
   watch(
-    () =&amp;amp;gt; url,
-    async (url) =&amp;amp;gt; {
+    () => url,
+    async (url) => {
       loading.value = true;
       try {
-        data.value = await fetch(url).then(r =&amp;amp;gt; r.json());
+        data.value = await fetch(url).then(r => r.json());
       } catch (e) {
         error.value = e as Error;
       } finally {
@@ -191,7 +191,7 @@ export function useFetch&amp;amp;lt;T&amp;amp;gt;(url: string) {
 
 // Usage
 const { count, increment } = useCounter(10);
-const { data: users, loading } = useFetch(&amp;amp;#039;/api/users&amp;amp;#039;);
+const { data: users, loading } = useFetch('/api/users');
 ```
 
 ---
@@ -200,7 +200,7 @@ const { data: users, loading } = useFetch(&amp;amp;#039;/api/users&amp;amp;#039;
 
 ### 3.1 Lifecycle Hooks
 ```vue
-&amp;amp;lt;script setup lang=&amp;amp;quot;ts&amp;amp;quot;&amp;amp;gt;
+<script setup lang="ts">
 import {
   onBeforeMount,
   onMounted,
@@ -209,40 +209,40 @@ import {
   onBeforeUnmount,
   onUnmounted,
   onErrorCaptured
-} from &amp;amp;#039;vue&amp;amp;#039;;
+} from 'vue';
 
-onBeforeMount(() =&amp;amp;gt; {
+onBeforeMount(() => {
   // Before DOM mount
 });
 
-onMounted(() =&amp;amp;gt; {
+onMounted(() => {
   // After DOM mount, can access DOM
-  const element = document.getElementById(&amp;amp;#039;my-element&amp;amp;#039;);
+  const element = document.getElementById('my-element');
 });
 
-onBeforeUpdate(() =&amp;amp;gt; {
+onBeforeUpdate(() => {
   // Before DOM update
 });
 
-onUpdated(() =&amp;amp;gt; {
+onUpdated(() => {
   // After DOM update
 });
 
-onBeforeUnmount(() =&amp;amp;gt; {
+onBeforeUnmount(() => {
   // Before component unmount
 });
 
-onUnmounted(() =&amp;amp;gt; {
+onUnmounted(() => {
   // After component unmount, cleanup timers, event listeners
-  window.removeEventListener(&amp;amp;#039;resize&amp;amp;#039;, handler);
+  window.removeEventListener('resize', handler);
 });
 
-onErrorCaptured((err, instance, info) =&amp;amp;gt; {
+onErrorCaptured((err, instance, info) => {
   // Capture child component errors
   console.error(err, info);
   return false; // Prevent error propagation
 });
-&amp;amp;lt;/script&amp;amp;gt;
+</script>
 ```
 
 ### 3.2 Lifecycle Comparison
@@ -264,100 +264,100 @@ onErrorCaptured((err, instance, info) =&amp;amp;gt; {
 
 ### 4.1 Props and Emits
 ```vue
-&amp;amp;lt;!-- Parent.vue --&amp;amp;gt;
-&amp;amp;lt;script setup lang=&amp;amp;quot;ts&amp;amp;quot;&amp;amp;gt;
-import { ref } from &amp;amp;#039;vue&amp;amp;#039;;
-import Child from &amp;amp;#039;./Child.vue&amp;amp;#039;;
+<!-- Parent.vue -->
+<script setup lang="ts">
+import { ref } from 'vue';
+import Child from './Child.vue';
 
-const message = ref(&amp;amp;#039;Hello&amp;amp;#039;);
+const message = ref('Hello');
 const count = ref(0);
 
 function handleUpdate(value: number) {
   count.value = value;
 }
-&amp;amp;lt;/script&amp;amp;gt;
+</script>
 
-&amp;amp;lt;template&amp;amp;gt;
-  &amp;amp;lt;Child 
-    :message=&amp;amp;quot;message&amp;amp;quot; 
-    :count=&amp;amp;quot;count&amp;amp;quot;
-    @update=&amp;amp;quot;handleUpdate&amp;amp;quot;
-  /&amp;amp;gt;
-&amp;amp;lt;/template&amp;amp;gt;
+<template>
+  <Child 
+    :message="message" 
+    :count="count"
+    @update="handleUpdate"
+  />
+</template>
 
-&amp;amp;lt;!-- Child.vue --&amp;amp;gt;
-&amp;amp;lt;script setup lang=&amp;amp;quot;ts&amp;amp;quot;&amp;amp;gt;
-defineProps&amp;amp;lt;{
+<!-- Child.vue -->
+<script setup lang="ts">
+defineProps<{
   message: string;
   count: number;
-}&amp;amp;gt;();
+}>();
 
-const emit = defineEmits&amp;amp;lt;{
-  (e: &amp;amp;#039;update&amp;amp;#039;, value: number): void;
-}&amp;amp;gt;();
+const emit = defineEmits<{
+  (e: 'update', value: number): void;
+}>();
 
 function increment() {
-  emit(&amp;amp;#039;update&amp;amp;#039;, count + 1);
+  emit('update', count + 1);
 }
-&amp;amp;lt;/script&amp;amp;gt;
+</script>
 
-&amp;amp;lt;template&amp;amp;gt;
-  &amp;amp;lt;div&amp;amp;gt;
-    &amp;amp;lt;p&amp;amp;gt;&amp;#123;&amp;#123; message &amp;#125;&amp;#125;: &amp;#123;&amp;#123; count &amp;#125;&amp;#125;&amp;amp;lt;/p&amp;amp;gt;
-    &amp;amp;lt;button @click=&amp;amp;quot;increment&amp;amp;quot;&amp;amp;gt;+1&amp;amp;lt;/button&amp;amp;gt;
-  &amp;amp;lt;/div&amp;amp;gt;
-&amp;amp;lt;/template&amp;amp;gt;
+<template>
+  <div>
+    <p>&amp;#123;&amp;#123; message &amp;#125;&amp;#125;: &amp;#123;&amp;#123; count &amp;#125;&amp;#125;</p>
+    <button @click="increment">+1</button>
+  </div>
+</template>
 ```
 
 ### 4.2 v-model
 ```vue
-&amp;amp;lt;!-- Parent component --&amp;amp;gt;
-&amp;amp;lt;template&amp;amp;gt;
-  &amp;amp;lt;CustomInput v-model=&amp;amp;quot;searchText&amp;amp;quot; /&amp;amp;gt;
-  &amp;amp;lt;CustomCheckbox v-model:checked=&amp;amp;quot;isChecked&amp;amp;quot; /&amp;amp;gt;
-&amp;amp;lt;/template&amp;amp;gt;
+<!-- Parent component -->
+<template>
+  <CustomInput v-model="searchText" />
+  <CustomCheckbox v-model:checked="isChecked" />
+</template>
 
-&amp;amp;lt;!-- Child component CustomInput.vue --&amp;amp;gt;
-&amp;amp;lt;script setup lang=&amp;amp;quot;ts&amp;amp;quot;&amp;amp;gt;
-defineProps&amp;amp;lt;{
+<!-- Child component CustomInput.vue -->
+<script setup lang="ts">
+defineProps<{
   modelValue: string;
-}&amp;amp;gt;();
+}>();
 
-defineEmits&amp;amp;lt;{
-  (e: &amp;amp;#039;update:modelValue&amp;amp;#039;, value: string): void;
-}&amp;amp;gt;();
-&amp;amp;lt;/script&amp;amp;gt;
+defineEmits<{
+  (e: 'update:modelValue', value: string): void;
+}>();
+</script>
 
-&amp;amp;lt;template&amp;amp;gt;
-  &amp;amp;lt;input 
-    :value=&amp;amp;quot;modelValue&amp;amp;quot; 
-    @input=&amp;amp;quot;$emit(&amp;amp;#039;update:modelValue&amp;amp;#039;, ($event.target as HTMLInputElement).value)&amp;amp;quot;
-  /&amp;amp;gt;
-&amp;amp;lt;/template&amp;amp;gt;
+<template>
+  <input 
+    :value="modelValue" 
+    @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
+  />
+</template>
 ```
 
 ### 4.3 Provide / Inject
 ```vue
-&amp;amp;lt;!-- Ancestor component --&amp;amp;gt;
-&amp;amp;lt;script setup lang=&amp;amp;quot;ts&amp;amp;quot;&amp;amp;gt;
-import { provide, ref } from &amp;amp;#039;vue&amp;amp;#039;;
+<!-- Ancestor component -->
+<script setup lang="ts">
+import { provide, ref } from 'vue';
 
-const theme = ref(&amp;amp;#039;light&amp;amp;#039;);
-const toggleTheme = () =&amp;amp;gt; {
-  theme.value = theme.value === &amp;amp;#039;light&amp;amp;#039; ? &amp;amp;#039;dark&amp;amp;#039; : &amp;amp;#039;light&amp;amp;#039;;
+const theme = ref('light');
+const toggleTheme = () => {
+  theme.value = theme.value === 'light' ? 'dark' : 'light';
 };
 
-provide(&amp;amp;#039;theme&amp;amp;#039;, theme);
-provide(&amp;amp;#039;toggleTheme&amp;amp;#039;, toggleTheme);
-&amp;amp;lt;/script&amp;amp;gt;
+provide('theme', theme);
+provide('toggleTheme', toggleTheme);
+</script>
 
-&amp;amp;lt;!-- Descendant component --&amp;amp;gt;
-&amp;amp;lt;script setup lang=&amp;amp;quot;ts&amp;amp;quot;&amp;amp;gt;
-import { inject } from &amp;amp;#039;vue&amp;amp;#039;;
+<!-- Descendant component -->
+<script setup lang="ts">
+import { inject } from 'vue';
 
-const theme = inject(&amp;amp;#039;theme&amp;amp;#039;);
-const toggleTheme = inject(&amp;amp;#039;toggleTheme&amp;amp;#039;);
-&amp;amp;lt;/script&amp;amp;gt;
+const theme = inject('theme');
+const toggleTheme = inject('toggleTheme');
+</script>
 ```
 
 ---
@@ -366,63 +366,63 @@ const toggleTheme = inject(&amp;amp;#039;toggleTheme&amp;amp;#039;);
 
 ### 5.1 Directives
 ```vue
-&amp;amp;lt;template&amp;amp;gt;
-  &amp;amp;lt;!-- Text interpolation --&amp;amp;gt;
-  &amp;amp;lt;p&amp;amp;gt;&amp;#123;&amp;#123; message &amp;#125;&amp;#125;&amp;amp;lt;/p&amp;amp;gt;
+<template>
+  <!-- Text interpolation -->
+  <p>&amp;#123;&amp;#123; message &amp;#125;&amp;#125;</p>
   
-  &amp;amp;lt;!-- HTML rendering --&amp;amp;gt;
-  &amp;amp;lt;div v-html=&amp;amp;quot;htmlContent&amp;amp;quot;&amp;amp;gt;&amp;amp;lt;/div&amp;amp;gt;
+  <!-- HTML rendering -->
+  <div v-html="htmlContent"></div>
   
-  &amp;amp;lt;!-- Attribute binding --&amp;amp;gt;
-  &amp;amp;lt;img :src=&amp;amp;quot;imageUrl&amp;amp;quot; :alt=&amp;amp;quot;imageAlt&amp;amp;quot; /&amp;amp;gt;
+  <!-- Attribute binding -->
+  <img :src="imageUrl" :alt="imageAlt" />
   
-  &amp;amp;lt;!-- Event binding --&amp;amp;gt;
-  &amp;amp;lt;button @click=&amp;amp;quot;handleClick&amp;amp;quot; @mouseenter=&amp;amp;quot;onHover&amp;amp;quot;&amp;amp;gt;Click&amp;amp;lt;/button&amp;amp;gt;
+  <!-- Event binding -->
+  <button @click="handleClick" @mouseenter="onHover">Click</button>
   
-  &amp;amp;lt;!-- Conditional rendering --&amp;amp;gt;
-  &amp;amp;lt;div v-if=&amp;amp;quot;status === &amp;amp;#039;loading&amp;amp;#039;&amp;amp;quot;&amp;amp;gt;Loading...&amp;amp;lt;/div&amp;amp;gt;
-  &amp;amp;lt;div v-else-if=&amp;amp;quot;status === &amp;amp;#039;error&amp;amp;#039;&amp;amp;quot;&amp;amp;gt;Failed&amp;amp;lt;/div&amp;amp;gt;
-  &amp;amp;lt;div v-else&amp;amp;gt;Success&amp;amp;lt;/div&amp;amp;gt;
+  <!-- Conditional rendering -->
+  <div v-if="status === 'loading'">Loading...</div>
+  <div v-else-if="status === 'error'">Failed</div>
+  <div v-else>Success</div>
   
-  &amp;amp;lt;!-- List rendering --&amp;amp;gt;
-  &amp;amp;lt;ul&amp;amp;gt;
-    &amp;amp;lt;li v-for=&amp;amp;quot;(item, index) in items&amp;amp;quot; :key=&amp;amp;quot;item.id&amp;amp;quot;&amp;amp;gt;
+  <!-- List rendering -->
+  <ul>
+    <li v-for="(item, index) in items" :key="item.id">
       &amp;#123;&amp;#123; index &amp;#125;&amp;#125;. &amp;#123;&amp;#123; item.name &amp;#125;&amp;#125;
-    &amp;amp;lt;/li&amp;amp;gt;
-  &amp;amp;lt;/ul&amp;amp;gt;
+    </li>
+  </ul>
   
-  &amp;amp;lt;!-- Show/hide --&amp;amp;gt;
-  &amp;amp;lt;div v-show=&amp;amp;quot;isVisible&amp;amp;quot;&amp;amp;gt;Content&amp;amp;lt;/div&amp;amp;gt;
+  <!-- Show/hide -->
+  <div v-show="isVisible">Content</div>
   
-  &amp;amp;lt;!-- Two-way binding --&amp;amp;gt;
-  &amp;amp;lt;input v-model=&amp;amp;quot;searchQuery&amp;amp;quot; /&amp;amp;gt;
+  <!-- Two-way binding -->
+  <input v-model="searchQuery" />
   
-  &amp;amp;lt;!-- Modifiers --&amp;amp;gt;
-  &amp;amp;lt;form @submit.prevent=&amp;amp;quot;handleSubmit&amp;amp;quot;&amp;amp;gt;
-    &amp;amp;lt;input @keyup.enter=&amp;amp;quot;submit&amp;amp;quot; /&amp;amp;gt;
-    &amp;amp;lt;button @click.once=&amp;amp;quot;handleClick&amp;amp;quot;&amp;amp;gt;Trigger once&amp;amp;lt;/button&amp;amp;gt;
-  &amp;amp;lt;/form&amp;amp;gt;
-&amp;amp;lt;/template&amp;amp;gt;
+  <!-- Modifiers -->
+  <form @submit.prevent="handleSubmit">
+    <input @keyup.enter="submit" />
+    <button @click.once="handleClick">Trigger once</button>
+  </form>
+</template>
 ```
 
 ### 5.2 Template Refs
 ```vue
-&amp;amp;lt;script setup lang=&amp;amp;quot;ts&amp;amp;quot;&amp;amp;gt;
-import { ref, onMounted } from &amp;amp;#039;vue&amp;amp;#039;;
+<script setup lang="ts">
+import { ref, onMounted } from 'vue';
 
-const inputRef = ref&amp;amp;lt;HTMLInputElement | null&amp;amp;gt;(null);
-const componentRef = ref&amp;amp;lt;InstanceType&amp;amp;lt;typeof MyComponent&amp;amp;gt; | null&amp;amp;gt;(null);
+const inputRef = ref<HTMLInputElement | null>(null);
+const componentRef = ref<InstanceType<typeof MyComponent> | null>(null);
 
-onMounted(() =&amp;amp;gt; {
+onMounted(() => {
   inputRef.value?.focus();
   componentRef.value?.someMethod();
 });
-&amp;amp;lt;/script&amp;amp;gt;
+</script>
 
-&amp;amp;lt;template&amp;amp;gt;
-  &amp;amp;lt;input ref=&amp;amp;quot;inputRef&amp;amp;quot; /&amp;amp;gt;
-  &amp;amp;lt;MyComponent ref=&amp;amp;quot;componentRef&amp;amp;quot; /&amp;amp;gt;
-&amp;amp;lt;/template&amp;amp;gt;
+<template>
+  <input ref="inputRef" />
+  <MyComponent ref="componentRef" />
+</template>
 ```
 
 ---
@@ -431,57 +431,57 @@ onMounted(() =&amp;amp;gt; {
 
 ### 6.1 Default Slots
 ```vue
-&amp;amp;lt;!-- Card.vue --&amp;amp;gt;
-&amp;amp;lt;template&amp;amp;gt;
-  &amp;amp;lt;div class=&amp;amp;quot;card&amp;amp;quot;&amp;amp;gt;
-    &amp;amp;lt;header&amp;amp;gt;
-      &amp;amp;lt;slot name=&amp;amp;quot;header&amp;amp;quot;&amp;amp;gt;Default Title&amp;amp;lt;/slot&amp;amp;gt;
-    &amp;amp;lt;/header&amp;amp;gt;
-    &amp;amp;lt;main&amp;amp;gt;
-      &amp;amp;lt;slot /&amp;amp;gt;
-    &amp;amp;lt;/main&amp;amp;gt;
-    &amp;amp;lt;footer&amp;amp;gt;
-      &amp;amp;lt;slot name=&amp;amp;quot;footer&amp;amp;quot; /&amp;amp;gt;
-    &amp;amp;lt;/footer&amp;amp;gt;
-  &amp;amp;lt;/div&amp;amp;gt;
-&amp;amp;lt;/template&amp;amp;gt;
+<!-- Card.vue -->
+<template>
+  <div class="card">
+    <header>
+      <slot name="header">Default Title</slot>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer>
+      <slot name="footer" />
+    </footer>
+  </div>
+</template>
 
-&amp;amp;lt;!-- Usage --&amp;amp;gt;
-&amp;amp;lt;Card&amp;amp;gt;
-  &amp;amp;lt;template #header&amp;amp;gt;
-    &amp;amp;lt;h2&amp;amp;gt;Custom Title&amp;amp;lt;/h2&amp;amp;gt;
-  &amp;amp;lt;/template&amp;amp;gt;
+<!-- Usage -->
+<Card>
+  <template #header>
+    <h2>Custom Title</h2>
+  </template>
   
-  &amp;amp;lt;p&amp;amp;gt;Card content&amp;amp;lt;/p&amp;amp;gt;
+  <p>Card content</p>
   
-  &amp;amp;lt;template #footer&amp;amp;gt;
-    &amp;amp;lt;button&amp;amp;gt;Action&amp;amp;lt;/button&amp;amp;gt;
-  &amp;amp;lt;/template&amp;amp;gt;
-&amp;amp;lt;/Card&amp;amp;gt;
+  <template #footer>
+    <button>Action</button>
+  </template>
+</Card>
 ```
 
 ### 6.2 Scoped Slots
 ```vue
-&amp;amp;lt;!-- List.vue --&amp;amp;gt;
-&amp;amp;lt;template&amp;amp;gt;
-  &amp;amp;lt;ul&amp;amp;gt;
-    &amp;amp;lt;li v-for=&amp;amp;quot;item in items&amp;amp;quot; :key=&amp;amp;quot;item.id&amp;amp;quot;&amp;amp;gt;
-      &amp;amp;lt;slot :item=&amp;amp;quot;item&amp;amp;quot; :index=&amp;amp;quot;index&amp;amp;quot;&amp;amp;gt;
+<!-- List.vue -->
+<template>
+  <ul>
+    <li v-for="item in items" :key="item.id">
+      <slot :item="item" :index="index">
         &amp;#123;&amp;#123; item.name &amp;#125;&amp;#125;
-      &amp;amp;lt;/slot&amp;amp;gt;
-    &amp;amp;lt;/li&amp;amp;gt;
-  &amp;amp;lt;/ul&amp;amp;gt;
-&amp;amp;lt;/template&amp;amp;gt;
+      </slot>
+    </li>
+  </ul>
+</template>
 
-&amp;amp;lt;!-- Usage --&amp;amp;gt;
-&amp;amp;lt;List :items=&amp;amp;quot;users&amp;amp;quot;&amp;amp;gt;
-  &amp;amp;lt;template #default=&amp;amp;quot;{ item, index }&amp;amp;quot;&amp;amp;gt;
-    &amp;amp;lt;div class=&amp;amp;quot;user-card&amp;amp;quot;&amp;amp;gt;
-      &amp;amp;lt;img :src=&amp;amp;quot;item.avatar&amp;amp;quot; /&amp;amp;gt;
-      &amp;amp;lt;span&amp;amp;gt;&amp;#123;&amp;#123; index &amp;#125;&amp;#125;. &amp;#123;&amp;#123; item.name &amp;#125;&amp;#125;&amp;amp;lt;/span&amp;amp;gt;
-    &amp;amp;lt;/div&amp;amp;gt;
-  &amp;amp;lt;/template&amp;amp;gt;
-&amp;amp;lt;/List&amp;amp;gt;
+<!-- Usage -->
+<List :items="users">
+  <template #default="{ item, index }">
+    <div class="user-card">
+      <img :src="item.avatar" />
+      <span>&amp;#123;&amp;#123; index &amp;#125;&amp;#125;. &amp;#123;&amp;#123; item.name &amp;#125;&amp;#125;</span>
+    </div>
+  </template>
+</List>
 ```
 
 ---
@@ -490,11 +490,11 @@ onMounted(() =&amp;amp;gt; {
 
 ### 7.1 defineAsyncComponent
 ```vue
-&amp;amp;lt;script setup lang=&amp;amp;quot;ts&amp;amp;quot;&amp;amp;gt;
-import { defineAsyncComponent } from &amp;amp;#039;vue&amp;amp;#039;;
+<script setup lang="ts">
+import { defineAsyncComponent } from 'vue';
 
 const AsyncComponent = defineAsyncComponent({
-  loader: () =&amp;amp;gt; import(&amp;amp;#039;./HeavyComponent.vue&amp;amp;#039;),
+  loader: () => import('./HeavyComponent.vue'),
   loadingComponent: LoadingSpinner,
   errorComponent: ErrorDisplay,
   delay: 200,
@@ -502,19 +502,19 @@ const AsyncComponent = defineAsyncComponent({
 });
 
 // Simple usage
-const SimpleAsync = defineAsyncComponent(() =&amp;amp;gt; import(&amp;amp;#039;./Simple.vue&amp;amp;#039;));
-&amp;amp;lt;/script&amp;amp;gt;
+const SimpleAsync = defineAsyncComponent(() => import('./Simple.vue'));
+</script>
 
-&amp;amp;lt;template&amp;amp;gt;
-  &amp;amp;lt;Suspense&amp;amp;gt;
-    &amp;amp;lt;template #default&amp;amp;gt;
-      &amp;amp;lt;AsyncComponent /&amp;amp;gt;
-    &amp;amp;lt;/template&amp;amp;gt;
-    &amp;amp;lt;template #fallback&amp;amp;gt;
-      &amp;amp;lt;div&amp;amp;gt;Loading...&amp;amp;lt;/div&amp;amp;gt;
-    &amp;amp;lt;/template&amp;amp;gt;
-  &amp;amp;lt;/Suspense&amp;amp;gt;
-&amp;amp;lt;/template&amp;amp;gt;
+<template>
+  <Suspense>
+    <template #default>
+      <AsyncComponent />
+    </template>
+    <template #fallback>
+      <div>Loading...</div>
+    </template>
+  </Suspense>
+</template>
 ```
 
 ---
@@ -523,29 +523,29 @@ const SimpleAsync = defineAsyncComponent(() =&amp;amp;gt; import(&amp;amp;#039;.
 
 ### 8.1 Component Lazy Loading
 ```vue
-&amp;amp;lt;script setup lang=&amp;amp;quot;ts&amp;amp;quot;&amp;amp;gt;
-import { defineAsyncComponent } from &amp;amp;#039;vue&amp;amp;#039;;
+<script setup lang="ts">
+import { defineAsyncComponent } from 'vue';
 
-const HeavyComponent = defineAsyncComponent(() =&amp;amp;gt; 
-  import(&amp;amp;#039;./HeavyComponent.vue&amp;amp;#039;)
+const HeavyComponent = defineAsyncComponent(() => 
+  import('./HeavyComponent.vue')
 );
-&amp;amp;lt;/script&amp;amp;gt;
+</script>
 ```
 
 ### 8.2 v-memo (Vue 3.2+)
 ```vue
-&amp;amp;lt;template&amp;amp;gt;
-  &amp;amp;lt;div v-memo=&amp;amp;quot;[selectedItem.id]&amp;amp;quot;&amp;amp;gt;
-    &amp;amp;lt;p&amp;amp;gt;&amp;#123;&amp;#123; selectedItem.name &amp;#125;&amp;#125;&amp;amp;lt;/p&amp;amp;gt;
-    &amp;amp;lt;p&amp;amp;gt;&amp;#123;&amp;#123; selectedItem.description &amp;#125;&amp;#125;&amp;amp;lt;/p&amp;amp;gt;
-  &amp;amp;lt;/div&amp;amp;gt;
-&amp;amp;lt;/template&amp;amp;gt;
+<template>
+  <div v-memo="[selectedItem.id]">
+    <p>&amp;#123;&amp;#123; selectedItem.name &amp;#125;&amp;#125;</p>
+    <p>&amp;#123;&amp;#123; selectedItem.description &amp;#125;&amp;#125;</p>
+  </div>
+</template>
 ```
 
 ### 8.3 Avoid Unnecessary Reactivity
 ```vue
-&amp;amp;lt;script setup lang=&amp;amp;quot;ts&amp;amp;quot;&amp;amp;gt;
-import { ref, shallowRef } from &amp;amp;#039;vue&amp;amp;#039;;
+<script setup lang="ts">
+import { ref, shallowRef } from 'vue';
 
 // ref - deep reactivity
 const deepData = ref({ nested: { value: 1 } });
@@ -555,7 +555,7 @@ const largeData = shallowRef({ nested: { value: 1 } });
 
 // Freeze large objects
 const staticData = Object.freeze({ /* large data */ });
-&amp;amp;lt;/script&amp;amp;gt;
+</script>
 ```
 
 ---

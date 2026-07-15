@@ -28,15 +28,15 @@ npm run build
 ```javascript
 // webpack.config.js
 module.exports = {
-  entry: &amp;amp;#039;./src/index.js&amp;amp;#039;,
+  entry: './src/index.js',
   output: {
-    filename: &amp;amp;#039;[name].[contenthash].js&amp;amp;#039;,
-    path: path.resolve(__dirname, &amp;amp;#039;dist&amp;amp;#039;)
+    filename: '[name].[contenthash].js',
+    path: path.resolve(__dirname, 'dist')
   },
   module: {
     rules: [
-      { test: /\.tsx?$/, use: &amp;amp;#039;ts-loader&amp;amp;#039; },
-      { test: /\.css$/, use: [&amp;amp;#039;style-loader&amp;amp;#039;, &amp;amp;#039;css-loader&amp;amp;#039;] }
+      { test: /\.tsx?$/, use: 'ts-loader' },
+      { test: /\.css$/, use: ['style-loader', 'css-loader'] }
     ]
   },
   plugins: [new HtmlWebpackPlugin()]
@@ -60,17 +60,17 @@ module.exports = {
 ```json
 // package.json
 {
-  &amp;amp;quot;name&amp;amp;quot;: &amp;amp;quot;monorepo&amp;amp;quot;,
-  &amp;amp;quot;private&amp;amp;quot;: true,
-  &amp;amp;quot;scripts&amp;amp;quot;: {
-    &amp;amp;quot;dev&amp;amp;quot;: &amp;amp;quot;pnpm -r --parallel dev&amp;amp;quot;
+  "name": "monorepo",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm -r --parallel dev"
   }
 }
 
 // pnpm-workspace.yaml
 packages:
-  - &amp;amp;#039;packages/*&amp;amp;#039;
-  - &amp;amp;#039;apps/*&amp;amp;#039;
+  - 'packages/*'
+  - 'apps/*'
 ```
 
 ---
@@ -82,15 +82,15 @@ packages:
 // eslint.config.js
 export default [
   {
-    files: [&amp;amp;#039;**/*.ts&amp;amp;#039;, &amp;amp;#039;**/*.tsx&amp;amp;#039;],
+    files: ['**/*.ts', '**/*.tsx'],
     extends: [
-      &amp;amp;#039;eslint:recommended&amp;amp;#039;,
-      &amp;amp;#039;plugin:@typescript-eslint/recommended&amp;amp;#039;,
-      &amp;amp;#039;plugin:react/recommended&amp;amp;#039;
+      'eslint:recommended',
+      'plugin:@typescript-eslint/recommended',
+      'plugin:react/recommended'
     ],
     rules: {
-      &amp;amp;#039;no-console&amp;amp;#039;: &amp;amp;#039;warn&amp;amp;#039;,
-      &amp;amp;#039;@typescript-eslint/no-unused-vars&amp;amp;#039;: &amp;amp;#039;error&amp;amp;#039;
+      'no-console': 'warn',
+      '@typescript-eslint/no-unused-vars': 'error'
     }
   }
 ];
@@ -100,11 +100,11 @@ export default [
 ```json
 // .prettierrc
 {
-  &amp;amp;quot;semi&amp;amp;quot;: true,
-  &amp;amp;quot;singleQuote&amp;amp;quot;: true,
-  &amp;amp;quot;tabWidth&amp;amp;quot;: 2,
-  &amp;amp;quot;trailingComma&amp;amp;quot;: &amp;amp;quot;es5&amp;amp;quot;,
-  &amp;amp;quot;printWidth&amp;amp;quot;: 100
+  "semi": true,
+  "singleQuote": true,
+  "tabWidth": 2,
+  "trailingComma": "es5",
+  "printWidth": 100
 }
 ```
 
@@ -112,13 +112,13 @@ export default [
 ```json
 // package.json
 {
-  &amp;amp;quot;husky&amp;amp;quot;: {
-    &amp;amp;quot;hooks&amp;amp;quot;: {
-      &amp;amp;quot;pre-commit&amp;amp;quot;: &amp;amp;quot;lint-staged&amp;amp;quot;
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
     }
   },
-  &amp;amp;quot;lint-staged&amp;amp;quot;: {
-    &amp;amp;quot;*.{ts,tsx}&amp;amp;quot;: [&amp;amp;quot;eslint --fix&amp;amp;quot;, &amp;amp;quot;prettier --write&amp;amp;quot;]
+  "lint-staged": {
+    "*.{ts,tsx}": ["eslint --fix", "prettier --write"]
   }
 }
 ```
@@ -141,11 +141,11 @@ export default [
 ### 4.2 Vitest
 ```typescript
 // math.test.ts
-import { describe, it, expect } from &amp;amp;#039;vitest&amp;amp;#039;;
-import { add } from &amp;amp;#039;./math&amp;amp;#039;;
+import { describe, it, expect } from 'vitest';
+import { add } from './math';
 
-describe(&amp;amp;#039;add&amp;amp;#039;, () =&amp;amp;gt; {
-  it(&amp;amp;#039;should add two numbers&amp;amp;#039;, () =&amp;amp;gt; {
+describe('add', () => {
+  it('should add two numbers', () => {
     expect(add(1, 2)).toBe(3);
   });
 });
@@ -153,14 +153,14 @@ describe(&amp;amp;#039;add&amp;amp;#039;, () =&amp;amp;gt; {
 
 ### 4.3 React Testing Library
 ```typescript
-import { render, screen, fireEvent } from &amp;amp;#039;@testing-library/react&amp;amp;#039;;
-import { Button } from &amp;amp;#039;./Button&amp;amp;#039;;
+import { render, screen, fireEvent } from '@testing-library/react';
+import { Button } from './Button';
 
-test(&amp;amp;#039;calls onClick when clicked&amp;amp;#039;, () =&amp;amp;gt; {
+test('calls onClick when clicked', () => {
   const handleClick = vi.fn();
-  render(&amp;amp;lt;Button onClick={handleClick}&amp;amp;gt;Click&amp;amp;lt;/Button&amp;amp;gt;);
+  render(<Button onClick={handleClick}>Click</Button>);
   
-  fireEvent.click(screen.getByText(&amp;amp;#039;Click&amp;amp;#039;));
+  fireEvent.click(screen.getByText('Click'));
   expect(handleClick).toHaveBeenCalledOnce();
 });
 ```
@@ -168,14 +168,14 @@ test(&amp;amp;#039;calls onClick when clicked&amp;amp;#039;, () =&amp;amp;gt; {
 ### 4.4 Playwright E2E
 ```typescript
 // tests/e2e.spec.ts
-import { test, expect } from &amp;amp;#039;@playwright/test&amp;amp;#039;;
+import { test, expect } from '@playwright/test';
 
-test(&amp;amp;#039;user can login&amp;amp;#039;, async ({ page }) =&amp;amp;gt; {
-  await page.goto(&amp;amp;#039;/login&amp;amp;#039;);
-  await page.fill(&amp;amp;#039;[name=&amp;amp;quot;email&amp;amp;quot;]&amp;amp;#039;, &amp;amp;#039;user@example.com&amp;amp;#039;);
-  await page.fill(&amp;amp;#039;[name=&amp;amp;quot;password&amp;amp;quot;]&amp;amp;#039;, &amp;amp;#039;password&amp;amp;#039;);
-  await page.click(&amp;amp;#039;button[type=&amp;amp;quot;submit&amp;amp;quot;]&amp;amp;#039;);
-  await expect(page).toHaveURL(&amp;amp;#039;/dashboard&amp;amp;#039;);
+test('user can login', async ({ page }) => {
+  await page.goto('/login');
+  await page.fill('[name="email"]', 'user@example.com');
+  await page.fill('[name="password"]', 'password');
+  await page.click('button[type="submit"]');
+  await expect(page).toHaveURL('/dashboard');
 });
 ```
 
@@ -233,11 +233,11 @@ EXPOSE 80
 ### 7.1 错误监控
 ```typescript
 // Sentry
-import * as Sentry from &amp;amp;#039;@sentry/browser&amp;amp;#039;;
+import * as Sentry from '@sentry/browser';
 
 Sentry.init({
-  dsn: &amp;amp;#039;https://...&amp;amp;#039;,
-  environment: &amp;amp;#039;production&amp;amp;#039;,
+  dsn: 'https://...',
+  environment: 'production',
   tracesSampleRate: 0.1
 });
 ```
@@ -245,11 +245,11 @@ Sentry.init({
 ### 7.2 性能监控
 ```typescript
 // web-vitals
-import { onLCP, onINP, onCLS } from &amp;amp;#039;web-vitals&amp;amp;#039;;
+import { onLCP, onINP, onCLS } from 'web-vitals';
 
 function sendToAnalytics(metric) {
-  fetch(&amp;amp;#039;/api/metrics&amp;amp;#039;, {
-    method: &amp;amp;#039;POST&amp;amp;#039;,
+  fetch('/api/metrics', {
+    method: 'POST',
     body: JSON.stringify(metric),
     keepalive: true
   });

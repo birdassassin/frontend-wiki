@@ -37,21 +37,21 @@ Prop 验证
 在本例子中，我实现了这样一个父组件Home.vue
 
 ```
-&amp;amp;lt;template&amp;amp;gt;
-  &amp;amp;lt;div&amp;amp;gt;
-   &amp;amp;lt;app-banner :listImg=&amp;amp;quot;listImg&amp;amp;quot;&amp;amp;gt;&amp;amp;lt;/app-banner&amp;amp;gt;
-  &amp;amp;lt;/div&amp;amp;gt;
-&amp;amp;lt;/template&amp;amp;gt;
+<template>
+  <div>
+   <app-banner :listImg="listImg"></app-banner>
+  </div>
+</template>
 
-&amp;amp;lt;script&amp;amp;gt;
- import Banner from &amp;amp;#039;./templates/Banner.vue&amp;amp;#039;
- import a from &amp;amp;#039;../../static/img/home/banner1.png&amp;amp;#039;
- import b from &amp;amp;#039;../../static/img/home/banner2.jpg&amp;amp;#039;
- import c from &amp;amp;#039;../../static/img/home/banner3.jpg&amp;amp;#039;
- import d from &amp;amp;#039;../../static/img/home/banner4.jpg&amp;amp;#039;
- import e from &amp;amp;#039;../../static/img/home/banner5.jpg&amp;amp;#039;
+<script>
+ import Banner from './templates/Banner.vue'
+ import a from '../../static/img/home/banner1.png'
+ import b from '../../static/img/home/banner2.jpg'
+ import c from '../../static/img/home/banner3.jpg'
+ import d from '../../static/img/home/banner4.jpg'
+ import e from '../../static/img/home/banner5.jpg'
      export default {
-        name: &amp;amp;#039;Home&amp;amp;#039;,
+        name: 'Home',
         data() {
             return {
                 listImg: [{
@@ -68,10 +68,10 @@ Prop 验证
             }
         },
         components: {
-            &amp;amp;#039;app-banner&amp;amp;#039;: Banner
+            'app-banner': Banner
         }
     };
-&amp;amp;lt;/script&amp;amp;gt;
+</script>
 ```
 第一步：定义我们的数据结构data，data是一个方法，该方法返回一个object或者类数组等各种数据模型。我定义的是listImg的数组结构。每个数组元素对应一个图片路径，图片都保存在根目录下面的static文件夹。你可能想到使用require导入图片，使用import也是类似的，至于直接传入路径，不使用import或者require会有什么后果，可以自己测试。
 
@@ -92,14 +92,14 @@ npm install --save swiper
 轮播图是一个列表，所以这里使用到了v-for来遍历，轮播的部分是swiper-slide元素。我把图片路径绑定到了style属性上面。请注意绑定语法的缩写是:（冒号），style内部是一个object，所以background-image要写成backgroundImage，而图片地址url采用字符串拼接的方式来做。
 
 ```
-&amp;amp;lt;template&amp;amp;gt;
-    &amp;amp;lt;div class=&amp;amp;quot;swiper-container&amp;amp;quot;&amp;amp;gt;
-        &amp;amp;lt;div class=&amp;amp;quot;swiper-wrapper&amp;amp;quot;&amp;amp;gt;
-            &amp;amp;lt;div class=&amp;amp;quot;swiper-slide&amp;amp;quot; v-for=&amp;amp;quot;str in listImg&amp;amp;quot; :style=&amp;amp;quot;{ backgroundImage: &amp;amp;#039;url(&amp;amp;#039; + str.url + &amp;amp;#039;)&amp;amp;#039; }&amp;amp;quot;&amp;amp;gt;&amp;amp;lt;/div&amp;amp;gt;
-        &amp;amp;lt;/div&amp;amp;gt;
-        &amp;amp;lt;div class=&amp;amp;quot;swiper-pagination swiper-pagination-white&amp;amp;quot;&amp;amp;gt;&amp;amp;lt;/div&amp;amp;gt;
-    &amp;amp;lt;/div&amp;amp;gt;
-&amp;amp;lt;/template&amp;amp;gt;
+<template>
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide" v-for="str in listImg" :style="{ backgroundImage: 'url(' + str.url + ')' }"></div>
+        </div>
+        <div class="swiper-pagination swiper-pagination-white"></div>
+    </div>
+</template>
 ```
 #### 第三步：编写Banner.vue的JavaScript代码。
 
@@ -110,15 +110,15 @@ npm install --save swiper
 4、mounted类似react中的componentDidMount方法，实例化swiper必须等到dom渲染完成才能操作。
 
 ```
-&amp;amp;lt;script&amp;amp;gt;
-    import Swiper from &amp;amp;#039;swiper&amp;amp;#039;;
-    import &amp;amp;#039;swiper/dist/css/swiper.min.css&amp;amp;#039;;
+<script>
+    import Swiper from 'swiper';
+    import 'swiper/dist/css/swiper.min.css';
     export default {
-        props: [&amp;amp;#039;listImg&amp;amp;#039;],
+        props: ['listImg'],
         mounted() {
-            console.log(&amp;amp;#039;mounted&amp;amp;#039;, this)
-            var swiper = new Swiper(&amp;amp;#039;.swiper-container&amp;amp;#039;, {
-                pagination: &amp;amp;#039;.swiper-pagination&amp;amp;#039;,
+            console.log('mounted', this)
+            var swiper = new Swiper('.swiper-container', {
+                pagination: '.swiper-pagination',
                 paginationClickable: true,
                 loop: true,
                 speed: 600,
@@ -129,7 +129,7 @@ npm install --save swiper
             });
         }
     }
-&amp;amp;lt;/script&amp;amp;gt;
+</script>
 ```
 
 #### 第四步：写css样式。
@@ -139,24 +139,24 @@ npm install --save swiper
 最后，到这一步已经完成了一个轮播图组件了。swiper还是挺好用的。贴上完整的Banner.vue代码，一字不差。
 
 ```
-&amp;amp;lt;template&amp;amp;gt;
-    &amp;amp;lt;div class=&amp;amp;quot;swiper-container&amp;amp;quot;&amp;amp;gt;
-        &amp;amp;lt;div class=&amp;amp;quot;swiper-wrapper&amp;amp;quot;&amp;amp;gt;
-            &amp;amp;lt;div class=&amp;amp;quot;swiper-slide&amp;amp;quot; v-for=&amp;amp;quot;str in listImg&amp;amp;quot; :style=&amp;amp;quot;{ backgroundImage: &amp;amp;#039;url(&amp;amp;#039; + str.url + &amp;amp;#039;)&amp;amp;#039; }&amp;amp;quot;&amp;amp;gt;&amp;amp;lt;/div&amp;amp;gt;
-        &amp;amp;lt;/div&amp;amp;gt;
-        &amp;amp;lt;div class=&amp;amp;quot;swiper-pagination swiper-pagination-white&amp;amp;quot;&amp;amp;gt;&amp;amp;lt;/div&amp;amp;gt;
-    &amp;amp;lt;/div&amp;amp;gt;
-&amp;amp;lt;/template&amp;amp;gt;
+<template>
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide" v-for="str in listImg" :style="{ backgroundImage: 'url(' + str.url + ')' }"></div>
+        </div>
+        <div class="swiper-pagination swiper-pagination-white"></div>
+    </div>
+</template>
 
-&amp;amp;lt;script&amp;amp;gt;
-    import Swiper from &amp;amp;#039;swiper&amp;amp;#039;;
-    import &amp;amp;#039;swiper/dist/css/swiper.min.css&amp;amp;#039;;
+<script>
+    import Swiper from 'swiper';
+    import 'swiper/dist/css/swiper.min.css';
     export default {
-        props: [&amp;amp;#039;listImg&amp;amp;#039;],
+        props: ['listImg'],
         mounted() {
-            console.log(&amp;amp;#039;mounted&amp;amp;#039;, this)
-            var swiper = new Swiper(&amp;amp;#039;.swiper-container&amp;amp;#039;, {
-                pagination: &amp;amp;#039;.swiper-pagination&amp;amp;#039;,
+            console.log('mounted', this)
+            var swiper = new Swiper('.swiper-container', {
+                pagination: '.swiper-pagination',
                 paginationClickable: true,
                 loop: true,
                 speed: 600,
@@ -167,9 +167,9 @@ npm install --save swiper
             });
         }
     }
-&amp;amp;lt;/script&amp;amp;gt;
+</script>
 
-&amp;amp;lt;style lang=&amp;amp;quot;less&amp;amp;quot;&amp;amp;gt;
+<style lang="less">
     .swiper-container {
         width: 100%;
         height: 10rem;
@@ -194,7 +194,7 @@ npm install --save swiper
             background: #7c5e53;
         }
     }
-&amp;amp;lt;/style&amp;amp;gt;
+</style>
 ```
 
 总结：vue的轮播实现并不难，整体过程和react中很相似，途中我也遇到一个小bug，图片路径一直报错，最后我发现图片后缀不对，第一张是banner1.png，后面4张都是bannerx.jpg，图片都是从酷狗下载的，一下子没注意，被这个坑了一下。

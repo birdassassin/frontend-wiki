@@ -31,11 +31,11 @@ react组件其实就是一个JSX语法组成的模板，给dom绑定事件，从
 下面这个是index.tsx的源码：
 
 ```
-import React from &amp;amp;#039;react&amp;amp;#039;; //react都认识了
-import ReactDOM from &amp;amp;#039;react-dom&amp;amp;#039;; //用来获取当前的dom节点，这里只有这一个用途
-import Animate from &amp;amp;#039;rc-animate&amp;amp;#039;; //动画组件，好吧，原来antd的组件内部是这么不纯净，导入这么多额外的插件，难怪有人觉得antd太庞大了。
-import Icon from &amp;amp;#039;../icon&amp;amp;#039;; //icon又出现了，这小子几乎在好几个antd组件都会用到
-import classNames from &amp;amp;#039;classnames&amp;amp;#039;; //定义样式对象
+import React from 'react'; //react都认识了
+import ReactDOM from 'react-dom'; //用来获取当前的dom节点，这里只有这一个用途
+import Animate from 'rc-animate'; //动画组件，好吧，原来antd的组件内部是这么不纯净，导入这么多额外的插件，难怪有人觉得antd太庞大了。
+import Icon from '../icon'; //icon又出现了，这小子几乎在好几个antd组件都会用到
+import classNames from 'classnames'; //定义样式对象
 
 //构造函数，干啥的呢，现在还不知道，往下看吧。
 function noop() {}
@@ -45,7 +45,7 @@ export interface AlertProps {
   /**
    * Type of Alert styles, options:`success`, `info`, `warning`, `error`
    */
-  type?: &amp;amp;#039;success&amp;amp;#039; | &amp;amp;#039;info&amp;amp;#039; | &amp;amp;#039;warning&amp;amp;#039; | &amp;amp;#039;error&amp;amp;#039;;
+  type?: 'success' | 'info' | 'warning' | 'error';
   /** Whether Alert can be closed */
   closable?: boolean;
   /** Close text to show */
@@ -55,7 +55,7 @@ export interface AlertProps {
   /** Additional content of Alert */
   description?: React.ReactNode;
   /** Callback when close Alert */
-  onClose?: React.MouseEventHandler&amp;amp;lt;any&amp;amp;gt;;
+  onClose?: React.MouseEventHandler<any>;
   /** Whether to show icon */
   showIcon?: boolean;
   style?: React.CSSProperties;
@@ -65,10 +65,10 @@ export interface AlertProps {
 }
 
 //组件的入口在这里，一个继承于React.Component的Alert子类。
-export default class Alert extends React.Component&amp;amp;lt;AlertProps, any&amp;amp;gt; {
+export default class Alert extends React.Component<AlertProps, any> {
 //defaultProps是react组件的一个参数
   static defaultProps = {
-    type: &amp;amp;#039;info&amp;amp;#039;,
+    type: 'info',
   };
 //从类的思想来看，constructor是子类Alert的构造函数，这个组件和button组件的写法有所不同，可能是出自2个工程师之手，我们可以看到在构造函数里面初始化了state的2个参数closing、closed。
   constructor(props) {
@@ -79,7 +79,7 @@ export default class Alert extends React.Component&amp;amp;lt;AlertProps, any&am
     };
   }
 //组件内部的点击关闭事件
-  handleClose = (e) =&amp;amp;gt; {
+  handleClose = (e) => {
     e.preventDefault();
     let dom = ReactDOM.findDOMNode(this) as HTMLElement;
     dom.style.height = `${dom.offsetHeight}px`;
@@ -95,7 +95,7 @@ export default class Alert extends React.Component&amp;amp;lt;AlertProps, any&am
     (this.props.onClose || noop)(e);
   }
 //动画结束时触发的回调函数，是动画插件提供的功能，不能算作本组件自己定义的函数。该回调只做了一件事，更新state。
-  animationEnd = () =&amp;amp;gt; {
+  animationEnd = () => {
     this.setState({
       closed: true,
       closing: true,
@@ -105,37 +105,37 @@ export default class Alert extends React.Component&amp;amp;lt;AlertProps, any&am
   render() {
 //从外部传入的参数，通过this.props传入，一般用const来定义，这里用let不太合适，但不是个错误。
     let {
-      closable, description, type, prefixCls = &amp;amp;#039;ant-alert&amp;amp;#039;, message, closeText, showIcon, banner,
-      className = &amp;amp;#039;&amp;amp;#039;, style,
+      closable, description, type, prefixCls = 'ant-alert', message, closeText, showIcon, banner,
+      className = '', style,
     } = this.props;
 
     // banner模式默认有 Icon，如果传入了showIcon，就显示showIcon，否则显示banner，那要是banner也没有传入呢，那就啥都不显示了。
     showIcon = showIcon || banner;
     // banner模式默认为警告，想要使用其他类型success、info、error，就不要传入banner，然后传入type即可。
-    type = banner ? &amp;amp;#039;warning&amp;amp;#039; : type;
+    type = banner ? 'warning' : type;
     
     //根据传入的type类型来判断icon要显示那种类型样式。注意，icon也是一个小组件。
-    let iconType = &amp;amp;#039;&amp;amp;#039;;
+    let iconType = '';
     switch (type) {
-      case &amp;amp;#039;success&amp;amp;#039;:
-        iconType = &amp;amp;#039;check-circle&amp;amp;#039;;
+      case 'success':
+        iconType = 'check-circle';
         break;
-      case &amp;amp;#039;info&amp;amp;#039;:
-        iconType = &amp;amp;#039;info-circle&amp;amp;#039;;
+      case 'info':
+        iconType = 'info-circle';
         break;
-      case &amp;amp;#039;error&amp;amp;#039;:
-        iconType = &amp;amp;#039;cross-circle&amp;amp;#039;;
+      case 'error':
+        iconType = 'cross-circle';
         break;
-      case &amp;amp;#039;warning&amp;amp;#039;:
-        iconType = &amp;amp;#039;exclamation-circle&amp;amp;#039;;
+      case 'warning':
+        iconType = 'exclamation-circle';
         break;
       default:
-        iconType = &amp;amp;#039;default&amp;amp;#039;;
+        iconType = 'default';
     }
 
     // use outline icon in alert with description
     if (!!description) {
-      iconType += &amp;amp;#039;-o&amp;amp;#039;;
+      iconType += '-o';
     }
     //classNames用法很简单，冒号左边是类名，右边是bool，true就显示当前样式，false就不显示当前样式，而close、description、icon、banner的样式通过外部是否传入参数或者state的状态来判断，type的样式就默认显示。
     let alertCls = classNames(prefixCls, {
@@ -152,25 +152,25 @@ export default class Alert extends React.Component&amp;amp;lt;AlertProps, any&am
     }
     //如果closable为true，则closeIcon等于a标签，否则等于空。
     const closeIcon = closable ? (
-      &amp;amp;lt;a onClick={this.handleClose} className={`${prefixCls}-close-icon`}&amp;amp;gt;
-        {closeText || &amp;amp;lt;Icon type=&amp;amp;quot;cross&amp;amp;quot; /&amp;amp;gt;}
-      &amp;amp;lt;/a&amp;amp;gt;
+      <a onClick={this.handleClose} className={`${prefixCls}-close-icon`}>
+        {closeText || <Icon type="cross" />}
+      </a>
     ) : null;
     //如果closed是true，就return null，false则return下面的组件。
     return this.state.closed ? null : (
-      &amp;amp;lt;Animate
-        component=&amp;amp;quot;&amp;amp;quot;
-        showProp=&amp;amp;quot;data-show&amp;amp;quot;
+      <Animate
+        component=""
+        showProp="data-show"
         transitionName={`${prefixCls}-slide-up`}
         onEnd={this.animationEnd}
-      &amp;amp;gt;
-        &amp;amp;lt;div data-show={this.state.closing} className={alertCls} style={style}&amp;amp;gt;
-          {showIcon ? &amp;amp;lt;Icon className={`${prefixCls}-icon`} type={iconType} /&amp;amp;gt; : null}
-          &amp;amp;lt;span className={`${prefixCls}-message`}&amp;amp;gt;{message}&amp;amp;lt;/span&amp;amp;gt;
-          &amp;amp;lt;span className={`${prefixCls}-description`}&amp;amp;gt;{description}&amp;amp;lt;/span&amp;amp;gt;
+      >
+        <div data-show={this.state.closing} className={alertCls} style={style}>
+          {showIcon ? <Icon className={`${prefixCls}-icon`} type={iconType} /> : null}
+          <span className={`${prefixCls}-message`}>{message}</span>
+          <span className={`${prefixCls}-description`}>{description}</span>
           {closeIcon}
-        &amp;amp;lt;/div&amp;amp;gt;
-      &amp;amp;lt;/Animate&amp;amp;gt;
+        </div>
+      </Animate>
     );
   }
 }

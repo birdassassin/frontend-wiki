@@ -8,24 +8,24 @@
 
 ### 1.1 Primitive Types
 ```typescript
-const str: string = &amp;amp;#039;hello&amp;amp;#039;;
+const str: string = 'hello';
 const num: number = 42;
 const bool: boolean = true;
 const nothing: null = null;
 const notDefined: undefined = undefined;
 
 // Literal types
-const direction: &amp;amp;#039;left&amp;amp;#039; | &amp;amp;#039;right&amp;amp;#039; = &amp;amp;#039;left&amp;amp;#039;;
+const direction: 'left' | 'right' = 'left';
 const count: 0 | 1 | 2 = 1;
 ```
 
 ### 1.2 Arrays & Tuples
 ```typescript
 const numbers: number[] = [1, 2, 3];
-const mixed: (string | number)[] = [&amp;amp;#039;a&amp;amp;#039;, 1, &amp;amp;#039;b&amp;amp;#039;];
+const mixed: (string | number)[] = ['a', 1, 'b'];
 
 // Tuple
-const tuple: [string, number] = [&amp;amp;#039;age&amp;amp;#039;, 25];
+const tuple: [string, number] = ['age', 25];
 const [key, value] = tuple;
 
 // Readonly
@@ -42,8 +42,8 @@ interface User {
 }
 
 const user: User = {
-  id: &amp;amp;#039;1&amp;amp;#039;,
-  name: &amp;amp;#039;Alice&amp;amp;#039;,
+  id: '1',
+  name: 'Alice',
   createdAt: new Date()
 };
 
@@ -59,18 +59,18 @@ type ID = string | number;
 ### 2.1 Union & Intersection
 ```typescript
 // Union
-type Status = &amp;amp;#039;pending&amp;amp;#039; | &amp;amp;#039;loading&amp;amp;#039; | &amp;amp;#039;success&amp;amp;#039; | &amp;amp;#039;error&amp;amp;#039;;
+type Status = 'pending' | 'loading' | 'success' | 'error';
 
 // Intersection
-type Admin = User &amp;amp;amp; { role: &amp;amp;#039;admin&amp;amp;#039;; permissions: string[] };
+type Admin = User & { role: 'admin'; permissions: string[] };
 
 // Discriminated Union
-interface Success&amp;amp;lt;T&amp;amp;gt; { status: &amp;amp;#039;success&amp;amp;#039;; data: T }
-interface Error { status: &amp;amp;#039;error&amp;amp;#039;; message: string }
-type Result&amp;amp;lt;T&amp;amp;gt; = Success&amp;amp;lt;T&amp;amp;gt; | Error;
+interface Success<T> { status: 'success'; data: T }
+interface Error { status: 'error'; message: string }
+type Result<T> = Success<T> | Error;
 
-function handleResult(result: Result&amp;amp;lt;string&amp;amp;gt;) {
-  if (result.status === &amp;amp;#039;success&amp;amp;#039;) {
+function handleResult(result: Result<string>) {
+  if (result.status === 'success') {
     console.log(result.data); // TypeScript knows data exists
   } else {
     console.error(result.message); // TypeScript knows message exists
@@ -81,19 +81,19 @@ function handleResult(result: Result&amp;amp;lt;string&amp;amp;gt;) {
 ### 2.2 Generics
 ```typescript
 // Generic function
-function first&amp;amp;lt;T&amp;amp;gt;(arr: T[]): T | undefined {
+function first<T>(arr: T[]): T | undefined {
   return arr[0];
 }
 
 // Generic interface
-interface Repository&amp;amp;lt;T&amp;amp;gt; {
-  findById(id: string): Promise&amp;amp;lt;T | null&amp;amp;gt;;
-  findAll(): Promise&amp;amp;lt;T[]&amp;amp;gt;;
-  create(data: Omit&amp;amp;lt;T, &amp;amp;#039;id&amp;amp;#039;&amp;amp;gt;): Promise&amp;amp;lt;T&amp;amp;gt;;
+interface Repository<T> {
+  findById(id: string): Promise<T | null>;
+  findAll(): Promise<T[]>;
+  create(data: Omit<T, 'id'>): Promise<T>;
 }
 
 // Generic constraints
-function getProperty&amp;amp;lt;T, K extends keyof T&amp;amp;gt;(obj: T, key: K) {
+function getProperty<T, K extends keyof T>(obj: T, key: K) {
   return obj[key];
 }
 ```
@@ -108,22 +108,22 @@ interface User {
 }
 
 // Partial - all properties optional
-type UpdateUser = Partial&amp;amp;lt;User&amp;amp;gt;;
+type UpdateUser = Partial<User>;
 
 // Required - all properties required
-type StrictUser = Required&amp;amp;lt;User&amp;amp;gt;;
+type StrictUser = Required<User>;
 
 // Pick - select properties
-type UserBasic = Pick&amp;amp;lt;User, &amp;amp;#039;id&amp;amp;#039; | &amp;amp;#039;name&amp;amp;#039;&amp;amp;gt;;
+type UserBasic = Pick<User, 'id' | 'name'>;
 
 // Omit - exclude properties
-type CreateUser = Omit&amp;amp;lt;User, &amp;amp;#039;id&amp;amp;#039; | &amp;amp;#039;createdAt&amp;amp;#039;&amp;amp;gt;;
+type CreateUser = Omit<User, 'id' | 'createdAt'>;
 
 // Record - key-value map
-type UserMap = Record&amp;amp;lt;string, User&amp;amp;gt;;
+type UserMap = Record<string, User>;
 
 // Readonly - make all properties readonly
-type ImmutableUser = Readonly&amp;amp;lt;User&amp;amp;gt;;
+type ImmutableUser = Readonly<User>;
 ```
 
 ---
@@ -132,24 +132,24 @@ type ImmutableUser = Readonly&amp;amp;lt;User&amp;amp;gt;;
 
 ### 3.1 Conditional Types
 ```typescript
-type IsString&amp;amp;lt;T&amp;amp;gt; = T extends string ? true : false;
+type IsString<T> = T extends string ? true : false;
 
-type Result1 = IsString&amp;amp;lt;&amp;amp;#039;hello&amp;amp;#039;&amp;amp;gt;; // true
-type Result2 = IsString&amp;amp;lt;42&amp;amp;gt;; // false
+type Result1 = IsString<'hello'>; // true
+type Result2 = IsString<42>; // false
 
-// Extract &amp;amp;amp; Exclude
-type T0 = Extract&amp;amp;lt;&amp;amp;#039;a&amp;amp;#039; | &amp;amp;#039;b&amp;amp;#039; | &amp;amp;#039;c&amp;amp;#039;, &amp;amp;#039;a&amp;amp;#039; | &amp;amp;#039;b&amp;amp;#039;&amp;amp;gt;; // &amp;amp;#039;a&amp;amp;#039; | &amp;amp;#039;b&amp;amp;#039;
-type T1 = Exclude&amp;amp;lt;&amp;amp;#039;a&amp;amp;#039; | &amp;amp;#039;b&amp;amp;#039; | &amp;amp;#039;c&amp;amp;#039;, &amp;amp;#039;a&amp;amp;#039;&amp;amp;gt;; // &amp;amp;#039;b&amp;amp;#039; | &amp;amp;#039;c&amp;amp;#039;
+// Extract & Exclude
+type T0 = Extract<'a' | 'b' | 'c', 'a' | 'b'>; // 'a' | 'b'
+type T1 = Exclude<'a' | 'b' | 'c', 'a'>; // 'b' | 'c'
 ```
 
 ### 3.2 Mapped Types
 ```typescript
-type Optional&amp;amp;lt;T&amp;amp;gt; = { [K in keyof T]?: T[K] };
-type Nullable&amp;amp;lt;T&amp;amp;gt; = { [K in keyof T]: T[K] | null };
+type Optional<T> = { [K in keyof T]?: T[K] };
+type Nullable<T> = { [K in keyof T]: T[K] | null };
 
 // Key remapping
-type Getters&amp;amp;lt;T&amp;amp;gt; = {
-  [K in keyof T as `get${Capitalize&amp;amp;lt;string &amp;amp;amp; K&amp;amp;gt;}`]: () =&amp;amp;gt; T[K]
+type Getters<T> = {
+  [K in keyof T as `get${Capitalize<string & K>}`]: () => T[K]
 };
 
 interface Person {
@@ -157,18 +157,18 @@ interface Person {
   age: number;
 }
 
-type PersonGetters = Getters&amp;amp;lt;Person&amp;amp;gt;;
-// { getName: () =&amp;amp;gt; string; getAge: () =&amp;amp;gt; number }
+type PersonGetters = Getters<Person>;
+// { getName: () => string; getAge: () => number }
 ```
 
 ### 3.3 Template Literal Types
 ```typescript
-type EventName = `on${Capitalize&amp;amp;lt;string&amp;amp;gt;}`;
-type Handler = (event: EventName) =&amp;amp;gt; void;
+type EventName = `on${Capitalize<string>}`;
+type Handler = (event: EventName) => void;
 
-const handler: Handler = (event) =&amp;amp;gt; {};
-handler(&amp;amp;#039;onClick&amp;amp;#039;); // OK
-handler(&amp;amp;#039;click&amp;amp;#039;); // Error
+const handler: Handler = (event) => {};
+handler('onClick'); // OK
+handler('click'); // Error
 ```
 
 ---
@@ -178,69 +178,69 @@ handler(&amp;amp;#039;click&amp;amp;#039;); // Error
 ### 4.1 Component Props
 ```tsx
 interface ButtonProps {
-  variant?: &amp;amp;#039;primary&amp;amp;#039; | &amp;amp;#039;secondary&amp;amp;#039;;
-  size?: &amp;amp;#039;sm&amp;amp;#039; | &amp;amp;#039;md&amp;amp;#039; | &amp;amp;#039;lg&amp;amp;#039;;
+  variant?: 'primary' | 'secondary';
+  size?: 'sm' | 'md' | 'lg';
   disabled?: boolean;
   children: React.ReactNode;
-  onClick?: (e: React.MouseEvent&amp;amp;lt;HTMLButtonElement&amp;amp;gt;) =&amp;amp;gt; void;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-const Button: React.FC&amp;amp;lt;ButtonProps&amp;amp;gt; = ({ 
-  variant = &amp;amp;#039;primary&amp;amp;#039;, 
+const Button: React.FC<ButtonProps> = ({ 
+  variant = 'primary', 
   children, 
   onClick 
-}) =&amp;amp;gt; {
-  return &amp;amp;lt;button className={variant} onClick={onClick}&amp;amp;gt;{children}&amp;amp;lt;/button&amp;amp;gt;;
+}) => {
+  return <button className={variant} onClick={onClick}>{children}</button>;
 };
 ```
 
 ### 4.2 Hooks
 ```typescript
 // useState
-const [count, setCount] = useState&amp;amp;lt;number&amp;amp;gt;(0);
-const [user, setUser] = useState&amp;amp;lt;User | null&amp;amp;gt;(null);
+const [count, setCount] = useState<number>(0);
+const [user, setUser] = useState<User | null>(null);
 
 // useRef
-const inputRef = useRef&amp;amp;lt;HTMLInputElement&amp;amp;gt;(null);
-const countRef = useRef&amp;amp;lt;number&amp;amp;gt;(0);
+const inputRef = useRef<HTMLInputElement>(null);
+const countRef = useRef<number>(0);
 
 // useMemo/useCallback
-const sortedUsers = useMemo&amp;amp;lt;User[]&amp;amp;gt;(() =&amp;amp;gt; 
-  [...users].sort((a, b) =&amp;amp;gt; a.name.localeCompare(b.name)),
+const sortedUsers = useMemo<User[]>(() => 
+  [...users].sort((a, b) => a.name.localeCompare(b.name)),
   [users]
 );
 
-const handleClick = useCallback((id: string) =&amp;amp;gt; {
+const handleClick = useCallback((id: string) => {
   setSelected(id);
 }, []);
 ```
 
 ### 4.3 Generic Components
 ```tsx
-interface SelectProps&amp;amp;lt;T&amp;amp;gt; {
+interface SelectProps<T> {
   options: T[];
   value: T;
-  onChange: (value: T) =&amp;amp;gt; void;
-  getLabel: (item: T) =&amp;amp;gt; string;
+  onChange: (value: T) => void;
+  getLabel: (item: T) => string;
 }
 
-function Select&amp;amp;lt;T&amp;amp;gt;({ options, value, onChange, getLabel }: SelectProps&amp;amp;lt;T&amp;amp;gt;) {
+function Select<T>({ options, value, onChange, getLabel }: SelectProps<T>) {
   return (
-    &amp;amp;lt;select value={value} onChange={e =&amp;amp;gt; onChange(options[Number(e.target.value)])}&amp;amp;gt;
-      {options.map((opt, i) =&amp;amp;gt; (
-        &amp;amp;lt;option key={i} value={i}&amp;amp;gt;{getLabel(opt)}&amp;amp;lt;/option&amp;amp;gt;
+    <select value={value} onChange={e => onChange(options[Number(e.target.value)])}>
+      {options.map((opt, i) => (
+        <option key={i} value={i}>{getLabel(opt)}</option>
       ))}
-    &amp;amp;lt;/select&amp;amp;gt;
+    </select>
   );
 }
 
 // Usage
-&amp;amp;lt;Select
+<Select
   options={users}
   value={selectedUser}
   onChange={setSelectedUser}
-  getLabel={user =&amp;amp;gt; user.name}
-/&amp;amp;gt;
+  getLabel={user => user.name}
+/>
 ```
 
 ---
@@ -249,35 +249,35 @@ function Select&amp;amp;lt;T&amp;amp;gt;({ options, value, onChange, getLabel }:
 
 ### 5.1 defineProps & defineEmits
 ```vue
-&amp;amp;lt;script setup lang=&amp;amp;quot;ts&amp;amp;quot;&amp;amp;gt;
+<script setup lang="ts">
 interface Props {
   title: string;
   count?: number;
   items: Item[];
 }
 
-const props = withDefaults(defineProps&amp;amp;lt;Props&amp;amp;gt;(), {
+const props = withDefaults(defineProps<Props>(), {
   count: 0
 });
 
-const emit = defineEmits&amp;amp;lt;{
-  (e: &amp;amp;#039;update&amp;amp;#039;, value: number): void;
-  (e: &amp;amp;#039;delete&amp;amp;#039;, id: string): void;
-}&amp;amp;gt;();
-&amp;amp;lt;/script&amp;amp;gt;
+const emit = defineEmits<{
+  (e: 'update', value: number): void;
+  (e: 'delete', id: string): void;
+}>();
+</script>
 ```
 
 ### 5.2 Composables
 ```typescript
-function useFetch&amp;amp;lt;T&amp;amp;gt;(url: MaybeRefOrGetter&amp;amp;lt;string&amp;amp;gt;) {
-  const data = ref&amp;amp;lt;T | null&amp;amp;gt;(null);
-  const error = ref&amp;amp;lt;Error | null&amp;amp;gt;(null);
+function useFetch<T>(url: MaybeRefOrGetter<string>) {
+  const data = ref<T | null>(null);
+  const error = ref<Error | null>(null);
   const loading = ref(true);
   
-  watch(toGetter(url), async (url) =&amp;amp;gt; {
+  watch(toGetter(url), async (url) => {
     loading.value = true;
     try {
-      data.value = await fetch(url).then(r =&amp;amp;gt; r.json());
+      data.value = await fetch(url).then(r => r.json());
     } catch (e) {
       error.value = e as Error;
     } finally {
@@ -311,17 +311,17 @@ function useFetch&amp;amp;lt;T&amp;amp;gt;(url: MaybeRefOrGetter&amp;amp;lt;stri
 ### 6.3 Configuration
 ```json
 {
-  &amp;amp;quot;compilerOptions&amp;amp;quot;: {
-    &amp;amp;quot;target&amp;amp;quot;: &amp;amp;quot;ES2020&amp;amp;quot;,
-    &amp;amp;quot;module&amp;amp;quot;: &amp;amp;quot;ESNext&amp;amp;quot;,
-    &amp;amp;quot;moduleResolution&amp;amp;quot;: &amp;amp;quot;bundler&amp;amp;quot;,
-    &amp;amp;quot;strict&amp;amp;quot;: true,
-    &amp;amp;quot;esModuleInterop&amp;amp;quot;: true,
-    &amp;amp;quot;skipLibCheck&amp;amp;quot;: true,
-    &amp;amp;quot;forceConsistentCasingInFileNames&amp;amp;quot;: true,
-    &amp;amp;quot;resolveJsonModule&amp;amp;quot;: true,
-    &amp;amp;quot;isolatedModules&amp;amp;quot;: true,
-    &amp;amp;quot;noUncheckedIndexedAccess&amp;amp;quot;: true
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noUncheckedIndexedAccess": true
   }
 }
 ```

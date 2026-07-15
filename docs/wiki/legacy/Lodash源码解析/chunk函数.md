@@ -12,10 +12,10 @@
 
 ```javascript
 //input
-chunk([&amp;amp;#039;a&amp;amp;#039;, &amp;amp;#039;b&amp;amp;#039;, &amp;amp;#039;c&amp;amp;#039;, &amp;amp;#039;d&amp;amp;#039;], 1)
+chunk(['a', 'b', 'c', 'd'], 1)
 
 //output
-[[&amp;amp;#039;a&amp;amp;#039;], [&amp;amp;#039;b&amp;amp;#039;], [&amp;amp;#039;c&amp;amp;#039;], [&amp;amp;#039;d&amp;amp;#039;]]
+[['a'], ['b'], ['c'], ['d']]
 ```
 
 在没看源码之前，我脑子里就在想，这家伙该不会用到了啥排序算法吧，于是带着好奇心看了下源码。结果出乎意料，的确用到了一个算法！！
@@ -61,13 +61,13 @@ new Array(Math.ceil(length / size))
 ```javascript
 let index = 0 //用来表示切割元素的范围start
 let resIndex = 0 //输出数组的元素下标
-while (index &amp;amp;lt; length) {
+while (index < length) {
   result[resIndex++] = array.slice(index, (index += size))
 }
 
 //第一轮循环，index=0,length=4,resIndex=0，index += size为3，array.slice(0,3)
 //第二轮循环，index=3,length=4,resIndex=1，index += size为6，array.slice(3,6)
-//没有第三轮，因为index&amp;amp;lt;length，也就是输出的数组长度只有2。resIndex表示的是输出数组的元素下标，随着循环递增即可。
+//没有第三轮，因为index<length，也就是输出的数组长度只有2。resIndex表示的是输出数组的元素下标，随着循环递增即可。
 ```
 11、循环中的步骤效果展示给你看一下。
 
@@ -86,7 +86,7 @@ function chunk(array, size) {
   //获取数组的长度，如果你传入的不是数组，那么获取到的就是undefined
   const length = array.length
   //判断不是数组，或者size没有设置，size小于1，就返回空数组
-  if (!length || !size || size &amp;amp;lt; 1) {
+  if (!length || !size || size < 1) {
     return []
   }
 
@@ -97,7 +97,7 @@ function chunk(array, size) {
   //根据length和size算出输出数组的长度，并且创建它。
   let result = new Array(Math.ceil(length / size))
   //进行循环
-  while (index &amp;amp;lt; length) {
+  while (index < length) {
     //循环过程中设置result[0]和result[1]的值。该值根据array.slice切割得到。
     result[resIndex++] = array.slice(index, (index += size))
   }
@@ -105,10 +105,10 @@ function chunk(array, size) {
   return result
 }
 
-chunk([&amp;amp;#039;a&amp;amp;#039;, &amp;amp;#039;b&amp;amp;#039;, &amp;amp;#039;c&amp;amp;#039;, &amp;amp;#039;d&amp;amp;#039;], 1) //[[&amp;amp;#039;a&amp;amp;#039;], [&amp;amp;#039;b&amp;amp;#039;], [&amp;amp;#039;c&amp;amp;#039;], [&amp;amp;#039;d&amp;amp;#039;]]
-chunk([&amp;amp;#039;a&amp;amp;#039;, &amp;amp;#039;b&amp;amp;#039;, &amp;amp;#039;c&amp;amp;#039;, &amp;amp;#039;d&amp;amp;#039;], 2) //[[&amp;amp;#039;a&amp;amp;#039;, &amp;amp;#039;b&amp;amp;#039;], [&amp;amp;#039;c&amp;amp;#039;, &amp;amp;#039;d&amp;amp;#039;]]
-chunk([&amp;amp;#039;a&amp;amp;#039;, &amp;amp;#039;b&amp;amp;#039;, &amp;amp;#039;c&amp;amp;#039;, &amp;amp;#039;d&amp;amp;#039;], 3) //[[&amp;amp;#039;a&amp;amp;#039;, &amp;amp;#039;b&amp;amp;#039;, &amp;amp;#039;c&amp;amp;#039;], [&amp;amp;#039;d&amp;amp;#039;]]
-chunk([&amp;amp;#039;a&amp;amp;#039;, &amp;amp;#039;b&amp;amp;#039;, &amp;amp;#039;c&amp;amp;#039;, &amp;amp;#039;d&amp;amp;#039;], 4) //[[&amp;amp;#039;a&amp;amp;#039;, &amp;amp;#039;b&amp;amp;#039;, &amp;amp;#039;c&amp;amp;#039;, &amp;amp;#039;d&amp;amp;#039;]]
+chunk(['a', 'b', 'c', 'd'], 1) //[['a'], ['b'], ['c'], ['d']]
+chunk(['a', 'b', 'c', 'd'], 2) //[['a', 'b'], ['c', 'd']]
+chunk(['a', 'b', 'c', 'd'], 3) //[['a', 'b', 'c'], ['d']]
+chunk(['a', 'b', 'c', 'd'], 4) //[['a', 'b', 'c', 'd']]
 ```
 
 ### 总结

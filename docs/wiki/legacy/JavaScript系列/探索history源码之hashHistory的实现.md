@@ -2,8 +2,8 @@
 我们不探寻它的历史，只关注技术，通常有2种history，分别是hashHistory和browserHistory，本文带领大家从零开始实现一个hashHistory。
 
 ```javascript
-hashHistory：&amp;amp;#039;#/home&amp;amp;#039;
-browserHistory: &amp;amp;#039;/home&amp;amp;#039;
+hashHistory：'#/home'
+browserHistory: '/home'
 ```
 
 下面的实现方案是根据官方history源码来分析的，你可以下载[hashHistory源码][1]结合本文学习。
@@ -11,7 +11,7 @@ browserHistory: &amp;amp;#039;/home&amp;amp;#039;
 ### 实现方案
 **1、创建createHashHistory函数**
 ```javascript
-const createHashHistory = () =&amp;amp;gt; { 
+const createHashHistory = () => { 
     const history = {}
     return history
 }
@@ -22,7 +22,7 @@ export default createHashHistory
 ```javascript
 history = {
     length: 1, //Number
-    action: &amp;amp;quot;POP&amp;amp;quot;, //String
+    action: "POP", //String
     location: {}, //Object
     createHref, //函数
     push, //函数
@@ -47,26 +47,26 @@ history = {
 location对象包含下面几个key，这里能用到的是pathname。history.location和window.location是不一样的，history.location是window.location的精简版。你可以在浏览器控制台打印window.location看一下完整的location对象。
 ```javascript
 location = {
-    hash:&amp;amp;quot;&amp;amp;quot;,
-    pathname:&amp;amp;quot;/&amp;amp;quot;,
-    search:&amp;amp;quot;&amp;amp;quot;,
+    hash:"",
+    pathname:"/",
+    search:"",
     state:undefined
 }
 ```
 定义一个getDOMLocation函数，用来获取封装后的location。
 ```javascript
-const decodePath = path =&amp;amp;gt;
-  path.charAt(0) === &amp;amp;quot;/&amp;amp;quot; ? path : &amp;amp;quot;/&amp;amp;quot; + path
+const decodePath = path =>
+  path.charAt(0) === "/" ? path : "/" + path
 
-const getHashPath = () =&amp;amp;gt; {
+const getHashPath = () => {
     //如果url存在#，则去掉#，返回路径
-    //比如：&amp;amp;quot;http://localhost:8080/#/&amp;amp;quot;，返回&amp;amp;#039;/&amp;amp;#039;
+    //比如："http://localhost:8080/#/"，返回'/'
     const href = window.location.href
-    const hashIndex = href.indexOf(&amp;amp;quot;#&amp;amp;quot;)
-    return hashIndex === -1 ? &amp;amp;quot;&amp;amp;quot; : href.substring(hashIndex + 1)
+    const hashIndex = href.indexOf("#")
+    return hashIndex === -1 ? "" : href.substring(hashIndex + 1)
 }
 
-const getDOMLocation = () =&amp;amp;gt; {
+const getDOMLocation = () => {
     //getHashPath截取url的路由，如果存在#，则去掉#
     let path = decodePath(getHashPath())     
     //创建location
@@ -78,17 +78,17 @@ const getDOMLocation = () =&amp;amp;gt; {
 **6、实现createHref**
 你可能没有用过history.createHref()，它用来创建一个hash路由，也就是'#/'或者'#/home'这类的。
 ```javascript
-const createPath = location =&amp;amp;gt; {
+const createPath = location => {
   const { pathname, search, hash } = location
-  let path = pathname || &amp;amp;quot;/&amp;amp;quot;
-  if (search &amp;amp;amp;&amp;amp;amp; search !== &amp;amp;quot;?&amp;amp;quot;)
-    path += search.charAt(0) === &amp;amp;quot;?&amp;amp;quot; ? search : `?${search}`
-  if (hash &amp;amp;amp;&amp;amp;amp; hash !== &amp;amp;quot;#&amp;amp;quot;) path += hash.charAt(0) === &amp;amp;quot;#&amp;amp;quot; ? hash : `#${hash}`
+  let path = pathname || "/"
+  if (search && search !== "?")
+    path += search.charAt(0) === "?" ? search : `?${search}`
+  if (hash && hash !== "#") path += hash.charAt(0) === "#" ? hash : `#${hash}`
   return path
 }
 
-const createHref = location =&amp;amp;gt;
-    &amp;amp;quot;#&amp;amp;quot; + encodePath(createPath(location))
+const createHref = location =>
+    "#" + encodePath(createPath(location))
 ```
 
 **7、实现push方法**
@@ -96,22 +96,22 @@ const createHref = location =&amp;amp;gt;
 push实现的原理：判断push传入的路由和当前url的路由是否一样，如果一样，则不更新路由，否则就更新路由。
 ```javascript
 //更新history对象的值，length、location和action
-const setState = nextState =&amp;amp;gt; {
+const setState = nextState => {
     Object.assign(history, nextState)    
     history.length = globalHistory.length        
     transitionManager.notifyListeners(history.location, history.action)
 }
 //notifyListeners函数用来通知history的更新
- const notifyListeners = (...args) =&amp;amp;gt; {
-    listeners.forEach(listener =&amp;amp;gt; listener(...args))
+ const notifyListeners = (...args) => {
+    listeners.forEach(listener => listener(...args))
   }
 //更新路由
-const pushHashPath = path =&amp;amp;gt; (window.location.hash = path)
+const pushHashPath = path => (window.location.hash = path)
 
 //push核心代码
-const push = (path, state) =&amp;amp;gt; {
-    //更新action为&amp;amp;#039;PUSH&amp;amp;#039;
-    const action = &amp;amp;quot;PUSH&amp;amp;quot;
+const push = (path, state) => {
+    //更新action为'PUSH'
+    const action = "PUSH"
     //更新location对象
     const location = createLocation(
        path,
@@ -124,10 +124,10 @@ const push = (path, state) =&amp;amp;gt; {
        location,
        action,
        getUserConfirmation,
-       ok =&amp;amp;gt; {
+       ok => {
            //如果不符合路由切换的条件，就不更新路由
            if (!ok) return               
-           //获取location中的路径pathname，比如&amp;amp;#039;/home&amp;amp;#039;
+           //获取location中的路径pathname，比如'/home'
            const path = createPath(location)
            const encodedPath = encodePath(path)
            //比较当前的url中的路由和push函数传入的路由是否相同，不相同则hashChanged为true。
@@ -155,15 +155,15 @@ const push = (path, state) =&amp;amp;gt; {
 replace和push都能更新路由，但是replace是更新当前路由，而push是增加一个历史记录。
 ```javascript
 //更新路由
-const replaceHashPath = path =&amp;amp;gt; {
-    const hashIndex = window.location.href.indexOf(&amp;amp;quot;#&amp;amp;quot;)   
+const replaceHashPath = path => {
+    const hashIndex = window.location.href.indexOf("#")   
     window.location.replace(
-        window.location.href.slice(0, hashIndex &amp;amp;gt;= 0 ? hashIndex : 0) + &amp;amp;quot;#&amp;amp;quot; + path
+        window.location.href.slice(0, hashIndex >= 0 ? hashIndex : 0) + "#" + path
     )
 }
     //replace核心代码
-    const replace = (path, state) =&amp;amp;gt; {
-        const action = &amp;amp;quot;REPLACE&amp;amp;quot;
+    const replace = (path, state) => {
+        const action = "REPLACE"
         const location = createLocation(
             path,
             undefined,
@@ -174,7 +174,7 @@ const replaceHashPath = path =&amp;amp;gt; {
             location,
             action,
             getUserConfirmation,
-            ok =&amp;amp;gt; {
+            ok => {
                 if (!ok) return              
                 const path = createPath(location)
                 const encodedPath = encodePath(path)
@@ -198,52 +198,52 @@ const replaceHashPath = path =&amp;amp;gt; {
 go方法的使用是history.go(-1)这种形式
 ```javascript
 //globalHistory是window.history
-const go = n =&amp;amp;gt; globalHistory.go(n)
+const go = n => globalHistory.go(n)
 ```
 **10、实现goBack**
 这个应该能一眼看懂了
 ```javascript
-const goBack = () =&amp;amp;gt; go(-1)
+const goBack = () => go(-1)
 ```
 **11、实现goForward**
 这个应该也能一眼看懂了
 ```javascript
-const goForward = () =&amp;amp;gt; go(1)
+const goForward = () => go(1)
 ```
 **12、实现listen**
 ```javascript
-const listen = listener =&amp;amp;gt; {
+const listen = listener => {
     const unlisten = transitionManager.appendListener(listener)
     checkDOMListeners(1)    
-    return () =&amp;amp;gt; {
+    return () => {
         checkDOMListeners(-1)
         unlisten()
     }
 }
 
 //监听hashchange的改变，handleHashChange函数用来判断是哪种类型的路由更新，replace、push等各种hash改变都实现了一个函数，具体看源码。
-const checkDOMListeners = delta =&amp;amp;gt; {
+const checkDOMListeners = delta => {
     listenerCount += delta    
     if (listenerCount === 1) {
         //注册监听函数
-        window.addEventListener(&amp;amp;#039;hashchange&amp;amp;#039;, handleHashChange)
+        window.addEventListener('hashchange', handleHashChange)
     } else if (listenerCount === 0) {
         //移除监听函数
-        window.removeEventListener(&amp;amp;#039;hashchange&amp;amp;#039;, handleHashChange)
+        window.removeEventListener('hashchange', handleHashChange)
     }
 }
 
   //appendListener函数实现
   let listeners = []
-  const appendListener = fn =&amp;amp;gt; {
+  const appendListener = fn => {
     let isActive = true
-    const listener = (...args) =&amp;amp;gt; {
+    const listener = (...args) => {
       if (isActive) fn(...args)
     }
     listeners.push(listener)
-    return () =&amp;amp;gt; {
+    return () => {
       isActive = false
-      listeners = listeners.filter(item =&amp;amp;gt; item !== listener)
+      listeners = listeners.filter(item => item !== listener)
     }
   }
 ```

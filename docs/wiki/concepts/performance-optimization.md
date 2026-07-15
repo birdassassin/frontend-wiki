@@ -9,7 +9,7 @@
 ### 1.1 性能瓶颈识别
 ```javascript
 // 1. Performance API
-const perf = performance.getEntriesByType(&amp;amp;#039;navigation&amp;amp;#039;)[0];
+const perf = performance.getEntriesByType('navigation')[0];
 console.log({
   DNS: perf.domainLookupEnd - perf.domainLookupStart,
   TCP: perf.connectEnd - perf.connectStart,
@@ -19,11 +19,11 @@ console.log({
 });
 
 // 2. Long Tasks API
-new PerformanceObserver((list) =&amp;amp;gt; {
+new PerformanceObserver((list) => {
   for (const entry of list.getEntries()) {
-    console.log(&amp;amp;#039;长任务:&amp;amp;#039;, entry.duration, &amp;amp;#039;ms&amp;amp;#039;);
+    console.log('长任务:', entry.duration, 'ms');
   }
-}).observe({ type: &amp;amp;#039;longtask&amp;amp;#039;, buffered: true });
+}).observe({ type: 'longtask', buffered: true });
 ```
 
 ### 1.2 Chrome DevTools
@@ -38,44 +38,44 @@ new PerformanceObserver((list) =&amp;amp;gt; {
 
 ### 2.1 资源优先级
 ```html
-&amp;amp;lt;!-- 预加载关键资源 --&amp;amp;gt;
-&amp;amp;lt;link rel=&amp;amp;quot;preload&amp;amp;quot; href=&amp;amp;quot;/font.woff2&amp;amp;quot; as=&amp;amp;quot;font&amp;amp;quot; crossorigin&amp;amp;gt;
-&amp;amp;lt;link rel=&amp;amp;quot;preload&amp;amp;quot; href=&amp;amp;quot;/critical.css&amp;amp;quot; as=&amp;amp;quot;style&amp;amp;quot;&amp;amp;gt;
-&amp;amp;lt;link rel=&amp;amp;quot;preload&amp;amp;quot; href=&amp;amp;quot;/hero.jpg&amp;amp;quot; as=&amp;amp;quot;image&amp;amp;quot;&amp;amp;gt;
+<!-- 预加载关键资源 -->
+<link rel="preload" href="/font.woff2" as="font" crossorigin>
+<link rel="preload" href="/critical.css" as="style">
+<link rel="preload" href="/hero.jpg" as="image">
 
-&amp;amp;lt;!-- 预连接 --&amp;amp;gt;
-&amp;amp;lt;link rel=&amp;amp;quot;preconnect&amp;amp;quot; href=&amp;amp;quot;https://api.example.com&amp;amp;quot;&amp;amp;gt;
-&amp;amp;lt;link rel=&amp;amp;quot;dns-prefetch&amp;amp;quot; href=&amp;amp;quot;https://cdn.example.com&amp;amp;quot;&amp;amp;gt;
+<!-- 预连接 -->
+<link rel="preconnect" href="https://api.example.com">
+<link rel="dns-prefetch" href="https://cdn.example.com">
 
-&amp;amp;lt;!-- 预取 --&amp;amp;gt;
-&amp;amp;lt;link rel=&amp;amp;quot;prefetch&amp;amp;quot; href=&amp;amp;quot;/next-page.js&amp;amp;quot;&amp;amp;gt;
-&amp;amp;lt;link rel=&amp;amp;quot;prerender&amp;amp;quot; href=&amp;amp;quot;/next-page.html&amp;amp;quot;&amp;amp;gt;
+<!-- 预取 -->
+<link rel="prefetch" href="/next-page.js">
+<link rel="prerender" href="/next-page.html">
 ```
 
 ### 2.2 代码分割
 ```javascript
 // 路由级别
 const routes = [
-  { path: &amp;amp;#039;/&amp;amp;#039;, component: () =&amp;amp;gt; import(&amp;amp;#039;./Home.vue&amp;amp;#039;) },
-  { path: &amp;amp;#039;/about&amp;amp;#039;, component: () =&amp;amp;gt; import(&amp;amp;#039;./About.vue&amp;amp;#039;) }
+  { path: '/', component: () => import('./Home.vue') },
+  { path: '/about', component: () => import('./About.vue') }
 ];
 
 // 组件级别
-const HeavyChart = React.lazy(() =&amp;amp;gt; import(&amp;amp;#039;./HeavyChart&amp;amp;#039;));
+const HeavyChart = React.lazy(() => import('./HeavyChart'));
 
 // 条件加载
 if (featureEnabled) {
-  import(&amp;amp;#039;./feature&amp;amp;#039;).then(module =&amp;amp;gt; module.init());
+  import('./feature').then(module => module.init());
 }
 ```
 
 ### 2.3 Tree Shaking
 ```javascript
 // ✅ 支持 tree shaking
-import { add } from &amp;amp;#039;math-utils&amp;amp;#039;;
+import { add } from 'math-utils';
 
 // ❌ 阻止 tree shaking
-import * as math from &amp;amp;#039;math-utils&amp;amp;#039;;
+import * as math from 'math-utils';
 const result = math.add(1, 2);
 ```
 
@@ -86,15 +86,15 @@ const result = math.add(1, 2);
 ### 3.1 避免重排
 ```javascript
 // ❌ 触发多次重排
-element.style.width = &amp;amp;#039;100px&amp;amp;#039;;
-element.style.height = &amp;amp;#039;200px&amp;amp;#039;;
-element.style.padding = &amp;amp;#039;10px&amp;amp;#039;;
+element.style.width = '100px';
+element.style.height = '200px';
+element.style.padding = '10px';
 
 // ✅ 批量修改
-element.style.cssText = &amp;amp;#039;width: 100px; height: 200px; padding: 10px;&amp;amp;#039;;
+element.style.cssText = 'width: 100px; height: 200px; padding: 10px;';
 
 // ✅ 使用 class
-element.classList.add(&amp;amp;#039;sized&amp;amp;#039;);
+element.classList.add('sized');
 ```
 
 ### 3.2 虚拟列表
@@ -108,15 +108,15 @@ function VirtualList({ items, height }) {
   const visibleItems = items.slice(startIndex, startIndex + visibleCount);
   
   return (
-    &amp;amp;lt;div style=&amp;#123;&amp;#123; height, overflow: &amp;amp;#039;auto&amp;amp;#039; &amp;#125;&amp;#125; onScroll={e =&amp;amp;gt; setScrollTop(e.target.scrollTop)}&amp;amp;gt;
-      &amp;amp;lt;div style=&amp;#123;&amp;#123; height: items.length * itemHeight, position: &amp;amp;#039;relative&amp;amp;#039; &amp;#125;&amp;#125;&amp;amp;gt;
-        {visibleItems.map((item, i) =&amp;amp;gt; (
-          &amp;amp;lt;div key={item.id} style=&amp;#123;&amp;#123; position: &amp;amp;#039;absolute&amp;amp;#039;, top: (startIndex + i) * itemHeight &amp;#125;&amp;#125;&amp;amp;gt;
+    <div style=&amp;#123;&amp;#123; height, overflow: 'auto' &amp;#125;&amp;#125; onScroll={e => setScrollTop(e.target.scrollTop)}>
+      <div style=&amp;#123;&amp;#123; height: items.length * itemHeight, position: 'relative' &amp;#125;&amp;#125;>
+        {visibleItems.map((item, i) => (
+          <div key={item.id} style=&amp;#123;&amp;#123; position: 'absolute', top: (startIndex + i) * itemHeight &amp;#125;&amp;#125;>
             {item.content}
-          &amp;amp;lt;/div&amp;amp;gt;
+          </div>
         ))}
-      &amp;amp;lt;/div&amp;amp;gt;
-    &amp;amp;lt;/div&amp;amp;gt;
+      </div>
+    </div>
   );
 }
 ```
@@ -128,7 +128,7 @@ function debounce(fn, delay) {
   let timer;
   return function(...args) {
     clearTimeout(timer);
-    timer = setTimeout(() =&amp;amp;gt; fn.apply(this, args), delay);
+    timer = setTimeout(() => fn.apply(this, args), delay);
   };
 }
 
@@ -139,14 +139,14 @@ function throttle(fn, limit) {
     if (!inThrottle) {
       fn.apply(this, args);
       inThrottle = true;
-      setTimeout(() =&amp;amp;gt; inThrottle = false, limit);
+      setTimeout(() => inThrottle = false, limit);
     }
   };
 }
 
 // 使用
-window.addEventListener(&amp;amp;#039;resize&amp;amp;#039;, debounce(handleResize, 250));
-window.addEventListener(&amp;amp;#039;scroll&amp;amp;#039;, throttle(handleScroll, 100));
+window.addEventListener('resize', debounce(handleResize, 250));
+window.addEventListener('scroll', throttle(handleScroll, 100));
 ```
 
 ---
@@ -157,24 +157,24 @@ window.addEventListener(&amp;amp;#039;scroll&amp;amp;#039;, throttle(handleScrol
 ```javascript
 // ❌ 事件监听器未清理
 function setup() {
-  window.addEventListener(&amp;amp;#039;resize&amp;amp;#039;, handler);
+  window.addEventListener('resize', handler);
 }
 
 // ✅ 清理
 function setup() {
-  window.addEventListener(&amp;amp;#039;resize&amp;amp;#039;, handler);
-  return () =&amp;amp;gt; window.removeEventListener(&amp;amp;#039;resize&amp;amp;#039;, handler);
+  window.addEventListener('resize', handler);
+  return () => window.removeEventListener('resize', handler);
 }
 
 // ❌ 闭包引用大对象
 function createHandler() {
   const largeData = new Array(1000000);
-  return () =&amp;amp;gt; console.log(&amp;amp;#039;clicked&amp;amp;#039;); // 持有 largeData 引用
+  return () => console.log('clicked'); // 持有 largeData 引用
 }
 
 // ✅ 避免不必要的闭包
 function createHandler() {
-  return () =&amp;amp;gt; console.log(&amp;amp;#039;clicked&amp;amp;#039;);
+  return () => console.log('clicked');
 }
 ```
 
@@ -215,20 +215,20 @@ brotli_types text/css application/javascript;
 
 ### 5.3 图片优化
 ```html
-&amp;amp;lt;!-- 响应式 --&amp;amp;gt;
-&amp;amp;lt;img srcset=&amp;amp;quot;small.jpg 400w, medium.jpg 800w, large.jpg 1200w&amp;amp;quot;
-     sizes=&amp;amp;quot;(max-width: 600px) 400px, 1200px&amp;amp;quot;
-     src=&amp;amp;quot;medium.jpg&amp;amp;quot; alt=&amp;amp;quot;描述&amp;amp;quot;&amp;amp;gt;
+<!-- 响应式 -->
+<img srcset="small.jpg 400w, medium.jpg 800w, large.jpg 1200w"
+     sizes="(max-width: 600px) 400px, 1200px"
+     src="medium.jpg" alt="描述">
 
-&amp;amp;lt;!-- 懒加载 --&amp;amp;gt;
-&amp;amp;lt;img src=&amp;amp;quot;placeholder.jpg&amp;amp;quot; data-src=&amp;amp;quot;actual.jpg&amp;amp;quot; loading=&amp;amp;quot;lazy&amp;amp;quot;&amp;amp;gt;
+<!-- 懒加载 -->
+<img src="placeholder.jpg" data-src="actual.jpg" loading="lazy">
 
-&amp;amp;lt;!-- 现代格式 --&amp;amp;gt;
-&amp;amp;lt;picture&amp;amp;gt;
-  &amp;amp;lt;source srcset=&amp;amp;quot;image.avif&amp;amp;quot; type=&amp;amp;quot;image/avif&amp;amp;quot;&amp;amp;gt;
-  &amp;amp;lt;source srcset=&amp;amp;quot;image.webp&amp;amp;quot; type=&amp;amp;quot;image/webp&amp;amp;quot;&amp;amp;gt;
-  &amp;amp;lt;img src=&amp;amp;quot;image.jpg&amp;amp;quot; alt=&amp;amp;quot;描述&amp;amp;quot;&amp;amp;gt;
-&amp;amp;lt;/picture&amp;amp;gt;
+<!-- 现代格式 -->
+<picture>
+  <source srcset="image.avif" type="image/avif">
+  <source srcset="image.webp" type="image/webp">
+  <img src="image.jpg" alt="描述">
+</picture>
 ```
 
 ---
@@ -250,12 +250,12 @@ Cache-Control: max-age=60, stale-while-revalidate=300
 ### 6.2 Service Worker 缓存
 ```javascript
 // 缓存优先
-self.addEventListener(&amp;amp;#039;fetch&amp;amp;#039;, (event) =&amp;amp;gt; {
-  if (event.request.url.includes(&amp;amp;#039;/static/&amp;amp;#039;)) {
+self.addEventListener('fetch', (event) => {
+  if (event.request.url.includes('/static/')) {
     event.respondWith(
-      caches.match(event.request).then(cached =&amp;amp;gt; 
-        cached || fetch(event.request).then(response =&amp;amp;gt; {
-          return caches.open(&amp;amp;#039;static&amp;amp;#039;).then(cache =&amp;amp;gt; {
+      caches.match(event.request).then(cached => 
+        cached || fetch(event.request).then(response => {
+          return caches.open('static').then(cache => {
             cache.put(event.request, response.clone());
             return response;
           });

@@ -9,12 +9,12 @@
 ### 1.1 Declarative UI
 ```tsx
 // Imperative (jQuery style)
-$(&amp;amp;#039;#container&amp;amp;#039;).empty();
-$(&amp;amp;#039;&amp;amp;lt;div&amp;amp;gt;&amp;amp;#039;).text(user.name).appendTo(&amp;amp;#039;#container&amp;amp;#039;);
+$('#container').empty();
+$('<div>').text(user.name).appendTo('#container');
 
 // Declarative (React style)
 function UserCard({ user }) {
-  return &amp;amp;lt;div&amp;amp;gt;{user.name}&amp;amp;lt;/div&amp;amp;gt;;
+  return <div>{user.name}</div>;
 }
 ```
 
@@ -38,9 +38,9 @@ function Counter() {
   const [count, setCount] = useState(0);
   
   // Functional update
-  const increment = () =&amp;amp;gt; setCount(prev =&amp;amp;gt; prev + 1);
+  const increment = () => setCount(prev => prev + 1);
   
-  return &amp;amp;lt;button onClick={increment}&amp;amp;gt;{count}&amp;amp;lt;/button&amp;amp;gt;;
+  return <button onClick={increment}>{count}</button>;
 }
 ```
 
@@ -48,38 +48,38 @@ function Counter() {
 ```tsx
 function Component() {
   // Mount only
-  useEffect(() =&amp;amp;gt; {
+  useEffect(() => {
     const subscription = subscribe();
-    return () =&amp;amp;gt; subscription.unsubscribe(); // Cleanup on unmount
+    return () => subscription.unsubscribe(); // Cleanup on unmount
   }, []);
   
   // Mount + dependency change
-  useEffect(() =&amp;amp;gt; {
+  useEffect(() => {
     document.title = `Count: ${count}`;
   }, [count]);
   
   // Every render
-  useEffect(() =&amp;amp;gt; {
-    console.log(&amp;amp;#039;rendered&amp;amp;#039;);
+  useEffect(() => {
+    console.log('rendered');
   });
 }
 ```
 
 ### 2.3 useContext
 ```tsx
-const ThemeContext = createContext&amp;amp;lt;&amp;amp;#039;light&amp;amp;#039; | &amp;amp;#039;dark&amp;amp;#039;&amp;amp;gt;(&amp;amp;#039;light&amp;amp;#039;);
+const ThemeContext = createContext<'light' | 'dark'>('light');
 
 function App() {
   return (
-    &amp;amp;lt;ThemeContext.Provider value=&amp;amp;quot;dark&amp;amp;quot;&amp;amp;gt;
-      &amp;amp;lt;Toolbar /&amp;amp;gt;
-    &amp;amp;lt;/ThemeContext.Provider&amp;amp;gt;
+    <ThemeContext.Provider value="dark">
+      <Toolbar />
+    </ThemeContext.Provider>
   );
 }
 
 function Toolbar() {
   const theme = useContext(ThemeContext);
-  return &amp;amp;lt;div className={theme}&amp;amp;gt;...&amp;amp;lt;/div&amp;amp;gt;;
+  return <div className={theme}>...</div>;
 }
 ```
 
@@ -87,22 +87,22 @@ function Toolbar() {
 ```tsx
 function TodoList({ todos, onToggle }) {
   // Cache expensive computation
-  const sortedTodos = useMemo(() =&amp;amp;gt; 
-    [...todos].sort((a, b) =&amp;amp;gt; a.priority - b.priority),
+  const sortedTodos = useMemo(() => 
+    [...todos].sort((a, b) => a.priority - b.priority),
     [todos]
   );
   
   // Cache function reference
-  const handleToggle = useCallback((id: string) =&amp;amp;gt; {
+  const handleToggle = useCallback((id: string) => {
     onToggle(id);
   }, [onToggle]);
   
   return (
-    &amp;amp;lt;ul&amp;amp;gt;
-      {sortedTodos.map(todo =&amp;amp;gt; (
-        &amp;amp;lt;Todo key={todo.id} todo={todo} onToggle={handleToggle} /&amp;amp;gt;
+    <ul>
+      {sortedTodos.map(todo => (
+        <Todo key={todo.id} todo={todo} onToggle={handleToggle} />
       ))}
-    &amp;amp;lt;/ul&amp;amp;gt;
+    </ul>
   );
 }
 ```
@@ -110,18 +110,18 @@ function TodoList({ todos, onToggle }) {
 ### 2.5 useRef
 ```tsx
 function Form() {
-  const inputRef = useRef&amp;amp;lt;HTMLInputElement&amp;amp;gt;(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const renderCount = useRef(0);
   
-  useEffect(() =&amp;amp;gt; {
+  useEffect(() => {
     inputRef.current?.focus();
   }, []);
   
-  useEffect(() =&amp;amp;gt; {
+  useEffect(() => {
     renderCount.current++;
   });
   
-  return &amp;amp;lt;input ref={inputRef} /&amp;amp;gt;;
+  return <input ref={inputRef} />;
 }
 ```
 
@@ -140,24 +140,24 @@ Fiber is React's reconciliation engine rewrite:
 // React 18 concurrent features
 function App() {
   const [isPending, startTransition] = useTransition();
-  const [input, setInput] = useState(&amp;amp;#039;&amp;amp;#039;);
-  const [search, setSearch] = useState(&amp;amp;#039;&amp;amp;#039;);
+  const [input, setInput] = useState('');
+  const [search, setSearch] = useState('');
   
   function handleChange(e) {
     setInput(e.target.value);
     
     // Low priority update
-    startTransition(() =&amp;amp;gt; {
+    startTransition(() => {
       setSearch(e.target.value);
     });
   }
   
   return (
-    &amp;amp;lt;&amp;amp;gt;
-      &amp;amp;lt;input value={input} onChange={handleChange} /&amp;amp;gt;
-      {isPending &amp;amp;amp;&amp;amp;amp; &amp;amp;lt;Spinner /&amp;amp;gt;}
-      &amp;amp;lt;Results query={search} /&amp;amp;gt;
-    &amp;amp;lt;/&amp;amp;gt;
+    <>
+      <input value={input} onChange={handleChange} />
+      {isPending && <Spinner />}
+      <Results query={search} />
+    </>
   );
 }
 ```
@@ -165,14 +165,14 @@ function App() {
 ### 3.3 useDeferredValue
 ```tsx
 function Search() {
-  const [query, setQuery] = useState(&amp;amp;#039;&amp;amp;#039;);
+  const [query, setQuery] = useState('');
   const deferredQuery = useDeferredValue(query);
   
   return (
-    &amp;amp;lt;&amp;amp;gt;
-      &amp;amp;lt;input value={query} onChange={e =&amp;amp;gt; setQuery(e.target.value)} /&amp;amp;gt;
-      &amp;amp;lt;SlowList query={deferredQuery} /&amp;amp;gt;
-    &amp;amp;lt;/&amp;amp;gt;
+    <>
+      <input value={query} onChange={e => setQuery(e.target.value)} />
+      <SlowList query={deferredQuery} />
+    </>
   );
 }
 ```
@@ -183,13 +183,13 @@ function Search() {
 
 ### 4.1 Custom Hooks
 ```tsx
-function useLocalStorage&amp;amp;lt;T&amp;amp;gt;(key: string, initialValue: T) {
-  const [value, setValue] = useState&amp;amp;lt;T&amp;amp;gt;(() =&amp;amp;gt; {
+function useLocalStorage<T>(key: string, initialValue: T) {
+  const [value, setValue] = useState<T>(() => {
     const stored = localStorage.getItem(key);
     return stored ? JSON.parse(stored) : initialValue;
   });
   
-  useEffect(() =&amp;amp;gt; {
+  useEffect(() => {
     localStorage.setItem(key, JSON.stringify(value));
   }, [key, value]);
   
@@ -197,7 +197,7 @@ function useLocalStorage&amp;amp;lt;T&amp;amp;gt;(key: string, initialValue: T) 
 }
 
 // Usage
-const [theme, setTheme] = useLocalStorage(&amp;amp;#039;theme&amp;amp;#039;, &amp;amp;#039;light&amp;amp;#039;);
+const [theme, setTheme] = useLocalStorage('theme', 'light');
 ```
 
 ### 4.2 Error Boundaries
@@ -211,26 +211,26 @@ class ErrorBoundary extends React.Component {
   
   render() {
     if (this.state.hasError) {
-      return &amp;amp;lt;Fallback error={this.state.error} /&amp;amp;gt;;
+      return <Fallback error={this.state.error} />;
     }
     return this.props.children;
   }
 }
 
 // Usage
-&amp;amp;lt;ErrorBoundary&amp;amp;gt;
-  &amp;amp;lt;ComponentThatMayFail /&amp;amp;gt;
-&amp;amp;lt;/ErrorBoundary&amp;amp;gt;
+<ErrorBoundary>
+  <ComponentThatMayFail />
+</ErrorBoundary>
 ```
 
 ### 4.3 Portals
 ```tsx
 function Modal({ children }) {
   return createPortal(
-    &amp;amp;lt;div className=&amp;amp;quot;modal-overlay&amp;amp;quot;&amp;amp;gt;
-      &amp;amp;lt;div className=&amp;amp;quot;modal&amp;amp;quot;&amp;amp;gt;{children}&amp;amp;lt;/div&amp;amp;gt;
-    &amp;amp;lt;/div&amp;amp;gt;,
-    document.getElementById(&amp;amp;#039;modal-root&amp;amp;#039;)!
+    <div className="modal-overlay">
+      <div className="modal">{children}</div>
+    </div>,
+    document.getElementById('modal-root')!
   );
 }
 ```
@@ -243,36 +243,36 @@ function Modal({ children }) {
 ```tsx
 const TodoItem = React.memo(function TodoItem({ todo, onToggle }) {
   return (
-    &amp;amp;lt;li&amp;amp;gt;
-      &amp;amp;lt;input type=&amp;amp;quot;checkbox&amp;amp;quot; checked={todo.done} onChange={() =&amp;amp;gt; onToggle(todo.id)} /&amp;amp;gt;
-      &amp;amp;lt;span&amp;amp;gt;{todo.text}&amp;amp;lt;/span&amp;amp;gt;
-    &amp;amp;lt;/li&amp;amp;gt;
+    <li>
+      <input type="checkbox" checked={todo.done} onChange={() => onToggle(todo.id)} />
+      <span>{todo.text}</span>
+    </li>
   );
 });
 ```
 
 ### 5.2 Code Splitting
 ```tsx
-const LazyComponent = React.lazy(() =&amp;amp;gt; import(&amp;amp;#039;./HeavyComponent&amp;amp;#039;));
+const LazyComponent = React.lazy(() => import('./HeavyComponent'));
 
 function App() {
   return (
-    &amp;amp;lt;Suspense fallback={&amp;amp;lt;Loading /&amp;amp;gt;}&amp;amp;gt;
-      &amp;amp;lt;LazyComponent /&amp;amp;gt;
-    &amp;amp;lt;/Suspense&amp;amp;gt;
+    <Suspense fallback={<Loading />}>
+      <LazyComponent />
+    </Suspense>
   );
 }
 ```
 
 ### 5.3 Virtualization
 ```tsx
-import { FixedSizeList } from &amp;amp;#039;react-window&amp;amp;#039;;
+import { FixedSizeList } from 'react-window';
 
 function VirtualList({ items }) {
   return (
-    &amp;amp;lt;FixedSizeList height={600} itemCount={items.length} itemSize={50}&amp;amp;gt;
-      {({ index, style }) =&amp;amp;gt; &amp;amp;lt;div style={style}&amp;amp;gt;{items[index]}&amp;amp;lt;/div&amp;amp;gt;}
-    &amp;amp;lt;/FixedSizeList&amp;amp;gt;
+    <FixedSizeList height={600} itemCount={items.length} itemSize={50}>
+      {({ index, style }) => <div style={style}>{items[index]}</div>}
+    </FixedSizeList>
   );
 }
 ```

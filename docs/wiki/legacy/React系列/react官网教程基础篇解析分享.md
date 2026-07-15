@@ -10,8 +10,8 @@
 ### 2、认识react，一个hello world！
 ```javascript
 ReactDOM.render(
-  &amp;amp;lt;h1&amp;amp;gt;Hello, world!&amp;amp;lt;/h1&amp;amp;gt;,
-  document.getElementById(&amp;amp;#039;root&amp;amp;#039;)
+  <h1>Hello, world!</h1>,
+  document.getElementById('root')
 );
 ```
 
@@ -23,7 +23,7 @@ ReactDOM.render(
 ```javascript
 class T extends React.Component {
     render() {
-        return &amp;amp;lt;div className=&amp;amp;quot;left-enter&amp;amp;quot; style={}&amp;amp;gt;{value}&amp;amp;lt;/div&amp;amp;gt;
+        return <div className="left-enter" style={}>{value}</div>
     }
 }
 ```
@@ -36,20 +36,20 @@ react组件：
 ```javascript
 class T extends React.Component {
     render() {
-        return &amp;amp;lt;div className=&amp;amp;quot;left-enter&amp;amp;quot; style={}&amp;amp;gt;{value}&amp;amp;lt;/div&amp;amp;gt;
+        return <div className="left-enter" style={}>{value}</div>
     }
 }
 ```
 react元素：
 ```javascript
-&amp;amp;lt;div className=&amp;amp;quot;left-enter&amp;amp;quot; style={}&amp;amp;gt;{value}&amp;amp;lt;/div&amp;amp;gt;
+<div className="left-enter" style={}>{value}</div>
 ```
 
 ### 5、组件的使用
 **函数组件**：函数组件没有状态和生命周期，但是你可以返回一个react元素。
 ```javascript
 function Welcome(props) {
-  return &amp;amp;lt;h1&amp;amp;gt;Hello, {props.name}&amp;amp;lt;/h1&amp;amp;gt;;
+  return <h1>Hello, {props.name}</h1>;
 }
 ```
 **class组件**：非常强大，有自己的state和生命周期。和函数组件一样，class组件也需要返回一个react元素。
@@ -58,7 +58,7 @@ class Welcome extends React.Component {
   componentWillMount() {}
   componentDidMount() {}
   render() {
-    return &amp;amp;lt;h1&amp;amp;gt;Hello, {this.props.name}&amp;amp;lt;/h1&amp;amp;gt;;
+    return <h1>Hello, {this.props.name}</h1>;
   }
 }
 ```
@@ -97,7 +97,7 @@ class Button extends React.Component {
 
   render() {
       const { isShow, text, disabled} = this.state
-      return &amp;amp;lt;button disabled={disabled} style=&amp;#123;&amp;#123;display: isShow ? &amp;amp;quot;block&amp;amp;quot; : &amp;amp;quot;none&amp;amp;quot;&amp;#125;&amp;#125;&amp;amp;gt;{text}&amp;amp;lt;/button&amp;amp;gt;
+      return <button disabled={disabled} style=&amp;#123;&amp;#123;display: isShow ? "block" : "none"&amp;#125;&amp;#125;>{text}</button>
   }
 }
 ```
@@ -112,7 +112,7 @@ this.setState({
 
 由于setState有批处理功能，所以该方法可能不一定同步更新，如果你需要依赖上一次的状态和本次状态的计算，那么需要写成下面这种形式。
 ```javascript
-this.setState((prevState, props) =&amp;amp;gt; {    
+this.setState((prevState, props) => {    
       text: prevState.text++
     });
 ```
@@ -153,7 +153,7 @@ class Button extends React.Component {
 
   render() {
       const { isShow, text, disabled} = this.state
-      return &amp;amp;lt;button disabled={disabled} style=&amp;#123;&amp;#123;display: isShow ? &amp;amp;quot;block&amp;amp;quot; : &amp;amp;quot;none&amp;amp;quot;&amp;#125;&amp;#125;&amp;amp;gt;{text}&amp;amp;lt;/button&amp;amp;gt;
+      return <button disabled={disabled} style=&amp;#123;&amp;#123;display: isShow ? "block" : "none"&amp;#125;&amp;#125;>{text}</button>
   }
 }
 ```
@@ -162,11 +162,11 @@ class Button extends React.Component {
 
 ### 7、事件处理
 ```jsx harmony
- &amp;amp;lt;button onClick={(e) =&amp;amp;gt; this.handleClick(e)}&amp;amp;gt;
+ <button onClick={(e) => this.handleClick(e)}>
  按钮
-&amp;amp;lt;/button&amp;amp;gt;
+</button>
 
-&amp;amp;lt;input type=&amp;amp;quot;text&amp;amp;quot; onChange={(e) =&amp;amp;gt; this.handleClick(e)} /&amp;amp;gt;
+<input type="text" onChange={(e) => this.handleClick(e)} />
 ```
 
 ### 8、条件渲染
@@ -177,28 +177,28 @@ class Button extends React.Component {
 ```jsx harmony
 render() {
     return (
-        &amp;amp;lt;div&amp;amp;gt;
+        <div>
         {
-            this.state.isShow &amp;amp;amp;&amp;amp;amp; &amp;amp;lt;button&amp;amp;gt;按钮&amp;amp;lt;/button&amp;amp;gt;    
+            this.state.isShow && <button>按钮</button>    
         }
-        &amp;amp;lt;/div&amp;amp;gt;
+        </div>
     )
 }
 ```
 ```jsx harmony
 render() {
     return (
-        &amp;amp;lt;div&amp;amp;gt;
+        <div>
         {
-            this.state.isShow ? &amp;amp;lt;button&amp;amp;gt;按钮&amp;amp;lt;/button&amp;amp;gt; : &amp;amp;lt;span&amp;amp;gt;文本&amp;amp;lt;/span&amp;amp;gt;
+            this.state.isShow ? <button>按钮</button> : <span>文本</span>
         }
-        &amp;amp;lt;/div&amp;amp;gt;
+        </div>
     )
 }
 ```
 ```jsx harmony
 render() {
-    return &amp;amp;lt;button disabled={this.state.disabled}&amp;amp;gt;按钮&amp;amp;lt;/button&amp;amp;gt;
+    return <button disabled={this.state.disabled}>按钮</button>
 }
 ```
 
@@ -213,7 +213,7 @@ render() {
 ```jsx harmony
 render() {
     const { arr } = this.state
-    return arr.length &amp;amp;gt; 0 &amp;amp;amp;&amp;amp;amp; arr.map((value, key) =&amp;amp;gt; &amp;amp;lt;li key={key}&amp;amp;gt;{value}&amp;amp;lt;/li&amp;amp;gt; )
+    return arr.length > 0 && arr.map((value, key) => <li key={key}>{value}</li> )
 }
 ```
 
@@ -227,7 +227,7 @@ render() {
 class NameForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {value: &amp;amp;#039;&amp;amp;#039;};
+    this.state = {value: ''};
 
     this.handleChange = this.handleChange.bind(this);
   }
@@ -238,7 +238,7 @@ class NameForm extends React.Component {
 
   render() {
     return (
-          &amp;amp;lt;input type=&amp;amp;quot;text&amp;amp;quot; value={this.state.value} onChange={this.handleChange} /&amp;amp;gt;
+          <input type="text" value={this.state.value} onChange={this.handleChange} />
     );
   }
 }
@@ -246,17 +246,17 @@ class NameForm extends React.Component {
 ```
 或许你没看出来和正宗input元素的区别，看一个真实DOM元素的例子,value由inupt自身维护，我们没有给value绑定值。
 ```html
-&amp;amp;lt;input type=&amp;amp;quot;text&amp;amp;quot;&amp;amp;gt;
+<input type="text">
 ```
 
 textarea和input是一样的用法。
 
 select有些许不同，将value绑定到select上，而不是option。
 ```jsx harmony
-&amp;amp;lt;select value={this.state.value} onChange={this.handleChange}&amp;amp;gt;
-    &amp;amp;lt;option value=&amp;amp;quot;1&amp;amp;quot;&amp;amp;gt;1&amp;amp;lt;/option&amp;amp;gt;
-    &amp;amp;lt;option value=&amp;amp;quot;2&amp;amp;quot;&amp;amp;gt;2&amp;amp;lt;/option&amp;amp;gt;
-&amp;amp;lt;/select&amp;amp;gt;
+<select value={this.state.value} onChange={this.handleChange}>
+    <option value="1">1</option>
+    <option value="2">2</option>
+</select>
 ```
 还有一种是多个输入框的情况，比如登录，有账号、密码等，这时候操作这些不同的input可以通过ref或者name，class，id等方法去setState，看
 官方demo。
@@ -274,7 +274,7 @@ class Reservation extends React.Component {
 
   handleInputChange(event) {
     const target = event.target;
-    const value = target.type === &amp;amp;#039;checkbox&amp;amp;#039; ? target.checked : target.value;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
 
     this.setState({
@@ -284,18 +284,18 @@ class Reservation extends React.Component {
 
   render() {
     return (
-      &amp;amp;lt;form&amp;amp;gt;
-          &amp;amp;lt;input
-            name=&amp;amp;quot;isGoing&amp;amp;quot;
-            type=&amp;amp;quot;checkbox&amp;amp;quot;
+      <form>
+          <input
+            name="isGoing"
+            type="checkbox"
             checked={this.state.isGoing}
-            onChange={this.handleInputChange} /&amp;amp;gt;
-          &amp;amp;lt;input
-            name=&amp;amp;quot;numberOfGuests&amp;amp;quot;
-            type=&amp;amp;quot;number&amp;amp;quot;
+            onChange={this.handleInputChange} />
+          <input
+            name="numberOfGuests"
+            type="number"
             value={this.state.numberOfGuests}
-            onChange={this.handleInputChange} /&amp;amp;gt;
-      &amp;amp;lt;/form&amp;amp;gt;
+            onChange={this.handleInputChange} />
+      </form>
     );
   }
 }
@@ -303,7 +303,7 @@ class Reservation extends React.Component {
 
 **不受控组件**：很简单，就是DOM自己维护状态的组件，不受react控制。你可以给它设置defaultValue，但是不能去setState。
 ```jsx harmony
-&amp;amp;lt;input type=&amp;amp;quot;text&amp;amp;quot; ref={(input) =&amp;amp;gt; this.input = input} defaultValue=&amp;amp;quot;默认值&amp;amp;quot;/&amp;amp;gt;
+<input type="text" ref={(input) => this.input = input} defaultValue="默认值"/>
 ```
 
 相信有人会试过设置defaultValue之后执行了setState去修改value，这样做控制台会发出警告。
@@ -342,12 +342,12 @@ class Child extends React.Component {
   render() {
     const {name, value} = this.props;
     return (
-      &amp;amp;lt;div&amp;amp;gt;
-        &amp;amp;lt;p&amp;amp;gt;{name}：&amp;amp;lt;/p&amp;amp;gt;
-        &amp;amp;lt;input value={value}
+      <div>
+        <p>{name}：</p>
+        <input value={value}
                onChange={this.handleChange} 
-          /&amp;amp;gt;
-      &amp;amp;lt;/div&amp;amp;gt;
+          />
+      </div>
     );
   }
 }
@@ -355,7 +355,7 @@ class Child extends React.Component {
 class Demo extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {value: &amp;amp;#039;&amp;amp;#039;, name: &amp;amp;#039;&amp;amp;#039;};
+    this.state = {value: '', name: ''};
     
     this.upDateValue = this.upDateValue.bind(this);
   }
@@ -368,17 +368,17 @@ class Demo extends React.Component {
     const {value} = this.state;
 
     return (
-      &amp;amp;lt;div&amp;amp;gt;
-        &amp;amp;lt;Child name=&amp;amp;quot;组件1&amp;amp;quot; value={value} upDateValue={this.upDateValue} /&amp;amp;gt;
-        &amp;amp;lt;Child name=&amp;amp;quot;组件2&amp;amp;quot; value={value} upDateValue={this.upDateValue} /&amp;amp;gt;
-      &amp;amp;lt;/div&amp;amp;gt;
+      <div>
+        <Child name="组件1" value={value} upDateValue={this.upDateValue} />
+        <Child name="组件2" value={value} upDateValue={this.upDateValue} />
+      </div>
     );
   }
 }
 
 ReactDOM.render(
-  &amp;amp;lt;Demo /&amp;amp;gt;,
-  document.getElementById(&amp;amp;#039;root&amp;amp;#039;)
+  <Demo />,
+  document.getElementById('root')
 );
 
 ```

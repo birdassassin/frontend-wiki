@@ -20,8 +20,8 @@
 react很多实践是SPA应用，而SPA通常只有一个入口，ReactDOM.render()会把组件或者jsx渲染在根元素“root”下，比如这个例子中会在root下面渲染 &lt;h1&gt;Hello, world!&lt;/h1&gt;
 ```
 ReactDOM.render(
-  &amp;amp;lt;h1&amp;amp;gt;Hello, world!&amp;amp;lt;/h1&amp;amp;gt;,
-  document.getElementById(&amp;amp;#039;root&amp;amp;#039;)
+  <h1>Hello, world!</h1>,
+  document.getElementById('root')
 );
 ```
 ![clipboard.png](https://gitee.com/birdassassin/frontend-wiki/raw/master/img/bVNtQ3)
@@ -33,16 +33,16 @@ ReactDOM.render(
 class App extends React.Component {
   render() {
     return (
-      &amp;amp;lt;div&amp;amp;gt;
+      <div>
         hello {this.props.name}!
-      &amp;amp;lt;/div&amp;amp;gt;
+      </div>
     )
   }
 }
 
 ReactDOM.render(
-  &amp;amp;lt;App name=&amp;amp;quot;world&amp;amp;quot; /&amp;amp;gt;,
-  document.getElementById(&amp;amp;#039;root&amp;amp;#039;)
+  <App name="world" />,
+  document.getElementById('root')
 );
 ```
 
@@ -73,12 +73,12 @@ class Child extends React.Component {
   
   render() {
     return (
-      &amp;amp;lt;div&amp;amp;gt;
+      <div>
         子组件
-        &amp;amp;lt;Forms value={this.state.value}&amp;amp;gt;
-          &amp;amp;lt;input type=&amp;amp;quot;text&amp;amp;quot; onChange={(e) =&amp;amp;gt; this.handleClick(e)} /&amp;amp;gt;
-        &amp;amp;lt;/Forms&amp;amp;gt;
-      &amp;amp;lt;/div&amp;amp;gt;
+        <Forms value={this.state.value}>
+          <input type="text" onChange={(e) => this.handleClick(e)} />
+        </Forms>
+      </div>
     )
   }
 }
@@ -86,10 +86,10 @@ class Child extends React.Component {
 class Forms extends React.Component {
   render() {
     return (
-      &amp;amp;lt;form&amp;amp;gt;
+      <form>
         {this.props.children}
         您输入的值是：{this.props.value}
-      &amp;amp;lt;/form&amp;amp;gt;
+      </form>
     )
   }
 }

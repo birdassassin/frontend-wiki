@@ -168,15 +168,15 @@ UI = f(state)
 
 ```mermaid
 flowchart LR
-    A[基础: HTML/CSS/JS] --&amp;amp;gt; B[进阶: 框架/工具]
-    B --&amp;amp;gt; C[架构: 模式/策略]
-    C --&amp;amp;gt; D[优化: 性能/安全]
-    D --&amp;amp;gt; E[工程: 测试/部署]
-    A --&amp;amp;gt; F[wiki/index.md]
-    B --&amp;amp;gt; F
-    C --&amp;amp;gt; F
-    D --&amp;amp;gt; F
-    E --&amp;amp;gt; F
+    A[基础: HTML/CSS/JS] --> B[进阶: 框架/工具]
+    B --> C[架构: 模式/策略]
+    C --> D[优化: 性能/安全]
+    D --> E[工程: 测试/部署]
+    A --> F[wiki/index.md]
+    B --> F
+    C --> F
+    D --> F
+    E --> F
 ```
 
 ---

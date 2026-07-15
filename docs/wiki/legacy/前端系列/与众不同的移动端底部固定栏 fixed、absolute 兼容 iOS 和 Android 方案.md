@@ -60,7 +60,7 @@ Android：当滚动区域超过一屏幕时，底部输入框定位出现错乱�
 ios：在激活输入框的时候，执行下面代码
 
 ```javascript
-setTimeout(() =&amp;amp;gt; document.body.scrollTop = document.body.scrollHeight, 500)
+setTimeout(() => document.body.scrollTop = document.body.scrollHeight, 500)
 ```
 android: 表现正常
 
@@ -93,13 +93,13 @@ android: 表现正常
 3、采用DocumentFragment动态渲染5000个列表元素，说到这个有点意思，记得腾讯某部门的社招面试题就是考察这个知识点，一般人可能采用的是for循环加innerHTML的方法（看源码）
 
 ```javascript
-&amp;amp;lt;!DOCTYPE html&amp;amp;gt;
-&amp;amp;lt;html lang=&amp;amp;quot;en&amp;amp;quot;&amp;amp;gt;
-&amp;amp;lt;head&amp;amp;gt;
-    &amp;amp;lt;meta charset=&amp;amp;quot;UTF-8&amp;amp;quot;&amp;amp;gt;
-    &amp;amp;lt;meta name=&amp;amp;quot;viewport&amp;amp;quot; content=&amp;amp;quot;width=device-width, initial-scale=0.5, minimum-scale=0.5, maximum-scale=0.5, user-scalable=no&amp;amp;quot;&amp;amp;gt;
-    &amp;amp;lt;title&amp;amp;gt;Title&amp;amp;lt;/title&amp;amp;gt;
-    &amp;amp;lt;style&amp;amp;gt;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.5, minimum-scale=0.5, maximum-scale=0.5, user-scalable=no">
+    <title>Title</title>
+    <style>
         * {
             padding: 0;
             margin: 0;
@@ -121,7 +121,7 @@ android: 表现正常
             width: 100%;
             height: 4.0833rem;
         }
-        .bottom &amp;amp;gt; input {
+        .bottom > input {
             width: 100%;
             border: 0;
             outline: 0;
@@ -131,57 +131,57 @@ android: 表现正常
             line-height: 4.0833rem;
             font-size: 1.25rem;
         }
-    &amp;amp;lt;/style&amp;amp;gt;
-&amp;amp;lt;/head&amp;amp;gt;
-&amp;amp;lt;body&amp;amp;gt;
-&amp;amp;lt;div id=&amp;amp;quot;scroll-body&amp;amp;quot;&amp;amp;gt;
-    &amp;amp;lt;ul&amp;amp;gt;&amp;amp;lt;/ul&amp;amp;gt;
-&amp;amp;lt;/div&amp;amp;gt;
-&amp;amp;lt;div class=&amp;amp;quot;bottom&amp;amp;quot;&amp;amp;gt;&amp;amp;lt;input type=&amp;amp;quot;text&amp;amp;quot; placeholder=&amp;amp;quot;请输入内容&amp;amp;quot; onfocus=&amp;amp;quot;evocation()&amp;amp;quot;&amp;amp;gt;&amp;amp;lt;/div&amp;amp;gt;
-&amp;amp;lt;script src=&amp;amp;quot;./js/jroll.js&amp;amp;quot;&amp;amp;gt;&amp;amp;lt;/script&amp;amp;gt;
-&amp;amp;lt;script&amp;amp;gt;
+    </style>
+</head>
+<body>
+<div id="scroll-body">
+    <ul></ul>
+</div>
+<div class="bottom"><input type="text" placeholder="请输入内容" onfocus="evocation()"></div>
+<script src="./js/jroll.js"></script>
+<script>
     function getClientHeight() {
 //        获取移动端屏幕高度
         var winHeight
         if (window.innerHeight) {
             winHeight = window.innerHeight;
-        } else if ((document.body) &amp;amp;amp;&amp;amp;amp; (document.body.clientHeight)) {
+        } else if ((document.body) && (document.body.clientHeight)) {
             winHeight = document.body.clientHeight;
-        } else if (document.documentElement &amp;amp;amp;&amp;amp;amp; document.documentElement.clientHeight &amp;amp;amp;&amp;amp;amp; document.documentElement.clientWidth) {
+        } else if (document.documentElement && document.documentElement.clientHeight && document.documentElement.clientWidth) {
             winHeight = document.documentElement.clientHeight;
         }
         return winHeight
     }
 
-    var scrollBody = document.querySelector(&amp;amp;#039;#scroll-body&amp;amp;#039;) //获取滚动区域的DOM
-    var bottom = document.querySelector(&amp;amp;#039;.bottom&amp;amp;#039;) //获取底部DOM
+    var scrollBody = document.querySelector('#scroll-body') //获取滚动区域的DOM
+    var bottom = document.querySelector('.bottom') //获取底部DOM
     function renderLi() {
         //渲染li列表，采用DocumentFragment方案
-        var ul = document.querySelector(&amp;amp;#039;ul&amp;amp;#039;)
+        var ul = document.querySelector('ul')
         var dFrag = document.createDocumentFragment()
         var startTime = new Date().getTime()
-        for (var i = 0; i &amp;amp;lt; 5000; i++) {
-            var li = document.createElement(&amp;amp;quot;li&amp;amp;quot;)
+        for (var i = 0; i < 5000; i++) {
+            var li = document.createElement("li")
             li.textContent = i
             dFrag.appendChild(li)
         }
         ul.appendChild(dFrag)
         var endTime = new Date().getTime()
-        console.log(&amp;amp;#039;渲染耗时：&amp;amp;#039;, endTime-startTime, &amp;amp;#039;ms&amp;amp;#039;)
+        console.log('渲染耗时：', endTime-startTime, 'ms')
     }
     function evocation() {
         //ios唤出弹框，Android的不需要
-        setTimeout(() =&amp;amp;gt; document.body.scrollTop = document.body.scrollHeight, 500)
+        setTimeout(() => document.body.scrollTop = document.body.scrollHeight, 500)
     }
     renderLi()
-    document.addEventListener(&amp;amp;#039;DOMContentLoaded&amp;amp;#039;, function() {
+    document.addEventListener('DOMContentLoaded', function() {
         var height = getClientHeight() - bottom.offsetHeight //获取滚动区域高度
-        scrollBody.style.height = height + &amp;amp;#039;px&amp;amp;#039; //计算出实际的滚动区域的高度，然后设置
+        scrollBody.style.height = height + 'px' //计算出实际的滚动区域的高度，然后设置
         new JRoll(scrollBody) //实例化JRoll插件
     })
-&amp;amp;lt;/script&amp;amp;gt;
-&amp;amp;lt;/body&amp;amp;gt;
-&amp;amp;lt;/html&amp;amp;gt;
+</script>
+</body>
+</html>
 ```
 
 ### 总结

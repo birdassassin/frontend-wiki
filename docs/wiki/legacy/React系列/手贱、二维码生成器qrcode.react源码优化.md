@@ -13,14 +13,14 @@ update和render方法是最主要的，render方法中，return了一个canvas�
 
 ```javascript
 //ES6版本的qrcode.react
-import React from &amp;amp;#039;react&amp;amp;#039;;
-import PropTypes from &amp;amp;#039;prop-types&amp;amp;#039;;
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import QRCodeImpl from &amp;amp;#039;qr.js/lib/QRCode&amp;amp;#039;;
+import QRCodeImpl from 'qr.js/lib/QRCode';
 
-import ErrorCorrectLevel from &amp;amp;#039;qr.js/lib/ErrorCorrectLevel&amp;amp;#039;;
+import ErrorCorrectLevel from 'qr.js/lib/ErrorCorrectLevel';
 
-const getBackingStorePixelRatio = ctx =&amp;amp;gt; ctx.webkitBackingStorePixelRatio || ctx.mozBackingStorePixelRatio || ctx.msBackingStorePixelRatio || ctx.oBackingStorePixelRatio || ctx.backingStorePixelRatio || 1
+const getBackingStorePixelRatio = ctx => ctx.webkitBackingStorePixelRatio || ctx.mozBackingStorePixelRatio || ctx.msBackingStorePixelRatio || ctx.oBackingStorePixelRatio || ctx.backingStorePixelRatio || 1
 
 export default class QRCode extends React.PureComponent {
     constructor(props) {
@@ -47,7 +47,7 @@ export default class QRCode extends React.PureComponent {
         if (this._canvas != null) {
             const canvas = this._canvas;
             
-            const ctx = canvas.getContext(&amp;amp;#039;2d&amp;amp;#039;);
+            const ctx = canvas.getContext('2d');
             if (!ctx) {
                 return;
             }
@@ -57,39 +57,39 @@ export default class QRCode extends React.PureComponent {
             const scale = (window.devicePixelRatio || 1) / getBackingStorePixelRatio(ctx);
             canvas.height = canvas.width = size * scale;
             ctx.scale(scale, scale);
-            cells.forEach((row, rdx) =&amp;amp;gt; {
-                row.forEach((cell, cdx) =&amp;amp;gt; {
-                    ctx &amp;amp;amp;&amp;amp;amp; (ctx.fillStyle = cell ? fgColor : bgColor);
+            cells.forEach((row, rdx) => {
+                row.forEach((cell, cdx) => {
+                    ctx && (ctx.fillStyle = cell ? fgColor : bgColor);
                     const w = Math.ceil((cdx + 1) * tileW) - Math.floor(cdx * tileW);
                     const h = Math.ceil((rdx + 1) * tileH) - Math.floor(rdx * tileH);
-                    ctx &amp;amp;amp;&amp;amp;amp; ctx.fillRect(Math.round(cdx * tileW), Math.round(rdx * tileH), w, h);
+                    ctx && ctx.fillRect(Math.round(cdx * tileW), Math.round(rdx * tileH), w, h);
                 });
             });
         }
     }
     render() {
         const { size } = this.props
-        return &amp;amp;lt;canvas ref={_ref =&amp;amp;gt; this._canvas = _ref} style=&amp;#123;&amp;#123;height: size, width: size&amp;#125;&amp;#125; &amp;amp;gt;&amp;amp;lt;/canvas&amp;amp;gt;
+        return <canvas ref={_ref => this._canvas = _ref} style=&amp;#123;&amp;#123;height: size, width: size&amp;#125;&amp;#125; ></canvas>
     }
 }
 
-Object.defineProperty(QRCode, &amp;amp;#039;defaultProps&amp;amp;#039;, {
+Object.defineProperty(QRCode, 'defaultProps', {
     enumerable: true,
     writable: true,
     value: {
         size: 128,
-        level: &amp;amp;#039;L&amp;amp;#039;,
-        bgColor: &amp;amp;#039;#FFFFFF&amp;amp;#039;,
-        fgColor: &amp;amp;#039;#000000&amp;amp;#039;
+        level: 'L',
+        bgColor: '#FFFFFF',
+        fgColor: '#000000'
     }
 });
-Object.defineProperty(QRCode, &amp;amp;#039;propTypes&amp;amp;#039;, {
+Object.defineProperty(QRCode, 'propTypes', {
     enumerable: true,
     writable: true,
     value: {
         value: PropTypes.string.isRequired,
         size: PropTypes.any,
-        level: PropTypes.oneOf([&amp;amp;#039;L&amp;amp;#039;, &amp;amp;#039;M&amp;amp;#039;, &amp;amp;#039;Q&amp;amp;#039;, &amp;amp;#039;H&amp;amp;#039;]),
+        level: PropTypes.oneOf(['L', 'M', 'Q', 'H']),
         bgColor: PropTypes.string,
         fgColor: PropTypes.string
     }
@@ -110,12 +110,12 @@ function getSize(size) {
 
 这样做的确可以，比如我现在调用这个二维码组件。传入size为70，那么你使用iPhone5打开，canvas就是70，使用iPhone 6 plus打开，canvas就是90。这样实现了根据百分比去适配。
 ```javacript
-&amp;amp;lt;QRCode value=&amp;amp;quot;https://www.xx.com&amp;amp;quot; size={70} /&amp;amp;gt;
+<QRCode value="https://www.xx.com" size={70} />
 ```
 **3、再次优化**
 接着，我发现还可以把getSize提取到父组件，然后先算出具体的值，在传递给QRCode。
 ```javascript
-&amp;amp;lt;QRCode value=&amp;amp;quot;https://www.xx.com&amp;amp;quot; size={getSize(70)} /&amp;amp;gt;
+<QRCode value="https://www.xx.com" size={getSize(70)} />
 ```
 **总结**
 这篇文章探究的是如何自适应canvas的宽高，最终的做法很简单，和qrcode.react插件内部没有关系，而我一开始做的源码反编译是为了先探究清楚源码核心，从内部往外冒泡，找到最简单的解决办法。

@@ -16,21 +16,21 @@
 **Bang.vue：排行榜父组件**，bangList是一个数组，for in遍历出来的是一个值属性，根据MDN文档对于for in遍历的解释，通常for in用来遍历对象Object。我们需要给遍历对象指定一个key，然后把遍历出来的属性list传递给子组件。
 
 ```
-&amp;amp;lt;template&amp;amp;gt;
-    &amp;amp;lt;div&amp;amp;gt;
-        &amp;amp;lt;ul class=&amp;amp;quot;bang-ul&amp;amp;quot;&amp;amp;gt;
-            &amp;amp;lt;app-bang v-for=&amp;amp;quot;list in bangList&amp;amp;quot; :key=&amp;amp;quot;list.id&amp;amp;quot; :list=&amp;amp;quot;list&amp;amp;quot;&amp;amp;gt;&amp;amp;lt;/app-bang&amp;amp;gt;
-        &amp;amp;lt;/ul&amp;amp;gt;
-    &amp;amp;lt;/div&amp;amp;gt;
-&amp;amp;lt;/template&amp;amp;gt;
+<template>
+    <div>
+        <ul class="bang-ul">
+            <app-bang v-for="list in bangList" :key="list.id" :list="list"></app-bang>
+        </ul>
+    </div>
+</template>
 
-&amp;amp;lt;script&amp;amp;gt;
-    import Bang from &amp;amp;#039;./template/BangList.vue&amp;amp;#039; //导入排行榜列表子组件
-    import { bangList } from &amp;amp;#039;../../static/data/data&amp;amp;#039; //导入数据
+<script>
+    import Bang from './template/BangList.vue' //导入排行榜列表子组件
+    import { bangList } from '../../static/data/data' //导入数据
     export default {
-        name: &amp;amp;#039;Bang&amp;amp;#039;,
+        name: 'Bang',
         components: {
-            &amp;amp;#039;app-bang&amp;amp;#039;: Bang
+            'app-bang': Bang
         },
         data() {
             return {
@@ -38,31 +38,31 @@
             }
         }
     }
-&amp;amp;lt;/script&amp;amp;gt;
+</script>
 ```
 
 **BangList：排行榜列表子组件，** 子组件是一个li，因为li是可点击的路由，所以使用router-link包裹，:to是绑定路由地址，然后img绑定了图片路径，在dom标签中输出使用双大括号&#123;&#123;list.title&#125;&#125;，而export default是指默认导出的js代码，props表示获取从父组件传递过来的参数，至于参数验证，以后再添加。
 
 ```
-&amp;amp;lt;template&amp;amp;gt;
-    &amp;amp;lt;li&amp;amp;gt;
-        &amp;amp;lt;router-link :to=&amp;amp;quot;list.pathname&amp;amp;quot;&amp;amp;gt;
-            &amp;amp;lt;div class=&amp;amp;quot;left&amp;amp;quot;&amp;amp;gt;
-                &amp;amp;lt;img :src=&amp;amp;quot;list.url&amp;amp;quot; :alt=&amp;amp;quot;list.title&amp;amp;quot;&amp;amp;gt;
-            &amp;amp;lt;/div&amp;amp;gt;
-            &amp;amp;lt;div class=&amp;amp;quot;right&amp;amp;quot;&amp;amp;gt;
+<template>
+    <li>
+        <router-link :to="list.pathname">
+            <div class="left">
+                <img :src="list.url" :alt="list.title">
+            </div>
+            <div class="right">
                 &amp;#123;&amp;#123;list.title&amp;#125;&amp;#125;
-            &amp;amp;lt;/div&amp;amp;gt;
-            &amp;amp;lt;i class=&amp;amp;quot;fa fa-angle-right&amp;amp;quot;&amp;amp;gt;&amp;amp;lt;/i&amp;amp;gt;
-        &amp;amp;lt;/router-link&amp;amp;gt;
-    &amp;amp;lt;/li&amp;amp;gt;
-&amp;amp;lt;/template&amp;amp;gt;
+            </div>
+            <i class="fa fa-angle-right"></i>
+        </router-link>
+    </li>
+</template>
 
-&amp;amp;lt;script&amp;amp;gt;
+<script>
     export default {
-        props: [&amp;amp;#039;list&amp;amp;#039;]
+        props: ['list']
     }
-&amp;amp;lt;/script&amp;amp;gt;
+</script>
 ```
 
 ### **2、条件渲染，v-if；**
@@ -72,21 +72,21 @@ v-if非常好用，在vue2中，你可以享受到条件语句带来的便利，
 **Artist.vue：歌手列表父组件**，因为artist是一个Object，所以首先由Object.keys()的方式遍历出key，然后使用v-if判断singer等于不同的key时渲染不同的值到模板。如果你看代码有点晕，可以运行项目对着看。
 
 ```
-&amp;amp;lt;template&amp;amp;gt;
-    &amp;amp;lt;div&amp;amp;gt;
-        &amp;amp;lt;artist-list v-for=&amp;amp;quot;singer in Object.keys(artist)&amp;amp;quot; v-if=&amp;amp;quot;singer === &amp;amp;#039;listOne&amp;amp;#039;&amp;amp;quot; :singer=&amp;amp;quot;artist.listOne&amp;amp;quot;&amp;amp;gt;&amp;amp;lt;/artist-list&amp;amp;gt;
-        &amp;amp;lt;artist-list v-for=&amp;amp;quot;singer in Object.keys(artist)&amp;amp;quot; v-if=&amp;amp;quot;singer === &amp;amp;#039;listTwo&amp;amp;#039;&amp;amp;quot; :singer=&amp;amp;quot;artist.listTwo&amp;amp;quot;&amp;amp;gt;&amp;amp;lt;/artist-list&amp;amp;gt;
-        &amp;amp;lt;artist-list v-for=&amp;amp;quot;singer in Object.keys(artist)&amp;amp;quot; v-if=&amp;amp;quot;singer === &amp;amp;#039;listThree&amp;amp;#039;&amp;amp;quot; :singer=&amp;amp;quot;artist.listThree&amp;amp;quot;&amp;amp;gt;&amp;amp;lt;/artist-list&amp;amp;gt;
-        &amp;amp;lt;artist-list v-for=&amp;amp;quot;singer in Object.keys(artist)&amp;amp;quot; v-if=&amp;amp;quot;singer === &amp;amp;#039;listFour&amp;amp;#039;&amp;amp;quot; :singer=&amp;amp;quot;artist.listFour&amp;amp;quot;&amp;amp;gt;&amp;amp;lt;/artist-list&amp;amp;gt;
-    &amp;amp;lt;/div&amp;amp;gt;
-&amp;amp;lt;/template&amp;amp;gt;
+<template>
+    <div>
+        <artist-list v-for="singer in Object.keys(artist)" v-if="singer === 'listOne'" :singer="artist.listOne"></artist-list>
+        <artist-list v-for="singer in Object.keys(artist)" v-if="singer === 'listTwo'" :singer="artist.listTwo"></artist-list>
+        <artist-list v-for="singer in Object.keys(artist)" v-if="singer === 'listThree'" :singer="artist.listThree"></artist-list>
+        <artist-list v-for="singer in Object.keys(artist)" v-if="singer === 'listFour'" :singer="artist.listFour"></artist-list>
+    </div>
+</template>
 
-&amp;amp;lt;script&amp;amp;gt;
-    import SingerList from &amp;amp;#039;./templates/SingerList.vue&amp;amp;#039; //导入歌手列表子组件
-    import { artist } from &amp;amp;#039;../../static/data/data&amp;amp;#039; //导入歌手列表数据
+<script>
+    import SingerList from './templates/SingerList.vue' //导入歌手列表子组件
+    import { artist } from '../../static/data/data' //导入歌手列表数据
     export default {
         components: {
-            &amp;amp;#039;artist-list&amp;amp;#039;: SingerList
+            'artist-list': SingerList
         },
         data() {
             return {
@@ -94,26 +94,26 @@ v-if非常好用，在vue2中，你可以享受到条件语句带来的便利，
             }
         }
     }
-&amp;amp;lt;/script&amp;amp;gt;
+</script>
 ```
 
 **SingeList.vue：歌手列表子组件**，这个子组件的实现和排行榜的例子非常相似。
 
 ```
-&amp;amp;lt;template&amp;amp;gt;
-    &amp;amp;lt;ul class=&amp;amp;quot;singer-ul&amp;amp;quot;&amp;amp;gt;
-        &amp;amp;lt;li v-for=&amp;amp;quot;list in singer&amp;amp;quot;&amp;amp;gt;
-            &amp;amp;lt;router-link :to=&amp;amp;quot;list.pathname&amp;amp;quot;&amp;amp;gt;&amp;#123;&amp;#123;list.title&amp;#125;&amp;#125;&amp;amp;lt;/router-link&amp;amp;gt;
-            &amp;amp;lt;i class=&amp;amp;quot;fa fa-angle-right&amp;amp;quot;&amp;amp;gt;&amp;amp;lt;/i&amp;amp;gt;
-        &amp;amp;lt;/li&amp;amp;gt;
-    &amp;amp;lt;/ul&amp;amp;gt;
-&amp;amp;lt;/template&amp;amp;gt;
+<template>
+    <ul class="singer-ul">
+        <li v-for="list in singer">
+            <router-link :to="list.pathname">&amp;#123;&amp;#123;list.title&amp;#125;&amp;#125;</router-link>
+            <i class="fa fa-angle-right"></i>
+        </li>
+    </ul>
+</template>
 
-&amp;amp;lt;script&amp;amp;gt;
+<script>
     export default {
-        props: [&amp;amp;#039;singer&amp;amp;#039;]
+        props: ['singer']
     }
-&amp;amp;lt;/script&amp;amp;gt;
+</script>
 ```
 
 ### **3、自适应布局；**
@@ -170,17 +170,17 @@ v-if非常好用，在vue2中，你可以享受到条件语句带来的便利，
 接着，把写好的方法用v-on:click="reverseMsg(song.title)"绑定到li上，这样你就能获取当然点击对象的值，而不需要纠结用this来获取当前点击的dom对象了。
 
 ```
-&amp;amp;lt;template&amp;amp;gt;
-    &amp;amp;lt;li v-if=&amp;amp;quot;seen&amp;amp;quot; v-on:click=&amp;amp;quot;reverseMsg(song.title)&amp;amp;quot;&amp;amp;gt;
-        &amp;amp;lt;span class=&amp;amp;quot;title&amp;amp;quot; :title=&amp;amp;quot;song.singer&amp;amp;quot;&amp;amp;gt;&amp;#123;&amp;#123;song.singer&amp;#125;&amp;#125; - &amp;#123;&amp;#123;song.title&amp;#125;&amp;#125;&amp;amp;lt;/span&amp;amp;gt;
-        &amp;amp;lt;i :style=&amp;amp;quot;{background: &amp;amp;#039;url(&amp;amp;#039;+ downLoadIcon +&amp;amp;#039;) no-repeat&amp;amp;#039;}&amp;amp;quot;&amp;amp;gt;&amp;amp;lt;/i&amp;amp;gt;
-    &amp;amp;lt;/li&amp;amp;gt;
-&amp;amp;lt;/template&amp;amp;gt;
+<template>
+    <li v-if="seen" v-on:click="reverseMsg(song.title)">
+        <span class="title" :title="song.singer">&amp;#123;&amp;#123;song.singer&amp;#125;&amp;#125; - &amp;#123;&amp;#123;song.title&amp;#125;&amp;#125;</span>
+        <i :style="{background: 'url('+ downLoadIcon +') no-repeat'}"></i>
+    </li>
+</template>
 
-&amp;amp;lt;script&amp;amp;gt;
-    import downLoadIcon from &amp;amp;#039;../../../static/outImg&amp;amp;#039;
+<script>
+    import downLoadIcon from '../../../static/outImg'
     export default {
-        props: [&amp;amp;#039;song&amp;amp;#039;],
+        props: ['song'],
         data() {
             return {
                 downLoadIcon: downLoadIcon,
@@ -189,11 +189,11 @@ v-if非常好用，在vue2中，你可以享受到条件语句带来的便利，
         },
         methods: {
             reverseMsg(title) {
-                console.log(&amp;amp;#039;title: &amp;amp;#039;, title)
+                console.log('title: ', title)
             }
         }
     }
-&amp;amp;lt;/script&amp;amp;gt;
+</script>
 ```
 
 
@@ -206,23 +206,23 @@ v-if非常好用，在vue2中，你可以享受到条件语句带来的便利，
 
 ```
 // 引用图片路径
-let a = require(&amp;amp;#039;./img/home/banner1.png&amp;amp;#039;)
-let b = require(&amp;amp;#039;./img/home/banner2.jpg&amp;amp;#039;)
-let c = require(&amp;amp;#039;./img/home/banner3.jpg&amp;amp;#039;)
-let d = require(&amp;amp;#039;./img/home/banner4.jpg&amp;amp;#039;)
-let e = require(&amp;amp;#039;./img/home/banner5.jpg&amp;amp;#039;)
-let downLoadIcon = require(&amp;amp;#039;./img/home/download_icon.png&amp;amp;#039;)
+let a = require('./img/home/banner1.png')
+let b = require('./img/home/banner2.jpg')
+let c = require('./img/home/banner3.jpg')
+let d = require('./img/home/banner4.jpg')
+let e = require('./img/home/banner5.jpg')
+let downLoadIcon = require('./img/home/download_icon.png')
 
-let bang1 = require(&amp;amp;#039;./img/bang/bang1.png&amp;amp;#039;)
-let bang2 = require(&amp;amp;#039;./img/bang/bang2.png&amp;amp;#039;)
-let bang3 = require(&amp;amp;#039;./img/bang/bang3.png&amp;amp;#039;)
-let bang4 = require(&amp;amp;#039;./img/bang/bang4.png&amp;amp;#039;)
-let bang5 = require(&amp;amp;#039;./img/bang/bang5.png&amp;amp;#039;)
-let bang6 = require(&amp;amp;#039;./img/bang/bang6.png&amp;amp;#039;)
-let bang7 = require(&amp;amp;#039;./img/bang/bang7.png&amp;amp;#039;)
-let bang8 = require(&amp;amp;#039;./img/bang/bang8.png&amp;amp;#039;)
-let bang9 = require(&amp;amp;#039;./img/bang/bang9.png&amp;amp;#039;)
-let bang10 = require(&amp;amp;#039;./img/bang/bang10.png&amp;amp;#039;)
+let bang1 = require('./img/bang/bang1.png')
+let bang2 = require('./img/bang/bang2.png')
+let bang3 = require('./img/bang/bang3.png')
+let bang4 = require('./img/bang/bang4.png')
+let bang5 = require('./img/bang/bang5.png')
+let bang6 = require('./img/bang/bang6.png')
+let bang7 = require('./img/bang/bang7.png')
+let bang8 = require('./img/bang/bang8.png')
+let bang9 = require('./img/bang/bang9.png')
+let bang10 = require('./img/bang/bang10.png')
 
 // 导出图片
 module.exports = {
@@ -247,7 +247,7 @@ module.exports = {
 在项目中引用图片。
 
 ```
-import { bang1, bang2, bang3, bang4, bang5, bang6, bang7, bang8, bang9, bang10 } from &amp;amp;#039;../outImg&amp;amp;#039;
+import { bang1, bang2, bang3, bang4, bang5, bang6, bang7, bang8, bang9, bang10 } from '../outImg'
 
 ```
 **静态数据管理：**
@@ -257,52 +257,52 @@ import { bang1, bang2, bang3, bang4, bang5, bang6, bang7, bang8, bang9, bang10 }
 ```
 / 新歌列表
 const songList = [
-    {_id: &amp;amp;#039;songs_CC156F3A7186FB12768B2C1B48FDAA74&amp;amp;#039;, singer: &amp;amp;#039;庄心妍&amp;amp;#039;, title: &amp;amp;#039;屋檐下的浪漫&amp;amp;#039;},
-    {_id: &amp;amp;#039;songs_9AA99B44B77C50737A42E921EF51C937&amp;amp;#039;, singer: &amp;amp;#039;童可可&amp;amp;#039;, title: &amp;amp;#039;薛定谔的猫&amp;amp;#039;},
-    {_id: &amp;amp;#039;songs_9154AD94E915A6A6CDD6AF57EEFE06A6&amp;amp;#039;, singer: &amp;amp;#039;阿杜&amp;amp;#039;, title: &amp;amp;#039;一诺千年&amp;amp;#039;},
-    {_id: &amp;amp;#039;songs_53C3F2DBE2790BE8884E6D8F5553FE50&amp;amp;#039;, singer: &amp;amp;#039;黄子韬&amp;amp;#039;, title: &amp;amp;#039;Promise&amp;amp;#039;},
-    {_id: &amp;amp;#039;songs_39224F3C618C955352142DB989737B9D&amp;amp;#039;, singer: &amp;amp;#039;刘恺威、蒋欣&amp;amp;#039;, title: &amp;amp;#039;明明爱【继承人插曲】&amp;amp;#039;},
-    {_id: &amp;amp;#039;songs_2B0BAE72AFC013419B2D21D86C0BA515&amp;amp;#039;, singer: &amp;amp;#039;林忆莲&amp;amp;#039;, title: &amp;amp;#039;我不能忘记你【记忆大师记忆主题曲】&amp;amp;#039;},
-    {_id: &amp;amp;#039;songs_A350CE1A5B0769D3E39C311C933F1234&amp;amp;#039;, singer: &amp;amp;#039;高夫&amp;amp;#039;, title: &amp;amp;#039;青春去哪了&amp;amp;#039;},
-    {_id: &amp;amp;#039;songs_5184FAAD32883D73533714BACAA98A1F&amp;amp;#039;, singer: &amp;amp;#039;华晨宇&amp;amp;#039;, title: &amp;amp;#039; 寻【花儿与少年3·冒险季主题曲】&amp;amp;#039;},
-    {_id: &amp;amp;#039;songs_7A5B2CC635273C4B81167F19E8897773&amp;amp;#039;, singer: &amp;amp;#039;鹏泊&amp;amp;#039;, title: &amp;amp;#039;春来鸟&amp;amp;#039;},
-    {_id: &amp;amp;#039;songs_4BCA5B307683B83A6BC2F34A93E7DBC2&amp;amp;#039;, singer: &amp;amp;#039;阿兰&amp;amp;#039;, title: &amp;amp;#039;兰之乐光&amp;amp;#039;},
-    {_id: &amp;amp;#039;songs_76448B8D90609F4657782A2F4ACE3C1C&amp;amp;#039;, singer: &amp;amp;#039;星月组合&amp;amp;#039;, title: &amp;amp;#039;今夜的你又在和谁约会&amp;amp;#039;}
+    {_id: 'songs_CC156F3A7186FB12768B2C1B48FDAA74', singer: '庄心妍', title: '屋檐下的浪漫'},
+    {_id: 'songs_9AA99B44B77C50737A42E921EF51C937', singer: '童可可', title: '薛定谔的猫'},
+    {_id: 'songs_9154AD94E915A6A6CDD6AF57EEFE06A6', singer: '阿杜', title: '一诺千年'},
+    {_id: 'songs_53C3F2DBE2790BE8884E6D8F5553FE50', singer: '黄子韬', title: 'Promise'},
+    {_id: 'songs_39224F3C618C955352142DB989737B9D', singer: '刘恺威、蒋欣', title: '明明爱【继承人插曲】'},
+    {_id: 'songs_2B0BAE72AFC013419B2D21D86C0BA515', singer: '林忆莲', title: '我不能忘记你【记忆大师记忆主题曲】'},
+    {_id: 'songs_A350CE1A5B0769D3E39C311C933F1234', singer: '高夫', title: '青春去哪了'},
+    {_id: 'songs_5184FAAD32883D73533714BACAA98A1F', singer: '华晨宇', title: ' 寻【花儿与少年3·冒险季主题曲】'},
+    {_id: 'songs_7A5B2CC635273C4B81167F19E8897773', singer: '鹏泊', title: '春来鸟'},
+    {_id: 'songs_4BCA5B307683B83A6BC2F34A93E7DBC2', singer: '阿兰', title: '兰之乐光'},
+    {_id: 'songs_76448B8D90609F4657782A2F4ACE3C1C', singer: '星月组合', title: '今夜的你又在和谁约会'}
 ]
 
 // 排行榜
 const bangList = [
-    {url: bang1, title: &amp;amp;#039;酷狗飙升榜&amp;amp;#039;, pathname: &amp;amp;#039;&amp;amp;#039;},
-    {url: bang2, title: &amp;amp;#039;酷狗TOP500&amp;amp;#039;, pathname: &amp;amp;#039;&amp;amp;#039;},
-    {url: bang3, title: &amp;amp;#039;网络红歌榜&amp;amp;#039;, pathname: &amp;amp;#039;&amp;amp;#039;},
-    {url: bang4, title: &amp;amp;#039;DJ热歌榜&amp;amp;#039;, pathname: &amp;amp;#039;&amp;amp;#039;},
-    {url: bang5, title: &amp;amp;#039;华语新歌榜&amp;amp;#039;, pathname: &amp;amp;#039;&amp;amp;#039;},
-    {url: bang6, title: &amp;amp;#039;欧美新歌榜&amp;amp;#039;, pathname: &amp;amp;#039;&amp;amp;#039;},
-    {url: bang7, title: &amp;amp;#039;韩国新歌榜&amp;amp;#039;, pathname: &amp;amp;#039;&amp;amp;#039;},
-    {url: bang8, title: &amp;amp;#039;日本新歌榜&amp;amp;#039;, pathname: &amp;amp;#039;&amp;amp;#039;},
-    {url: bang9, title: &amp;amp;#039;粤语新歌榜&amp;amp;#039;, pathname: &amp;amp;#039;&amp;amp;#039;},
-    {url: bang10, title: &amp;amp;#039;原创音乐榜&amp;amp;#039;, pathname: &amp;amp;#039;&amp;amp;#039;}
+    {url: bang1, title: '酷狗飙升榜', pathname: ''},
+    {url: bang2, title: '酷狗TOP500', pathname: ''},
+    {url: bang3, title: '网络红歌榜', pathname: ''},
+    {url: bang4, title: 'DJ热歌榜', pathname: ''},
+    {url: bang5, title: '华语新歌榜', pathname: ''},
+    {url: bang6, title: '欧美新歌榜', pathname: ''},
+    {url: bang7, title: '韩国新歌榜', pathname: ''},
+    {url: bang8, title: '日本新歌榜', pathname: ''},
+    {url: bang9, title: '粤语新歌榜', pathname: ''},
+    {url: bang10, title: '原创音乐榜', pathname: ''}
 ]
 
 // 歌手
 const artist = {
-    &amp;amp;#039;listOne&amp;amp;#039;: [
-        {pathname: &amp;amp;#039;&amp;amp;#039;, title: &amp;amp;#039;热门歌手&amp;amp;#039;}
+    'listOne': [
+        {pathname: '', title: '热门歌手'}
     ],
-    &amp;amp;#039;listTwo&amp;amp;#039;: [
-        {pathname: &amp;amp;#039;&amp;amp;#039;, title: &amp;amp;#039;华语男歌手&amp;amp;#039;},
-        {pathname: &amp;amp;#039;&amp;amp;#039;, title: &amp;amp;#039;华语女歌手&amp;amp;#039;},
-        {pathname: &amp;amp;#039;&amp;amp;#039;, title: &amp;amp;#039;华语组合&amp;amp;#039;},
+    'listTwo': [
+        {pathname: '', title: '华语男歌手'},
+        {pathname: '', title: '华语女歌手'},
+        {pathname: '', title: '华语组合'},
     ],
-    &amp;amp;#039;listThree&amp;amp;#039;: [
-        {pathname: &amp;amp;#039;&amp;amp;#039;, title: &amp;amp;#039;日韩男歌手&amp;amp;#039;},
-        {pathname: &amp;amp;#039;&amp;amp;#039;, title: &amp;amp;#039;日韩女歌手&amp;amp;#039;},
-        {pathname: &amp;amp;#039;&amp;amp;#039;, title: &amp;amp;#039;日韩组合&amp;amp;#039;},
+    'listThree': [
+        {pathname: '', title: '日韩男歌手'},
+        {pathname: '', title: '日韩女歌手'},
+        {pathname: '', title: '日韩组合'},
     ],
-    &amp;amp;#039;listFour&amp;amp;#039;: [
-        {pathname: &amp;amp;#039;&amp;amp;#039;, title: &amp;amp;#039;欧美男歌手&amp;amp;#039;},
-        {pathname: &amp;amp;#039;&amp;amp;#039;, title: &amp;amp;#039;欧美女歌手&amp;amp;#039;},
-        {pathname: &amp;amp;#039;&amp;amp;#039;, title: &amp;amp;#039;欧美组合&amp;amp;#039;}
+    'listFour': [
+        {pathname: '', title: '欧美男歌手'},
+        {pathname: '', title: '欧美女歌手'},
+        {pathname: '', title: '欧美组合'}
     ]
 }
 

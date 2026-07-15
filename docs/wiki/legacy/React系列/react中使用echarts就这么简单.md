@@ -13,9 +13,9 @@
 ### 插件版本号
 
 ```
-  &amp;amp;quot;echarts&amp;amp;quot;: &amp;amp;quot;^3.6.2&amp;amp;quot;,
-  &amp;amp;quot;react&amp;amp;quot;: &amp;amp;quot;^15.6.1&amp;amp;quot;,
-  &amp;amp;quot;react-dom&amp;amp;quot;: &amp;amp;quot;^15.6.1&amp;amp;quot;
+  "echarts": "^3.6.2",
+  "react": "^15.6.1",
+  "react-dom": "^15.6.1"
 
 ```
 

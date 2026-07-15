@@ -29,13 +29,13 @@ React提供了一个声明性的API，以便您不必担心每个更新的确切
 根目录下的任何组件也将被卸载，并将其状态销毁。例如，当差异:
 
 ```javascript
-&amp;amp;lt;div&amp;amp;gt;
-  &amp;amp;lt;Counter /&amp;amp;gt;
-&amp;amp;lt;/div&amp;amp;gt;
+<div>
+  <Counter />
+</div>
 
-&amp;amp;lt;span&amp;amp;gt;
-  &amp;amp;lt;Counter /&amp;amp;gt;
-&amp;amp;lt;/span&amp;amp;gt;
+<span>
+  <Counter />
+</span>
 ```
 
 这将销毁旧的Counter，并重新安装一个新的Counter。
@@ -45,9 +45,9 @@ React提供了一个声明性的API，以便您不必担心每个更新的确切
 比较同一类型的两个React DOM元素时，React查看两者的属性，保持相同的底层DOM节点，并只更新已更改的属性。例如：
 
 ```javascript
-&amp;amp;lt;div className=&amp;amp;quot;before&amp;amp;quot; title=&amp;amp;quot;stuff&amp;amp;quot; /&amp;amp;gt;
+<div className="before" title="stuff" />
 
-&amp;amp;lt;div className=&amp;amp;quot;after&amp;amp;quot; title=&amp;amp;quot;stuff&amp;amp;quot; /&amp;amp;gt;
+<div className="after" title="stuff" />
 ```
 
 通过比较这两个元素，React知道只修改底层DOM节点上的className。 
@@ -55,9 +55,9 @@ React提供了一个声明性的API，以便您不必担心每个更新的确切
 更新样式时，React也知道只更新已更改的属性。例如：
 
 ```javascript
-&amp;amp;lt;div style=&amp;#123;&amp;#123;color: &amp;amp;#039;red&amp;amp;#039;, fontWeight: &amp;amp;#039;bold&amp;amp;#039;&amp;#125;&amp;#125; /&amp;amp;gt;
+<div style=&amp;#123;&amp;#123;color: 'red', fontWeight: 'bold'&amp;#125;&amp;#125; />
 
-&amp;amp;lt;div style=&amp;#123;&amp;#123;color: &amp;amp;#039;green&amp;amp;#039;, fontWeight: &amp;amp;#039;bold&amp;amp;#039;&amp;#125;&amp;#125; /&amp;amp;gt;
+<div style=&amp;#123;&amp;#123;color: 'green', fontWeight: 'bold'&amp;#125;&amp;#125; />
 ```
 
 在这两个元素之间转换时，React知道只修改颜色样式，而不是fontWeight。 
@@ -77,16 +77,16 @@ React提供了一个声明性的API，以便您不必担心每个更新的确切
 例如，在子元素的末尾添加元素时，在这两棵树之间转换效果很好：
 
 ```html
-&amp;amp;lt;ul&amp;amp;gt;
-  &amp;amp;lt;li&amp;amp;gt;first&amp;amp;lt;/li&amp;amp;gt;
-  &amp;amp;lt;li&amp;amp;gt;second&amp;amp;lt;/li&amp;amp;gt;
-&amp;amp;lt;/ul&amp;amp;gt;
+<ul>
+  <li>first</li>
+  <li>second</li>
+</ul>
 
-&amp;amp;lt;ul&amp;amp;gt;
-  &amp;amp;lt;li&amp;amp;gt;first&amp;amp;lt;/li&amp;amp;gt;
-  &amp;amp;lt;li&amp;amp;gt;second&amp;amp;lt;/li&amp;amp;gt;
-  &amp;amp;lt;li&amp;amp;gt;third&amp;amp;lt;/li&amp;amp;gt;
-&amp;amp;lt;/ul&amp;amp;gt;
+<ul>
+  <li>first</li>
+  <li>second</li>
+  <li>third</li>
+</ul>
 ```
 
 React将匹配两个`&lt;li&gt;first&lt;/li&gt;`树，匹配两个`&lt;li&gt;second&lt;/li&gt;`树，然后插入`&lt;li&gt;third&lt;/li&gt;`树。 
@@ -94,16 +94,16 @@ React将匹配两个`&lt;li&gt;first&lt;/li&gt;`树，匹配两个`&lt;li&gt;sec
 如果你天真地实现它，开始插入一个元素的性能会更差。例如，这两棵树之间的转换效果不佳：
 
 ```html
-&amp;amp;lt;ul&amp;amp;gt;
-  &amp;amp;lt;li&amp;amp;gt;Duke&amp;amp;lt;/li&amp;amp;gt;
-  &amp;amp;lt;li&amp;amp;gt;Villanova&amp;amp;lt;/li&amp;amp;gt;
-&amp;amp;lt;/ul&amp;amp;gt;
+<ul>
+  <li>Duke</li>
+  <li>Villanova</li>
+</ul>
 
-&amp;amp;lt;ul&amp;amp;gt;
-  &amp;amp;lt;li&amp;amp;gt;Connecticut&amp;amp;lt;/li&amp;amp;gt;
-  &amp;amp;lt;li&amp;amp;gt;Duke&amp;amp;lt;/li&amp;amp;gt;
-  &amp;amp;lt;li&amp;amp;gt;Villanova&amp;amp;lt;/li&amp;amp;gt;
-&amp;amp;lt;/ul&amp;amp;gt;
+<ul>
+  <li>Connecticut</li>
+  <li>Duke</li>
+  <li>Villanova</li>
+</ul>
 ```
 
 react会改变每个child，而不是意识到它可以保持`&lt;li&gt;Duke&lt;/li&gt;`和`&lt;li&gt;Villanova&lt;/li&gt;`子树完整。这种低效率可能是一个问题。
@@ -113,16 +113,16 @@ react会改变每个child，而不是意识到它可以保持`&lt;li&gt;Duke&lt;
 为了解决这个问题，React支持一个key属性。当children有keys的时候，React使用key来匹配原始树中的children和新树中的children。例如，为我们上面的低效率示例添加一个key可以使树转换高效：
 
 ```html
-&amp;amp;lt;ul&amp;amp;gt;
-  &amp;amp;lt;li key=&amp;amp;quot;2015&amp;amp;quot;&amp;amp;gt;Duke&amp;amp;lt;/li&amp;amp;gt;
-  &amp;amp;lt;li key=&amp;amp;quot;2016&amp;amp;quot;&amp;amp;gt;Villanova&amp;amp;lt;/li&amp;amp;gt;
-&amp;amp;lt;/ul&amp;amp;gt;
+<ul>
+  <li key="2015">Duke</li>
+  <li key="2016">Villanova</li>
+</ul>
 
-&amp;amp;lt;ul&amp;amp;gt;
-  &amp;amp;lt;li key=&amp;amp;quot;2014&amp;amp;quot;&amp;amp;gt;Connecticut&amp;amp;lt;/li&amp;amp;gt;
-  &amp;amp;lt;li key=&amp;amp;quot;2015&amp;amp;quot;&amp;amp;gt;Duke&amp;amp;lt;/li&amp;amp;gt;
-  &amp;amp;lt;li key=&amp;amp;quot;2016&amp;amp;quot;&amp;amp;gt;Villanova&amp;amp;lt;/li&amp;amp;gt;
-&amp;amp;lt;/ul&amp;amp;gt;
+<ul>
+  <li key="2014">Connecticut</li>
+  <li key="2015">Duke</li>
+  <li key="2016">Villanova</li>
+</ul>
 ```
 
 现在React知道key“2014”的元素是新元素，key“2015”和“2016”的元素刚刚移动。
@@ -130,7 +130,7 @@ react会改变每个child，而不是意识到它可以保持`&lt;li&gt;Duke&lt;
 在实践中，找到一个key通常不难。您要显示的元素可能已经有一个唯一的ID，所以key可以来自您的数据：
 
 ```html
-&amp;amp;lt;li key={item.id}&amp;amp;gt;{item.name}&amp;amp;lt;/li&amp;amp;gt;
+<li key={item.id}>{item.name}</li>
 ```
 
 如果情况并非如此，则可以将新的ID属性添加到模型中，或者对内容的某些部分进行散列以生成key。关键只在于它的兄弟姐妹是独一无二的，而不是全局唯一的。

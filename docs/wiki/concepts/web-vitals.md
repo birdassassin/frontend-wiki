@@ -15,11 +15,11 @@
 
 ```javascript
 // 测量 LCP
-new PerformanceObserver((entryList) =&amp;amp;gt; {
+new PerformanceObserver((entryList) => {
   const entries = entryList.getEntries();
   const lastEntry = entries[entries.length - 1];
-  console.log(&amp;amp;#039;LCP:&amp;amp;#039;, lastEntry.startTime);
-}).observe({ type: &amp;amp;#039;largest-contentful-paint&amp;amp;#039;, buffered: true });
+  console.log('LCP:', lastEntry.startTime);
+}).observe({ type: 'largest-contentful-paint', buffered: true });
 ```
 
 ### 1.2 INP (Interaction to Next Paint)
@@ -31,11 +31,11 @@ new PerformanceObserver((entryList) =&amp;amp;gt; {
 
 ```javascript
 // 测量 INP
-new PerformanceObserver((entryList) =&amp;amp;gt; {
+new PerformanceObserver((entryList) => {
   for (const entry of entryList.getEntries()) {
-    console.log(&amp;amp;#039;交互延迟:&amp;amp;#039;, entry.processingEnd - entry.startTime);
+    console.log('交互延迟:', entry.processingEnd - entry.startTime);
   }
-}).observe({ type: &amp;amp;#039;event&amp;amp;#039;, buffered: true });
+}).observe({ type: 'event', buffered: true });
 ```
 
 ### 1.3 CLS (Cumulative Layout Shift)
@@ -48,14 +48,14 @@ new PerformanceObserver((entryList) =&amp;amp;gt; {
 ```javascript
 // 测量 CLS
 let clsValue = 0;
-new PerformanceObserver((entryList) =&amp;amp;gt; {
+new PerformanceObserver((entryList) => {
   for (const entry of entryList.getEntries()) {
     if (!entry.hadRecentInput) {
       clsValue += entry.value;
     }
   }
-  console.log(&amp;amp;#039;CLS:&amp;amp;#039;, clsValue);
-}).observe({ type: &amp;amp;#039;layout-shift&amp;amp;#039;, buffered: true });
+  console.log('CLS:', clsValue);
+}).observe({ type: 'layout-shift', buffered: true });
 ```
 
 ---
@@ -97,17 +97,17 @@ new PerformanceObserver((entryList) =&amp;amp;gt; {
 ### 3.2 监控实现
 ```javascript
 // 性能预算检查
-const observer = new PerformanceObserver((list) =&amp;amp;gt; {
+const observer = new PerformanceObserver((list) => {
   for (const entry of list.getEntries()) {
-    if (entry.entryType === &amp;amp;#039;resource&amp;amp;#039;) {
-      if (entry.transferSize &amp;amp;gt; 500000) {
+    if (entry.entryType === 'resource') {
+      if (entry.transferSize > 500000) {
         console.warn(`资源超出预算: ${entry.name}`);
       }
     }
   }
 });
 
-observer.observe({ type: &amp;amp;#039;resource&amp;amp;#039;, buffered: true });
+observer.observe({ type: 'resource', buffered: true });
 ```
 
 ---
@@ -118,29 +118,29 @@ observer.observe({ type: &amp;amp;#039;resource&amp;amp;#039;, buffered: true })
 
 #### 图片优化
 ```html
-&amp;amp;lt;!-- 响应式图片 --&amp;amp;gt;
-&amp;amp;lt;img src=&amp;amp;quot;image-800.jpg&amp;amp;quot; 
-     srcset=&amp;amp;quot;image-400.jpg 400w, image-800.jpg 800w, image-1200.jpg 1200w&amp;amp;quot;
-     sizes=&amp;amp;quot;(max-width: 600px) 400px, (max-width: 1000px) 800px, 1200px&amp;amp;quot;
-     alt=&amp;amp;quot;描述&amp;amp;quot;
-     loading=&amp;amp;quot;lazy&amp;amp;quot;
-     decoding=&amp;amp;quot;async&amp;amp;quot;
-     width=&amp;amp;quot;800&amp;amp;quot; height=&amp;amp;quot;600&amp;amp;quot;&amp;amp;gt;
+<!-- 响应式图片 -->
+<img src="image-800.jpg" 
+     srcset="image-400.jpg 400w, image-800.jpg 800w, image-1200.jpg 1200w"
+     sizes="(max-width: 600px) 400px, (max-width: 1000px) 800px, 1200px"
+     alt="描述"
+     loading="lazy"
+     decoding="async"
+     width="800" height="600">
 
-&amp;amp;lt;!-- 现代格式 --&amp;amp;gt;
-&amp;amp;lt;picture&amp;amp;gt;
-  &amp;amp;lt;source srcset=&amp;amp;quot;image.avif&amp;amp;quot; type=&amp;amp;quot;image/avif&amp;amp;quot;&amp;amp;gt;
-  &amp;amp;lt;source srcset=&amp;amp;quot;image.webp&amp;amp;quot; type=&amp;amp;quot;image/webp&amp;amp;quot;&amp;amp;gt;
-  &amp;amp;lt;img src=&amp;amp;quot;image.jpg&amp;amp;quot; alt=&amp;amp;quot;描述&amp;amp;quot;&amp;amp;gt;
-&amp;amp;lt;/picture&amp;amp;gt;
+<!-- 现代格式 -->
+<picture>
+  <source srcset="image.avif" type="image/avif">
+  <source srcset="image.webp" type="image/webp">
+  <img src="image.jpg" alt="描述">
+</picture>
 ```
 
 #### 字体优化
 ```css
 /* 字体显示策略 */
 @font-face {
-  font-family: &amp;amp;#039;CustomFont&amp;amp;#039;;
-  src: url(&amp;amp;#039;font.woff2&amp;amp;#039;) format(&amp;amp;#039;woff2&amp;amp;#039;);
+  font-family: 'CustomFont';
+  src: url('font.woff2') format('woff2');
   font-display: swap; /* 或 optional, fallback */
 }
 
@@ -152,33 +152,33 @@ observer.observe({ type: &amp;amp;#039;resource&amp;amp;#039;, buffered: true })
 
 #### 关键渲染路径
 ```html
-&amp;amp;lt;!-- 内联关键 CSS --&amp;amp;gt;
-&amp;amp;lt;style&amp;amp;gt;
+<!-- 内联关键 CSS -->
+<style>
   /* 首屏必需的样式 */
   header { ... }
   .hero { ... }
-&amp;amp;lt;/style&amp;amp;gt;
+</style>
 
-&amp;amp;lt;!-- 异步加载非关键 CSS --&amp;amp;gt;
-&amp;amp;lt;link rel=&amp;amp;quot;preload&amp;amp;quot; href=&amp;amp;quot;styles.css&amp;amp;quot; as=&amp;amp;quot;style&amp;amp;quot; onload=&amp;amp;quot;this.onload=null;this.rel=&amp;amp;#039;stylesheet&amp;amp;#039;&amp;amp;quot;&amp;amp;gt;
-&amp;amp;lt;noscript&amp;amp;gt;&amp;amp;lt;link rel=&amp;amp;quot;stylesheet&amp;amp;quot; href=&amp;amp;quot;styles.css&amp;amp;quot;&amp;amp;gt;&amp;amp;lt;/noscript&amp;amp;gt;
+<!-- 异步加载非关键 CSS -->
+<link rel="preload" href="styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="styles.css"></noscript>
 
-&amp;amp;lt;!-- 延迟非关键 JS --&amp;amp;gt;
-&amp;amp;lt;script src=&amp;amp;quot;analytics.js&amp;amp;quot; defer&amp;amp;gt;&amp;amp;lt;/script&amp;amp;gt;
-&amp;amp;lt;script src=&amp;amp;quot;widget.js&amp;amp;quot; async&amp;amp;gt;&amp;amp;lt;/script&amp;amp;gt;
+<!-- 延迟非关键 JS -->
+<script src="analytics.js" defer></script>
+<script src="widget.js" async></script>
 ```
 
 #### 代码分割
 ```javascript
 // 路由级别
-const Dashboard = lazy(() =&amp;amp;gt; import(&amp;amp;#039;./Dashboard&amp;amp;#039;));
+const Dashboard = lazy(() => import('./Dashboard'));
 
 // 组件级别
-const Chart = lazy(() =&amp;amp;gt; import(&amp;amp;#039;./Chart&amp;amp;#039;));
+const Chart = lazy(() => import('./Chart'));
 
 // 条件加载
 if (isAdmin) {
-  import(&amp;amp;#039;./AdminPanel&amp;amp;#039;).then(module =&amp;amp;gt; {
+  import('./AdminPanel').then(module => {
     module.init();
   });
 }
@@ -195,11 +195,11 @@ Cache-Control: max-age=3600, stale-while-revalidate=86400  // API
 
 #### Service Worker
 ```javascript
-self.addEventListener(&amp;amp;#039;fetch&amp;amp;#039;, (event) =&amp;amp;gt; {
+self.addEventListener('fetch', (event) => {
   event.respondWith(
-    caches.match(event.request).then((response) =&amp;amp;gt; {
-      return response || fetch(event.request).then((fetchResponse) =&amp;amp;gt; {
-        return caches.open(&amp;amp;#039;v1&amp;amp;#039;).then((cache) =&amp;amp;gt; {
+    caches.match(event.request).then((response) => {
+      return response || fetch(event.request).then((fetchResponse) => {
+        return caches.open('v1').then((cache) => {
           cache.put(event.request, fetchResponse.clone());
           return fetchResponse;
         });
@@ -231,7 +231,7 @@ self.addEventListener(&amp;amp;#039;fetch&amp;amp;#039;, (event) =&amp;amp;gt; {
 
 ### 5.3 web-vitals 库
 ```javascript
-import { onLCP, onINP, onCLS } from &amp;amp;#039;web-vitals&amp;amp;#039;;
+import { onLCP, onINP, onCLS } from 'web-vitals';
 
 onLCP(console.log);
 onINP(console.log);
@@ -239,8 +239,8 @@ onCLS(console.log);
 
 // 发送到分析服务
 function sendToAnalytics(metric) {
-  fetch(&amp;amp;#039;/analytics&amp;amp;#039;, {
-    method: &amp;amp;#039;POST&amp;amp;#039;,
+  fetch('/analytics', {
+    method: 'POST',
     body: JSON.stringify(metric),
     keepalive: true
   });

@@ -8,7 +8,7 @@ npm i --save-dev axios
 2、新建一个fetchData.js文件，封装基本的post和get接口。axios官方还提供了很多配置选项，比如超时配置等。
 
 ```
-import axios from &amp;amp;#039;axios&amp;amp;#039;
+import axios from 'axios'
 //BASE_URL是默认的url地址，如果你安装了webpack，可以在webpack配置全局变量
 axios.defaults.baseURL = BASE_URL;
 /*
@@ -16,13 +16,13 @@ axios.defaults.baseURL = BASE_URL;
 axios.defaults.baseURL = http://ip:端口
 */
 
-export const getData = (url, param) =&amp;amp;gt; {
+export const getData = (url, param) => {
     return (
         axios.get(`${url}`)
     )
 }
 
-export const postData = (url, param) =&amp;amp;gt; {
+export const postData = (url, param) => {
     return (
         axios.post(`${url}`, param)
     )
@@ -32,21 +32,21 @@ export const postData = (url, param) =&amp;amp;gt; {
 
 ```
 //导入fetchData文件
-import { getData, postData } from &amp;amp;#039;./fetchData&amp;amp;#039;
+import { getData, postData } from './fetchData'
 
 //返回一个action对象，用来关联对应的reducer，将data保存到store。
-const saveReducer = (data) =&amp;amp;gt; ({
-    type: &amp;amp;#039;SAVE_REDUCER&amp;amp;#039;,
+const saveReducer = (data) => ({
+    type: 'SAVE_REDUCER',
     data
 })
 
 //get接口测试，传入一个参数id，请求/test/:id接口，返回response并且将数据通过指定的action保存到store。
-export const getTest = (id) =&amp;amp;gt; async (dispatch, getState) =&amp;amp;gt; {
+export const getTest = (id) => async (dispatch, getState) => {
     try {
         let response = await getData(`/test/${id}`)
         await dispatch(saveReducer(response.data))
     } catch (error) {
-        console.log(&amp;amp;#039;error: &amp;amp;#039;, error)
+        console.log('error: ', error)
     }
 }
 
@@ -56,12 +56,12 @@ let params = {
     id: 23
 }
 */
-export const postTest = (params) =&amp;amp;gt; async (dispatch, getState) =&amp;amp;gt; {
+export const postTest = (params) => async (dispatch, getState) => {
     try {
         let response = await postData(`/test`, params)
         await dispatch(saveReducer(response.data))
     } catch (error) {
-        console.log(&amp;amp;#039;error: &amp;amp;#039;, error)
+        console.log('error: ', error)
     }
 }
 ```
@@ -77,7 +77,7 @@ let initState = {
 //定义一个叫做test的reducer，更新state。
 export function test(state = initState, action) {
     switch (action.type) {
-        case &amp;amp;#039;SAVE_REDUCER&amp;amp;#039;:
+        case 'SAVE_REDUCER':
             return {
                 ...state,
                 testData: action.data
@@ -92,10 +92,10 @@ export function test(state = initState, action) {
 
 ```
 
-import { createStore, applyMiddleware } from &amp;amp;#039;redux&amp;amp;#039;;
-import thunkMiddleware from &amp;amp;#039;redux-thunk&amp;amp;#039;;
-import createLogger from &amp;amp;#039;redux-logger&amp;amp;#039;;
-import rootReducer from &amp;amp;#039;./reducers&amp;amp;#039;;
+import { createStore, applyMiddleware } from 'redux';
+import thunkMiddleware from 'redux-thunk';
+import createLogger from 'redux-logger';
+import rootReducer from './reducers';
 
 let createStoreWithMiddleware;
 // store负责管理所有reducer，module.hot.accept表示支持热更新
@@ -108,8 +108,8 @@ createStoreWithMiddleware = applyMiddleware(
 export default function configureStore(initialState) {
   const store = createStoreWithMiddleware(rootReducer, initialState);
   if (module.hot) {
-    module.hot.accept(&amp;amp;#039;./reducers&amp;amp;#039;, () =&amp;amp;gt; {
-      const nextRootReducer = require(&amp;amp;#039;./reducers/index&amp;amp;#039;);
+    module.hot.accept('./reducers', () => {
+      const nextRootReducer = require('./reducers/index');
       store.replaceReducer(nextRootReducer);
     });
   }
@@ -119,17 +119,17 @@ export default function configureStore(initialState) {
 6、单向数据流部分现在已经完成了，接着就在组件触发action去异步请求服务器的数据，返回给前端，然后action会自动把数据保存到内存store中。
 
 ```
-import React, { Component } from &amp;amp;#039;react&amp;amp;#039;;
-import { bindActionCreators } from &amp;amp;#039;redux&amp;amp;#039;;
-import { connect } from &amp;amp;#039;react-redux&amp;amp;#039;;
+import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
 /*actions*/
-import * as testActions from &amp;amp;#039;action/test&amp;amp;#039;;
+import * as testActions from 'action/test';
 
 //让组件关联state和action
 @connect(
-    state =&amp;amp;gt; state,
-    dispatch =&amp;amp;gt; bindActionCreators({testActions}, dispatch)
+    state => state,
+    dispatch => bindActionCreators({testActions}, dispatch)
 )
 export default class Home extends React.Component {
 
@@ -149,9 +149,9 @@ export default class Home extends React.Component {
 
     render() {
         return(
-            &amp;amp;lt;div&amp;amp;gt;
+            <div>
                 {/*你的dom*/}
-            &amp;amp;lt;/div&amp;amp;gt;
+            </div>
         );
     }
 }
@@ -160,9 +160,9 @@ export default class Home extends React.Component {
 7、如果你的异步是click或者hover之类的事件触发的，则只需要通过事件绑定来发送action就行了。
 
 ```
-&amp;amp;lt;div onClick={() =&amp;amp;gt; this.props.getTest(id)}&amp;amp;gt;
+<div onClick={() => this.props.getTest(id)}>
 
-&amp;amp;lt;/div&amp;amp;gt;
+</div>
 ```
 还有更多需求 ，可以看看 [react-redux-webpack架构][3]
 

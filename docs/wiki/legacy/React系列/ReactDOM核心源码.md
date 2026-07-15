@@ -1,17 +1,17 @@
 # ReactDOM核心代码
 ```javascript
 //注入各种依赖
-import ReactDefaultInjection from &amp;amp;#039;./ReactDefaultInjection&amp;amp;#039;;
+import ReactDefaultInjection from './ReactDefaultInjection';
 // 提供了10个API，这里只调用了render和unmountComponentAtNode
-import ReactMount from &amp;amp;#039;./ReactMount&amp;amp;#039;;
+import ReactMount from './ReactMount';
 // 提供了6个API，这里调用了batchedUpdates
-import ReactUpdates from &amp;amp;#039;./ReactUpdates&amp;amp;#039;;
+import ReactUpdates from './ReactUpdates';
 //react版本号，当前是15.6.1
-import ReactVersion from &amp;amp;#039;./ReactVersion&amp;amp;#039;;
+import ReactVersion from './ReactVersion';
 //访问真实DOM
-import findDOMNode from &amp;amp;#039;./findDOMNode&amp;amp;#039;;
+import findDOMNode from './findDOMNode';
 // 导出ReactMount的renderSubtreeIntoContainer方法
-import renderSubtreeIntoContainer from &amp;amp;#039;./renderSubtreeIntoContainer&amp;amp;#039;;
+import renderSubtreeIntoContainer from './renderSubtreeIntoContainer';
 
 //执行注入函数
 ReactDefaultInjection.inject();
@@ -66,18 +66,18 @@ render(nextElement, container, callback) {
 ```
 很多时候，我们只使用到前面2个参数。
 ```javascript
-&amp;amp;lt;div id=&amp;amp;quot;root&amp;amp;quot;&amp;amp;gt;&amp;amp;lt;/div&amp;amp;gt;
+<div id="root"></div>
 ReactDOM.render(
-  &amp;amp;lt;HelloMessage name=&amp;amp;quot;测试&amp;amp;quot; /&amp;amp;gt;,
-  document.getElementById(&amp;amp;#039;root&amp;amp;#039;)
+  <HelloMessage name="测试" />,
+  document.getElementById('root')
 );
 ```
 你也可以使用第三个参数。
 ```javascript
 ReactDOM.render(
-  &amp;amp;lt;HelloMessage name=&amp;amp;quot;测试&amp;amp;quot; /&amp;amp;gt;,
-  document.getElementById(&amp;amp;#039;root&amp;amp;#039;),
-  () =&amp;amp;gt; console.log(&amp;amp;#039;渲染完成&amp;amp;#039;)
+  <HelloMessage name="测试" />,
+  document.getElementById('root'),
+  () => console.log('渲染完成')
 );
 ```
 
@@ -91,11 +91,11 @@ setInnerHTML()的实现：
 /* createMicrosoftUnsafeLocalFunction(fn)是一个针对win phone8设备的一个函数，如果非win phone8，则直接返回fn。
 *  container对应node，markup对应html
 */
-let setInnerHTML = createMicrosoftUnsafeLocalFunction((node, html) =&amp;amp;gt; {
+let setInnerHTML = createMicrosoftUnsafeLocalFunction((node, html) => {
 	//DOMNamespaces定义了3种旧版本的文档流，如果当前网页的文档DocType的文档流和DOMNamespaces.svg的相等，同时innerHTML是node对象下的属性，就是有svg渲染。目的是兼容旧版本的文档。
-    if (node.namespaceURI === DOMNamespaces.svg &amp;amp;amp;&amp;amp;amp; !(&amp;amp;#039;innerHTML&amp;amp;#039; in node)) {
-        reusableSVGContainer = reusableSVGContainer || document.createElement(&amp;amp;#039;div&amp;amp;#039;);
-        reusableSVGContainer.innerHTML = `&amp;amp;lt;svg&amp;amp;gt;${html}&amp;amp;lt;/svg&amp;amp;gt;`;
+    if (node.namespaceURI === DOMNamespaces.svg && !('innerHTML' in node)) {
+        reusableSVGContainer = reusableSVGContainer || document.createElement('div');
+        reusableSVGContainer.innerHTML = `<svg>${html}</svg>`;
         const svgNode = reusableSVGContainer.firstChild;
         while (svgNode.firstChild) {
             node.appendChild(svgNode.firstChild);
@@ -109,9 +109,9 @@ let setInnerHTML = createMicrosoftUnsafeLocalFunction((node, html) =&amp;amp;gt;
 DOMNamespaces对象的3种文档类型：
 ```javascript
 var DOMNamespaces = {
-  html: &amp;amp;#039;http://www.w3.org/1999/xhtml&amp;amp;#039;,
-  mathml: &amp;amp;#039;http://www.w3.org/1998/Math/MathML&amp;amp;#039;,
-  svg: &amp;amp;#039;http://www.w3.org/2000/svg&amp;amp;#039;
+  html: 'http://www.w3.org/1999/xhtml',
+  mathml: 'http://www.w3.org/1998/Math/MathML',
+  svg: 'http://www.w3.org/2000/svg'
 };
 ```
 
@@ -131,9 +131,9 @@ ReactUpdates是为了实现react内部的组件更新而设计的一组API，开
 
 #### findDOMNode核心代码
 ```javascript
-import ReactDOMComponentTree from &amp;amp;#039;./ReactDOMComponentTree&amp;amp;#039;;
-import ReactInstanceMap from &amp;amp;#039;./ReactInstanceMap&amp;amp;#039;;
-import getHostComponentFromComposite from &amp;amp;#039;./getHostComponentFromComposite&amp;amp;#039;;
+import ReactDOMComponentTree from './ReactDOMComponentTree';
+import ReactInstanceMap from './ReactInstanceMap';
+import getHostComponentFromComposite from './getHostComponentFromComposite';
 
 function findDOMNode(componentOrElement) {
 	//传入的参数为空，则返回null
@@ -159,10 +159,10 @@ findDOMNode返回值是真实DOM，它接受一个DOM实例或者是一个真实
 ```javascript
 class Test extends React.Component {
 	componentDidMount() {
-    	console.log(ReactDOM.findDOMNode(this)) // &amp;amp;lt;div&amp;amp;gt;DOM内容&amp;amp;lt;/div&amp;amp;gt;
+    	console.log(ReactDOM.findDOMNode(this)) // <div>DOM内容</div>
     }
 	render() {
-    	return &amp;amp;lt;div&amp;amp;gt;DOM内容&amp;amp;lt;/div&amp;amp;gt;
+    	return <div>DOM内容</div>
     }
 }
 ```

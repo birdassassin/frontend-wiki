@@ -52,14 +52,14 @@ npm install --save-dev webpack-dev-server
 ```
 rules: [{
             test: /\.js$/,
-            use: [&amp;amp;#039;babel-loader&amp;amp;#039;],
+            use: ['babel-loader'],
             exclude: /node_modules/,
-            include: resolve(&amp;amp;#039;src&amp;amp;#039;)
+            include: resolve('src')
         },{
             test: /\.vue$/,
-            use: [&amp;amp;#039;vue-loader&amp;amp;#039;],
+            use: ['vue-loader'],
             exclude: /node_modules/,
-            include: resolve(&amp;amp;#039;src&amp;amp;#039;)
+            include: resolve('src')
         },
 ```
 
@@ -69,13 +69,13 @@ babel少不了，注意这里不是用react了，而是vue，包括下面几个�
 
 ```
 {
-  &amp;amp;quot;presets&amp;amp;quot;: [&amp;amp;quot;es2015&amp;amp;quot;, &amp;amp;quot;flow-vue&amp;amp;quot;, &amp;amp;quot;stage-0&amp;amp;quot;, &amp;amp;quot;stage-2&amp;amp;quot;],
-  &amp;amp;quot;plugins&amp;amp;quot;: [&amp;amp;quot;transform-vue-jsx&amp;amp;quot;],
-  &amp;amp;quot;comments&amp;amp;quot;: false,
-  &amp;amp;quot;env&amp;amp;quot;: {
-    &amp;amp;quot;production&amp;amp;quot;: {
-      &amp;amp;quot;plugins&amp;amp;quot;: [
-        [&amp;amp;quot;transform-runtime&amp;amp;quot;, { &amp;amp;quot;polyfill&amp;amp;quot;: false, &amp;amp;quot;regenerator&amp;amp;quot;: false }]
+  "presets": ["es2015", "flow-vue", "stage-0", "stage-2"],
+  "plugins": ["transform-vue-jsx"],
+  "comments": false,
+  "env": {
+    "production": {
+      "plugins": [
+        ["transform-runtime", { "polyfill": false, "regenerator": false }]
       ]
     }
   }
@@ -87,7 +87,7 @@ babel少不了，注意这里不是用react了，而是vue，包括下面几个�
 直接使用webpack-dev-server启动，哇塞，一堆报错，说少了哪个module，这个简单，因为配置文件里面引用的一堆module，还没有安装到项目呢，这时候一个个安装好就行了。
 
 ```
-&amp;amp;quot;start&amp;amp;quot;: &amp;amp;quot;webpack-dev-server&amp;amp;quot;,
+"start": "webpack-dev-server",
 ```
 
 ### **8、项目入口main.js文件。**
@@ -95,34 +95,34 @@ babel少不了，注意这里不是用react了，而是vue，包括下面几个�
 这个文件名自己喜欢咋取就咋取，代码挺简单的，实例化一个Vue和路由，是不是和react的入口文件很像？当然，我做的是SPA，所以采用单入口的形式，如果是非SPA模式，就不是这种配置方式了。
 
 ```
-import Vue from &amp;amp;#039;vue&amp;amp;#039;;
-import App from &amp;amp;#039;./App.vue&amp;amp;#039;;
-import VueRouter from &amp;amp;#039;vue-router&amp;amp;#039;;
-import routes from &amp;amp;#039;./routes&amp;amp;#039;;
-import VueResource from &amp;amp;#039;vue-resource&amp;amp;#039;;
+import Vue from 'vue';
+import App from './App.vue';
+import VueRouter from 'vue-router';
+import routes from './routes';
+import VueResource from 'vue-resource';
 
 Vue.use(VueResource); //http请求注册
 Vue.use(VueRouter); //路由注册
 
 // 实例化路由
 const router = new VueRouter({
-    // mode: &amp;amp;#039;history&amp;amp;#039;, //H5 路由模式，需要服务端做渲染防止404错误
+    // mode: 'history', //H5 路由模式，需要服务端做渲染防止404错误
     base: __dirname,
-    linkActiveClass: &amp;amp;#039;on&amp;amp;#039;,
+    linkActiveClass: 'on',
     routes
 })
 
 let render = new Vue({
     router,
-    el: &amp;amp;#039;#app&amp;amp;#039;,
-    render: h =&amp;amp;gt; h(App)
+    el: '#app',
+    render: h => h(App)
 });
 
 render;
 
 // if (module.hot) {
 //     非必须
-//     module.hot.accept(&amp;amp;#039;./App.vue&amp;amp;#039;, () =&amp;amp;gt; render);
+//     module.hot.accept('./App.vue', () => render);
 // }
 
 ```
@@ -132,20 +132,20 @@ render;
 路由和react也非常像（简直一样好不），这里的vue页面采用.vue后缀的方式来写。
 
 ```
-import Home from &amp;amp;#039;./components/home/Home.vue&amp;amp;#039;;
-import Bang from &amp;amp;#039;./components/bang/Bang.vue&amp;amp;#039;;
+import Home from './components/home/Home.vue';
+import Bang from './components/bang/Bang.vue';
 
 export default [
     {
-        path: &amp;amp;#039;/&amp;amp;#039;,
-        redirect: &amp;amp;#039;home&amp;amp;#039;
+        path: '/',
+        redirect: 'home'
     },
     {
-        path: &amp;amp;#039;/home&amp;amp;#039;,
+        path: '/home',
         component: Home
     },
     {
-        path: &amp;amp;#039;/bang&amp;amp;#039;,
+        path: '/bang',
         component: Bang
     }
 ]
@@ -162,37 +162,37 @@ script：导入了当前顶级容器需要用到的vue组件，包括头部、�
 style: 当前组件的样式，我配置了less语法支持。将style改成&lt;style lang="less"&gt;即可写less。
 
 ```
-&amp;amp;lt;template&amp;amp;gt;
-    &amp;amp;lt;div&amp;amp;gt;
-        &amp;amp;lt;app-header logo=&amp;amp;quot;logo&amp;amp;quot; &amp;amp;gt;&amp;amp;lt;/app-header&amp;amp;gt;
-        &amp;amp;lt;app-nav&amp;amp;gt;&amp;amp;lt;/app-nav&amp;amp;gt;
-        &amp;amp;lt;transition name=&amp;amp;quot;fade&amp;amp;quot; mode=&amp;amp;quot;out-in&amp;amp;quot;&amp;amp;gt;
-            &amp;amp;lt;router-view class=&amp;amp;quot;view&amp;amp;quot;&amp;amp;gt;&amp;amp;lt;/router-view&amp;amp;gt;
-        &amp;amp;lt;/transition&amp;amp;gt;
-    &amp;amp;lt;/div&amp;amp;gt;
-&amp;amp;lt;/template&amp;amp;gt;
+<template>
+    <div>
+        <app-header logo="logo" ></app-header>
+        <app-nav></app-nav>
+        <transition name="fade" mode="out-in">
+            <router-view class="view"></router-view>
+        </transition>
+    </div>
+</template>
 
-&amp;amp;lt;script&amp;amp;gt;
-    import Header from &amp;amp;#039;./components/common/Header.vue&amp;amp;#039;;
-    import Nav from &amp;amp;#039;./components/common/Nav.vue&amp;amp;#039;;
-    import Home from &amp;amp;#039;./components/home/Home.vue&amp;amp;#039;;
+<script>
+    import Header from './components/common/Header.vue';
+    import Nav from './components/common/Nav.vue';
+    import Home from './components/home/Home.vue';
     export default {
-        name: &amp;amp;#039;App&amp;amp;#039;,
+        name: 'App',
         components: {
-            &amp;amp;quot;app-header&amp;amp;quot;: Header,
-            &amp;amp;quot;app-nav&amp;amp;quot;: Nav,
-            &amp;amp;quot;app-home&amp;amp;quot;: Home
+            "app-header": Header,
+            "app-nav": Nav,
+            "app-home": Home
         }
     };
-&amp;amp;lt;/script&amp;amp;gt;
+</script>
 
-&amp;amp;lt;style&amp;amp;gt;
+<style>
     body, html {
         font-size: 12px;
         margin: 0;
         padding: 0;
     }
-&amp;amp;lt;/style&amp;amp;gt;
+</style>
 ```
 
 踩坑的过程中，也遇到了好几个报错情况，最后都圆满解决了。

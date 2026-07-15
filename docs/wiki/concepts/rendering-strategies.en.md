@@ -16,12 +16,12 @@ Browser → Download JS → Execute → Fetch Data → Render UI
 function App() {
   const [data, setData] = useState(null);
   
-  useEffect(() =&amp;amp;gt; {
-    fetch(&amp;amp;#039;/api/data&amp;amp;#039;).then(r =&amp;amp;gt; r.json()).then(setData);
+  useEffect(() => {
+    fetch('/api/data').then(r => r.json()).then(setData);
   }, []);
   
-  if (!data) return &amp;amp;lt;Loading /&amp;amp;gt;;
-  return &amp;amp;lt;Main data={data} /&amp;amp;gt;;
+  if (!data) return <Loading />;
+  return <Main data={data} />;
 }
 ```
 
@@ -43,12 +43,12 @@ Browser → Request → Server renders HTML → Send HTML → Hydrate on client
 ```tsx
 // Next.js SSR
 export async function getServerSideProps() {
-  const data = await fetch(&amp;amp;#039;/api/data&amp;amp;#039;).then(r =&amp;amp;gt; r.json());
+  const data = await fetch('/api/data').then(r => r.json());
   return { props: { data } };
 }
 
 function Page({ data }) {
-  return &amp;amp;lt;Main data={data} /&amp;amp;gt;;
+  return <Main data={data} />;
 }
 ```
 
@@ -70,12 +70,12 @@ Build Time → Pre-render HTML → Deploy → Serve static files
 ```tsx
 // Next.js SSG
 export async function getStaticProps() {
-  const data = await fetch(&amp;amp;#039;/api/data&amp;amp;#039;).then(r =&amp;amp;gt; r.json());
+  const data = await fetch('/api/data').then(r => r.json());
   return { props: { data } };
 }
 
 export async function getStaticPaths() {
-  return { paths: [&amp;amp;#039;/page/1&amp;amp;#039;, &amp;amp;#039;/page/2&amp;amp;#039;], fallback: false };
+  return { paths: ['/page/1', '/page/2'], fallback: false };
 }
 ```
 
@@ -112,9 +112,9 @@ Server → Send HTML chunks progressively → Browser renders incrementally
 // React 18 Streaming SSR
 function App() {
   return (
-    &amp;amp;lt;Suspense fallback={&amp;amp;lt;Skeleton /&amp;amp;gt;}&amp;amp;gt;
-      &amp;amp;lt;HeavyComponent /&amp;amp;gt;
-    &amp;amp;lt;/Suspense&amp;amp;gt;
+    <Suspense fallback={<Skeleton />}>
+      <HeavyComponent />
+    </Suspense>
   );
 }
 ```
@@ -141,13 +141,13 @@ SSR HTML (static) + Client JS (interactive) = Hydrated App
 function Component() {
   const [isClient, setIsClient] = useState(false);
   
-  useEffect(() =&amp;amp;gt; setIsClient(true), []);
+  useEffect(() => setIsClient(true), []);
   
-  return isClient ? &amp;amp;lt;ClientOnly /&amp;amp;gt; : &amp;amp;lt;ServerOnly /&amp;amp;gt;;
+  return isClient ? <ClientOnly /> : <ServerOnly />;
 }
 
 // Fix: Use suppressHydrationWarning
-&amp;amp;lt;div suppressHydrationWarning&amp;amp;gt;{Date.now()}&amp;amp;lt;/div&amp;amp;gt;
+<div suppressHydrationWarning>{Date.now()}</div>
 ```
 
 ---
@@ -191,23 +191,23 @@ function Component() {
 **CSR Optimization:**
 ```tsx
 // Code splitting
-const LazyComponent = React.lazy(() =&amp;amp;gt; import(&amp;amp;#039;./Heavy&amp;amp;#039;));
+const LazyComponent = React.lazy(() => import('./Heavy'));
 
 // Preload critical resources
-&amp;amp;lt;link rel=&amp;amp;quot;preload&amp;amp;quot; href=&amp;amp;quot;/critical.js&amp;amp;quot; as=&amp;amp;quot;script&amp;amp;quot;&amp;amp;gt;
+<link rel="preload" href="/critical.js" as="script">
 ```
 
 **SSR Optimization:**
 ```tsx
 // Streaming with Suspense
-&amp;amp;lt;Suspense fallback={&amp;amp;lt;Skeleton /&amp;amp;gt;}&amp;amp;gt;
-  &amp;amp;lt;Comments /&amp;amp;gt;
-&amp;amp;lt;/Suspense&amp;amp;gt;
+<Suspense fallback={<Skeleton />}>
+  <Comments />
+</Suspense>
 
 // Selective hydration
-&amp;amp;lt;Suspense&amp;amp;gt;
-  &amp;amp;lt;NonInteractive /&amp;amp;gt; {/* Won&amp;amp;#039;t hydrate until interacted */}
-&amp;amp;lt;/Suspense&amp;amp;gt;
+<Suspense>
+  <NonInteractive /> {/* Won't hydrate until interacted */}
+</Suspense>
 ```
 
 ---
@@ -222,18 +222,18 @@ Static HTML (main) + Interactive Islands (components)
 ### 5.2 Astro Example
 ```astro
 ---
-import Header from &amp;amp;#039;../components/Header.astro&amp;amp;#039;;
-import InteractiveCounter from &amp;amp;#039;../components/InteractiveCounter.jsx&amp;amp;#039;;
+import Header from '../components/Header.astro';
+import InteractiveCounter from '../components/InteractiveCounter.jsx';
 ---
 
-&amp;amp;lt;Header /&amp;amp;gt;
-&amp;amp;lt;main&amp;amp;gt;
-  &amp;amp;lt;!-- Static content, no JS --&amp;amp;gt;
-  &amp;amp;lt;article&amp;amp;gt;...&amp;amp;lt;/article&amp;amp;gt;
+<Header />
+<main>
+  <!-- Static content, no JS -->
+  <article>...</article>
   
-  &amp;amp;lt;!-- Interactive island, loads JS --&amp;amp;gt;
-  &amp;amp;lt;InteractiveCounter client:load /&amp;amp;gt;
-&amp;amp;lt;/main&amp;amp;gt;
+  <!-- Interactive island, loads JS -->
+  <InteractiveCounter client:load />
+</main>
 ```
 
 ### 5.3 Benefits
@@ -251,18 +251,18 @@ import InteractiveCounter from &amp;amp;#039;../components/InteractiveCounter.js
 async function ProductPage({ id }) {
   const product = await db.product.find(id); // Direct DB access
   return (
-    &amp;amp;lt;div&amp;amp;gt;
-      &amp;amp;lt;h1&amp;amp;gt;{product.name}&amp;amp;lt;/h1&amp;amp;gt;
-      &amp;amp;lt;AddToCartButton id={id} /&amp;amp;gt; {/* Client Component */}
-    &amp;amp;lt;/div&amp;amp;gt;
+    <div>
+      <h1>{product.name}</h1>
+      <AddToCartButton id={id} /> {/* Client Component */}
+    </div>
   );
 }
 
 // Client Component
-&amp;amp;#039;use client&amp;amp;#039;;
+'use client';
 
 function AddToCartButton({ id }) {
-  return &amp;amp;lt;button onClick={() =&amp;amp;gt; addToCart(id)}&amp;amp;gt;Add to Cart&amp;amp;lt;/button&amp;amp;gt;;
+  return <button onClick={() => addToCart(id)}>Add to Cart</button>;
 }
 ```
 

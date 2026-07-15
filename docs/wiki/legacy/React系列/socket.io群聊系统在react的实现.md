@@ -27,9 +27,9 @@ socket.io
 2、前端使用到的js库
 
 ```javascript
-&amp;amp;quot;react&amp;amp;quot;: &amp;amp;quot;^16.2.0&amp;amp;quot;,
-&amp;amp;quot;react-dom&amp;amp;quot;: &amp;amp;quot;^16.2.0&amp;amp;quot;,
-&amp;amp;quot;socket.io-client&amp;amp;quot;: &amp;amp;quot;^2.0.4&amp;amp;quot;
+"react": "^16.2.0",
+"react-dom": "^16.2.0",
+"socket.io-client": "^2.0.4"
 ```
 
 ### express服务端的实现
@@ -38,22 +38,22 @@ socket.io
 服务端的核心代码：
 
 ```javascript
-io.on(&amp;amp;#039;connection&amp;amp;#039;, function (socket) {
+io.on('connection', function (socket) {
     // 当客户端发出“new message”时，服务端监听到并执行相关代码
-    socket.on(&amp;amp;#039;new message&amp;amp;#039;, function (data) {
+    socket.on('new message', function (data) {
         // 广播给用户执行“new message”
-        socket.broadcast.emit(&amp;amp;#039;new message&amp;amp;#039;, {});
+        socket.broadcast.emit('new message', {});
     });
     
     // 当客户端发出“add user”时，服务端监听到并执行相关代码
-    socket.on(&amp;amp;#039;add user&amp;amp;#039;, function (username) {
+    socket.on('add user', function (username) {
         socket.username = username;
-        //服务端告诉当前用户执行&amp;amp;#039;login&amp;amp;#039;指令
-        socket.emit(&amp;amp;#039;login&amp;amp;#039;, {});
+        //服务端告诉当前用户执行'login'指令
+        socket.emit('login', {});
     });
     
     // 当用户断开时执行此指令
-    socket.on(&amp;amp;#039;disconnect&amp;amp;#039;, function () {});
+    socket.on('disconnect', function () {});
 });
 ```
 
@@ -71,22 +71,22 @@ socket和mongodb有点像，它需要创建一个socket服务，创建成功之�
 
 ```javascript
 // 发送到当前请求socket通信的客户端
-socket.emit(&amp;amp;#039;message&amp;amp;#039;, &amp;amp;quot;this is a test&amp;amp;quot;);
+socket.emit('message', "this is a test");
 
 // 发送给所有客户端，除了发件人
-socket.broadcast.emit(&amp;amp;#039;message&amp;amp;#039;, &amp;amp;quot;this is a test&amp;amp;quot;);
+socket.broadcast.emit('message', "this is a test");
 
 // 发送给“游戏”房间（频道）中的所有客户，发件人除外
-socket.broadcast.to(&amp;amp;#039;game&amp;amp;#039;).emit(&amp;amp;#039;message&amp;amp;#039;, &amp;amp;#039;nice game&amp;amp;#039;);
+socket.broadcast.to('game').emit('message', 'nice game');
 
 // 发送给所有的客户，包括发件人
-io.sockets.emit(&amp;amp;#039;message&amp;amp;#039;, &amp;amp;quot;this is a test&amp;amp;quot;);
+io.sockets.emit('message', "this is a test");
 
 // 发送给“游戏”房间（频道）的所有客户，包括发件人
-io.sockets.in(&amp;amp;#039;game&amp;amp;#039;).emit(&amp;amp;#039;message&amp;amp;#039;, &amp;amp;#039;cool game&amp;amp;#039;);
+io.sockets.in('game').emit('message', 'cool game');
 
 // 发送给指定的socketid
-io.sockets.socket(socketid).emit(&amp;amp;#039;message&amp;amp;#039;, &amp;amp;#039;for your eyes only&amp;amp;#039;);
+io.sockets.socket(socketid).emit('message', 'for your eyes only');
 ```
 
 **socket的这种行为更像是redux，但是redux是单向数据流，而socket是双向。**
@@ -102,10 +102,10 @@ React端的实现，才是我们应该关注的重点。
 前端使用的是socket.io-client库，这个库使用非常简单。下面的代码中，直接导入socket.io-client并且指向服务端的ip+端口即可。
 
 ```javascript
-import React, { Component } from &amp;amp;#039;react&amp;amp;#039;
+import React, { Component } from 'react'
 
-//require(&amp;amp;#039;socket.io-client&amp;amp;#039;)(&amp;amp;#039;服务端ip+端口&amp;amp;#039;)
-const socket = require(&amp;amp;#039;socket.io-client&amp;amp;#039;)(&amp;amp;#039;http://localhost:3077&amp;amp;#039;);
+//require('socket.io-client')('服务端ip+端口')
+const socket = require('socket.io-client')('http://localhost:3077');
 
 class App extends Component {
     
@@ -118,13 +118,13 @@ socket.on()设置了服务端约定好的指令，当服务端发出这些指令
 
 ```javascript
 componentDidMount() {
-        socket.on(&amp;amp;#039;login&amp;amp;#039;, (data) =&amp;amp;gt; {
+        socket.on('login', (data) => {
             console.log(data)
         });
-        socket.on(&amp;amp;#039;add user&amp;amp;#039;, (data) =&amp;amp;gt; {
+        socket.on('add user', (data) => {
             console.log(data)
         });
-        socket.on(&amp;amp;#039;new message&amp;amp;#039;, (data) =&amp;amp;gt; {
+        socket.on('new message', (data) => {
             console.log(data)
         });
     }
@@ -135,7 +135,7 @@ componentDidMount() {
 很多时候，客户端也需要告诉服务端有新的数据更新，当你在聊天界面发了一条新消息，这时候要告诉服务端，就通过socket.emit()方法，和服务端推送的方法是一样的。
 
 ```javascript
-socket.emit(&amp;amp;#039;new message&amp;amp;#039;, value)
+socket.emit('new message', value)
 ```
 
 ### 总结

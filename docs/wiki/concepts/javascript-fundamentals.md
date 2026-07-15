@@ -40,16 +40,16 @@ JavaScript 是单线程的，通过事件循环实现异步：
 
 **示例：**
 ```javascript
-console.log(&amp;amp;#039;1&amp;amp;#039;);
+console.log('1');
 
-setTimeout(() =&amp;amp;gt; console.log(&amp;amp;#039;2&amp;amp;#039;), 0);
+setTimeout(() => console.log('2'), 0);
 
-Promise.resolve().then(() =&amp;amp;gt; {
-  console.log(&amp;amp;#039;3&amp;amp;#039;);
-  Promise.resolve().then(() =&amp;amp;gt; console.log(&amp;amp;#039;4&amp;amp;#039;));
+Promise.resolve().then(() => {
+  console.log('3');
+  Promise.resolve().then(() => console.log('4'));
 });
 
-console.log(&amp;amp;#039;5&amp;amp;#039;);
+console.log('5');
 
 // 输出: 1, 5, 3, 4, 2
 ```
@@ -102,15 +102,15 @@ fn(); // x 仍然可访问，即使 outer 已执行完毕
 function createCounter() {
   let count = 0;
   return {
-    increment: () =&amp;amp;gt; ++count,
-    decrement: () =&amp;amp;gt; --count,
-    getCount: () =&amp;amp;gt; count
+    increment: () => ++count,
+    decrement: () => --count,
+    getCount: () => count
   };
 }
 
 // 2. 函数工厂
 function createMultiplier(multiplier) {
-  return (x) =&amp;amp;gt; x * multiplier;
+  return (x) => x * multiplier;
 }
 
 const double = createMultiplier(2);
@@ -121,7 +121,7 @@ function debounce(fn, delay) {
   let timer;
   return function(...args) {
     clearTimeout(timer);
-    timer = setTimeout(() =&amp;amp;gt; fn.apply(this, args), delay);
+    timer = setTimeout(() => fn.apply(this, args), delay);
   };
 }
 ```
@@ -140,7 +140,7 @@ Person.prototype.greet = function() {
   console.log(`Hello, ${this.name}`);
 };
 
-const alice = new Person(&amp;amp;#039;Alice&amp;amp;#039;);
+const alice = new Person('Alice');
 alice.greet(); // 在 Person.prototype 上找到 greet
 
 // 原型链: alice → Person.prototype → Object.prototype → null
@@ -181,28 +181,28 @@ class Dog extends Animal {
 ### 4.1 Promise
 ```javascript
 // 创建 Promise
-const promise = new Promise((resolve, reject) =&amp;amp;gt; {
-  setTimeout(() =&amp;amp;gt; {
-    Math.random() &amp;amp;gt; 0.5 ? resolve(&amp;amp;#039;成功&amp;amp;#039;) : reject(&amp;amp;#039;失败&amp;amp;#039;);
+const promise = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    Math.random() > 0.5 ? resolve('成功') : reject('失败');
   }, 1000);
 });
 
 // 链式调用
 promise
-  .then(result =&amp;amp;gt; {
+  .then(result => {
     console.log(result);
-    return fetch(&amp;amp;#039;/api/data&amp;amp;#039;);
+    return fetch('/api/data');
   })
-  .then(response =&amp;amp;gt; response.json())
-  .catch(error =&amp;amp;gt; console.error(error))
-  .finally(() =&amp;amp;gt; console.log(&amp;amp;#039;完成&amp;amp;#039;));
+  .then(response => response.json())
+  .catch(error => console.error(error))
+  .finally(() => console.log('完成'));
 ```
 
 ### 4.2 Async/Await
 ```javascript
 async function fetchData() {
   try {
-    const response = await fetch(&amp;amp;#039;/api/data&amp;amp;#039;);
+    const response = await fetch('/api/data');
     
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}`);
@@ -211,15 +211,15 @@ async function fetchData() {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error(&amp;amp;#039;获取数据失败:&amp;amp;#039;, error);
+    console.error('获取数据失败:', error);
     throw error;
   }
 }
 
 // 并行执行
 const [users, posts] = await Promise.all([
-  fetch(&amp;amp;#039;/api/users&amp;amp;#039;).then(r =&amp;amp;gt; r.json()),
-  fetch(&amp;amp;#039;/api/posts&amp;amp;#039;).then(r =&amp;amp;gt; r.json())
+  fetch('/api/users').then(r => r.json()),
+  fetch('/api/posts').then(r => r.json())
 ]);
 ```
 
@@ -265,11 +265,11 @@ export function add(a, b) { return a + b; }
 export default class Calculator { /* ... */ }
 
 // app.js
-import Calculator, { PI, add } from &amp;amp;#039;./math.js&amp;amp;#039;;
-import * as Math from &amp;amp;#039;./math.js&amp;amp;#039;;
+import Calculator, { PI, add } from './math.js';
+import * as Math from './math.js';
 
 // 动态导入
-const module = await import(&amp;amp;#039;./lazy-module.js&amp;amp;#039;);
+const module = await import('./lazy-module.js');
 ```
 
 ### 5.2 CommonJS
@@ -280,7 +280,7 @@ function add(a, b) { return a + b; }
 module.exports = { PI, add };
 
 // app.js
-const { PI, add } = require(&amp;amp;#039;./math.js&amp;amp;#039;);
+const { PI, add } = require('./math.js');
 ```
 
 ---
@@ -291,7 +291,7 @@ const { PI, add } = require(&amp;amp;#039;./math.js&amp;amp;#039;);
 ```javascript
 // 对象解构
 const { name, age, ...rest } = user;
-const { name: userName = &amp;amp;#039;Anonymous&amp;amp;#039; } = user;
+const { name: userName = 'Anonymous' } = user;
 
 // 数组解构
 const [first, second, ...rest] = array;
@@ -309,7 +309,7 @@ const value = obj.method?.();
 const item = array?.[0];
 
 // 空值合并
-const name = user.name ?? &amp;amp;#039;Anonymous&amp;amp;#039;; // 仅当 null/undefined 时使用默认值
+const name = user.name ?? 'Anonymous'; // 仅当 null/undefined 时使用默认值
 const count = user.count || 0;         // 当 falsy 时使用默认值
 ```
 
@@ -348,7 +348,7 @@ function* fibonacci() {
 function setup() {
   const largeObject = new Array(1000000);
   
-  document.getElementById(&amp;amp;#039;btn&amp;amp;#039;).addEventListener(&amp;amp;#039;click&amp;amp;#039;, () =&amp;amp;gt; {
+  document.getElementById('btn').addEventListener('click', () => {
     console.log(largeObject); // 闭包引用，无法 GC
   });
 }
@@ -357,15 +357,15 @@ function setup() {
 function setup() {
   let largeObject = new Array(1000000);
   
-  const handler = () =&amp;amp;gt; {
+  const handler = () => {
     console.log(largeObject);
   };
   
-  document.getElementById(&amp;amp;#039;btn&amp;amp;#039;).addEventListener(&amp;amp;#039;click&amp;amp;#039;, handler);
+  document.getElementById('btn').addEventListener('click', handler);
   
   // 清理
-  return () =&amp;amp;gt; {
-    document.getElementById(&amp;amp;#039;btn&amp;amp;#039;).removeEventListener(&amp;amp;#039;click&amp;amp;#039;, handler);
+  return () => {
+    document.getElementById('btn').removeEventListener('click', handler);
     largeObject = null;
   };
 }
@@ -375,7 +375,7 @@ function setup() {
 ```javascript
 // 1. 使用 Map 代替对象作为字典
 const map = new Map();
-map.set(&amp;amp;#039;key&amp;amp;#039;, value);
+map.set('key', value);
 
 // 2. 使用 Set 进行快速查找
 const set = new Set([1, 2, 3]);
@@ -383,8 +383,8 @@ set.has(2); // O(1)
 
 // 3. 避免频繁 DOM 操作
 const fragment = document.createDocumentFragment();
-for (let i = 0; i &amp;amp;lt; 100; i++) {
-  const div = document.createElement(&amp;amp;#039;div&amp;amp;#039;);
+for (let i = 0; i < 100; i++) {
+  const div = document.createElement('div');
   fragment.appendChild(div);
 }
 document.body.appendChild(fragment);

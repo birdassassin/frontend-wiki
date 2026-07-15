@@ -86,14 +86,14 @@
 我们可以用简单的Object结构来表示节点之间的关系：
 ```javascript
 const map = {
-  &amp;amp;#039;武汉&amp;amp;#039;: {
-    &amp;amp;#039;广州&amp;amp;#039;: {},
-    &amp;amp;#039;西藏&amp;amp;#039;: {},
-    &amp;amp;#039;上海&amp;amp;#039;: {}
+  '武汉': {
+    '广州': {},
+    '西藏': {},
+    '上海': {}
   },
-  &amp;amp;#039;上海&amp;amp;#039;: {
-    &amp;amp;#039;武汉&amp;amp;#039;: {},
-    &amp;amp;#039;广州&amp;amp;#039;: {}
+  '上海': {
+    '武汉': {},
+    '广州': {}
   }
 }
 ```
@@ -119,14 +119,14 @@ const map = {
 这里我采用的方法是根据维度空间来建立数据模型。首先找到一维空间的路线，北京 -> 武汉，北京 -> 上海。然后是二维空间的路线。建立了下面这个模型：
 ```javascript
 const map = {
-  &amp;amp;#039;武汉&amp;amp;#039;: {
-    &amp;amp;#039;广州&amp;amp;#039;: {},
-    &amp;amp;#039;西藏&amp;amp;#039;: {},
-    &amp;amp;#039;上海&amp;amp;#039;: {}
+  '武汉': {
+    '广州': {},
+    '西藏': {},
+    '上海': {}
   },
-  &amp;amp;#039;上海&amp;amp;#039;: {
-    &amp;amp;#039;武汉&amp;amp;#039;: {},
-    &amp;amp;#039;广州&amp;amp;#039;: {}
+  '上海': {
+    '武汉': {},
+    '广州': {}
   }
 }
 ```
@@ -136,20 +136,20 @@ const map = {
 
 ```javascript
 const map = {
-  &amp;amp;#039;武汉&amp;amp;#039;: {
-    &amp;amp;#039;广州&amp;amp;#039;: {},
-    &amp;amp;#039;西藏&amp;amp;#039;: {},
-    &amp;amp;#039;上海&amp;amp;#039;: {}
+  '武汉': {
+    '广州': {},
+    '西藏': {},
+    '上海': {}
   },
-  &amp;amp;#039;上海&amp;amp;#039;: {
-    &amp;amp;#039;武汉&amp;amp;#039;: {},
-    &amp;amp;#039;广州&amp;amp;#039;: {}
+  '上海': {
+    '武汉': {},
+    '广州': {}
   }
 }
-function breadthSearch(obj, goal, arr = [&amp;amp;#039;北京&amp;amp;#039;]) {
+function breadthSearch(obj, goal, arr = ['北京']) {
   for(let key in obj) {
     //遍历一度空间
-    if (arr.indexOf(key) &amp;amp;lt; 0) {
+    if (arr.indexOf(key) < 0) {
       //如果数组中不存在当前的key，就push
       arr.push(key)
       if (key === goal) {
@@ -163,9 +163,9 @@ function breadthSearch(obj, goal, arr = [&amp;amp;#039;北京&amp;amp;#039;]) {
   }
 }
 
-const s = breadthSearch(map, &amp;amp;#039;广州&amp;amp;#039;)
+const s = breadthSearch(map, '广州')
 
-console.log(s) //[&amp;amp;quot;北京&amp;amp;quot;, &amp;amp;quot;武汉&amp;amp;quot;, &amp;amp;quot;广州&amp;amp;quot;]
+console.log(s) //["北京", "武汉", "广州"]
 ```
 
 ### 总结

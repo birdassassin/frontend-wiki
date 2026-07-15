@@ -9,12 +9,12 @@
 ### 1.1 声明式 UI
 ```jsx
 // 命令式 (jQuery)
-$(&amp;amp;#039;#app&amp;amp;#039;).html(&amp;amp;#039;&amp;amp;lt;h1&amp;amp;gt;Hello&amp;amp;lt;/h1&amp;amp;gt;&amp;amp;#039;);
-$(&amp;amp;#039;#app&amp;amp;#039;).css(&amp;amp;#039;color&amp;amp;#039;, &amp;amp;#039;red&amp;amp;#039;);
+$('#app').html('<h1>Hello</h1>');
+$('#app').css('color', 'red');
 
 // 声明式 (React)
 function App() {
-  return &amp;amp;lt;h1 style=&amp;#123;&amp;#123; color: &amp;amp;#039;red&amp;amp;#039; &amp;#125;&amp;#125;&amp;amp;gt;Hello&amp;amp;lt;/h1&amp;amp;gt;;
+  return <h1 style=&amp;#123;&amp;#123; color: 'red' &amp;#125;&amp;#125;>Hello</h1>;
 }
 ```
 
@@ -35,9 +35,9 @@ function Counter() {
   const [count, setCount] = useState(0);
   
   // 函数式更新
-  const increment = () =&amp;amp;gt; setCount(c =&amp;amp;gt; c + 1);
+  const increment = () => setCount(c => c + 1);
   
-  return &amp;amp;lt;button onClick={increment}&amp;amp;gt;{count}&amp;amp;lt;/button&amp;amp;gt;;
+  return <button onClick={increment}>{count}</button>;
 }
 ```
 
@@ -45,33 +45,33 @@ function Counter() {
 ```jsx
 function Component() {
   // 挂载和更新
-  useEffect(() =&amp;amp;gt; {
-    const timer = setInterval(() =&amp;amp;gt; {}, 1000);
-    return () =&amp;amp;gt; clearInterval(timer); // 清理
+  useEffect(() => {
+    const timer = setInterval(() => {}, 1000);
+    return () => clearInterval(timer); // 清理
   }, [dependency]);
   
   // 仅挂载
-  useEffect(() =&amp;amp;gt; {
-    fetch(&amp;amp;#039;/api/data&amp;amp;#039;);
+  useEffect(() => {
+    fetch('/api/data');
   }, []);
 }
 ```
 
 #### useContext
 ```jsx
-const ThemeContext = createContext(&amp;amp;#039;light&amp;amp;#039;);
+const ThemeContext = createContext('light');
 
 function App() {
   return (
-    &amp;amp;lt;ThemeContext.Provider value=&amp;amp;quot;dark&amp;amp;quot;&amp;amp;gt;
-      &amp;amp;lt;Toolbar /&amp;amp;gt;
-    &amp;amp;lt;/ThemeContext.Provider&amp;amp;gt;
+    <ThemeContext.Provider value="dark">
+      <Toolbar />
+    </ThemeContext.Provider>
   );
 }
 
 function Toolbar() {
   const theme = useContext(ThemeContext);
-  return &amp;amp;lt;div className={theme}&amp;amp;gt;...&amp;amp;lt;/div&amp;amp;gt;;
+  return <div className={theme}>...</div>;
 }
 ```
 
@@ -80,12 +80,12 @@ function Toolbar() {
 #### useMemo
 ```jsx
 function TodoList({ todos, filter }) {
-  const filteredTodos = useMemo(() =&amp;amp;gt; 
-    todos.filter(t =&amp;amp;gt; t.text.includes(filter)),
+  const filteredTodos = useMemo(() => 
+    todos.filter(t => t.text.includes(filter)),
     [todos, filter]
   );
   
-  return &amp;amp;lt;List items={filteredTodos} /&amp;amp;gt;;
+  return <List items={filteredTodos} />;
 }
 ```
 
@@ -94,23 +94,23 @@ function TodoList({ todos, filter }) {
 function Parent() {
   const [count, setCount] = useState(0);
   
-  const handleClick = useCallback(() =&amp;amp;gt; {
-    console.log(&amp;amp;#039;clicked&amp;amp;#039;);
+  const handleClick = useCallback(() => {
+    console.log('clicked');
   }, []); // 依赖为空，函数不会重新创建
   
-  return &amp;amp;lt;Child onClick={handleClick} /&amp;amp;gt;;
+  return <Child onClick={handleClick} />;
 }
 ```
 
 ### 2.3 自定义 Hooks
 ```jsx
 function useLocalStorage(key, initialValue) {
-  const [value, setValue] = useState(() =&amp;amp;gt; {
+  const [value, setValue] = useState(() => {
     const stored = localStorage.getItem(key);
     return stored ? JSON.parse(stored) : initialValue;
   });
   
-  useEffect(() =&amp;amp;gt; {
+  useEffect(() => {
     localStorage.setItem(key, JSON.stringify(value));
   }, [key, value]);
   
@@ -118,7 +118,7 @@ function useLocalStorage(key, initialValue) {
 }
 
 // 使用
-const [theme, setTheme] = useLocalStorage(&amp;amp;#039;theme&amp;amp;#039;, &amp;amp;#039;light&amp;amp;#039;);
+const [theme, setTheme] = useLocalStorage('theme', 'light');
 ```
 
 ---
@@ -134,22 +134,22 @@ const [theme, setTheme] = useLocalStorage(&amp;amp;#039;theme&amp;amp;#039;, &am
 ```jsx
 function App() {
   const [isPending, startTransition] = useTransition();
-  const [input, setInput] = useState(&amp;amp;#039;&amp;amp;#039;);
-  const [search, setSearch] = useState(&amp;amp;#039;&amp;amp;#039;);
+  const [input, setInput] = useState('');
+  const [search, setSearch] = useState('');
   
-  const handleChange = (e) =&amp;amp;gt; {
+  const handleChange = (e) => {
     setInput(e.target.value);
-    startTransition(() =&amp;amp;gt; {
+    startTransition(() => {
       setSearch(e.target.value); // 低优先级更新
     });
   };
   
   return (
-    &amp;amp;lt;&amp;amp;gt;
-      &amp;amp;lt;input value={input} onChange={handleChange} /&amp;amp;gt;
-      {isPending &amp;amp;amp;&amp;amp;amp; &amp;amp;lt;Spinner /&amp;amp;gt;}
-      &amp;amp;lt;Results query={search} /&amp;amp;gt;
-    &amp;amp;lt;/&amp;amp;gt;
+    <>
+      <input value={input} onChange={handleChange} />
+      {isPending && <Spinner />}
+      <Results query={search} />
+    </>
   );
 }
 ```
@@ -173,7 +173,7 @@ class ErrorBoundary extends Component {
   
   render() {
     if (this.state.hasError) {
-      return &amp;amp;lt;Fallback /&amp;amp;gt;;
+      return <Fallback />;
     }
     return this.props.children;
   }
@@ -184,8 +184,8 @@ class ErrorBoundary extends Component {
 ```jsx
 function Modal({ children }) {
   return createPortal(
-    &amp;amp;lt;div className=&amp;amp;quot;modal&amp;amp;quot;&amp;amp;gt;{children}&amp;amp;lt;/div&amp;amp;gt;,
-    document.getElementById(&amp;amp;#039;modal-root&amp;amp;#039;)
+    <div className="modal">{children}</div>,
+    document.getElementById('modal-root')
   );
 }
 ```
@@ -199,11 +199,11 @@ function Component() {
   // 不触发重渲染的变量
   const timerRef = useRef(null);
   
-  useEffect(() =&amp;amp;gt; {
+  useEffect(() => {
     ref.current.focus();
   }, []);
   
-  return &amp;amp;lt;input ref={ref} /&amp;amp;gt;;
+  return <input ref={ref} />;
 }
 ```
 

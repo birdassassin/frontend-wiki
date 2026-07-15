@@ -18,26 +18,26 @@ HTML 标签不是视觉容器，而是**内容语义**的载体。
 
 ### 1.2 文档结构
 ```html
-&amp;amp;lt;!DOCTYPE html&amp;amp;gt;
-&amp;amp;lt;html lang=&amp;amp;quot;zh-CN&amp;amp;quot;&amp;amp;gt;
-&amp;amp;lt;head&amp;amp;gt;
-  &amp;amp;lt;meta charset=&amp;amp;quot;UTF-8&amp;amp;quot;&amp;amp;gt;
-  &amp;amp;lt;meta name=&amp;amp;quot;viewport&amp;amp;quot; content=&amp;amp;quot;width=device-width, initial-scale=1.0&amp;amp;quot;&amp;amp;gt;
-  &amp;amp;lt;title&amp;amp;gt;页面标题&amp;amp;lt;/title&amp;amp;gt;
-  &amp;amp;lt;meta name=&amp;amp;quot;description&amp;amp;quot; content=&amp;amp;quot;页面描述&amp;amp;quot;&amp;amp;gt;
-&amp;amp;lt;/head&amp;amp;gt;
-&amp;amp;lt;body&amp;amp;gt;
-  &amp;amp;lt;header&amp;amp;gt;...&amp;amp;lt;/header&amp;amp;gt;
-  &amp;amp;lt;nav&amp;amp;gt;...&amp;amp;lt;/nav&amp;amp;gt;
-  &amp;amp;lt;main&amp;amp;gt;
-    &amp;amp;lt;article&amp;amp;gt;
-      &amp;amp;lt;section&amp;amp;gt;...&amp;amp;lt;/section&amp;amp;gt;
-    &amp;amp;lt;/article&amp;amp;gt;
-    &amp;amp;lt;aside&amp;amp;gt;...&amp;amp;lt;/aside&amp;amp;gt;
-  &amp;amp;lt;/main&amp;amp;gt;
-  &amp;amp;lt;footer&amp;amp;gt;...&amp;amp;lt;/footer&amp;amp;gt;
-&amp;amp;lt;/body&amp;amp;gt;
-&amp;amp;lt;/html&amp;amp;gt;
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>页面标题</title>
+  <meta name="description" content="页面描述">
+</head>
+<body>
+  <header>...</header>
+  <nav>...</nav>
+  <main>
+    <article>
+      <section>...</section>
+    </article>
+    <aside>...</aside>
+  </main>
+  <footer>...</footer>
+</body>
+</html>
 ```
 
 ### 1.3 标题层级
@@ -51,18 +51,18 @@ HTML 标签不是视觉容器，而是**内容语义**的载体。
 
 ### 2.1 表单元素
 ```html
-&amp;amp;lt;form action=&amp;amp;quot;/submit&amp;amp;quot; method=&amp;amp;quot;POST&amp;amp;quot;&amp;amp;gt;
-  &amp;amp;lt;label for=&amp;amp;quot;email&amp;amp;quot;&amp;amp;gt;邮箱&amp;amp;lt;/label&amp;amp;gt;
-  &amp;amp;lt;input type=&amp;amp;quot;email&amp;amp;quot; id=&amp;amp;quot;email&amp;amp;quot; name=&amp;amp;quot;email&amp;amp;quot; required autocomplete=&amp;amp;quot;email&amp;amp;quot;&amp;amp;gt;
+<form action="/submit" method="POST">
+  <label for="email">邮箱</label>
+  <input type="email" id="email" name="email" required autocomplete="email">
   
-  &amp;amp;lt;fieldset&amp;amp;gt;
-    &amp;amp;lt;legend&amp;amp;gt;偏好设置&amp;amp;lt;/legend&amp;amp;gt;
-    &amp;amp;lt;input type=&amp;amp;quot;checkbox&amp;amp;quot; id=&amp;amp;quot;newsletter&amp;amp;quot; name=&amp;amp;quot;newsletter&amp;amp;quot;&amp;amp;gt;
-    &amp;amp;lt;label for=&amp;amp;quot;newsletter&amp;amp;quot;&amp;amp;gt;订阅新闻&amp;amp;lt;/label&amp;amp;gt;
-  &amp;amp;lt;/fieldset&amp;amp;gt;
+  <fieldset>
+    <legend>偏好设置</legend>
+    <input type="checkbox" id="newsletter" name="newsletter">
+    <label for="newsletter">订阅新闻</label>
+  </fieldset>
   
-  &amp;amp;lt;button type=&amp;amp;quot;submit&amp;amp;quot;&amp;amp;gt;提交&amp;amp;lt;/button&amp;amp;gt;
-&amp;amp;lt;/form&amp;amp;gt;
+  <button type="submit">提交</button>
+</form>
 ```
 
 **要点：**
@@ -73,35 +73,35 @@ HTML 标签不是视觉容器，而是**内容语义**的载体。
 
 ### 2.2 媒体元素
 ```html
-&amp;amp;lt;picture&amp;amp;gt;
-  &amp;amp;lt;source srcset=&amp;amp;quot;image.avif&amp;amp;quot; type=&amp;amp;quot;image/avif&amp;amp;quot;&amp;amp;gt;
-  &amp;amp;lt;source srcset=&amp;amp;quot;image.webp&amp;amp;quot; type=&amp;amp;quot;image/webp&amp;amp;quot;&amp;amp;gt;
-  &amp;amp;lt;img src=&amp;amp;quot;image.jpg&amp;amp;quot; alt=&amp;amp;quot;描述性文字&amp;amp;quot; loading=&amp;amp;quot;lazy&amp;amp;quot; width=&amp;amp;quot;800&amp;amp;quot; height=&amp;amp;quot;600&amp;amp;quot;&amp;amp;gt;
-&amp;amp;lt;/picture&amp;amp;gt;
+<picture>
+  <source srcset="image.avif" type="image/avif">
+  <source srcset="image.webp" type="image/webp">
+  <img src="image.jpg" alt="描述性文字" loading="lazy" width="800" height="600">
+</picture>
 
-&amp;amp;lt;video controls width=&amp;amp;quot;640&amp;amp;quot; poster=&amp;amp;quot;preview.jpg&amp;amp;quot;&amp;amp;gt;
-  &amp;amp;lt;source src=&amp;amp;quot;video.mp4&amp;amp;quot; type=&amp;amp;quot;video/mp4&amp;amp;quot;&amp;amp;gt;
-  &amp;amp;lt;track kind=&amp;amp;quot;subtitles&amp;amp;quot; src=&amp;amp;quot;subs.vtt&amp;amp;quot; srclang=&amp;amp;quot;zh&amp;amp;quot; label=&amp;amp;quot;中文&amp;amp;quot;&amp;amp;gt;
-&amp;amp;lt;/video&amp;amp;gt;
+<video controls width="640" poster="preview.jpg">
+  <source src="video.mp4" type="video/mp4">
+  <track kind="subtitles" src="subs.vtt" srclang="zh" label="中文">
+</video>
 ```
 
 ### 2.3 表格
 ```html
-&amp;amp;lt;table&amp;amp;gt;
-  &amp;amp;lt;caption&amp;amp;gt;2024年销售数据&amp;amp;lt;/caption&amp;amp;gt;
-  &amp;amp;lt;thead&amp;amp;gt;
-    &amp;amp;lt;tr&amp;amp;gt;
-      &amp;amp;lt;th scope=&amp;amp;quot;col&amp;amp;quot;&amp;amp;gt;季度&amp;amp;lt;/th&amp;amp;gt;
-      &amp;amp;lt;th scope=&amp;amp;quot;col&amp;amp;quot;&amp;amp;gt;销售额&amp;amp;lt;/th&amp;amp;gt;
-    &amp;amp;lt;/tr&amp;amp;gt;
-  &amp;amp;lt;/thead&amp;amp;gt;
-  &amp;amp;lt;tbody&amp;amp;gt;
-    &amp;amp;lt;tr&amp;amp;gt;
-      &amp;amp;lt;th scope=&amp;amp;quot;row&amp;amp;quot;&amp;amp;gt;Q1&amp;amp;lt;/th&amp;amp;gt;
-      &amp;amp;lt;td&amp;amp;gt;¥1,000,000&amp;amp;lt;/td&amp;amp;gt;
-    &amp;amp;lt;/tr&amp;amp;gt;
-  &amp;amp;lt;/tbody&amp;amp;gt;
-&amp;amp;lt;/table&amp;amp;gt;
+<table>
+  <caption>2024年销售数据</caption>
+  <thead>
+    <tr>
+      <th scope="col">季度</th>
+      <th scope="col">销售额</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">Q1</th>
+      <td>¥1,000,000</td>
+    </tr>
+  </tbody>
+</table>
 ```
 
 ---
@@ -110,17 +110,17 @@ HTML 标签不是视觉容器，而是**内容语义**的载体。
 
 ### 3.1 ARIA 属性
 ```html
-&amp;amp;lt;!-- 角色定义 --&amp;amp;gt;
-&amp;amp;lt;div role=&amp;amp;quot;navigation&amp;amp;quot; aria-label=&amp;amp;quot;主导航&amp;amp;quot;&amp;amp;gt;...&amp;amp;lt;/div&amp;amp;gt;
+<!-- 角色定义 -->
+<div role="navigation" aria-label="主导航">...</div>
 
-&amp;amp;lt;!-- 状态管理 --&amp;amp;gt;
-&amp;amp;lt;button aria-expanded=&amp;amp;quot;false&amp;amp;quot; aria-controls=&amp;amp;quot;menu&amp;amp;quot;&amp;amp;gt;菜单&amp;amp;lt;/button&amp;amp;gt;
-&amp;amp;lt;ul id=&amp;amp;quot;menu&amp;amp;quot; hidden&amp;amp;gt;...&amp;amp;lt;/ul&amp;amp;gt;
+<!-- 状态管理 -->
+<button aria-expanded="false" aria-controls="menu">菜单</button>
+<ul id="menu" hidden>...</ul>
 
-&amp;amp;lt;!-- 实时区域 --&amp;amp;gt;
-&amp;amp;lt;div aria-live=&amp;amp;quot;polite&amp;amp;quot; aria-atomic=&amp;amp;quot;true&amp;amp;quot;&amp;amp;gt;
-  &amp;amp;lt;!-- 动态内容更新会通知屏幕阅读器 --&amp;amp;gt;
-&amp;amp;lt;/div&amp;amp;gt;
+<!-- 实时区域 -->
+<div aria-live="polite" aria-atomic="true">
+  <!-- 动态内容更新会通知屏幕阅读器 -->
+</div>
 ```
 
 ### 3.2 键盘导航
@@ -133,14 +133,14 @@ HTML 标签不是视觉容器，而是**内容语义**的载体。
 ```javascript
 // 模态框打开时管理焦点
 function openModal() {
-  const modal = document.getElementById(&amp;amp;#039;modal&amp;amp;#039;);
+  const modal = document.getElementById('modal');
   modal.showModal();
-  modal.querySelector(&amp;amp;#039;input&amp;amp;#039;)?.focus();
+  modal.querySelector('input')?.focus();
 }
 
 // 路由切换后移动焦点
-router.afterEach(() =&amp;amp;gt; {
-  document.querySelector(&amp;amp;#039;main&amp;amp;#039;)?.focus();
+router.afterEach(() => {
+  document.querySelector('main')?.focus();
 });
 ```
 
@@ -150,31 +150,31 @@ router.afterEach(() =&amp;amp;gt; {
 
 ### 4.1 Meta 标签
 ```html
-&amp;amp;lt;meta name=&amp;amp;quot;description&amp;amp;quot; content=&amp;amp;quot;页面描述，150-160字符&amp;amp;quot;&amp;amp;gt;
-&amp;amp;lt;meta name=&amp;amp;quot;robots&amp;amp;quot; content=&amp;amp;quot;index, follow&amp;amp;quot;&amp;amp;gt;
-&amp;amp;lt;link rel=&amp;amp;quot;canonical&amp;amp;quot; href=&amp;amp;quot;https://example.com/page&amp;amp;quot;&amp;amp;gt;
+<meta name="description" content="页面描述，150-160字符">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://example.com/page">
 
-&amp;amp;lt;!-- Open Graph --&amp;amp;gt;
-&amp;amp;lt;meta property=&amp;amp;quot;og:title&amp;amp;quot; content=&amp;amp;quot;页面标题&amp;amp;quot;&amp;amp;gt;
-&amp;amp;lt;meta property=&amp;amp;quot;og:description&amp;amp;quot; content=&amp;amp;quot;页面描述&amp;amp;quot;&amp;amp;gt;
-&amp;amp;lt;meta property=&amp;amp;quot;og:image&amp;amp;quot; content=&amp;amp;quot;https://example.com/image.jpg&amp;amp;quot;&amp;amp;gt;
-&amp;amp;lt;meta property=&amp;amp;quot;og:url&amp;amp;quot; content=&amp;amp;quot;https://example.com/page&amp;amp;quot;&amp;amp;gt;
+<!-- Open Graph -->
+<meta property="og:title" content="页面标题">
+<meta property="og:description" content="页面描述">
+<meta property="og:image" content="https://example.com/image.jpg">
+<meta property="og:url" content="https://example.com/page">
 
-&amp;amp;lt;!-- Twitter Card --&amp;amp;gt;
-&amp;amp;lt;meta name=&amp;amp;quot;twitter:card&amp;amp;quot; content=&amp;amp;quot;summary_large_image&amp;amp;quot;&amp;amp;gt;
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
 ```
 
 ### 4.2 结构化数据
 ```html
-&amp;amp;lt;script type=&amp;amp;quot;application/ld+json&amp;amp;quot;&amp;amp;gt;
+<script type="application/ld+json">
 {
-  &amp;amp;quot;@context&amp;amp;quot;: &amp;amp;quot;https://schema.org&amp;amp;quot;,
-  &amp;amp;quot;@type&amp;amp;quot;: &amp;amp;quot;Article&amp;amp;quot;,
-  &amp;amp;quot;headline&amp;amp;quot;: &amp;amp;quot;文章标题&amp;amp;quot;,
-  &amp;amp;quot;author&amp;amp;quot;: {&amp;amp;quot;@type&amp;amp;quot;: &amp;amp;quot;Person&amp;amp;quot;, &amp;amp;quot;name&amp;amp;quot;: &amp;amp;quot;作者&amp;amp;quot;},
-  &amp;amp;quot;datePublished&amp;amp;quot;: &amp;amp;quot;2024-01-01&amp;amp;quot;
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "文章标题",
+  "author": {"@type": "Person", "name": "作者"},
+  "datePublished": "2024-01-01"
 }
-&amp;amp;lt;/script&amp;amp;gt;
+</script>
 ```
 
 ---

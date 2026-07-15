@@ -9,15 +9,15 @@
 ### 1.1 Execution Context
 ```javascript
 // Global Execution Context
-var globalVar = &amp;amp;#039;global&amp;amp;#039;;
+var globalVar = 'global';
 
 function outer() {
   // Outer Execution Context
-  var outerVar = &amp;amp;#039;outer&amp;amp;#039;;
+  var outerVar = 'outer';
   
   function inner() {
     // Inner Execution Context
-    var innerVar = &amp;amp;#039;inner&amp;amp;#039;;
+    var innerVar = 'inner';
     console.log(globalVar, outerVar, innerVar);
   }
   
@@ -33,7 +33,7 @@ var a = 1;
 
 // Function hoisting
 foo(); // Works
-function foo() { console.log(&amp;amp;#039;foo&amp;amp;#039;); }
+function foo() { console.log('foo'); }
 
 // let/const temporal dead zone
 console.log(b); // ReferenceError
@@ -55,9 +55,9 @@ function createCounter() {
   let count = 0; // Encapsulated state
   
   return {
-    increment: () =&amp;amp;gt; ++count,
-    decrement: () =&amp;amp;gt; --count,
-    getCount: () =&amp;amp;gt; count
+    increment: () => ++count,
+    decrement: () => --count,
+    getCount: () => count
   };
 }
 
@@ -72,7 +72,7 @@ counter.decrement(); // 1
 // Memoization
 function memoize(fn) {
   const cache = new Map();
-  return (...args) =&amp;amp;gt; {
+  return (...args) => {
     const key = JSON.stringify(args);
     if (cache.has(key)) return cache.get(key);
     const result = fn(...args);
@@ -84,20 +84,20 @@ function memoize(fn) {
 // Debounce
 function debounce(fn, delay) {
   let timer;
-  return (...args) =&amp;amp;gt; {
+  return (...args) => {
     clearTimeout(timer);
-    timer = setTimeout(() =&amp;amp;gt; fn(...args), delay);
+    timer = setTimeout(() => fn(...args), delay);
   };
 }
 
 // Throttle
 function throttle(fn, limit) {
   let inThrottle;
-  return (...args) =&amp;amp;gt; {
+  return (...args) => {
     if (!inThrottle) {
       fn(...args);
       inThrottle = true;
-      setTimeout(() =&amp;amp;gt; inThrottle = false, limit);
+      setTimeout(() => inThrottle = false, limit);
     }
   };
 }
@@ -114,11 +114,11 @@ function Person(name) {
 }
 
 Person.prototype.greet = function() {
-  console.log(`Hello, I&amp;amp;#039;m ${this.name}`);
+  console.log(`Hello, I'm ${this.name}`);
 };
 
-const alice = new Person(&amp;amp;#039;Alice&amp;amp;#039;);
-alice.greet(); // Hello, I&amp;amp;#039;m Alice
+const alice = new Person('Alice');
+alice.greet(); // Hello, I'm Alice
 
 // Prototype chain: alice → Person.prototype → Object.prototype → null
 ```
@@ -152,8 +152,8 @@ class Dog extends Animal {
 [] instanceof Array; // true
 [] instanceof Object; // true
 
-Object.prototype.toString.call([]); // &amp;amp;quot;[object Array]&amp;amp;quot;
-Object.prototype.toString.call({}); // &amp;amp;quot;[object Object]&amp;amp;quot;
+Object.prototype.toString.call([]); // "[object Array]"
+Object.prototype.toString.call({}); // "[object Object]"
 ```
 
 ---
@@ -173,39 +173,39 @@ Call Stack → Web APIs → Task Queue (Macrotasks) → Microtask Queue
 
 ### 4.2 Promise
 ```javascript
-const promise = new Promise((resolve, reject) =&amp;amp;gt; {
-  setTimeout(() =&amp;amp;gt; {
-    Math.random() &amp;amp;gt; 0.5 ? resolve(&amp;amp;#039;success&amp;amp;#039;) : reject(&amp;amp;#039;error&amp;amp;#039;);
+const promise = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    Math.random() > 0.5 ? resolve('success') : reject('error');
   }, 1000);
 });
 
 promise
-  .then(result =&amp;amp;gt; console.log(result))
-  .catch(error =&amp;amp;gt; console.error(error))
-  .finally(() =&amp;amp;gt; console.log(&amp;amp;#039;done&amp;amp;#039;));
+  .then(result => console.log(result))
+  .catch(error => console.error(error))
+  .finally(() => console.log('done'));
 
 // Promise.all - all succeed
-Promise.all([p1, p2, p3]).then(results =&amp;amp;gt; console.log(results));
+Promise.all([p1, p2, p3]).then(results => console.log(results));
 
 // Promise.race - first to settle
-Promise.race([p1, p2]).then(result =&amp;amp;gt; console.log(result));
+Promise.race([p1, p2]).then(result => console.log(result));
 
 // Promise.allSettled - wait for all
-Promise.allSettled([p1, p2, p3]).then(results =&amp;amp;gt; console.log(results));
+Promise.allSettled([p1, p2, p3]).then(results => console.log(results));
 
 // Promise.any - first to succeed
-Promise.any([p1, p2]).then(result =&amp;amp;gt; console.log(result));
+Promise.any([p1, p2]).then(result => console.log(result));
 ```
 
 ### 4.3 Async/Await
 ```javascript
 async function fetchData() {
   try {
-    const response = await fetch(&amp;amp;#039;/api/data&amp;amp;#039;);
+    const response = await fetch('/api/data');
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error(&amp;amp;#039;Fetch failed:&amp;amp;#039;, error);
+    console.error('Fetch failed:', error);
     throw error;
   }
 }
@@ -213,8 +213,8 @@ async function fetchData() {
 // Parallel execution
 async function fetchAll() {
   const [users, posts] = await Promise.all([
-    fetch(&amp;amp;#039;/api/users&amp;amp;#039;).then(r =&amp;amp;gt; r.json()),
-    fetch(&amp;amp;#039;/api/posts&amp;amp;#039;).then(r =&amp;amp;gt; r.json())
+    fetch('/api/users').then(r => r.json()),
+    fetch('/api/posts').then(r => r.json())
   ]);
   return { users, posts };
 }
@@ -223,7 +223,7 @@ async function fetchAll() {
 ### 4.4 Error Handling
 ```javascript
 // Promise error handling
-promise.catch(err =&amp;amp;gt; handleError(err));
+promise.catch(err => handleError(err));
 
 // Async/await error handling
 try {
@@ -233,8 +233,8 @@ try {
 }
 
 // Global error handling
-window.addEventListener(&amp;amp;#039;unhandledrejection&amp;amp;#039;, event =&amp;amp;gt; {
-  console.error(&amp;amp;#039;Unhandled rejection:&amp;amp;#039;, event.reason);
+window.addEventListener('unhandledrejection', event => {
+  console.error('Unhandled rejection:', event.reason);
 });
 ```
 
@@ -252,22 +252,22 @@ export function add(a, b) { return a + b; }
 export default class Calculator { /* ... */ }
 
 // Imports
-import { PI, add } from &amp;amp;#039;./math.js&amp;amp;#039;;
-import Calculator from &amp;amp;#039;./math.js&amp;amp;#039;;
-import * as Math from &amp;amp;#039;./math.js&amp;amp;#039;;
+import { PI, add } from './math.js';
+import Calculator from './math.js';
+import * as Math from './math.js';
 
 // Dynamic import
-const module = await import(&amp;amp;#039;./dynamic-module.js&amp;amp;#039;);
+const module = await import('./dynamic-module.js');
 ```
 
 ### 5.2 CommonJS
 ```javascript
 // Exports
 module.exports = { add, PI };
-exports.subtract = (a, b) =&amp;amp;gt; a - b;
+exports.subtract = (a, b) => a - b;
 
 // Imports
-const { add, PI } = require(&amp;amp;#039;./math&amp;amp;#039;);
+const { add, PI } = require('./math');
 ```
 
 ---
@@ -285,20 +285,20 @@ const { data: { users } } = response;
 ```javascript
 const merged = { ...obj1, ...obj2 };
 const cloned = [...array];
-function sum(...numbers) { return numbers.reduce((a, b) =&amp;amp;gt; a + b, 0); }
+function sum(...numbers) { return numbers.reduce((a, b) => a + b, 0); }
 ```
 
 ### 6.3 Optional Chaining & Nullish Coalescing
 ```javascript
-const name = user?.profile?.name ?? &amp;amp;#039;Anonymous&amp;amp;#039;;
+const name = user?.profile?.name ?? 'Anonymous';
 const count = data?.count ?? 0;
 ```
 
 ### 6.4 Map & Set
 ```javascript
 const map = new Map();
-map.set(&amp;amp;#039;key&amp;amp;#039;, &amp;amp;#039;value&amp;amp;#039;);
-map.get(&amp;amp;#039;key&amp;amp;#039;); // &amp;amp;#039;value&amp;amp;#039;
+map.set('key', 'value');
+map.get('key'); // 'value'
 
 const set = new Set([1, 2, 3, 3]);
 set.size; // 3 (unique values)
@@ -315,8 +315,8 @@ set.size; // 3 (unique values)
 
 // Memory leaks to avoid
 function createLeak() {
-  const element = document.getElementById(&amp;amp;#039;my-element&amp;amp;#039;);
-  element.addEventListener(&amp;amp;#039;click&amp;amp;#039;, () =&amp;amp;gt; {
+  const element = document.getElementById('my-element');
+  element.addEventListener('click', () => {
     // Closure keeps reference to element
     console.log(element);
   });
@@ -325,12 +325,12 @@ function createLeak() {
 
 // Fix: remove event listeners
 function noLeak() {
-  const element = document.getElementById(&amp;amp;#039;my-element&amp;amp;#039;);
-  const handler = () =&amp;amp;gt; console.log(element);
-  element.addEventListener(&amp;amp;#039;click&amp;amp;#039;, handler);
+  const element = document.getElementById('my-element');
+  const handler = () => console.log(element);
+  element.addEventListener('click', handler);
   
   // Cleanup
-  element.removeEventListener(&amp;amp;#039;click&amp;amp;#039;, handler);
+  element.removeEventListener('click', handler);
 }
 ```
 
@@ -339,10 +339,10 @@ function noLeak() {
 const weakRef = new WeakRef(expensiveObject);
 weakRef.deref(); // Returns object if still alive
 
-const registry = new FinalizationRegistry(heldValue =&amp;amp;gt; {
-  console.log(&amp;amp;#039;Object cleaned up:&amp;amp;#039;, heldValue);
+const registry = new FinalizationRegistry(heldValue => {
+  console.log('Object cleaned up:', heldValue);
 });
-registry.register(target, &amp;amp;#039;cleanup-data&amp;amp;#039;);
+registry.register(target, 'cleanup-data');
 ```
 
 ---

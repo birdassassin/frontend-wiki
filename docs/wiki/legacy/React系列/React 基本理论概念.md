@@ -6,12 +6,12 @@ React的核心前提是UI仅仅是将数据映射到不同形式的数据。相�
 
 ```javascript
 function NameBox(name) {
-  return { fontWeight: &amp;amp;#039;bold&amp;amp;#039;, labelContent: name };
+  return { fontWeight: 'bold', labelContent: name };
 }
 ```
 ```javascript
-&amp;amp;#039;Sebastian Markbåge&amp;amp;#039; -&amp;amp;gt;
-{ fontWeight: &amp;amp;#039;bold&amp;amp;#039;, labelContent: &amp;amp;#039;Sebastian Markbåge&amp;amp;#039; };
+'Sebastian Markbåge' ->
+{ fontWeight: 'bold', labelContent: 'Sebastian Markbåge' };
 ```
 
 ### 抽象化
@@ -20,21 +20,21 @@ function NameBox(name) {
 ```javascript
 function FancyUserBox(user) {
   return {
-    borderStyle: &amp;amp;#039;1px solid blue&amp;amp;#039;,
+    borderStyle: '1px solid blue',
     childContent: [
-      &amp;amp;#039;Name: &amp;amp;#039;,
-      NameBox(user.firstName + &amp;amp;#039; &amp;amp;#039; + user.lastName)
+      'Name: ',
+      NameBox(user.firstName + ' ' + user.lastName)
     ]
   };
 }
 ```
 ```javascript
-{ firstName: &amp;amp;#039;Sebastian&amp;amp;#039;, lastName: &amp;amp;#039;Markbåge&amp;amp;#039; } -&amp;amp;gt;
+{ firstName: 'Sebastian', lastName: 'Markbåge' } ->
 {
-  borderStyle: &amp;amp;#039;1px solid blue&amp;amp;#039;,
+  borderStyle: '1px solid blue',
   childContent: [
-    &amp;amp;#039;Name: &amp;amp;#039;,
-    { fontWeight: &amp;amp;#039;bold&amp;amp;#039;, labelContent: &amp;amp;#039;Sebastian Markbåge&amp;amp;#039; }
+    'Name: ',
+    { fontWeight: 'bold', labelContent: 'Sebastian Markbåge' }
   ]
 };
 ```
@@ -45,15 +45,15 @@ function FancyUserBox(user) {
 ```javascript
 function FancyBox(children) {
   return {
-    borderStyle: &amp;amp;#039;1px solid blue&amp;amp;#039;,
+    borderStyle: '1px solid blue',
     children: children
   };
 }
 
 function UserBox(user) {
   return FancyBox([
-    &amp;amp;#039;Name: &amp;amp;#039;,
-    NameBox(user.firstName + &amp;amp;#039; &amp;amp;#039; + user.lastName)
+    'Name: ',
+    NameBox(user.firstName + ' ' + user.lastName)
   ]);
 }
 ```
@@ -66,8 +66,8 @@ UI不仅仅是服务器/业务逻辑状态的复制。实际上有很多状态�
 ```javascript
 function FancyNameBox(user, likes, onClick) {
   return FancyBox([
-    &amp;amp;#039;Name: &amp;amp;#039;, NameBox(user.firstName + &amp;amp;#039; &amp;amp;#039; + user.lastName),
-    &amp;amp;#039;Likes: &amp;amp;#039;, LikeBox(likes),
+    'Name: ', NameBox(user.firstName + ' ' + user.lastName),
+    'Likes: ', LikeBox(likes),
     LikeButton(onClick)
   ]);
 }
@@ -83,7 +83,7 @@ function addOneMoreLike() {
 // 初始化
 
 FancyNameBox(
-  { firstName: &amp;amp;#039;Sebastian&amp;amp;#039;, lastName: &amp;amp;#039;Markbåge&amp;amp;#039; },
+  { firstName: 'Sebastian', lastName: 'Markbåge' },
   likes,
   addOneMoreLike
 );
@@ -112,9 +112,9 @@ var MemoizedNameBox = memoize(NameBox);
 
 function NameAndAgeBox(user, currentTime) {
   return FancyBox([
-    &amp;amp;#039;Name: &amp;amp;#039;,
-    MemoizedNameBox(user.firstName + &amp;amp;#039; &amp;amp;#039; + user.lastName),
-    &amp;amp;#039;Age in milliseconds: &amp;amp;#039;,
+    'Name: ',
+    MemoizedNameBox(user.firstName + ' ' + user.lastName),
+    'Age in milliseconds: ',
     currentTime - user.dateOfBirth
   ]);
 }
@@ -127,10 +127,10 @@ function NameAndAgeBox(user, currentTime) {
 
 ```javascript
 function UserList(users, likesPerUser, updateUserLikes) {
-  return users.map(user =&amp;amp;gt; FancyNameBox(
+  return users.map(user => FancyNameBox(
     user,
     likesPerUser.get(user.id),
-    () =&amp;amp;gt; updateUserLikes(user.id, likesPerUser.get(user.id) + 1)
+    () => updateUserLikes(user.id, likesPerUser.get(user.id) + 1)
   ));
 }
 
@@ -177,7 +177,7 @@ function FancyBoxWithState(
   updateState
 ) {
   return FancyBox(
-    children.map(child =&amp;amp;gt; child.continuation(
+    children.map(child => child.continuation(
       stateMap.get(child.key),
       updateState
     ))
@@ -185,7 +185,7 @@ function FancyBoxWithState(
 }
 
 function UserList(users) {
-  return users.map(user =&amp;amp;gt; {
+  return users.map(user => {
     continuation: FancyNameBox.bind(null, user),
     key: user.id
   });
@@ -228,7 +228,7 @@ function FancyBoxWithState(
   memoizationCache
 ) {
   return FancyBox(
-    children.map(child =&amp;amp;gt; child.continuation(
+    children.map(child => child.continuation(
       stateMap.get(child.key),
       updateState,
       memoizationCache.get(child.key)
@@ -252,7 +252,7 @@ function ThemeBorderColorRequest() { }
 function FancyBox(children) {
   const color = raise new ThemeBorderColorRequest();
   return {
-    borderWidth: &amp;amp;#039;1px&amp;amp;#039;,
+    borderWidth: '1px',
     borderColor: color,
     children: children
   };
@@ -261,8 +261,8 @@ function FancyBox(children) {
 function BlueTheme(children) {
   return try {
     children();
-  } catch effect ThemeBorderColorRequest -&amp;amp;gt; [, continuation] {
-    continuation(&amp;amp;#039;blue&amp;amp;#039;);
+  } catch effect ThemeBorderColorRequest -> [, continuation] {
+    continuation('blue');
   }
 }
 

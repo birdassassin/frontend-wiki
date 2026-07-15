@@ -26,11 +26,11 @@
 ### 2.2 实现
 ```jsx
 // React SPA
-import { createRoot } from &amp;amp;#039;react-dom/client&amp;amp;#039;;
-import App from &amp;amp;#039;./App&amp;amp;#039;;
+import { createRoot } from 'react-dom/client';
+import App from './App';
 
-const root = createRoot(document.getElementById(&amp;amp;#039;root&amp;amp;#039;));
-root.render(&amp;amp;lt;App /&amp;amp;gt;);
+const root = createRoot(document.getElementById('root'));
+root.render(<App />);
 ```
 
 ### 2.3 优缺点
@@ -62,18 +62,18 @@ export async function getServerSideProps({ params }) {
 }
 
 function UserPage({ user }) {
-  return &amp;amp;lt;div&amp;amp;gt;{user.name}&amp;amp;lt;/div&amp;amp;gt;;
+  return <div>{user.name}</div>;
 }
 ```
 
 ### 3.3 React 18 SSR
 ```jsx
-import { renderToPipeableStream } from &amp;amp;#039;react-dom/server&amp;amp;#039;;
+import { renderToPipeableStream } from 'react-dom/server';
 
-app.get(&amp;amp;#039;*&amp;amp;#039;, (req, res) =&amp;amp;gt; {
-  const stream = renderToPipeableStream(&amp;amp;lt;App /&amp;amp;gt;, {
+app.get('*', (req, res) => {
+  const stream = renderToPipeableStream(<App />, {
     onShellReady() {
-      res.setHeader(&amp;amp;#039;Content-Type&amp;amp;#039;, &amp;amp;#039;text/html&amp;amp;#039;);
+      res.setHeader('Content-Type', 'text/html');
       stream.pipe(res);
     }
   });
@@ -101,7 +101,7 @@ export async function getStaticProps() {
 export async function getStaticPaths() {
   const posts = await getAllPosts();
   return {
-    paths: posts.map(post =&amp;amp;gt; ({ params: { id: post.id } })),
+    paths: posts.map(post => ({ params: { id: post.id } })),
     fallback: false
   };
 }
@@ -142,29 +142,29 @@ SSR HTML → JS 加载 → React 对比 DOM → 附加事件 → 可交互
 #### 选择性水合
 ```jsx
 // 只对需要的组件水合
-&amp;amp;lt;Suspense fallback={null}&amp;amp;gt;
-  &amp;amp;lt;InteractiveComponent /&amp;amp;gt;
-&amp;amp;lt;/Suspense&amp;amp;gt;
+<Suspense fallback={null}>
+  <InteractiveComponent />
+</Suspense>
 
 // 用户交互后才水合
-&amp;amp;lt;InteractiveComponent data-suppress-hydration /&amp;amp;gt;
+<InteractiveComponent data-suppress-hydration />
 ```
 
 #### 岛屿架构
 ```jsx
 // Astro 示例
 ---
-import InteractiveButton from &amp;amp;#039;../components/Button.jsx&amp;amp;#039;;
+import InteractiveButton from '../components/Button.jsx';
 ---
 
-&amp;amp;lt;!-- 静态 HTML，不水合 --&amp;amp;gt;
-&amp;amp;lt;header&amp;amp;gt;...&amp;amp;lt;/header&amp;amp;gt;
+<!-- 静态 HTML，不水合 -->
+<header>...</header>
 
-&amp;amp;lt;!-- 仅视口可见时水合 --&amp;amp;gt;
-&amp;amp;lt;InteractiveButton client:visible /&amp;amp;gt;
+<!-- 仅视口可见时水合 -->
+<InteractiveButton client:visible />
 
-&amp;amp;lt;!-- 仅用户交互时水合 --&amp;amp;gt;
-&amp;amp;lt;InteractiveButton client:idle /&amp;amp;gt;
+<!-- 仅用户交互时水合 -->
+<InteractiveButton client:idle />
 ```
 
 ---
@@ -180,15 +180,15 @@ import InteractiveButton from &amp;amp;#039;../components/Button.jsx&amp;amp;#03
 ```jsx
 function App() {
   return (
-    &amp;amp;lt;Suspense fallback={&amp;amp;lt;Loading /&amp;amp;gt;}&amp;amp;gt;
-      &amp;amp;lt;Header /&amp;amp;gt;
-      &amp;amp;lt;Suspense fallback={&amp;amp;lt;SidebarLoading /&amp;amp;gt;}&amp;amp;gt;
-        &amp;amp;lt;Sidebar /&amp;amp;gt;
-      &amp;amp;lt;/Suspense&amp;amp;gt;
-      &amp;amp;lt;Suspense fallback={&amp;amp;lt;ContentLoading /&amp;amp;gt;}&amp;amp;gt;
-        &amp;amp;lt;Content /&amp;amp;gt;
-      &amp;amp;lt;/Suspense&amp;amp;gt;
-    &amp;amp;lt;/Suspense&amp;amp;gt;
+    <Suspense fallback={<Loading />}>
+      <Header />
+      <Suspense fallback={<SidebarLoading />}>
+        <Sidebar />
+      </Suspense>
+      <Suspense fallback={<ContentLoading />}>
+        <Content />
+      </Suspense>
+    </Suspense>
   );
 }
 ```
@@ -198,15 +198,15 @@ function App() {
 // 服务器组件（不发送 JS 到客户端）
 async function Note({ id }) {
   const note = await db.notes.find(id);
-  return &amp;amp;lt;div&amp;amp;gt;{note.content}&amp;amp;lt;/div&amp;amp;gt;;
+  return <div>{note.content}</div>;
 }
 
 // 客户端组件
-&amp;amp;#039;use client&amp;amp;#039;;
+'use client';
 
 function InteractiveButton() {
   const [count, setCount] = useState(0);
-  return &amp;amp;lt;button onClick={() =&amp;amp;gt; setCount(c =&amp;amp;gt; c + 1)}&amp;amp;gt;{count}&amp;amp;lt;/button&amp;amp;gt;;
+  return <button onClick={() => setCount(c => c + 1)}>{count}</button>;
 }
 ```
 
@@ -227,13 +227,13 @@ function InteractiveButton() {
 ### 8.2 混合策略
 ```jsx
 // Next.js App Router
-export const dynamic = &amp;amp;#039;force-static&amp;amp;#039;; // 默认 SSG
+export const dynamic = 'force-static'; // 默认 SSG
 
 // 特定路由使用 SSR
-export const dynamic = &amp;amp;#039;force-dynamic&amp;amp;#039;;
+export const dynamic = 'force-dynamic';
 
 // 边缘运行时
-export const runtime = &amp;amp;#039;edge&amp;amp;#039;;
+export const runtime = 'edge';
 ```
 
 ---

@@ -10,7 +10,7 @@
 CSS stands for Cascading Style Sheets — cascade is its core algorithm:
 
 ```
-Importance &amp;amp;gt; Origin &amp;amp;gt; Specificity &amp;amp;gt; Order
+Importance > Origin > Specificity > Order
 ```
 
 **Cascade Layers:**
@@ -22,7 +22,7 @@ Importance &amp;amp;gt; Origin &amp;amp;gt; Specificity &amp;amp;gt; Order
 
 ### 1.2 Specificity Calculation
 ```
-Inline (1,0,0,0) &amp;amp;gt; ID (0,1,0,0) &amp;amp;gt; Class/Attribute/Pseudo-class (0,0,1,0) &amp;amp;gt; Element/Pseudo-element (0,0,0,1)
+Inline (1,0,0,0) > ID (0,1,0,0) > Class/Attribute/Pseudo-class (0,0,1,0) > Element/Pseudo-element (0,0,0,1)
 ```
 
 **Examples:**
@@ -32,7 +32,7 @@ div              /* 0,0,0,1 */
 #main            /* 0,1,0,0 */
 div.container    /* 0,0,1,1 */
 #main .container /* 0,1,1,1 */
-style=&amp;amp;quot;...&amp;amp;quot;      /* 1,0,0,0 */
+style="..."      /* 1,0,0,0 */
 ```
 
 **Rules:**
@@ -127,9 +127,9 @@ Vertical margins of adjacent block-level elements collapse:
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: auto 1fr auto;
   grid-template-areas:
-    &amp;amp;quot;header header header&amp;amp;quot;
-    &amp;amp;quot;main main sidebar&amp;amp;quot;
-    &amp;amp;quot;footer footer footer&amp;amp;quot;;
+    "header header header"
+    "main main sidebar"
+    "footer footer footer";
   gap: 20px;
 }
 
@@ -197,11 +197,11 @@ top: 0;
 .card {
   padding: 16px;
   
-  &amp;amp;amp;:hover {
+  &:hover {
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   }
   
-  &amp;amp;amp; .title {
+  & .title {
     font-size: 1.5rem;
   }
   

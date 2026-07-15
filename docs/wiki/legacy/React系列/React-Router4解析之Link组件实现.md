@@ -3,31 +3,31 @@ React-Router4中的Link是一个react组件，先从组件的用法入手，让�
 
 1、基本用法
 ```javascript
-&amp;amp;lt;Link to={`/user`}&amp;amp;gt;
-&amp;amp;lt;/Link&amp;amp;gt;
+<Link to={`/user`}>
+</Link>
 ```
 经过Link组件的处理后：
 ```javascript
-&amp;amp;lt;a href=&amp;amp;quot;#/user&amp;amp;quot;&amp;amp;gt;
-&amp;amp;lt;/a&amp;amp;gt;
+<a href="#/user">
+</a>
 ```
 2、增加其他配置
 ```javascript
-&amp;amp;lt;Link 
+<Link 
     to={`/user`}
-    innerRef={(refLink) =&amp;amp;gt; this.refLink = refLink}
+    innerRef={(refLink) => this.refLink = refLink}
     className={`item`}
-&amp;amp;gt;
-&amp;amp;lt;/Link&amp;amp;gt;
+>
+</Link>
 ```
 经过Link组件的处理后：
 ```javascript
-&amp;amp;lt;a 
-    href=&amp;amp;quot;#/user&amp;amp;quot;
-    ref={(refLink) =&amp;amp;gt; this.refLink = refLink} //ref实际上不会显示在DOM上面，而是在js中绑定
-    classname=&amp;amp;quot;item&amp;amp;quot;
-&amp;amp;gt;
-&amp;amp;lt;/a&amp;amp;gt;
+<a 
+    href="#/user"
+    ref={(refLink) => this.refLink = refLink} //ref实际上不会显示在DOM上面，而是在js中绑定
+    classname="item"
+>
+</a>
 ```
 你还可以给Link设置id等其他自定义的属性，下面我们就来探索Link组件的源码，看看它是怎么实现的。
 
@@ -36,22 +36,22 @@ React-Router4中的Link是一个react组件，先从组件的用法入手，让�
 
 1、to的实现
 ```javascript
-import React from &amp;amp;#039;react&amp;amp;#039;
+import React from 'react'
 export default class Link extends React.Component {
     render() {
         const { to } = this.props
-        return &amp;amp;lt;a href={to} /&amp;amp;gt;
+        return <a href={to} />
     }
 }
 ```
 2、其他属性配置的实现
 要想实现自定义属性配置，只需要用到es6的解构。
 ```javascript
-import React from &amp;amp;#039;react&amp;amp;#039;
+import React from 'react'
 export default class Link extends React.Component {
     render() {
         const { to, ...props } = this.props
-        return &amp;amp;lt;a href={to} {...props} /&amp;amp;gt;
+        return <a href={to} {...props} />
     }
 }
 ```
@@ -60,12 +60,12 @@ export default class Link extends React.Component {
 **Link官方源码**
 
 ```
-import React from &amp;amp;#039;react&amp;amp;#039;
-import PropTypes from &amp;amp;#039;prop-types&amp;amp;#039;
-import invariant from &amp;amp;#039;invariant&amp;amp;#039;
-import { createLocation } from &amp;amp;#039;history&amp;amp;#039;
+import React from 'react'
+import PropTypes from 'prop-types'
+import invariant from 'invariant'
+import { createLocation } from 'history'
 
-const isModifiedEvent = (event) =&amp;amp;gt;
+const isModifiedEvent = (event) =>
   !!(event.metaKey || event.altKey || event.ctrlKey || event.shiftKey)
 
 class Link extends React.Component {
@@ -97,14 +97,14 @@ class Link extends React.Component {
     }).isRequired
   }
 
-  handleClick = (event) =&amp;amp;gt; {
+  handleClick = (event) => {
     if (this.props.onClick)
       this.props.onClick(event)
 
     if (
-      !event.defaultPrevented &amp;amp;amp;&amp;amp;amp; // onClick prevented default
-      event.button === 0 &amp;amp;amp;&amp;amp;amp; // ignore everything but left clicks
-      !this.props.target &amp;amp;amp;&amp;amp;amp; // let browser handle &amp;amp;quot;target=_blank&amp;amp;quot; etc.
+      !event.defaultPrevented && // onClick prevented default
+      event.button === 0 && // ignore everything but left clicks
+      !this.props.target && // let browser handle "target=_blank" etc.
       !isModifiedEvent(event) // ignore clicks with modifier keys
     ) {
       event.preventDefault()
@@ -125,14 +125,14 @@ class Link extends React.Component {
 
     invariant(
       this.context.router,
-      &amp;amp;#039;You should not use &amp;amp;lt;Link&amp;amp;gt; outside a &amp;amp;lt;Router&amp;amp;gt;&amp;amp;#039;
+      'You should not use <Link> outside a <Router>'
     )
 
     const { history } = this.context.router
-    const location = typeof to === &amp;amp;#039;string&amp;amp;#039; ? createLocation(to, null, null, history.location) : to
+    const location = typeof to === 'string' ? createLocation(to, null, null, history.location) : to
 
     const href = history.createHref(location)
-    return &amp;amp;lt;a {...props} onClick={this.handleClick} href={href} ref={innerRef}/&amp;amp;gt;
+    return <a {...props} onClick={this.handleClick} href={href} ref={innerRef}/>
   }
 }
 
@@ -186,14 +186,14 @@ render() {
     const { replace, to, innerRef, ...props } = this.props
     invariant(
       this.context.router,
-      &amp;amp;#039;You should not use &amp;amp;lt;Link&amp;amp;gt; outside a &amp;amp;lt;Router&amp;amp;gt;&amp;amp;#039;
+      'You should not use <Link> outside a <Router>'
     )
 
     const { history } = this.context.router
-    const location = typeof to === &amp;amp;#039;string&amp;amp;#039; ? createLocation(to, null, null, history.location) : to
+    const location = typeof to === 'string' ? createLocation(to, null, null, history.location) : to
 
     const href = history.createHref(location)
-    return &amp;amp;lt;a {...props} onClick={this.handleClick} href={href} ref={innerRef}/&amp;amp;gt;
+    return <a {...props} onClick={this.handleClick} href={href} ref={innerRef}/>
   }
 ```
 
@@ -204,7 +204,7 @@ browserHistory中的history实现有所不同，但他们的API是完全一样�
 //hashHistory和browserHistory的API
 history = {
     length: globalHistory.length,
-    action: &amp;amp;#039;POP&amp;amp;#039;,
+    action: 'POP',
     location: initialLocation,
     createHref: createHref,
     push: push,
@@ -220,42 +220,42 @@ c、用typeof判断传入的to是否是字符串，如果是就使用createLocat
 currentLocation函数也挺有意思的，这里提高该函数处理后，返回的location格式如下：
 ```javascript
 location = {
-  pathname: &amp;amp;#039;&amp;amp;#039;,
-  hash: &amp;amp;#039;&amp;amp;#039;,
+  pathname: '',
+  hash: '',
   state: *
 }
 ```
 记得to可以传字符串或者对象吗？如果传入的是对象，就不使用createLocation函数处理。也就是下面这样定义的情况：
 ```javascript
-&amp;amp;lt;Link to=&amp;#123;&amp;#123;
-  pathname: &amp;amp;#039;/courses&amp;amp;#039;,
-  search: &amp;amp;#039;?sort=name&amp;amp;#039;,
-  hash: &amp;amp;#039;#the-hash&amp;amp;#039;,
+<Link to=&amp;#123;&amp;#123;
+  pathname: '/courses',
+  search: '?sort=name',
+  hash: '#the-hash',
   state: { fromDashboard: true }
-&amp;#125;&amp;#125;/&amp;amp;gt;
+&amp;#125;&amp;#125;/>
 ```
 d、处理后的location可以直接绑定给href属性吗？不行，因为他是个对象，而实际上href得是个字符串，所以官方代码使用了history.createHref()方法转换了location。
 ```javascript
 const href = history.createHref(location)
-    return &amp;amp;lt;a href={href} /&amp;amp;gt;
+    return <a href={href} />
 ```
 5、现在还剩最后一个环节，onClick事件的处理。有2个关键点，isModifiedEvent()和replace揭秘。
 isModifiedEvent和if条件里面的几个event的属性，你可以看这篇文章：[event属性介绍][1]
 replace如果设置为true，那么就使用history.replace(to)替换当前页面。
 
 ```javascript
-const isModifiedEvent = (event) =&amp;amp;gt;
+const isModifiedEvent = (event) =>
   !!(event.metaKey || event.altKey || event.ctrlKey || event.shiftKey)
 
-handleClick = (event) =&amp;amp;gt; {
+handleClick = (event) => {
     if (this.props.onClick)
     //如果存在自定义的onClick，则执行此自定义回调函数
       this.props.onClick(event)
 
     if (
-      !event.defaultPrevented &amp;amp;amp;&amp;amp;amp; // 事件的默认动作没有被禁用
-      event.button === 0 &amp;amp;amp;&amp;amp;amp; // 当鼠标左键被点击
-      !this.props.target &amp;amp;amp;&amp;amp;amp; // 没有传入类似target=_blank的属性
+      !event.defaultPrevented && // 事件的默认动作没有被禁用
+      event.button === 0 && // 当鼠标左键被点击
+      !this.props.target && // 没有传入类似target=_blank的属性
       !isModifiedEvent(event) // 点击操作时忽略其他几个键盘的点击
     ) {
       event.preventDefault()

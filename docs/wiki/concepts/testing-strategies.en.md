@@ -34,19 +34,19 @@ export function sum(a: number, b: number): number {
 }
 
 // sum.test.ts
-import { describe, it, expect } from &amp;amp;#039;vitest&amp;amp;#039;;
-import { sum } from &amp;amp;#039;./sum&amp;amp;#039;;
+import { describe, it, expect } from 'vitest';
+import { sum } from './sum';
 
-describe(&amp;amp;#039;sum&amp;amp;#039;, () =&amp;amp;gt; {
-  it(&amp;amp;#039;adds positive numbers&amp;amp;#039;, () =&amp;amp;gt; {
+describe('sum', () => {
+  it('adds positive numbers', () => {
     expect(sum(1, 2)).toBe(3);
   });
   
-  it(&amp;amp;#039;adds negative numbers&amp;amp;#039;, () =&amp;amp;gt; {
+  it('adds negative numbers', () => {
     expect(sum(-1, -1)).toBe(-2);
   });
   
-  it(&amp;amp;#039;handles zero&amp;amp;#039;, () =&amp;amp;gt; {
+  it('handles zero', () => {
     expect(sum(0, 5)).toBe(5);
   });
 });
@@ -55,38 +55,38 @@ describe(&amp;amp;#039;sum&amp;amp;#039;, () =&amp;amp;gt; {
 ### 2.2 Mocking
 ```typescript
 // api.ts
-export async function fetchUser(id: string): Promise&amp;amp;lt;User&amp;amp;gt; {
+export async function fetchUser(id: string): Promise<User> {
   const response = await fetch(`/api/users/${id}`);
   return response.json();
 }
 
 // api.test.ts
-import { vi } from &amp;amp;#039;vitest&amp;amp;#039;;
+import { vi } from 'vitest';
 
-vi.mock(&amp;amp;#039;./api&amp;amp;#039;, () =&amp;amp;gt; ({
+vi.mock('./api', () => ({
   fetchUser: vi.fn()
 }));
 
-test(&amp;amp;#039;fetches user data&amp;amp;#039;, async () =&amp;amp;gt; {
-  const mockUser = { id: &amp;amp;#039;1&amp;amp;#039;, name: &amp;amp;#039;Alice&amp;amp;#039; };
+test('fetches user data', async () => {
+  const mockUser = { id: '1', name: 'Alice' };
   vi.mocked(fetchUser).mockResolvedValue(mockUser);
   
-  const user = await fetchUser(&amp;amp;#039;1&amp;amp;#039;);
+  const user = await fetchUser('1');
   expect(user).toEqual(mockUser);
 });
 ```
 
 ### 2.3 Test Structure (AAA)
 ```typescript
-test(&amp;amp;#039;formats user name&amp;amp;#039;, () =&amp;amp;gt; {
+test('formats user name', () => {
   // Arrange
-  const user = { firstName: &amp;amp;#039;John&amp;amp;#039;, lastName: &amp;amp;#039;Doe&amp;amp;#039; };
+  const user = { firstName: 'John', lastName: 'Doe' };
   
   // Act
   const result = formatName(user);
   
   // Assert
-  expect(result).toBe(&amp;amp;#039;John Doe&amp;amp;#039;);
+  expect(result).toBe('John Doe');
 });
 ```
 
@@ -96,25 +96,25 @@ test(&amp;amp;#039;formats user name&amp;amp;#039;, () =&amp;amp;gt; {
 
 ### 3.1 React Testing Library
 ```typescript
-import { render, screen, fireEvent, waitFor } from &amp;amp;#039;@testing-library/react&amp;amp;#039;;
-import userEvent from &amp;amp;#039;@testing-library/user-event&amp;amp;#039;;
-import { TodoApp } from &amp;amp;#039;./TodoApp&amp;amp;#039;;
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { TodoApp } from './TodoApp';
 
-test(&amp;amp;#039;adds a new todo&amp;amp;#039;, async () =&amp;amp;gt; {
+test('adds a new todo', async () => {
   const user = userEvent.setup();
-  render(&amp;amp;lt;TodoApp /&amp;amp;gt;);
+  render(<TodoApp />);
   
   // Find input and type
   const input = screen.getByPlaceholderText(/add todo/i);
-  await user.type(input, &amp;amp;#039;Learn testing&amp;amp;#039;);
+  await user.type(input, 'Learn testing');
   
   // Click add button
-  const button = screen.getByRole(&amp;amp;#039;button&amp;amp;#039;, { name: /add/i });
+  const button = screen.getByRole('button', { name: /add/i });
   await user.click(button);
   
   // Verify todo appears
-  await waitFor(() =&amp;amp;gt; {
-    expect(screen.getByText(&amp;amp;#039;Learn testing&amp;amp;#039;)).toBeInTheDocument();
+  await waitFor(() => {
+    expect(screen.getByText('Learn testing')).toBeInTheDocument();
   });
 });
 ```
@@ -122,36 +122,36 @@ test(&amp;amp;#039;adds a new todo&amp;amp;#039;, async () =&amp;amp;gt; {
 ### 3.2 Testing User Behavior
 ```typescript
 // Good: Test what user sees/does
-test(&amp;amp;#039;shows error message on failed login&amp;amp;#039;, async () =&amp;amp;gt; {
-  render(&amp;amp;lt;LoginForm /&amp;amp;gt;);
+test('shows error message on failed login', async () => {
+  render(<LoginForm />);
   
-  await userEvent.type(screen.getByLabelText(/email/i), &amp;amp;#039;wrong@email.com&amp;amp;#039;);
-  await userEvent.type(screen.getByLabelText(/password/i), &amp;amp;#039;wrong&amp;amp;#039;);
-  await userEvent.click(screen.getByRole(&amp;amp;#039;button&amp;amp;#039;, { name: /login/i }));
+  await userEvent.type(screen.getByLabelText(/email/i), 'wrong@email.com');
+  await userEvent.type(screen.getByLabelText(/password/i), 'wrong');
+  await userEvent.click(screen.getByRole('button', { name: /login/i }));
   
   expect(await screen.findByText(/invalid credentials/i)).toBeInTheDocument();
 });
 
 // Bad: Testing implementation details
-test(&amp;amp;#039;calls setState with error&amp;amp;#039;, () =&amp;amp;gt; {
-  // Don&amp;amp;#039;t test internal state!
+test('calls setState with error', () => {
+  // Don't test internal state!
 });
 ```
 
 ### 3.3 Vue Test Utils
 ```typescript
-import { mount } from &amp;amp;#039;@vue/test-utils&amp;amp;#039;;
-import { describe, it, expect } from &amp;amp;#039;vitest&amp;amp;#039;;
-import Counter from &amp;amp;#039;./Counter.vue&amp;amp;#039;;
+import { mount } from '@vue/test-utils';
+import { describe, it, expect } from 'vitest';
+import Counter from './Counter.vue';
 
-describe(&amp;amp;#039;Counter&amp;amp;#039;, () =&amp;amp;gt; {
-  it(&amp;amp;#039;increments on click&amp;amp;#039;, async () =&amp;amp;gt; {
+describe('Counter', () => {
+  it('increments on click', async () => {
     const wrapper = mount(Counter);
     
-    expect(wrapper.text()).toContain(&amp;amp;#039;0&amp;amp;#039;);
+    expect(wrapper.text()).toContain('0');
     
-    await wrapper.find(&amp;amp;#039;button&amp;amp;#039;).trigger(&amp;amp;#039;click&amp;amp;#039;);
-    expect(wrapper.text()).toContain(&amp;amp;#039;1&amp;amp;#039;);
+    await wrapper.find('button').trigger('click');
+    expect(wrapper.text()).toContain('1');
   });
 });
 ```
@@ -162,40 +162,40 @@ describe(&amp;amp;#039;Counter&amp;amp;#039;, () =&amp;amp;gt; {
 
 ### 4.1 API Integration
 ```typescript
-import { describe, it, expect } from &amp;amp;#039;vitest&amp;amp;#039;;
-import { setupServer } from &amp;amp;#039;msw/node&amp;amp;#039;;
-import { http, HttpResponse } from &amp;amp;#039;msw&amp;amp;#039;;
-import { fetchTodos } from &amp;amp;#039;./api&amp;amp;#039;;
+import { describe, it, expect } from 'vitest';
+import { setupServer } from 'msw/node';
+import { http, HttpResponse } from 'msw';
+import { fetchTodos } from './api';
 
 const server = setupServer(
-  http.get(&amp;amp;#039;/api/todos&amp;amp;#039;, () =&amp;amp;gt; {
+  http.get('/api/todos', () => {
     return HttpResponse.json([
-      { id: &amp;amp;#039;1&amp;amp;#039;, text: &amp;amp;#039;Test&amp;amp;#039;, done: false }
+      { id: '1', text: 'Test', done: false }
     ]);
   })
 );
 
-beforeAll(() =&amp;amp;gt; server.listen());
-afterEach(() =&amp;amp;gt; server.resetHandlers());
-afterAll(() =&amp;amp;gt; server.close());
+beforeAll(() => server.listen());
+afterEach(() => server.resetHandlers());
+afterAll(() => server.close());
 
-test(&amp;amp;#039;fetches todos from API&amp;amp;#039;, async () =&amp;amp;gt; {
+test('fetches todos from API', async () => {
   const todos = await fetchTodos();
   expect(todos).toHaveLength(1);
-  expect(todos[0].text).toBe(&amp;amp;#039;Test&amp;amp;#039;);
+  expect(todos[0].text).toBe('Test');
 });
 ```
 
 ### 4.2 Database Integration
 ```typescript
-import { testDb } from &amp;amp;#039;./test-utils&amp;amp;#039;;
+import { testDb } from './test-utils';
 
-test(&amp;amp;#039;creates user in database&amp;amp;#039;, async () =&amp;amp;gt; {
-  const user = await createUser({ name: &amp;amp;#039;Alice&amp;amp;#039;, email: &amp;amp;#039;alice@test.com&amp;amp;#039; });
+test('creates user in database', async () => {
+  const user = await createUser({ name: 'Alice', email: 'alice@test.com' });
   
   const found = await testDb.user.findUnique({ where: { id: user.id } });
   expect(found).toBeTruthy();
-  expect(found?.name).toBe(&amp;amp;#039;Alice&amp;amp;#039;);
+  expect(found?.name).toBe('Alice');
 });
 ```
 
@@ -205,48 +205,48 @@ test(&amp;amp;#039;creates user in database&amp;amp;#039;, async () =&amp;amp;gt
 
 ### 5.1 Playwright
 ```typescript
-import { test, expect } from &amp;amp;#039;@playwright/test&amp;amp;#039;;
+import { test, expect } from '@playwright/test';
 
-test.describe(&amp;amp;#039;E-commerce Flow&amp;amp;#039;, () =&amp;amp;gt; {
-  test(&amp;amp;#039;user can purchase a product&amp;amp;#039;, async ({ page }) =&amp;amp;gt; {
+test.describe('E-commerce Flow', () => {
+  test('user can purchase a product', async ({ page }) => {
     // Navigate to product page
-    await page.goto(&amp;amp;#039;/products/1&amp;amp;#039;);
+    await page.goto('/products/1');
     
     // Add to cart
-    await page.click(&amp;amp;#039;button:has-text(&amp;amp;quot;Add to Cart&amp;amp;quot;)&amp;amp;#039;);
-    await expect(page.locator(&amp;amp;#039;.cart-count&amp;amp;#039;)).toHaveText(&amp;amp;#039;1&amp;amp;#039;);
+    await page.click('button:has-text("Add to Cart")');
+    await expect(page.locator('.cart-count')).toHaveText('1');
     
     // Checkout
-    await page.click(&amp;amp;#039;.cart-icon&amp;amp;#039;);
-    await page.click(&amp;amp;#039;button:has-text(&amp;amp;quot;Checkout&amp;amp;quot;)&amp;amp;#039;);
+    await page.click('.cart-icon');
+    await page.click('button:has-text("Checkout")');
     
     // Fill shipping info
-    await page.fill(&amp;amp;#039;[name=&amp;amp;quot;address&amp;amp;quot;]&amp;amp;#039;, &amp;amp;#039;123 Main St&amp;amp;#039;);
-    await page.fill(&amp;amp;#039;[name=&amp;amp;quot;city&amp;amp;quot;]&amp;amp;#039;, &amp;amp;#039;San Francisco&amp;amp;#039;);
-    await page.click(&amp;amp;#039;button:has-text(&amp;amp;quot;Continue&amp;amp;quot;)&amp;amp;#039;);
+    await page.fill('[name="address"]', '123 Main St');
+    await page.fill('[name="city"]', 'San Francisco');
+    await page.click('button:has-text("Continue")');
     
     // Payment
-    await page.fill(&amp;amp;#039;[name=&amp;amp;quot;cardNumber&amp;amp;quot;]&amp;amp;#039;, &amp;amp;#039;4242424242424242&amp;amp;#039;);
-    await page.click(&amp;amp;#039;button:has-text(&amp;amp;quot;Pay&amp;amp;quot;)&amp;amp;#039;);
+    await page.fill('[name="cardNumber"]', '4242424242424242');
+    await page.click('button:has-text("Pay")');
     
     // Verify success
-    await expect(page).toHaveURL(&amp;amp;#039;/order/confirmation&amp;amp;#039;);
-    await expect(page.locator(&amp;amp;#039;.success-message&amp;amp;#039;)).toBeVisible();
+    await expect(page).toHaveURL('/order/confirmation');
+    await expect(page.locator('.success-message')).toBeVisible();
   });
 });
 ```
 
 ### 5.2 Visual Regression
 ```typescript
-test(&amp;amp;#039;homepage looks correct&amp;amp;#039;, async ({ page }) =&amp;amp;gt; {
-  await page.goto(&amp;amp;#039;/&amp;amp;#039;);
-  await expect(page).toHaveScreenshot(&amp;amp;#039;homepage.png&amp;amp;#039;);
+test('homepage looks correct', async ({ page }) => {
+  await page.goto('/');
+  await expect(page).toHaveScreenshot('homepage.png');
 });
 
-test(&amp;amp;#039;dark mode looks correct&amp;amp;#039;, async ({ page }) =&amp;amp;gt; {
-  await page.goto(&amp;amp;#039;/&amp;amp;#039;);
-  await page.click(&amp;amp;#039;[data-theme-toggle]&amp;amp;#039;);
-  await expect(page).toHaveScreenshot(&amp;amp;#039;homepage-dark.png&amp;amp;#039;);
+test('dark mode looks correct', async ({ page }) => {
+  await page.goto('/');
+  await page.click('[data-theme-toggle]');
+  await expect(page).toHaveScreenshot('homepage-dark.png');
 });
 ```
 
@@ -257,18 +257,18 @@ test(&amp;amp;#039;dark mode looks correct&amp;amp;#039;, async ({ page }) =&amp
 ### 6.1 Vitest Config
 ```typescript
 // vitest.config.ts
-import { defineConfig } from &amp;amp;#039;vitest/config&amp;amp;#039;;
-import react from &amp;amp;#039;@vitejs/plugin-react&amp;amp;#039;;
+import { defineConfig } from 'vitest/config';
+import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
   test: {
     globals: true,
-    environment: &amp;amp;#039;jsdom&amp;amp;#039;,
-    setupFiles: [&amp;amp;#039;./test/setup.ts&amp;amp;#039;],
+    environment: 'jsdom',
+    setupFiles: ['./test/setup.ts'],
     coverage: {
-      provider: &amp;amp;#039;v8&amp;amp;#039;,
-      reporter: [&amp;amp;#039;text&amp;amp;#039;, &amp;amp;#039;json&amp;amp;#039;, &amp;amp;#039;html&amp;amp;#039;],
+      provider: 'v8',
+      reporter: ['text', 'json', 'html'],
       thresholds: {
         lines: 80,
         branches: 80,
@@ -283,25 +283,25 @@ export default defineConfig({
 ### 6.2 Playwright Config
 ```typescript
 // playwright.config.ts
-import { defineConfig, devices } from &amp;amp;#039;@playwright/test&amp;amp;#039;;
+import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
-  testDir: &amp;amp;#039;./e2e&amp;amp;#039;,
+  testDir: './e2e',
   fullyParallel: true,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
   use: {
-    baseURL: &amp;amp;#039;http://localhost:3000&amp;amp;#039;,
-    trace: &amp;amp;#039;on-first-retry&amp;amp;#039;
+    baseURL: 'http://localhost:3000',
+    trace: 'on-first-retry'
   },
   projects: [
-    { name: &amp;amp;#039;chromium&amp;amp;#039;, use: { ...devices[&amp;amp;#039;Desktop Chrome&amp;amp;#039;] } },
-    { name: &amp;amp;#039;firefox&amp;amp;#039;, use: { ...devices[&amp;amp;#039;Desktop Firefox&amp;amp;#039;] } },
-    { name: &amp;amp;#039;webkit&amp;amp;#039;, use: { ...devices[&amp;amp;#039;Desktop Safari&amp;amp;#039;] } }
+    { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
+    { name: 'firefox', use: { ...devices['Desktop Firefox'] } },
+    { name: 'webkit', use: { ...devices['Desktop Safari'] } }
   ],
   webServer: {
-    command: &amp;amp;#039;npm run dev&amp;amp;#039;,
-    url: &amp;amp;#039;http://localhost:3000&amp;amp;#039;,
+    command: 'npm run dev',
+    url: 'http://localhost:3000',
     reuseExistingServer: !process.env.CI
   }
 });

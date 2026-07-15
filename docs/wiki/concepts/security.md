@@ -9,29 +9,29 @@
 ### 1.1 攻击类型
 ```javascript
 // 存储型 XSS - 恶意脚本存储在服务器
-// 用户评论: &amp;amp;lt;script&amp;amp;gt;stealCookies()&amp;amp;lt;/script&amp;amp;gt;
+// 用户评论: <script>stealCookies()</script>
 
 // 反射型 XSS - 恶意脚本通过 URL 参数传递
-// https://example.com/search?q=&amp;amp;lt;script&amp;amp;gt;steal()&amp;amp;lt;/script&amp;amp;gt;
+// https://example.com/search?q=<script>steal()</script>
 
 // DOM 型 XSS - 恶意脚本通过 DOM 操作执行
-document.getElementById(&amp;amp;#039;output&amp;amp;#039;).innerHTML = location.hash.slice(1);
+document.getElementById('output').innerHTML = location.hash.slice(1);
 ```
 
 ### 1.2 防御
 ```jsx
 // ✅ React 自动转义
-&amp;amp;lt;div&amp;amp;gt;{userInput}&amp;amp;lt;/div&amp;amp;gt;
+<div>{userInput}</div>
 
 // ❌ 危险
-&amp;amp;lt;div dangerouslySetInnerHTML=&amp;#123;&amp;#123; __html: userInput &amp;#125;&amp;#125; /&amp;amp;gt;
+<div dangerouslySetInnerHTML=&amp;#123;&amp;#123; __html: userInput &amp;#125;&amp;#125; />
 
 // ✅ 使用 DOMPurify
-import DOMPurify from &amp;amp;#039;dompurify&amp;amp;#039;;
-&amp;amp;lt;div dangerouslySetInnerHTML=&amp;#123;&amp;#123; __html: DOMPurify.sanitize(userInput) &amp;#125;&amp;#125; /&amp;amp;gt;
+import DOMPurify from 'dompurify';
+<div dangerouslySetInnerHTML=&amp;#123;&amp;#123; __html: DOMPurify.sanitize(userInput) &amp;#125;&amp;#125; />
 
 // ✅ Content Security Policy
-// &amp;amp;lt;meta http-equiv=&amp;amp;quot;Content-Security-Policy&amp;amp;quot; content=&amp;amp;quot;default-src &amp;amp;#039;self&amp;amp;#039;&amp;amp;quot;&amp;amp;gt;
+// <meta http-equiv="Content-Security-Policy" content="default-src 'self'">
 ```
 
 ---
@@ -46,14 +46,14 @@ import DOMPurify from &amp;amp;#039;dompurify&amp;amp;#039;;
 ### 2.2 防御
 ```javascript
 // 1. CSRF Token
-&amp;amp;lt;input type=&amp;amp;quot;hidden&amp;amp;quot; name=&amp;amp;quot;csrf_token&amp;amp;quot; value=&amp;amp;quot;random-token&amp;amp;quot;&amp;amp;gt;
+<input type="hidden" name="csrf_token" value="random-token">
 
 // 2. SameSite Cookie
 Set-Cookie: session=abc123; SameSite=Strict; Secure; HttpOnly
 
 // 3. 验证 Origin/Referer
-if (req.headers.origin !== &amp;amp;#039;https://example.com&amp;amp;#039;) {
-  return res.status(403).send(&amp;amp;#039;Forbidden&amp;amp;#039;);
+if (req.headers.origin !== 'https://example.com') {
+  return res.status(403).send('Forbidden');
 }
 ```
 
@@ -69,13 +69,13 @@ if (req.headers.origin !== &amp;amp;#039;https://example.com&amp;amp;#039;) {
 ### 3.2 防御
 ```javascript
 // X-Frame-Options
-app.use((req, res, next) =&amp;amp;gt; {
-  res.setHeader(&amp;amp;#039;X-Frame-Options&amp;amp;#039;, &amp;amp;#039;DENY&amp;amp;#039;);
+app.use((req, res, next) => {
+  res.setHeader('X-Frame-Options', 'DENY');
   next();
 });
 
 // Content Security Policy
-// frame-ancestors &amp;amp;#039;none&amp;amp;#039;
+// frame-ancestors 'none'
 
 // 前端检测
 if (window.top !== window.self) {
@@ -90,24 +90,24 @@ if (window.top !== window.self) {
 ### 4.1 必需头部
 ```javascript
 // Express 中间件
-app.use((req, res, next) =&amp;amp;gt; {
+app.use((req, res, next) => {
   // 防止 MIME 类型嗅探
-  res.setHeader(&amp;amp;#039;X-Content-Type-Options&amp;amp;#039;, &amp;amp;#039;nosniff&amp;amp;#039;);
+  res.setHeader('X-Content-Type-Options', 'nosniff');
   
   // 防止点击劫持
-  res.setHeader(&amp;amp;#039;X-Frame-Options&amp;amp;#039;, &amp;amp;#039;DENY&amp;amp;#039;);
+  res.setHeader('X-Frame-Options', 'DENY');
   
   // XSS 保护
-  res.setHeader(&amp;amp;#039;X-XSS-Protection&amp;amp;#039;, &amp;amp;#039;1; mode=block&amp;amp;#039;);
+  res.setHeader('X-XSS-Protection', '1; mode=block');
   
   // HTTPS 强制
-  res.setHeader(&amp;amp;#039;Strict-Transport-Security&amp;amp;#039;, &amp;amp;#039;max-age=31536000; includeSubDomains&amp;amp;#039;);
+  res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
   
   // 引用策略
-  res.setHeader(&amp;amp;#039;Referrer-Policy&amp;amp;#039;, &amp;amp;#039;strict-origin-when-cross-origin&amp;amp;#039;);
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
   
   // 权限策略
-  res.setHeader(&amp;amp;#039;Permissions-Policy&amp;amp;#039;, &amp;amp;#039;camera=(), microphone=(), geolocation=()&amp;amp;#039;);
+  res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
   
   next();
 });
@@ -117,17 +117,17 @@ app.use((req, res, next) =&amp;amp;gt; {
 ```javascript
 // 严格 CSP
 const csp = [
-  &amp;amp;quot;default-src &amp;amp;#039;self&amp;amp;#039;&amp;amp;quot;,
-  &amp;amp;quot;script-src &amp;amp;#039;self&amp;amp;#039; https://trusted.cdn.com&amp;amp;quot;,
-  &amp;amp;quot;style-src &amp;amp;#039;self&amp;amp;#039; &amp;amp;#039;unsafe-inline&amp;amp;#039;&amp;amp;quot;,
-  &amp;amp;quot;img-src &amp;amp;#039;self&amp;amp;#039; data: https:&amp;amp;quot;,
-  &amp;amp;quot;connect-src &amp;amp;#039;self&amp;amp;#039; https://api.example.com&amp;amp;quot;,
-  &amp;amp;quot;frame-ancestors &amp;amp;#039;none&amp;amp;#039;&amp;amp;quot;,
-  &amp;amp;quot;base-uri &amp;amp;#039;self&amp;amp;#039;&amp;amp;quot;,
-  &amp;amp;quot;form-action &amp;amp;#039;self&amp;amp;#039;&amp;amp;quot;
-].join(&amp;amp;#039;; &amp;amp;#039;);
+  "default-src 'self'",
+  "script-src 'self' https://trusted.cdn.com",
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' data: https:",
+  "connect-src 'self' https://api.example.com",
+  "frame-ancestors 'none'",
+  "base-uri 'self'",
+  "form-action 'self'"
+].join('; ');
 
-res.setHeader(&amp;amp;#039;Content-Security-Policy&amp;amp;#039;, csp);
+res.setHeader('Content-Security-Policy', csp);
 ```
 
 ---
@@ -137,14 +137,14 @@ res.setHeader(&amp;amp;#039;Content-Security-Policy&amp;amp;#039;, csp);
 ### 5.1 敏感数据处理
 ```javascript
 // ❌ 不要在前端存储敏感数据
-localStorage.setItem(&amp;amp;#039;token&amp;amp;#039;, secretToken);
-localStorage.setItem(&amp;amp;#039;password&amp;amp;#039;, password);
+localStorage.setItem('token', secretToken);
+localStorage.setItem('password', password);
 
 // ✅ 使用 HttpOnly Cookie
-res.cookie(&amp;amp;#039;session&amp;amp;#039;, token, {
+res.cookie('session', token, {
   httpOnly: true,
   secure: true,
-  sameSite: &amp;amp;#039;strict&amp;amp;#039;,
+  sameSite: 'strict',
   maxAge: 24 * 60 * 60 * 1000
 });
 

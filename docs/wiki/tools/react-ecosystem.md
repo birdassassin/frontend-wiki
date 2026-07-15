@@ -9,23 +9,23 @@
 ### 1.1 React Router v6+
 
 ```tsx
-import { BrowserRouter, Routes, Route, Link, useNavigate, useParams } from &amp;amp;#039;react-router-dom&amp;amp;#039;;
+import { BrowserRouter, Routes, Route, Link, useNavigate, useParams } from 'react-router-dom';
 
 function App() {
   return (
-    &amp;amp;lt;BrowserRouter&amp;amp;gt;
-      &amp;amp;lt;nav&amp;amp;gt;
-        &amp;amp;lt;Link to=&amp;amp;quot;/&amp;amp;quot;&amp;amp;gt;首页&amp;amp;lt;/Link&amp;amp;gt;
-        &amp;amp;lt;Link to=&amp;amp;quot;/users&amp;amp;quot;&amp;amp;gt;用户列表&amp;amp;lt;/Link&amp;amp;gt;
-      &amp;amp;lt;/nav&amp;amp;gt;
+    <BrowserRouter>
+      <nav>
+        <Link to="/">首页</Link>
+        <Link to="/users">用户列表</Link>
+      </nav>
       
-      &amp;amp;lt;Routes&amp;amp;gt;
-        &amp;amp;lt;Route path=&amp;amp;quot;/&amp;amp;quot; element={&amp;amp;lt;Home /&amp;amp;gt;} /&amp;amp;gt;
-        &amp;amp;lt;Route path=&amp;amp;quot;/users&amp;amp;quot; element={&amp;amp;lt;UserList /&amp;amp;gt;} /&amp;amp;gt;
-        &amp;amp;lt;Route path=&amp;amp;quot;/users/:id&amp;amp;quot; element={&amp;amp;lt;UserDetail /&amp;amp;gt;} /&amp;amp;gt;
-        &amp;amp;lt;Route path=&amp;amp;quot;*&amp;amp;quot; element={&amp;amp;lt;NotFound /&amp;amp;gt;} /&amp;amp;gt;
-      &amp;amp;lt;/Routes&amp;amp;gt;
-    &amp;amp;lt;/BrowserRouter&amp;amp;gt;
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/users" element={<UserList />} />
+        <Route path="/users/:id" element={<UserDetail />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
@@ -33,37 +33,37 @@ function App() {
 function UserList() {
   const navigate = useNavigate();
   
-  const handleView = (id: string) =&amp;amp;gt; {
+  const handleView = (id: string) => {
     navigate(`/users/${id}`);
   };
   
-  return &amp;amp;lt;button onClick={() =&amp;amp;gt; handleView(&amp;amp;#039;1&amp;amp;#039;)}&amp;amp;gt;查看&amp;amp;lt;/button&amp;amp;gt;;
+  return <button onClick={() => handleView('1')}>查看</button>;
 }
 
 // 路由参数
 function UserDetail() {
   const { id } = useParams();
-  return &amp;amp;lt;div&amp;amp;gt;用户 ID: {id}&amp;amp;lt;/div&amp;amp;gt;;
+  return <div>用户 ID: {id}</div>;
 }
 ```
 
 ### 1.2 嵌套路由
 
 ```tsx
-&amp;amp;lt;Route path=&amp;amp;quot;/dashboard&amp;amp;quot; element={&amp;amp;lt;Dashboard /&amp;amp;gt;}&amp;amp;gt;
-  &amp;amp;lt;Route index element={&amp;amp;lt;Overview /&amp;amp;gt;} /&amp;amp;gt;
-  &amp;amp;lt;Route path=&amp;amp;quot;analytics&amp;amp;quot; element={&amp;amp;lt;Analytics /&amp;amp;gt;} /&amp;amp;gt;
-  &amp;amp;lt;Route path=&amp;amp;quot;settings&amp;amp;quot; element={&amp;amp;lt;Settings /&amp;amp;gt;} /&amp;amp;gt;
-&amp;amp;lt;/Route&amp;amp;gt;
+<Route path="/dashboard" element={<Dashboard />}>
+  <Route index element={<Overview />} />
+  <Route path="analytics" element={<Analytics />} />
+  <Route path="settings" element={<Settings />} />
+</Route>
 
 function Dashboard() {
   return (
-    &amp;amp;lt;div&amp;amp;gt;
-      &amp;amp;lt;Sidebar /&amp;amp;gt;
-      &amp;amp;lt;main&amp;amp;gt;
-        &amp;amp;lt;Outlet /&amp;amp;gt; {/* 子路由渲染位置 */}
-      &amp;amp;lt;/main&amp;amp;gt;
-    &amp;amp;lt;/div&amp;amp;gt;
+    <div>
+      <Sidebar />
+      <main>
+        <Outlet /> {/* 子路由渲染位置 */}
+      </main>
+    </div>
   );
 }
 ```
@@ -76,18 +76,18 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const location = useLocation();
   
   if (!isAuthenticated) {
-    return &amp;amp;lt;Navigate to=&amp;amp;quot;/login&amp;amp;quot; state=&amp;#123;&amp;#123; from: location &amp;#125;&amp;#125; replace /&amp;amp;gt;;
+    return <Navigate to="/login" state=&amp;#123;&amp;#123; from: location &amp;#125;&amp;#125; replace />;
   }
   
-  return &amp;amp;lt;&amp;amp;gt;{children}&amp;amp;lt;/&amp;amp;gt;;
+  return <>{children}</>;
 }
 
 // 使用
-&amp;amp;lt;Route path=&amp;amp;quot;/admin&amp;amp;quot; element={
-  &amp;amp;lt;ProtectedRoute&amp;amp;gt;
-    &amp;amp;lt;AdminPanel /&amp;amp;gt;
-  &amp;amp;lt;/ProtectedRoute&amp;amp;gt;
-} /&amp;amp;gt;
+<Route path="/admin" element={
+  <ProtectedRoute>
+    <AdminPanel />
+  </ProtectedRoute>
+} />
 ```
 
 ### 1.4 其他路由方案
@@ -117,9 +117,9 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
 ### 2.2 Zustand 完整示例
 
 ```typescript
-import { create } from &amp;amp;#039;zustand&amp;amp;#039;;
-import { devtools, persist } from &amp;amp;#039;zustand/middleware&amp;amp;#039;;
-import { immer } from &amp;amp;#039;zustand/middleware/immer&amp;amp;#039;;
+import { create } from 'zustand';
+import { devtools, persist } from 'zustand/middleware';
+import { immer } from 'zustand/middleware/immer';
 
 interface Todo {
   id: string;
@@ -129,22 +129,22 @@ interface Todo {
 
 interface TodoStore {
   todos: Todo[];
-  filter: &amp;amp;#039;all&amp;amp;#039; | &amp;amp;#039;active&amp;amp;#039; | &amp;amp;#039;done&amp;amp;#039;;
-  addTodo: (text: string) =&amp;amp;gt; void;
-  toggleTodo: (id: string) =&amp;amp;gt; void;
-  deleteTodo: (id: string) =&amp;amp;gt; void;
-  setFilter: (filter: &amp;amp;#039;all&amp;amp;#039; | &amp;amp;#039;active&amp;amp;#039; | &amp;amp;#039;done&amp;amp;#039;) =&amp;amp;gt; void;
+  filter: 'all' | 'active' | 'done';
+  addTodo: (text: string) => void;
+  toggleTodo: (id: string) => void;
+  deleteTodo: (id: string) => void;
+  setFilter: (filter: 'all' | 'active' | 'done') => void;
   filteredTodos: Todo[];
 }
 
-const useTodoStore = create&amp;amp;lt;TodoStore&amp;amp;gt;()(
+const useTodoStore = create<TodoStore>()(
   devtools(
     persist(
-      immer((set, get) =&amp;amp;gt; ({
+      immer((set, get) => ({
         todos: [],
-        filter: &amp;amp;#039;all&amp;amp;#039;,
+        filter: 'all',
         
-        addTodo: (text) =&amp;amp;gt; set((state) =&amp;amp;gt; {
+        addTodo: (text) => set((state) => {
           state.todos.push({
             id: crypto.randomUUID(),
             text,
@@ -152,27 +152,27 @@ const useTodoStore = create&amp;amp;lt;TodoStore&amp;amp;gt;()(
           });
         }),
         
-        toggleTodo: (id) =&amp;amp;gt; set((state) =&amp;amp;gt; {
-          const todo = state.todos.find(t =&amp;amp;gt; t.id === id);
+        toggleTodo: (id) => set((state) => {
+          const todo = state.todos.find(t => t.id === id);
           if (todo) todo.done = !todo.done;
         }),
         
-        deleteTodo: (id) =&amp;amp;gt; set((state) =&amp;amp;gt; {
-          state.todos = state.todos.filter(t =&amp;amp;gt; t.id !== id);
+        deleteTodo: (id) => set((state) => {
+          state.todos = state.todos.filter(t => t.id !== id);
         }),
         
-        setFilter: (filter) =&amp;amp;gt; set({ filter }),
+        setFilter: (filter) => set({ filter }),
         
         get filteredTodos() {
           const { todos, filter } = get();
           switch (filter) {
-            case &amp;amp;#039;active&amp;amp;#039;: return todos.filter(t =&amp;amp;gt; !t.done);
-            case &amp;amp;#039;done&amp;amp;#039;: return todos.filter(t =&amp;amp;gt; t.done);
+            case 'active': return todos.filter(t => !t.done);
+            case 'done': return todos.filter(t => t.done);
             default: return todos;
           }
         }
       })),
-      { name: &amp;amp;#039;todo-storage&amp;amp;#039; }
+      { name: 'todo-storage' }
     )
   )
 );
@@ -181,35 +181,35 @@ const useTodoStore = create&amp;amp;lt;TodoStore&amp;amp;gt;()(
 ### 2.3 Redux Toolkit 完整示例
 
 ```typescript
-import { createSlice, configureStore, createAsyncThunk } from &amp;amp;#039;@reduxjs/toolkit&amp;amp;#039;;
+import { createSlice, configureStore, createAsyncThunk } from '@reduxjs/toolkit';
 
 // 异步 Thunk
 export const fetchUser = createAsyncThunk(
-  &amp;amp;#039;user/fetch&amp;amp;#039;,
-  async (id: string) =&amp;amp;gt; {
+  'user/fetch',
+  async (id: string) => {
     const response = await fetch(`/api/users/${id}`);
     return response.json();
   }
 );
 
 const userSlice = createSlice({
-  name: &amp;amp;#039;user&amp;amp;#039;,
+  name: 'user',
   initialState: { data: null, loading: false, error: null },
   reducers: {
-    logout: (state) =&amp;amp;gt; {
+    logout: (state) => {
       state.data = null;
     }
   },
-  extraReducers: (builder) =&amp;amp;gt; {
+  extraReducers: (builder) => {
     builder
-      .addCase(fetchUser.pending, (state) =&amp;amp;gt; {
+      .addCase(fetchUser.pending, (state) => {
         state.loading = true;
       })
-      .addCase(fetchUser.fulfilled, (state, action) =&amp;amp;gt; {
+      .addCase(fetchUser.fulfilled, (state, action) => {
         state.data = action.payload;
         state.loading = false;
       })
-      .addCase(fetchUser.rejected, (state, action) =&amp;amp;gt; {
+      .addCase(fetchUser.rejected, (state, action) => {
         state.error = action.error.message;
         state.loading = false;
       });
@@ -230,7 +230,7 @@ const store = configureStore({
 ### 3.1 TanStack Query (React Query)
 
 ```typescript
-import { QueryClient, QueryClientProvider, useQuery, useMutation, useQueryClient } from &amp;amp;#039;@tanstack/react-query&amp;amp;#039;;
+import { QueryClient, QueryClientProvider, useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -244,9 +244,9 @@ const queryClient = new QueryClient({
 
 function App() {
   return (
-    &amp;amp;lt;QueryClientProvider client={queryClient}&amp;amp;gt;
-      &amp;amp;lt;TodoApp /&amp;amp;gt;
-    &amp;amp;lt;/QueryClientProvider&amp;amp;gt;
+    <QueryClientProvider client={queryClient}>
+      <TodoApp />
+    </QueryClientProvider>
   );
 }
 
@@ -255,94 +255,94 @@ function TodoApp() {
   
   // 查询
   const { data, isLoading, error } = useQuery({
-    queryKey: [&amp;amp;#039;todos&amp;amp;#039;],
-    queryFn: () =&amp;amp;gt; fetch(&amp;amp;#039;/api/todos&amp;amp;#039;).then(res =&amp;amp;gt; res.json())
+    queryKey: ['todos'],
+    queryFn: () => fetch('/api/todos').then(res => res.json())
   });
   
   // 分页
   const [page, setPage] = useState(1);
   const { data: paginatedData } = useQuery({
-    queryKey: [&amp;amp;#039;todos&amp;amp;#039;, page],
-    queryFn: () =&amp;amp;gt; fetch(`/api/todos?page=${page}`).then(res =&amp;amp;gt; res.json())
+    queryKey: ['todos', page],
+    queryFn: () => fetch(`/api/todos?page=${page}`).then(res => res.json())
   });
   
   // 无限滚动
   const { data, fetchNextPage, hasNextPage } = useInfiniteQuery({
-    queryKey: [&amp;amp;#039;todos&amp;amp;#039;],
-    queryFn: ({ pageParam }) =&amp;amp;gt; fetch(`/api/todos?cursor=${pageParam}`).then(res =&amp;amp;gt; res.json()),
-    getNextPageParam: (lastPage) =&amp;amp;gt; lastPage.nextCursor
+    queryKey: ['todos'],
+    queryFn: ({ pageParam }) => fetch(`/api/todos?cursor=${pageParam}`).then(res => res.json()),
+    getNextPageParam: (lastPage) => lastPage.nextCursor
   });
   
   //  mutation
   const mutation = useMutation({
-    mutationFn: (newTodo) =&amp;amp;gt; fetch(&amp;amp;#039;/api/todos&amp;amp;#039;, {
-      method: &amp;amp;#039;POST&amp;amp;#039;,
+    mutationFn: (newTodo) => fetch('/api/todos', {
+      method: 'POST',
       body: JSON.stringify(newTodo)
     }),
-    onSuccess: () =&amp;amp;gt; {
-      queryClient.invalidateQueries({ queryKey: [&amp;amp;#039;todos&amp;amp;#039;] });
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['todos'] });
     },
-    onSettled: () =&amp;amp;gt; {
-      queryClient.invalidateQueries({ queryKey: [&amp;amp;#039;todos&amp;amp;#039;] });
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ['todos'] });
     }
   });
   
   // 乐观更新
   const optimisticMutation = useMutation({
     mutationFn: updateTodo,
-    onMutate: async (newTodo) =&amp;amp;gt; {
-      await queryClient.cancelQueries({ queryKey: [&amp;amp;#039;todos&amp;amp;#039;] });
-      const previous = queryClient.getQueryData([&amp;amp;#039;todos&amp;amp;#039;]);
-      queryClient.setQueryData([&amp;amp;#039;todos&amp;amp;#039;], (old) =&amp;amp;gt; [...old, newTodo]);
+    onMutate: async (newTodo) => {
+      await queryClient.cancelQueries({ queryKey: ['todos'] });
+      const previous = queryClient.getQueryData(['todos']);
+      queryClient.setQueryData(['todos'], (old) => [...old, newTodo]);
       return { previous };
     },
-    onError: (err, newTodo, context) =&amp;amp;gt; {
-      queryClient.setQueryData([&amp;amp;#039;todos&amp;amp;#039;], context.previous);
+    onError: (err, newTodo, context) => {
+      queryClient.setQueryData(['todos'], context.previous);
     }
   });
   
-  if (isLoading) return &amp;amp;lt;Loading /&amp;amp;gt;;
-  if (error) return &amp;amp;lt;Error /&amp;amp;gt;;
+  if (isLoading) return <Loading />;
+  if (error) return <Error />;
   
-  return &amp;amp;lt;List items={data} /&amp;amp;gt;;
+  return <List items={data} />;
 }
 ```
 
 ### 3.2 SWR
 
 ```typescript
-import useSWR, { useSWRConfig } from &amp;amp;#039;swr&amp;amp;#039;;
+import useSWR, { useSWRConfig } from 'swr';
 
-const fetcher = (url: string) =&amp;amp;gt; fetch(url).then(res =&amp;amp;gt; res.json());
+const fetcher = (url: string) => fetch(url).then(res => res.json());
 
 function Profile() {
-  const { data, error, isLoading, mutate } = useSWR(&amp;amp;#039;/api/user&amp;amp;#039;, fetcher);
+  const { data, error, isLoading, mutate } = useSWR('/api/user', fetcher);
   
   // 手动重新验证
-  const refresh = () =&amp;amp;gt; mutate();
+  const refresh = () => mutate();
   
   // 乐观更新
-  const updateName = (name: string) =&amp;amp;gt; {
+  const updateName = (name: string) => {
     mutate({ ...data, name }, false);
-    fetch(&amp;amp;#039;/api/user&amp;amp;#039;, { method: &amp;amp;#039;PUT&amp;amp;#039;, body: JSON.stringify({ name) });
+    fetch('/api/user', { method: 'PUT', body: JSON.stringify({ name) });
   };
   
-  if (isLoading) return &amp;amp;lt;Loading /&amp;amp;gt;;
-  if (error) return &amp;amp;lt;Error /&amp;amp;gt;;
+  if (isLoading) return <Loading />;
+  if (error) return <Error />;
   
-  return &amp;amp;lt;div&amp;amp;gt;{data.name}&amp;amp;lt;/div&amp;amp;gt;;
+  return <div>{data.name}</div>;
 }
 
 // 全局配置
 function App() {
   return (
-    &amp;amp;lt;SWRConfig value=&amp;#123;&amp;#123;
+    <SWRConfig value=&amp;#123;&amp;#123;
       fetcher,
       revalidateOnFocus: false,
       dedupingInterval: 5000
-    &amp;#125;&amp;#125;&amp;amp;gt;
-      &amp;amp;lt;Profile /&amp;amp;gt;
-    &amp;amp;lt;/SWRConfig&amp;amp;gt;
+    &amp;#125;&amp;#125;>
+      <Profile />
+    </SWRConfig>
   );
 }
 ```
@@ -390,29 +390,29 @@ npx shadcn@latest add button dialog form
 ```
 
 ```tsx
-import { Button } from &amp;amp;quot;@/components/ui/button&amp;amp;quot;;
-import { Dialog, DialogContent, DialogHeader } from &amp;amp;quot;@/components/ui/dialog&amp;amp;quot;;
-import { Input } from &amp;amp;quot;@/components/ui/input&amp;amp;quot;;
-import { Label } from &amp;amp;quot;@/components/ui/label&amp;amp;quot;;
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 function UserDialog() {
   return (
-    &amp;amp;lt;Dialog&amp;amp;gt;
-      &amp;amp;lt;DialogContent&amp;amp;gt;
-        &amp;amp;lt;DialogHeader&amp;amp;gt;
-          &amp;amp;lt;h2&amp;amp;gt;添加用户&amp;amp;lt;/h2&amp;amp;gt;
-        &amp;amp;lt;/DialogHeader&amp;amp;gt;
-        &amp;amp;lt;form&amp;amp;gt;
-          &amp;amp;lt;div className=&amp;amp;quot;grid gap-4&amp;amp;quot;&amp;amp;gt;
-            &amp;amp;lt;div className=&amp;amp;quot;grid gap-2&amp;amp;quot;&amp;amp;gt;
-              &amp;amp;lt;Label htmlFor=&amp;amp;quot;name&amp;amp;quot;&amp;amp;gt;姓名&amp;amp;lt;/Label&amp;amp;gt;
-              &amp;amp;lt;Input id=&amp;amp;quot;name&amp;amp;quot; placeholder=&amp;amp;quot;输入姓名&amp;amp;quot; /&amp;amp;gt;
-            &amp;amp;lt;/div&amp;amp;gt;
-            &amp;amp;lt;Button type=&amp;amp;quot;submit&amp;amp;quot;&amp;amp;gt;保存&amp;amp;lt;/Button&amp;amp;gt;
-          &amp;amp;lt;/div&amp;amp;gt;
-        &amp;amp;lt;/form&amp;amp;gt;
-      &amp;amp;lt;/DialogContent&amp;amp;gt;
-    &amp;amp;lt;/Dialog&amp;amp;gt;
+    <Dialog>
+      <DialogContent>
+        <DialogHeader>
+          <h2>添加用户</h2>
+        </DialogHeader>
+        <form>
+          <div className="grid gap-4">
+            <div className="grid gap-2">
+              <Label htmlFor="name">姓名</Label>
+              <Input id="name" placeholder="输入姓名" />
+            </div>
+            <Button type="submit">保存</Button>
+          </div>
+        </form>
+      </DialogContent>
+    </Dialog>
   );
 }
 ```
@@ -424,17 +424,17 @@ function UserDialog() {
 ### 5.1 React Hook Form
 
 ```tsx
-import { useForm, Controller } from &amp;amp;#039;react-hook-form&amp;amp;#039;;
-import { zodResolver } from &amp;amp;#039;@hookform/resolvers/zod&amp;amp;#039;;
-import * as z from &amp;amp;#039;zod&amp;amp;#039;;
+import { useForm, Controller } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
 
 const schema = z.object({
-  email: z.string().email(&amp;amp;#039;邮箱格式不正确&amp;amp;#039;),
-  password: z.string().min(8, &amp;amp;#039;密码至少 8 位&amp;amp;#039;),
+  email: z.string().email('邮箱格式不正确'),
+  password: z.string().min(8, '密码至少 8 位'),
   age: z.number().min(18).max(100)
 });
 
-type FormData = z.infer&amp;amp;lt;typeof schema&amp;amp;gt;;
+type FormData = z.infer<typeof schema>;
 
 function LoginForm() {
   const {
@@ -443,34 +443,34 @@ function LoginForm() {
     formState: { errors, isSubmitting },
     setError,
     reset
-  } = useForm&amp;amp;lt;FormData&amp;amp;gt;({
+  } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
-      email: &amp;amp;#039;&amp;amp;#039;,
-      password: &amp;amp;#039;&amp;amp;#039;
+      email: '',
+      password: ''
     }
   });
   
-  const onSubmit = async (data: FormData) =&amp;amp;gt; {
+  const onSubmit = async (data: FormData) => {
     try {
       await login(data);
     } catch (error) {
-      setError(&amp;amp;#039;root&amp;amp;#039;, { message: &amp;amp;#039;登录失败&amp;amp;#039; });
+      setError('root', { message: '登录失败' });
     }
   };
   
   return (
-    &amp;amp;lt;form onSubmit={handleSubmit(onSubmit)}&amp;amp;gt;
-      &amp;amp;lt;input {...register(&amp;amp;#039;email&amp;amp;#039;)} placeholder=&amp;amp;quot;邮箱&amp;amp;quot; /&amp;amp;gt;
-      {errors.email &amp;amp;amp;&amp;amp;amp; &amp;amp;lt;span&amp;amp;gt;{errors.email.message}&amp;amp;lt;/span&amp;amp;gt;}
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <input {...register('email')} placeholder="邮箱" />
+      {errors.email && <span>{errors.email.message}</span>}
       
-      &amp;amp;lt;input {...register(&amp;amp;#039;password&amp;amp;#039;)} type=&amp;amp;quot;password&amp;amp;quot; placeholder=&amp;amp;quot;密码&amp;amp;quot; /&amp;amp;gt;
-      {errors.password &amp;amp;amp;&amp;amp;amp; &amp;amp;lt;span&amp;amp;gt;{errors.password.message}&amp;amp;lt;/span&amp;amp;gt;}
+      <input {...register('password')} type="password" placeholder="密码" />
+      {errors.password && <span>{errors.password.message}</span>}
       
-      &amp;amp;lt;button type=&amp;amp;quot;submit&amp;amp;quot; disabled={isSubmitting}&amp;amp;gt;
-        {isSubmitting ? &amp;amp;#039;登录中...&amp;amp;#039; : &amp;amp;#039;登录&amp;amp;#039;}
-      &amp;amp;lt;/button&amp;amp;gt;
-    &amp;amp;lt;/form&amp;amp;gt;
+      <button type="submit" disabled={isSubmitting}>
+        {isSubmitting ? '登录中...' : '登录'}
+      </button>
+    </form>
   );
 }
 ```
@@ -478,35 +478,35 @@ function LoginForm() {
 ### 5.2 Formik
 
 ```tsx
-import { Formik, Form, Field, ErrorMessage } from &amp;amp;#039;formik&amp;amp;#039;;
-import * as Yup from &amp;amp;#039;yup&amp;amp;#039;;
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 
 const validationSchema = Yup.object({
-  email: Yup.string().email(&amp;amp;#039;Invalid email&amp;amp;#039;).required(&amp;amp;#039;Required&amp;amp;#039;),
-  password: Yup.string().min(8, &amp;amp;#039;Minimum 8 characters&amp;amp;#039;).required(&amp;amp;#039;Required&amp;amp;#039;)
+  email: Yup.string().email('Invalid email').required('Required'),
+  password: Yup.string().min(8, 'Minimum 8 characters').required('Required')
 });
 
 function LoginForm() {
   return (
-    &amp;amp;lt;Formik
-      initialValues=&amp;#123;&amp;#123; email: &amp;amp;#039;&amp;amp;#039;, password: &amp;amp;#039;&amp;amp;#039; &amp;#125;&amp;#125;
+    <Formik
+      initialValues=&amp;#123;&amp;#123; email: '', password: '' &amp;#125;&amp;#125;
       validationSchema={validationSchema}
-      onSubmit={async (values) =&amp;amp;gt; {
+      onSubmit={async (values) => {
         await login(values);
       &amp;#125;&amp;#125;
-    &amp;amp;gt;
-      {({ isSubmitting }) =&amp;amp;gt; (
-        &amp;amp;lt;Form&amp;amp;gt;
-          &amp;amp;lt;Field type=&amp;amp;quot;email&amp;amp;quot; name=&amp;amp;quot;email&amp;amp;quot; /&amp;amp;gt;
-          &amp;amp;lt;ErrorMessage name=&amp;amp;quot;email&amp;amp;quot; component=&amp;amp;quot;div&amp;amp;quot; /&amp;amp;gt;
+    >
+      {({ isSubmitting }) => (
+        <Form>
+          <Field type="email" name="email" />
+          <ErrorMessage name="email" component="div" />
           
-          &amp;amp;lt;Field type=&amp;amp;quot;password&amp;amp;quot; name=&amp;amp;quot;password&amp;amp;quot; /&amp;amp;gt;
-          &amp;amp;lt;ErrorMessage name=&amp;amp;quot;password&amp;amp;quot; component=&amp;amp;quot;div&amp;amp;quot; /&amp;amp;gt;
+          <Field type="password" name="password" />
+          <ErrorMessage name="password" component="div" />
           
-          &amp;amp;lt;button type=&amp;amp;quot;submit&amp;amp;quot; disabled={isSubmitting}&amp;amp;gt;登录&amp;amp;lt;/button&amp;amp;gt;
-        &amp;amp;lt;/Form&amp;amp;gt;
+          <button type="submit" disabled={isSubmitting}>登录</button>
+        </Form>
       )}
-    &amp;amp;lt;/Formik&amp;amp;gt;
+    </Formik>
   );
 }
 ```
@@ -518,17 +518,17 @@ function LoginForm() {
 ### 6.1 Axios
 
 ```typescript
-import axios from &amp;amp;#039;axios&amp;amp;#039;;
+import axios from 'axios';
 
 const api = axios.create({
-  baseURL: &amp;amp;#039;/api&amp;amp;#039;,
+  baseURL: '/api',
   timeout: 10000,
-  headers: { &amp;amp;#039;Content-Type&amp;amp;#039;: &amp;amp;#039;application/json&amp;amp;#039; }
+  headers: { 'Content-Type': 'application/json' }
 });
 
 // 请求拦截器
-api.interceptors.request.use((config) =&amp;amp;gt; {
-  const token = localStorage.getItem(&amp;amp;#039;token&amp;amp;#039;);
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem('token');
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
@@ -537,28 +537,28 @@ api.interceptors.request.use((config) =&amp;amp;gt; {
 
 // 响应拦截器
 api.interceptors.response.use(
-  (response) =&amp;amp;gt; response.data,
-  (error) =&amp;amp;gt; {
+  (response) => response.data,
+  (error) => {
     if (error.response?.status === 401) {
-      window.location.href = &amp;amp;#039;/login&amp;amp;#039;;
+      window.location.href = '/login';
     }
     return Promise.reject(error);
   }
 );
 
 // 使用
-const users = await api.get(&amp;amp;#039;/users&amp;amp;#039;);
-const user = await api.post(&amp;amp;#039;/users&amp;amp;#039;, { name: &amp;amp;#039;Alice&amp;amp;#039; });
+const users = await api.get('/users');
+const user = await api.post('/users', { name: 'Alice' });
 ```
 
 ### 6.2 Fetch API 封装
 
 ```typescript
-async function request&amp;amp;lt;T&amp;amp;gt;(url: string, options?: RequestInit): Promise&amp;amp;lt;T&amp;amp;gt; {
+async function request<T>(url: string, options?: RequestInit): Promise<T> {
   const response = await fetch(`/api${url}`, {
     ...options,
     headers: {
-      &amp;amp;#039;Content-Type&amp;amp;#039;: &amp;amp;#039;application/json&amp;amp;#039;,
+      'Content-Type': 'application/json',
       ...options?.headers
     }
   });
@@ -571,7 +571,7 @@ async function request&amp;amp;lt;T&amp;amp;gt;(url: string, options?: RequestIn
 }
 
 // 使用
-const users = await request&amp;amp;lt;User[]&amp;amp;gt;(&amp;amp;#039;/users&amp;amp;#039;);
+const users = await request<User[]>('/users');
 ```
 
 ---
@@ -587,11 +587,11 @@ const users = await request&amp;amp;lt;User[]&amp;amp;gt;(&amp;amp;#039;/users&a
 | **Luxon** | 中等 | Moment 团队新作 |
 
 ```typescript
-import { format, parseISO, differenceInDays } from &amp;amp;#039;date-fns&amp;amp;#039;;
-import { zhCN } from &amp;amp;#039;date-fns/locale&amp;amp;#039;;
+import { format, parseISO, differenceInDays } from 'date-fns';
+import { zhCN } from 'date-fns/locale';
 
-format(new Date(), &amp;amp;#039;yyyy-MM-dd&amp;amp;#039;, { locale: zhCN });
-differenceInDays(new Date(), parseISO(&amp;amp;#039;2024-01-01&amp;amp;#039;));
+format(new Date(), 'yyyy-MM-dd', { locale: zhCN });
+differenceInDays(new Date(), parseISO('2024-01-01'));
 ```
 
 ### 7.2 工具函数
@@ -612,30 +612,30 @@ differenceInDays(new Date(), parseISO(&amp;amp;#039;2024-01-01&amp;amp;#039;));
 | **AutoAnimate** | 零配置 | 列表动画 |
 
 ```tsx
-import { motion, AnimatePresence } from &amp;amp;#039;framer-motion&amp;amp;#039;;
+import { motion, AnimatePresence } from 'framer-motion';
 
 function TodoItem({ todo }) {
   return (
-    &amp;amp;lt;motion.li
+    <motion.li
       layout
       initial=&amp;#123;&amp;#123; opacity: 0, y: 20 &amp;#125;&amp;#125;
       animate=&amp;#123;&amp;#123; opacity: 1, y: 0 &amp;#125;&amp;#125;
       exit=&amp;#123;&amp;#123; opacity: 0, x: -100 &amp;#125;&amp;#125;
       whileHover=&amp;#123;&amp;#123; scale: 1.02 &amp;#125;&amp;#125;
       whileTap=&amp;#123;&amp;#123; scale: 0.98 &amp;#125;&amp;#125;
-    &amp;amp;gt;
+    >
       {todo.text}
-    &amp;amp;lt;/motion.li&amp;amp;gt;
+    </motion.li>
   );
 }
 
 function TodoList({ todos }) {
   return (
-    &amp;amp;lt;AnimatePresence&amp;amp;gt;
-      {todos.map(todo =&amp;amp;gt; (
-        &amp;amp;lt;TodoItem key={todo.id} todo={todo} /&amp;amp;gt;
+    <AnimatePresence>
+      {todos.map(todo => (
+        <TodoItem key={todo.id} todo={todo} />
       ))}
-    &amp;amp;lt;/AnimatePresence&amp;amp;gt;
+    </AnimatePresence>
   );
 }
 ```
@@ -662,11 +662,11 @@ export default [
   {
     plugins: {
       react: reactPlugin,
-      &amp;amp;#039;react-hooks&amp;amp;#039;: reactHooksPlugin
+      'react-hooks': reactHooksPlugin
     },
     rules: {
-      &amp;amp;#039;react-hooks/rules-of-hooks&amp;amp;#039;: &amp;amp;#039;error&amp;amp;#039;,
-      &amp;amp;#039;react-hooks/exhaustive-deps&amp;amp;#039;: &amp;amp;#039;warn&amp;amp;#039;
+      'react-hooks/rules-of-hooks': 'error',
+      'react-hooks/exhaustive-deps': 'warn'
     }
   }
 ];
@@ -676,9 +676,9 @@ export default [
 
 ```json
 {
-  &amp;amp;quot;compilerOptions&amp;amp;quot;: {
-    &amp;amp;quot;jsx&amp;amp;quot;: &amp;amp;quot;react-jsx&amp;amp;quot;,
-    &amp;amp;quot;types&amp;amp;quot;: [&amp;amp;quot;react&amp;amp;quot;, &amp;amp;quot;react-dom&amp;amp;quot;]
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "types": ["react", "react-dom"]
   }
 }
 ```
@@ -690,23 +690,23 @@ export default [
 ### 9.1 React Testing Library
 
 ```typescript
-import { render, screen, fireEvent, waitFor } from &amp;amp;#039;@testing-library/react&amp;amp;#039;;
-import userEvent from &amp;amp;#039;@testing-library/user-event&amp;amp;#039;;
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
-test(&amp;amp;#039;表单提交&amp;amp;#039;, async () =&amp;amp;gt; {
+test('表单提交', async () => {
   const user = userEvent.setup();
   const handleSubmit = vi.fn();
   
-  render(&amp;amp;lt;LoginForm onSubmit={handleSubmit} /&amp;amp;gt;);
+  render(<LoginForm onSubmit={handleSubmit} />);
   
-  await user.type(screen.getByLabelText(&amp;amp;#039;邮箱&amp;amp;#039;), &amp;amp;#039;test@example.com&amp;amp;#039;);
-  await user.type(screen.getByLabelText(&amp;amp;#039;密码&amp;amp;#039;), &amp;amp;#039;password123&amp;amp;#039;);
-  await user.click(screen.getByText(&amp;amp;#039;登录&amp;amp;#039;));
+  await user.type(screen.getByLabelText('邮箱'), 'test@example.com');
+  await user.type(screen.getByLabelText('密码'), 'password123');
+  await user.click(screen.getByText('登录'));
   
-  await waitFor(() =&amp;amp;gt; {
+  await waitFor(() => {
     expect(handleSubmit).toHaveBeenCalledWith({
-      email: &amp;amp;#039;test@example.com&amp;amp;#039;,
-      password: &amp;amp;#039;password123&amp;amp;#039;
+      email: 'test@example.com',
+      password: 'password123'
     });
   });
 });
@@ -715,21 +715,21 @@ test(&amp;amp;#039;表单提交&amp;amp;#039;, async () =&amp;amp;gt; {
 ### 9.2 MSW (Mock Service Worker)
 
 ```typescript
-import { http, HttpResponse } from &amp;amp;#039;msw&amp;amp;#039;;
-import { setupServer } from &amp;amp;#039;msw/node&amp;amp;#039;;
+import { http, HttpResponse } from 'msw';
+import { setupServer } from 'msw/node';
 
 const server = setupServer(
-  http.get(&amp;amp;#039;/api/users&amp;amp;#039;, () =&amp;amp;gt; {
+  http.get('/api/users', () => {
     return HttpResponse.json([
-      { id: 1, name: &amp;amp;#039;Alice&amp;amp;#039; },
-      { id: 2, name: &amp;amp;#039;Bob&amp;amp;#039; }
+      { id: 1, name: 'Alice' },
+      { id: 2, name: 'Bob' }
     ]);
   })
 );
 
-beforeAll(() =&amp;amp;gt; server.listen());
-afterEach(() =&amp;amp;gt; server.resetHandlers());
-afterAll(() =&amp;amp;gt; server.close());
+beforeAll(() => server.listen());
+afterEach(() => server.resetHandlers());
+afterAll(() => server.close());
 ```
 
 ---
