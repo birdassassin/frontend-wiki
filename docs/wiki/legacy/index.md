@@ -19,6 +19,27 @@
 | [传统递归和尾调用的实现](JavaScript系列/传统递归和尾调用的实现.md) | 2017 | [JavaScript 基础](../concepts/javascript-fundamentals.md) |
 | [探索 history 源码之 hashHistory](JavaScript系列/探索history源码之hashHistory的实现.md) | 2017 | [渲染策略](../concepts/rendering-strategies.md) |
 
+## ES6+ 系列
+
+| 文章 | 难度 | 描述 |
+|------|------|------|
+| [ES6 基础语法](ES6系列/ES6基础语法.md) | 🟢 初级 | let/const、块级作用域 |
+| [箭头函数](ES6系列/箭头函数.md) | 🟢 初级 | 箭头函数语法、this 绑定 |
+| [解构赋值](ES6系列/解构赋值.md) | 🟢 初级 | 数组和对象解构 |
+| [模板字符串](ES6系列/模板字符串.md) | 🟢 初级 | 字符串插值、多行字符串 |
+| [Promise 详解](ES6系列/Promise详解.md) | 🟡 中级 | Promise 概念、链式调用 |
+| [async/await](ES6系列/async-await.md) | 🟡 中级 | 异步编程终极方案 |
+| [Map/Set 数据结构](ES6系列/Map-Set数据结构.md) | 🟡 中级 | Map、Set、WeakMap、WeakSet |
+| [类与继承](ES6系列/类与继承.md) | 🟡 中级 | ES6 类语法、继承 |
+| [Generator 函数](ES6系列/Generator函数.md) | 🔴 高级 | Generator、迭代器 |
+| [Proxy 和 Reflect](ES6系列/Proxy和Reflect.md) | 🔴 高级 | 元编程、代理 |
+| [Symbol 和 Iterator](ES6系列/Symbol和Iterator.md) | 🔴 高级 | Symbol、迭代器协议 |
+| [模块化](ES6系列/模块化.md) | 🔴 高级 | ES6 模块系统 |
+| [ES2020 新特性](ES6系列/ES2020新特性.md) | ⚫ 专家 | BigInt、Optional Chaining、Nullish Coalescing |
+| [ES2021 新特性](ES6系列/ES2021新特性.md) | ⚫ 专家 | replaceAll、Promise.any、逻辑赋值运算符 |
+| [ES2022 新特性](ES6系列/ES2022新特性.md) | ⚫ 专家 | 私有字段、Top-level await |
+| [ES2023 新特性](ES6系列/ES2023新特性.md) | ⚫ 专家 | findLast、toSorted、toReversed |
+
 ## React 系列
 
 | 文章 | 年代 | 对应最新内容 |

@@ -78,6 +78,7 @@ export default defineConfig({
           link: '/wiki/legacy/index.md',
           items: [
             { text: 'JavaScript 系列', link: '/wiki/legacy/JavaScript系列/' },
+            { text: 'ES6+ 系列', link: '/wiki/legacy/ES6系列/' },
             { text: 'React 系列', link: '/wiki/legacy/React系列/' },
             { text: 'Vue 系列', link: '/wiki/legacy/Vue系列/' },
             { text: 'Webpack 系列', link: '/wiki/legacy/Webpack系列/' },
@@ -86,10 +87,6 @@ export default defineConfig({
             { text: '正则系列', link: '/wiki/legacy/正则系列/' },
             { text: 'Lodash 源码解析', link: '/wiki/legacy/Lodash源码解析/' }
           ]
-        },
-        {
-          text: '版本更新日志',
-          link: '/CHANGELOG.md'
         },
         {
           text: '最新动态',
@@ -101,6 +98,10 @@ export default defineConfig({
             { text: 'Zero', link: '/wiki/news/index.md#zero' },
             { text: '前端排名前十', link: '/wiki/news/index.md#前端排名前十动态' }
           ]
+        },
+        {
+          text: '版本更新日志',
+          link: '/CHANGELOG.md'
         }
       ]
     },
