@@ -90,6 +90,17 @@ export default defineConfig({
         {
           text: '版本更新日志',
           link: '/CHANGELOG.md'
+        },
+        {
+          text: '最新动态',
+          link: '/wiki/news/index.md',
+          items: [
+            { text: 'React', link: '/wiki/news/index.md#react' },
+            { text: 'Vue', link: '/wiki/news/index.md#vue' },
+            { text: 'Vite', link: '/wiki/news/index.md#vite' },
+            { text: 'Zero', link: '/wiki/news/index.md#zero' },
+            { text: '前端排名前十', link: '/wiki/news/index.md#前端排名前十动态' }
+          ]
         }
       ]
     },
