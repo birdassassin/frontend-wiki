@@ -1,6 +1,6 @@
 {
   "name": "frontend-wiki",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "type": "module",
   "description": "前端知识库 - Frontend Knowledge Base",
   "scripts": {
@@ -8,7 +8,9 @@
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs",
     "check-updates": "node scripts/update-checker.js",
-    "update-check": "node scripts/update-checker.js"
+    "update-check": "node scripts/update-checker.js",
+    "version-monitor": "node scripts/version-monitor.js",
+    "update-changelog": "node scripts/update-changelog.js"
   },
   "keywords": [
     "frontend",

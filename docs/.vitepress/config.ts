@@ -78,7 +78,6 @@ export default defineConfig({
           link: '/wiki/legacy/index.md',
           items: [
             { text: 'JavaScript 系列', link: '/wiki/legacy/JavaScript系列/' },
-            { text: 'ES6+ 系列', link: '/wiki/legacy/ES6系列/' },
             { text: 'React 系列', link: '/wiki/legacy/React系列/' },
             { text: 'Vue 系列', link: '/wiki/legacy/Vue系列/' },
             { text: 'Webpack 系列', link: '/wiki/legacy/Webpack系列/' },
@@ -86,6 +85,28 @@ export default defineConfig({
             { text: '数据结构和算法', link: '/wiki/legacy/数据结构和算法/' },
             { text: '正则系列', link: '/wiki/legacy/正则系列/' },
             { text: 'Lodash 源码解析', link: '/wiki/legacy/Lodash源码解析/' }
+          ]
+        },
+        {
+          text: 'ES6+ 语法教程',
+          link: '/wiki/legacy/ES6系列/index.md',
+          items: [
+            { text: 'ES6 基础语法', link: '/wiki/legacy/ES6系列/ES6基础语法.md' },
+            { text: '箭头函数', link: '/wiki/legacy/ES6系列/箭头函数.md' },
+            { text: '解构赋值', link: '/wiki/legacy/ES6系列/解构赋值.md' },
+            { text: '模板字符串', link: '/wiki/legacy/ES6系列/模板字符串.md' },
+            { text: 'Promise 详解', link: '/wiki/legacy/ES6系列/Promise详解.md' },
+            { text: 'async/await', link: '/wiki/legacy/ES6系列/async-await.md' },
+            { text: 'Map/Set 数据结构', link: '/wiki/legacy/ES6系列/Map-Set数据结构.md' },
+            { text: '类与继承', link: '/wiki/legacy/ES6系列/类与继承.md' },
+            { text: 'Generator 函数', link: '/wiki/legacy/ES6系列/Generator函数.md' },
+            { text: 'Proxy 和 Reflect', link: '/wiki/legacy/ES6系列/Proxy和Reflect.md' },
+            { text: 'Symbol 和 Iterator', link: '/wiki/legacy/ES6系列/Symbol和Iterator.md' },
+            { text: '模块化', link: '/wiki/legacy/ES6系列/模块化.md' },
+            { text: 'ES2020+ 新特性', link: '/wiki/legacy/ES6系列/ES2020新特性.md' },
+            { text: 'ES2021+ 新特性', link: '/wiki/legacy/ES6系列/ES2021新特性.md' },
+            { text: 'ES2022+ 新特性', link: '/wiki/legacy/ES6系列/ES2022新特性.md' },
+            { text: 'ES2023+ 新特性', link: '/wiki/legacy/ES6系列/ES2023新特性.md' }
           ]
         },
         {
